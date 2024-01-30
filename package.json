@@ -1,7 +1,45 @@
 {
+  "name": "wilnichols.com",
+  "version": "0.0.1",
+  "description": "Wil's portfolio website",
+  "engineStrict": true,
+  "engines": {
+    "node": ">=20.11.0"
+  },
+  "scripts": {
+    "start": "ELEVENTY_ENV=dev npm-run-all build:sass --parallel watch:*",
+    "netlify-build": "ELEVENTY_ENV=prod NETLIFY=true npm-run-all build:sass build:eleventy build:postcss && rm -rf _tmp && rm -rf _site/_ && npm run build:minify",
+    "netlify-build-dev": "ELEVENTY_ENV=dev NETLIFY=true npm-run-all build:sass build:eleventy build:postcss",
+    "build": "ELEVENTY_ENV=prod npm-run-all build:sass build:eleventy build:postcss && rm -rf _tmp && npm run build:minify",
+    "mv-deps": "cp -R node_modules/@fancyapps/ui/dist/fancybox/ src/static/js/fancybox",
+    "watch:eleventy": "eleventy --serve",
+    "watch:sass": "sass --watch src/static/css:_tmp",
+    "build:sass": "sass src/static/css:_tmp",
+    "watch:postcss": "postcss _tmp/styles.css -o _site/assets/css/styles.css -w --verbose",
+    "build:postcss": "postcss _tmp/styles.css -o _site/assets/css/styles.css -u postcss-import autoprefixer postcss-combine-duplicated-selectors cssnano",
+    "build:eleventy": "eleventy",
+    "build:minify": " html-minifier --input-dir _site --output-dir _site --file-ext html --remove-comments --collapse-whitespace --minify-js --minify-urls --use-short-doctype"
+  },
   "devDependencies": {
     "@11ty/eleventy": "^2.0.1",
     "markdown-it": "^14.0.0",
-    "markdown-it-attrs": "^4.1.6"
+    "markdown-it-anchor": "^8.6.7",
+    "markdown-it-attrs": "^4.1.6",
+    "sass": "^1.70.0"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.4.17",
+    "cssnano": "^6.0.3",
+    "html-minifier": "^4.0.0",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.4.33",
+    "postcss-cli": "^11.0.0",
+    "postcss-combine-duplicated-selectors": "^10.0.3",
+    "postcss-import": "^16.0.0",
+    "stylelint": "^16.2.0",
+    "stylelint-config-idiomatic-order": "^10.0.0",
+    "stylelint-config-sass-guidelines": "^11.0.0",
+    "stylelint-order": "^6.0.4",
+    "stylelint-scss": "^6.1.0"
   }
 }
