@@ -1,0 +1,8 @@
+---
+layout: page.njk
+---
+<div class="note-title">
+  <h1>{{ altTitle | safe }}</h1>
+  <span class="subtitle">Published {{ published | postDate }}. Updated {{ updated | postDate }}.</span>
+</div>
+{{ content | safe }}

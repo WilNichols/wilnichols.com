@@ -40,6 +40,11 @@ module.exports = function(eleventyConfig) {
     return `${urlPart}?${params}`;
   });
   
+  eleventyConfig.addFilter("postDate", (dateObj) => {
+    dateObj = dateObj.toString();
+    return DateTime.fromISO(dateObj).toLocaleString(DateTime.DATE_MED);
+  });
+  
   return {
     dir: {
       input: "src",

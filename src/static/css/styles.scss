@@ -1,6 +1,79 @@
 @use 'vendor/inter';
 
+@mixin light-dark($prop, $lightColor, $darkColor) {
+  #{$prop}: $lightColor;
+  @media (prefers-color-scheme: dark) {
+    #{$prop}: $darkColor;
+  }
+}
+
 * {
   box-sizing: border-box;
 }
 
+// Typography. This isn't _the_ solution — I haven't tried much with fluid scales yet, but it's _a_ solution for now. 
+/* @link https://utopia.fyi/type/calculator?c=320,17,1.2,1200,20,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+
+:root {
+  // type
+  --type--2: clamp(0.7378rem, 0.7152rem + 0.113vi, 0.8rem);
+  --type--1: clamp(0.8854rem, 0.8438rem + 0.2083vi, 1rem);
+  --type-0: clamp(1.0625rem, 0.9943rem + 0.3409vi, 1.25rem);
+  --type-1: clamp(1.275rem, 1.1705rem + 0.5227vi, 1.5625rem);
+  --type-2: clamp(1.53rem, 1.3761rem + 0.7693vi, 1.9531rem);
+  --type-3: clamp(1.836rem, 1.6159rem + 1.1007vi, 2.4414rem);
+  --type-4: clamp(2.2032rem, 1.8946rem + 1.5428vi, 3.0518rem);
+  --type-5: clamp(2.6438rem, 2.2181rem + 2.1288vi, 3.8147rem);
+  // colors
+  --contentPrimaryLight: rgb(35, 41, 52);
+  --contentPrimaryDark: rgb(255, 255, 255);
+  --contentSecondaryLight: rgb(151, 157, 168);
+  --contentSecondaryDark: rgb(132, 138, 150);
+  --linkLight: rgb(27, 130, 227);
+  --linkDark: rgb(62, 158, 241);
+  --linkVisitedLight: rgb(177, 45, 203);
+  --linkVisitedDark:rgb(206, 61, 235);
+  // layout
+  --col: calc(100dvw/12);
+}
+
+body {
+  font-size: var(--type-0);
+  display: grid;
+  place-content: center;
+  padding: var(--col);
+}
+
+p {
+  max-width: 30em;
+  text-wrap: balance;
+  line-height: 1.5em;
+  font-weight: 400;
+  margin: 0 0 1em 0;
+}
+
+a {
+  @include light-dark(color, var(--linkLight), var(--linkDark));
+  &:visited {
+    @include light-dark(color, var(--linkVisitedLight), var(--linkVisitedDark));
+  }
+}
+
+.note-title {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1em;
+}
+
+@for $i from 1 through 6 {
+  h#{$i} {
+    margin: 0;
+    font-size: var(--type-#{$i * 6 - $i});
+  }
+}
+
+.subtitle {
+  font-size: var(--type--1);
+  display: block;
+    @include light-dark(color, var(--contentSecondaryLight), var(--contentSecondaryDark));
+}

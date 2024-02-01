@@ -8,15 +8,18 @@ author:
   - "[[Wil Nichols]]"
 url: 
 created: 2024-01-30T12:30
-published: 2024-01-31
+published: 2024-01-31T12:00
 topics:
   - "[[Building]]"
   - "[[Evergreen]]"
 status:
   - "[[Active]]"
-updated: 2024-01-30T14:56
-permalink: 'index.html'
+updated: 2024-02-01T00:54
+permalink: index.html
+altTitle: Hello, World!
+layout: note.njk
 ---
+
 
 A little over two years ago, I moved from a lead IC role on a design team of three to the director of a team of now six. That transition was largely out of necessity — the team needed a design leader with extensive experience at the company — but also personally driven in search of new learning opportunity.
 
