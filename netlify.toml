@@ -1,0 +1,15 @@
+[build]
+  command = "npm run netlify-build"
+  publish = "_site/"
+
+[context.develop]
+  command = "npm run netlify-build-dev"
+  publish = "_site/"
+  
+[context.deploy-preview]
+  command = "npm run netlify-build-dev"
+  publish = "_site/"
+
+[context.branch-deploy]
+  command = "npm run netlify-build-dev"
+  publish = "_site/"
