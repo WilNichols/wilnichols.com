@@ -1,3 +1,4 @@
+const { DateTime } = require("luxon");
 const { EleventyRenderPlugin } = require("@11ty/eleventy");
 const markdown = require("markdown-it")({
   html: true,
@@ -29,6 +30,15 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addWatchTarget("src/static/css/");
   eleventyConfig.addWatchTarget("src/static/js/");
   eleventyConfig.setWatchThrottleWaitTime(1000); // in milliseconds
+  
+  // Custom Filters
+  // simple cache busting method from https://rob.cogit8.org/posts/2020-10-28-simple-11ty-cache-busting/
+  eleventyConfig.addFilter("bust", (url) => {
+    const [urlPart, paramPart] = url.split("?");
+    const params = new URLSearchParams(paramPart || "");
+    params.set("v", DateTime.local().toFormat("X"));
+    return `${urlPart}?${params}`;
+  });
   
   return {
     dir: {
