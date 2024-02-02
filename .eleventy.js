@@ -1,16 +1,42 @@
 const { DateTime } = require("luxon");
 const { EleventyRenderPlugin } = require("@11ty/eleventy");
-const markdown = require("markdown-it")({
-  html: true,
-  breaks: false,
-  linkify: true,
-  typographer: true,
-}).use(require('markdown-it-attrs'));
+const markdownIt = require('markdown-it');
 
 module.exports = function(eleventyConfig) {
   
   // Misc
-  eleventyConfig.setLibrary('md', markdown);
+  const markdownItOptions = {
+      html: true,
+      breaks: false,
+      linkify: true,
+      typographer: true,
+  };
+  // From Benyamin: https://github.com/binyamin/eleventy-garden/discussions/45
+  const md = markdownIt(markdownItOptions)
+  .use(require('markdown-it-footnote'))
+  .use(require('markdown-it-attrs'))
+  .use(function(md) {
+      // Recognize Mediawiki links ([[text]])
+      md.linkify.add("[[", {
+          validate: /^\s?([^\[\]\|\n\r]+)(\|[^\[\]\|\n\r]+)?\s?\]\]/,
+          normalize: match => {
+              const parts = match.raw.slice(2,-2).split("|");
+              parts[0] = parts[0].replace(/.(md|markdown)\s?$/i, "");
+              match.text = (parts[1] || parts[0]).trim();
+              match.url = `/${parts[0].trim().replace(/\s/g, "-")}/`;
+          }
+      })
+  })
+
+  eleventyConfig.addCollection("notes", function (collection) {
+      return collection.getFilteredByGlob(["notes/**/*.md", "index.md"]);
+  });
+
+  eleventyConfig.addFilter("markdownify", string => {
+      return md.render(string)
+  })
+
+  eleventyConfig.setLibrary('md', md);
   eleventyConfig.setServerOptions({
     liveReload: true
   });

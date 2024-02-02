@@ -1,6 +1,6 @@
 ---
 created: 2024-02-01T23:51:00
-updated: 2024-02-01T23:52
+updated: 2024-02-02T23:52
 category:
 - "[[Posts]]"
 tags:
@@ -8,7 +8,7 @@ tags:
 author:
   - "[[Wil Nichols]]"
 url: 
-published: 2023-02-02T12:00
+published: 2024-02-02T12:00
 topics:
   - "[[Evergreen]]"
 status:
