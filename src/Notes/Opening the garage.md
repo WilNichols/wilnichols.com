@@ -17,10 +17,7 @@ status:
 updated: 2024-02-01T00:54
 permalink: index.html
 altTitle: Hello, World!
-layout: note.njk
 ---
-
-
 A little over two years ago, I moved from a lead IC role on a design team of three to the director of a team of now six. That transition was largely out of necessity — the team needed a design leader with extensive experience at the company — but also personally driven in search of new learning opportunity.
 
 Before making that change, I'd known that I enjoyed mentoring younger designers. I started learning design processes myself when a young teenager, learning to draw icons from others' PSDs, PSDTuts (Tuts+ or whatever they've become?), and MacThemes. As an IC, I'd share source files and process notes but rarely outside private chats, or as evidence of work done. Sharing work was a [[conscious act]], and so was irregular. 
