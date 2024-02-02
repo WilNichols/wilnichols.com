@@ -1,3 +1,3 @@
 module.exports = {
-  layout: 'page.njk'
+  layout: 'note.njk'
 }

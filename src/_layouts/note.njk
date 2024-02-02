@@ -2,7 +2,10 @@
 layout: page.njk
 ---
 <div class="note-title">
-  <h1>{{ altTitle | safe }}</h1>
-  <span class="subtitle">Published {{ published | postDate }}. Updated {{ updated | postDate }}.</span>
+  {% set title %}{{ altTitle if altTitle }}{{ page.fileSlug if not altTitle }}{% endset %}
+  {% set publishedDate %}{{ published | postDate }}{% endset %}
+  {% set updatedDate %}{{ updated | postDate }}{% endset %}
+  <h1>{{ title | safe }}</h1>
+  <span class="subtitle">Published {{ publishedDate }}. {% if (publishedDate !== updatedDate) %}Updated {{ updatedDate }}.{% endif %}</span>
 </div>
 {{ content | safe }}

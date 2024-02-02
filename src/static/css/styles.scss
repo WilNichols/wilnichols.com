@@ -45,11 +45,19 @@ body {
 }
 
 p {
-  max-width: 30em;
-  text-wrap: balance;
   line-height: 1.5em;
   font-weight: 400;
+}
+
+h1, h2, h3, h4, h5 {
+  line-height: 1em;
+}
+
+p, h1, h2, h3, h4, 
+h5, h6 {  
   margin: 0 0 1em 0;
+  max-width: calc(30 * var(--type-0));
+  text-wrap: balance;
 }
 
 a {
