@@ -4,8 +4,8 @@ layout: page.njk
 <div class="note-title">
   {% set title %}{{ altTitle if altTitle }}{{ page.fileSlug if not altTitle }}{% endset %}
   {% set publishedDate %}{{ published | postDate }}{% endset %}
-  {% set updatedDate %}{{ updated | postDate }}{% endset %}
+  {% if updated %}{% set updatedDate %}{{ updated | postDate }}{% endset %}{% endif %}
   <h1>{{ title | safe }}</h1>
-  <span class="subtitle">Published {{ publishedDate }}. {% if (publishedDate !== updatedDate) %}Updated {{ updatedDate }}.{% endif %}</span>
+  <span class="subtitle">Published {{ publishedDate }}.{% if updated and (publishedDate !== updatedDate) %} Updated {{ updatedDate }}.{% endif %}</span>
 </div>
 {{ content | safe }}
