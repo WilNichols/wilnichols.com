@@ -1,7 +1,17 @@
 ---
+title: Saint Nikolaas
+thumbnail: DSCF9302.jpg
+tags:
+  - Album
+  - Camera/XT-2
+  - Location/Leuven
+  - Location/Belgium
+  - Period/KULeuven
+category:
+  - "[[Albums]]"
 published: 2018-11-16T00:00:00
-title: 'Leuven — Saint Nikolaas'
-thumbnail: 'DSCF9302.jpg'
+created: 2024-02-04T14:18
+updated: 2024-02-04T15:43
 ---
 
 # Saint Nikolaas

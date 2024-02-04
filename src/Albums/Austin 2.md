@@ -1,8 +1,16 @@
 ---
+title: Austin 2
+thumbnail: DSCF5594.jpg
+tags:
+  - Album
+  - Camera/XT-1
+  - Location/Austin
+  - Location/Texas
+  - Period/Student
+category:
+  - "[[Albums]]"
 published: 2017-01-29T00:00:00Z
-title: 'Austin 2'
-thumbnail: 'DSCF5594.jpg'
+created: 2024-02-04T14:18
+updated: 2024-02-04T15:14
 ---
-# Austin 2
-
 These were taken throughout the Spring of my senior year at UT.
