@@ -1,10 +1,8 @@
 ---
 created: 2024-02-01T23:51:00
 updated: 2024-02-02T23:52
-category:
-- "[[Posts]]"
 tags:
-- posts
+- notes
 author:
   - "[[Wil Nichols]]"
 url: 

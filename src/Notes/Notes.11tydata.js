@@ -9,13 +9,14 @@ function caselessCompare(a, b) {
 
 module.exports = {
   permalink: "/{{ page.fileSlug | slugify }}/index.html",
+  tags: "notes",
   eleventyComputed: {
+    title: "{{ page.fileSlug }}",
     backlinks: (data) => {
       const notes = data.collections.notes;
       const currentFileSlug = data.page.fileSlug;
-
       let backlinks = [];
-
+      
       // Search the other notes for backlinks
       for (const otherNote of notes) {
         const noteContent = otherNote.template.frontMatter.content;
@@ -28,9 +29,7 @@ module.exports = {
             .split("|")[0]
             .replace(/.(md|markdown)\s?$/i, "")
             .trim()
-            .replace(/\s/g, "-")
           ));
-
         // If the other note links here, return related info
         if (outboundLinks.some(link => caselessCompare(link, currentFileSlug))) {
 
