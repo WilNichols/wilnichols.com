@@ -9,8 +9,8 @@ tags:
   - Period/Student
 category:
   - "[[Albums]]"
-published: 2015-06-23T00:00:00Z
+published: 2015-06-23T00:00
 created: 2024-02-04T14:18
-updated: 2024-02-04T15:13
+updated: 2024-02-04T16:52
 ---
 These were all taken between my return from studying abroad in [[Lyon 1 | Lyon ]], and the start of the following new year.

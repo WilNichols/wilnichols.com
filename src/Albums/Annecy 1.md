@@ -10,8 +10,8 @@ tags:
   - Period/Study-Abroad
 category:
   - "[[Albums]]"
-published: 2015-01-23T00:00:00Z
+published: 2015-01-23T00:00
 created: 2024-02-04T14:18
-updated: 2024-02-04T15:46
+updated: 2024-02-04T16:53
 ---
 After reaching the canals and then the lake, it became clear why some call Annecy the "Venice of the Alps".

@@ -9,8 +9,8 @@ tags:
   - Period/KULeuven
 category:
   - "[[Albums]]"
-published: 2017-10-17T00:00:00Z
+published: 2017-10-17T00:00
 created: 2024-02-04T14:18
-updated: 2024-02-04T15:14
+updated: 2024-02-04T16:53
 ---
 There isn’t much to show from our brief Summer return to Austin—we mostly retread old steps, including spending the vast majority of time at work.

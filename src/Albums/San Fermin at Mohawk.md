@@ -9,7 +9,7 @@ tags:
   - Musician/San-Fermin
 category:
   - "[[Albums]]"
-published: 2017-05-03T00:00:00
+published: 2017-05-03T00:00
 created: 2024-02-04T14:18
 updated: 2024-02-04T16:48
 ---

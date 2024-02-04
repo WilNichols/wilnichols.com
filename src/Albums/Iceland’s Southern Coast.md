@@ -8,7 +8,7 @@ tags:
   - Period/Study-Abroad
 category:
   - "[[Albums]]"
-published: 2015-06-09T00:00:00
+published: 2015-06-09T00:00
 created: 2024-02-04T14:18
 updated: 2024-02-04T16:48
 ---

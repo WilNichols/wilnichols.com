@@ -10,7 +10,7 @@ tags:
   - Period/KULeuven
 category:
   - "[[Albums]]"
-published: 2018-06-29T00:00:00
+published: 2018-06-29T00:00
 created: 2024-02-04T14:18
 updated: 2024-02-04T15:18
 ---

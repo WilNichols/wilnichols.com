@@ -9,7 +9,7 @@ tags:
   - Period/Pre-COVID
 category:
   - "[[Albums]]"
-published: 2019-12-29T00:00:00
+published: 2019-12-29T00:00
 created: 2024-02-04T14:18
 updated: 2024-02-04T16:37
 ---

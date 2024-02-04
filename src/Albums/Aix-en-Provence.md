@@ -10,8 +10,8 @@ tags:
   - Period/Study-Abroad
 category:
   - "[[Albums]]"
-published: 2015-03-27T00:00:00Z
+published: 2015-03-27T00:00
 created: 2024-02-04T14:18
-updated: 2024-02-04T15:50
+updated: 2024-02-04T16:53
 ---
 I visited Hillary during my first break, and she visited me during her next. After she arrived in Paris, we  made our way to Lyon, and then to Aix-en-Provence where we spent two days.

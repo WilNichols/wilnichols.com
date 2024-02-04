@@ -10,8 +10,8 @@ tags:
   - Period/KULeuven
 category:
   - "[[Albums]]"
-published: 2019-01-31T00:00:00Z
+published: 2019-01-31T00:00
 created: 2024-02-04T14:18
-updated: 2024-02-04T15:13
+updated: 2024-02-04T16:52
 ---
 In a fit of spontaneity, we took a day trip to Amsterdam on one of our last weekends before moving.
