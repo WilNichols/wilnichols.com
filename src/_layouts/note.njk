@@ -1,25 +1,7 @@
 ---
 layout: page.njk
 ---
-<div class="note-title">
-  {% set title %}{{ altTitle if altTitle }}{{ page.fileSlug if not altTitle }}{% endset %}
-  {% set publishedDate %}{{ published | postDate }}{% endset %}
-  {% if updated %}{% set updatedDate %}{{ updated | postDate }}{% endset %}{% endif %}
-  <h1>{{ title | safe }}</h1>
-  <span class="subtitle">Published {{ publishedDate }}.{% if updated and (publishedDate !== updatedDate) %} Updated {{ updatedDate }}.{% endif %}</span>
-</div>
+{% include 'title-and-date.njk' %}
 {{ content | safe }}
 
-{% if backlinks.length > 0 %}
-  <p class="backlinks-title larger">Backlinks</p>
-  <ul class="backlinks-container">
-      {% for link in backlinks %}
-          <li class="backlink">
-              <a href="{{ link.url }}" class="backlink__link">{{ link.title }}</a>
-              <div class="backlink__preview" role="none">
-                  {{ link.preview | markdownify | safe }}
-              </div>
-          </li>
-      {% endfor %}
-  </ul>
-{% endif %}
+{% include 'backlinks.njk' %}
