@@ -37,11 +37,14 @@
   --col: calc(100dvw/12);
 }
 
+$width: calc(30 * var(--type-0));
+
 body {
   font-size: var(--type-0);
   display: grid;
   place-content: center;
   padding: var(--col);
+  @include light-dark(color, var(--contentPrimaryLight), var(--contentPrimaryDark));
 }
 
 p {
@@ -55,7 +58,7 @@ h1, h2, h3, h4, h5 {
 
 p, h1, h2, h3, h4, 
 h5, h6, .note-title {  
-  max-width: calc(30 * var(--type-0));
+  max-width: $width;
   text-wrap: balance;
   width: 100%;
 }
@@ -87,7 +90,7 @@ a {
 .subtitle {
   font-size: var(--type--1);
   display: block;
-    @include light-dark(color, var(--contentSecondaryLight), var(--contentSecondaryDark));
+  @include light-dark(color, var(--contentSecondaryLight), var(--contentSecondaryDark));
 }
 
 .album__album-photos {
@@ -115,6 +118,39 @@ a {
     height: 100%;
     overflow: hidden;
 
-  }
+  } 
+}
+.backlinks {
+  max-width: $width;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
   
+}
+
+.backlinks__title {
+  font-size: var(--type--1);
+  font-weight: 600;
+  @include light-dark(color, var(--contentSecondaryLight), var(--contentSecondaryDark));
+}
+
+.backlinks__list {
+  padding: 0;
+}
+
+.backlink {
+  font-size: var(--type--2);
+  border-radius: 12px;
+  padding: 8px 12px;
+  overflow: hidden;
+  position: relative; 
+  margin: 0;
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    @include light-dark(background-color, var(--contentPrimaryLight), var(--contentPrimaryDark));
+    opacity: 0.1;
+  }
 }

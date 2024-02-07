@@ -1,13 +1,15 @@
 {% if backlinks.length > 0 %}
-  <p class="backlinks-title larger">Backlinks</p>
-  <ul class="backlinks-container">
-      {% for link in backlinks %}
-          <li class="backlink">
-              <a href="{{ link.url }}" class="backlink__link">{{ link.title }}</a>
-              <div class="backlink__preview" role="none">
-                  {{ link.preview | markdownify | safe }}
-              </div>
-          </li>
-      {% endfor %}
-  </ul>
+  <div class="backlinks">
+    <span class="backlinks__title">Backlinks</span>
+    <ul class="backlinks__list">
+        {% for link in backlinks %}
+            <li class="backlink">
+                <a href="{{ link.url }}" class="backlink__link">{{ link.title }}</a>
+                <div class="backlink__preview" role="none">
+                    {{ link.preview | markdownify | safe }}
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+  </div>
 {% endif %}
