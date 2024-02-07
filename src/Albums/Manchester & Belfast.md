@@ -1,5 +1,6 @@
 ---
 title: Manchester & Belfast
+key: ManchesterAndBelfast
 thumbnail: DSCF0415.jpg
 tags:
   - Album
@@ -13,6 +14,6 @@ category:
   - "[[Albums]]"
 published: 2015-02-22T00:00
 created: 2024-02-04T14:18
-updated: 2024-02-04T15:49
+updated: 2024-02-06T20:24
 ---
 My friend from high school, and later UT, Hillary, spent her Spring of 2016 studying in Sheffield. For my first break of the semester, I took a night in Manchester, and then the two of us flew to Belfast.

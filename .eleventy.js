@@ -56,6 +56,7 @@ module.exports = function(eleventyConfig) {
   
   eleventyConfig.addAsyncFilter("getPhotos",  async function(dir) {
     // do some Async work
+    // console.log('getting photos for ' + dir);
     const client = new S3Client({ 
       region: "us-east-1" ,
       credentials: {
@@ -88,7 +89,7 @@ module.exports = function(eleventyConfig) {
   });
   
   eleventyConfig.addAsyncFilter('imageInfo', async function(src) {
-    const path = src.replace('https://wnphoto-1e743.kxcdn.com', '_offline/thumbs').replace('.jpg', '.webp').replace('.png', '.webp');
+    const path = src.replace(process.env.KXCDN, '_offline/thumbs').replace('.jpg', '.webp').replace('.png', '.webp');
     const width = sizeOf(path).width;
     const height = sizeOf(path).height;
     async function getColor() {
@@ -98,6 +99,27 @@ module.exports = function(eleventyConfig) {
     };
     const color = await getColor();
     return {path: path, height: height, width: width, ratio: width/height, color: color};
+  });
+  
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  
+  eleventyConfig.addFilter('log', (value) => {
+    console.log('\x1b[37m', value);
+    console.log('\x1b[0m', '');
+  });
+  
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  
+  eleventyConfig.addFilter('warn', (value) => {
+    console.warn('\x1b[33m', value);
+    console.log('\x1b[0m', '');
+  });
+  
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  
+  eleventyConfig.addFilter('error', (value) => {
+    console.error('\x1b[31m', value);
+    console.log('\x1b[0m', '');
   });
   
   // Server

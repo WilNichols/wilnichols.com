@@ -1,5 +1,6 @@
 ---
 title: Auvergne 5
+key: Auvergne5
 thumbnail: DSCF5667.jpg
 tags:
   - Album
@@ -12,6 +13,6 @@ category:
   - "[[Albums]]"
 published: 2018-06-29T00:00
 created: 2024-02-04T14:18
-updated: 2024-02-04T15:18
+updated: 2024-02-06T20:19
 ---
 I took three weeks in Auzon over the summer, where Simon joined me, staying between my parents and friends. The final photos are from Léotoing, where my family would picnic when Simon and I were children.

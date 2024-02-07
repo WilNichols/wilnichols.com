@@ -1,5 +1,6 @@
 ---
 title: Seaholm
+key: Seaholm
 thumbnail: DSCF1362.jpg
 tags:
   - Album

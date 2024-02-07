@@ -1,5 +1,6 @@
 ---
 title: Annecy 1
+key: Annecy1
 thumbnail: DSCF8007.jpg
 tags:
   - Album
@@ -12,6 +13,6 @@ category:
   - "[[Albums]]"
 published: 2015-01-23T00:00
 created: 2024-02-04T14:18
-updated: 2024-02-04T16:53
+updated: 2024-02-06T20:18
 ---
 After reaching the canals and then the lake, it became clear why some call Annecy the "Venice of the Alps".

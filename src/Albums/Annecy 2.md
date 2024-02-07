@@ -1,5 +1,6 @@
 ---
 title: Annecy 2
+key: Annecy2
 thumbnail: DSCF5909.jpg
 tags:
   - Album
@@ -12,6 +13,6 @@ category:
   - "[[Albums]]"
 published: 2018-07-22T00:00
 created: 2024-02-04T14:18
-updated: 2024-02-04T16:53
+updated: 2024-02-06T20:18
 ---
 As part of visiting [[Lyon 2 | Lyon]] over the summer, I had to return to [[ Annecy 1 | Annecy]]. The last I had visited was the [[Carnaval Venitien]] two years before, and the large amount of Summer tourists was still less than the troves from the festival.

@@ -1,5 +1,6 @@
 ---
 title: Roe v. Wade 3
+key: Roe3
 thumbnail: DSCF5408.jpg
 tags:
   - Album
@@ -12,6 +13,6 @@ category:
   - "[[Albums]]"
 published: 2022-07-26T00:00
 created: 2024-02-04T14:18
-updated: 2024-02-04T16:39
+updated: 2024-02-06T20:25
 ---
 A couple of weeks after the actual Court opinion was published, a Beto rally organized in East Austin.

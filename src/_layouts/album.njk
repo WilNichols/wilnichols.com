@@ -1,28 +1,30 @@
 ---
 layout: page.njk
 ---
+{%- from 'picture.njk' import Picture with context -%}
+
 {% include 'title-and-date.njk' %}
 {{ content | safe }}
 
-{% set photos = page.fileSlug | getPhotos %}
+{% set photos = key | getPhotos %}
 {% set albumLength %}{{ photos | length }}{% endset %}
-
-{% for photo in photos | reverse %}
-  {% if photo !== ''%}
-    {% set src %}{{ remote.gallery.base }}/{{ remote.gallery.photos }}/{{ page.fileSlug }}/{{ photo }}{% endset %}
-    {# {% set imageProps = src | imageInfo %} #}
+<ul class="album__album-photos">
+  {% for photo in photos | reverse %}
     {% if loop.index < 15 %}{% set loading = 'eager' %}{% else %}{% set loading = 'lazy' %}{% endif %}
-    {{ src }}
-    {# {{  Photo(
-      el = 'li',
-      fileName = photo | slugify,
-      src = src,
-      href = src,
-      hasText = false,
-      lightBoxGroup = page.fileSlug,
-      imageProps = imageProps
-    ) }} #}
-  {% endif %}
-{% endfor %}
-
+    {% set src %}{{ remote.gallery.base }}/{{ remote.gallery.photos }}/{{ key }}/{{ photo }}{% endset %}
+    {% set fileName %}{{ photo | slugify }}{% endset %}
+    {% if photo !== ''%}
+      {% set imageProps = src | imageInfo %}
+      <li class="album__album-photos__photo" id="{{ fileName }}">
+        {# {% set imageProps = src | imageInfo %} #}
+        {{  Picture(
+            fileName = fileName,
+            src = src,
+            loading = loading,
+            imageProps = imageProps
+        ) }}
+      </li>
+    {% endif %}
+  {% endfor %}
+</ul>
 {% include 'backlinks.njk' %}

@@ -1,0 +1,37 @@
+{% macro Picture(
+  class,
+  src = '',
+  fileName = '',
+  alt = '',
+  imageProps,
+  loading = 'lazy'
+) %}
+      <picture style="--ratio: {{ imageProps.ratio }}; --color: {{ imageProps. color }}">
+        {# {% for density in range(1, 4) %} #}
+          <source
+            sizes="
+              (max-width: 640px) 640px, 
+              (max-width: 960px) 960px, 
+              (max-width: 1200px) 1200px, 
+              (min-width: 1800px) 1800px
+            "
+            srcset="
+                {{ src }}?width=640px&format=webp, 
+                {{ src }}?width=960px&format=webp 960w, 
+                {{ src }}?width=1200px&format=webp 1200w, 
+                {{ src }}?width=1800px&format=webp 1800w
+            "
+          >
+        {# {% endfor %} #}
+        <img 
+          class=""
+          src="{{ src }}?width=1200&format=webp" 
+          width="{{ imageProps.width }}" 
+          height="{{ imageProps.height }}"
+          alt="{% if title %}{{ title }}{% else %}{{ fileName }}{% endif %}"
+          loading="{{ loading }}"
+        />
+        <div class="blurUp"></div>
+      </picture>
+{% endmacro %}
+

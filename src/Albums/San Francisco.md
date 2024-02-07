@@ -1,5 +1,6 @@
 ---
 title: San Francisco
+key: SanFrancisco
 thumbnail: DSCF9734.jpg
 tags:
   - Album
@@ -12,7 +13,7 @@ category:
   - "[[Albums]]"
 published: 2021-07-26T00:00
 created: 2024-02-04T14:18
-updated: 2024-02-04T16:38
+updated: 2024-02-06T20:25
 ---
 # San Francisco
 

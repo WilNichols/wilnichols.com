@@ -1,5 +1,6 @@
 ---
 title: San Fermin at Antone’s
+key: SanFermin2017
 thumbnail: DSCF8788.jpg
 tags:
   - Album
@@ -12,6 +13,6 @@ category:
   - "[[Albums]]"
 published: 2017-05-03T00:00
 created: 2024-02-04T14:18
-updated: 2024-02-04T16:48
+updated: 2024-02-06T20:25
 ---
 I’d first heard San Fermin at ACL in 2015, but concerts in a dedicated venue are always a different experience than festivals. This show was a part of their Belong tour.

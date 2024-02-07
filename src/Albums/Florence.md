@@ -1,5 +1,6 @@
 ---
 title: Florence
+key: Florence
 thumbnail: DSCF9650.jpg
 tags:
   - Album
@@ -10,7 +11,7 @@ tags:
 category:
   - "[[Albums]]"
 published: 2019-06-10T00:00
-updated: 2024-02-04T15:36
+updated: 2024-02-06T20:22
 created: 2024-02-04T14:18
 ---
 After [[Munich]], we spent four days in Florence. I’d been with family in 2009, and it was great to revisit.
