@@ -1,0 +1,17 @@
+{% if backlinks.length > 0 %}
+  <div class="backlinks">
+    <span class="backlinks__title">Backlinks</span>
+    <ul class="backlinks__list">
+      {% for link in backlinks %}
+        <li class="backlink__container">
+          <a href="{{ link.url }}" class="backlink">
+            <span class="backlink__title">{{ link.title }}</span>
+            <div class="backlink__preview">
+              {{ link.preview | replace( r/\[\[\s?([^\[\]\|\n\r]+)(\|[^\[\]\|\n\r]+)?\s?\]\]/g , "$1" ) | markdownify | safe }}
+            </div>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
