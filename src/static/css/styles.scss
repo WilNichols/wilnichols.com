@@ -50,6 +50,9 @@ body {
 p {
   line-height: 1.5em;
   font-weight: 400;
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 h1, h2, h3, h4, h5 {
@@ -120,13 +123,13 @@ a {
 
   } 
 }
+
 .backlinks {
   max-width: $width;
   margin: 0 auto;
   display: flex;
-  flex-wrap: wrap;
-  list-style: none;
-  
+  flex-direction: column;
+  gap: var(--type--2);
 }
 
 .backlinks__title {
@@ -137,20 +140,62 @@ a {
 
 .backlinks__list {
   padding: 0;
+  margin: 0;
+  list-style: none;  
+  display: flex;
+  gap: var(--type-0);
+  flex-wrap: wrap;
+}
+
+.backlink__container {
+  list-style: none;
+  @media screen and (min-width: 415px) {
+    width: calc(50% - var(--type-0));
+  }
 }
 
 .backlink {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--type--2);
   font-size: var(--type--2);
   border-radius: 12px;
-  padding: 8px 12px;
+  padding: 12px 16px;
   overflow: hidden;
   position: relative; 
   margin: 0;
+  text-decoration: none;
   &::after {
     content: '';
     position: absolute;
     inset: 0;
     @include light-dark(background-color, var(--contentPrimaryLight), var(--contentPrimaryDark));
-    opacity: 0.1;
+    opacity: var(--opacity, 0.05);
+    z-index: -10;
+  }
+  &:hover {
+    --opacity: 0.075;
+  }
+  &:active {
+    --opacity: 0.1;
+  }
+}
+
+.backlink__title {
+  font-size: var(--type--1);
+  font-weight: 600;
+}
+
+.backlink__title, .backlink__preview {
+  @include light-dark(color, var(--contentPrimaryLight), var(--contentPrimaryDark));
+}
+
+.backlink__preview {
+  @media screen and (min-width: 415px) {
+    -webkit-line-clamp: 3;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical; 
   }
 }

@@ -34,6 +34,8 @@ module.exports = {
   
           // Construct preview for hovercards
           let preview = pageContent.slice(0, 240);
+          let spaceIndex = preview.lastIndexOf(" ");
+          preview = pageContent.slice(0, spaceIndex) + "…";
   
           backlinks.push({
             url: otherPage.url,
