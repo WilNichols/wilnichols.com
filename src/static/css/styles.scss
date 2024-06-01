@@ -43,27 +43,33 @@ body {
   font-size: var(--type-0);
   display: grid;
   place-content: center;
-  padding: var(--col);
+  padding: 0;
+  margin: 0;
+  min-height: 100dvh;
   @include light-dark(color, var(--contentPrimaryLight), var(--contentPrimaryDark));
 }
 
-p {
-  line-height: 1.5em;
-  font-weight: 400;
-  &:last-child {
-    margin-bottom: 0;
-  }
+h1, h2, h3, h4, h5, h6, p, span {
+  font-size: 1em;
+  // line-height: 1.5em;
+  font-weight: 400;  
+  margin: 0;
+  padding: 0;
 }
 
-h1, h2, h3, h4, h5 {
-  line-height: 1em;
+ol, ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+p:last-child {
+  margin-bottom: 0;
 }
 
 p, h1, h2, h3, h4, 
 h5, h6, .note-title {  
   max-width: $width;
   text-wrap: balance;
-  width: 100%;
 }
 
 p {
@@ -84,31 +90,15 @@ a {
 }
 
 @for $i from 1 through 6 {
-  h#{$i} {
-    margin: 0 0 .25em 0;
+  .heading--#{$i} {
+    // margin: 0 0 .25em 0;
     font-size: var(--type-#{$i * 6 - $i});
   }
-}
-
-.bio__title {
-  max-width: 27ex;
-}
-
-.smalltitle {
-  font-size: var(--type-3);
-  margin: 0;
-}
-
-.subtitle {
-  font-size: var(--type--1);
-  display: block;
-  @include light-dark(color, var(--contentSecondaryLight), var(--contentSecondaryDark));
 }
 
 .album__album-photos {
   display: flex;
   flex-direction: column;
-  list-style: none;
   gap: calc(var(--col) / 2);
   padding: 0 calc(var(--col) / 2);
   box-sizing: content-box;
@@ -150,14 +140,12 @@ a {
 .backlinks__list {
   padding: 0;
   margin: 0;
-  list-style: none;  
   display: flex;
   gap: var(--type-0);
   flex-wrap: wrap;
 }
 
 .backlink__container {
-  list-style: none;
   @media screen and (min-width: 415px) {
     width: calc(50% - var(--type-0));
   }
@@ -207,4 +195,58 @@ a {
     display: -webkit-box;
     -webkit-box-orient: vertical; 
   }
+}
+
+.post-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2em;
+  > * {
+  }
+}
+
+.post {
+  display: flex;
+  flex-direction: row;
+}
+
+.post-group__month {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.post__month {
+  width: 100%;
+}
+
+.post__month, .post__year {
+  @extend .heading--6;
+}
+
+.post__year, .post__month, .post__day {
+  color: var(--contentSecondaryLight);
+}
+
+.post__link {
+  display: contents;
+  text-decoration: none;
+}
+
+.post__day {
+  font-variant-alternates: tabular-nums;
+  text-decoration: none;
+  flex: 1 0;
+}
+
+.page {
+  display: grid;
+  grid-template-columns: min-content minmax(320px, max-content);
+  gap: 1.2em;
+}
+
+.navigation__items {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2em;
+  align-items: flex-end;
 }

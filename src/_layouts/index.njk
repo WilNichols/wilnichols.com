@@ -1,26 +1,26 @@
 ---
 layout: page.njk
 ---
-<header>
-  <nav class="root-navigation">
-    <h1 class="smalltitle">Wil Nichols</h1>
-    <ul>
+<div class="page">
+  <nav class="navigation">
+    <ul class="navigation__items">
+      <li class="nav__item"><h1 class="nav__title">Wil&nbsp;Nichols</h1></li>
       <li class="nav__item"><a href="">Notes</a></li>
-      <li class="nav__item"><a hredf="">Photography</a></li>
+      <li class="nav__item"><a hredf="mailto:">@</a></li>
     </ul>
   </nav>
-</header>
-<ol reversed>
-  {% set currentMonth = "" %}
-  {% set currentYear = "" %}
-  {% for note in collections.notes | reverse %}
-    {% set postMonth = note.data.month %}
-    {% set postYear = note.data.year %}
-    {% if currentMonth != postMonth %}
-      <li>{% if currentYear != postYear %}<h2>{{ postYear }}</h2>{% endif %}<h3>{{ postMonth }}</h3></li>
-    {% endif %}
-    <li><time  datetime="{{ note.date | htmlDateString }}">{{ note.date | readableDate }}</time><a href="{{note.url}}">{{ note.data.title }}</a></li>
-    {% set currentMonth = postMonth %}
-    {% set currentYear = postYear %}
-  {% endfor %}
-</ol>
+  <ol class="post-list" reversed>
+    {% set currentMonth = "" %}
+    {% set currentYear = "" %}
+    {% for note in collections.notes | reverse %}
+      {% set postMonth = note.data.month %}
+      {% set postYear = note.data.year %}
+      {% if currentMonth != postMonth %}
+        <li class="post-group__month">{% if currentYear != postYear %}<h2 class="post__year">{{ postYear }}</h2>{% endif %}<h3 class="post__month">{{ postMonth }}</h3></li>
+      {% endif %}
+      <li class="note"><a href="{{note.url}}" class="post__link"><span class="post__day">{{ note.date | readableDate }}</span> <span class="post__title">{{ note.data.title }}</span></a></li>
+      {% set currentMonth = postMonth %}
+      {% set currentYear = postYear %}
+    {% endfor %}
+  </ol>
+</div>
