@@ -15,7 +15,6 @@ module.exports = {
       const all = data.collections.all;
       const currentFileSlug = data.page.fileSlug;
       let backlinks = [];
-      
       // Search the other notes for backlinks
       for (const otherPage of all) {
         const pageContent = otherPage.template.frontMatter.content;

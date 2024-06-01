@@ -90,6 +90,15 @@ a {
   }
 }
 
+.bio__title {
+  max-width: 27ex;
+}
+
+.smalltitle {
+  font-size: var(--type-3);
+  margin: 0;
+}
+
 .subtitle {
   font-size: var(--type--1);
   display: block;

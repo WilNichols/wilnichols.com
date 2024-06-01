@@ -5,8 +5,7 @@ tags:
 author:
   - "[[Wil Nichols]]"
 url: 
-created: 2024-02-01T22:55:00
-published: 2024-01-31T12:00
+date: 2024-01-31
 topics:
   - "[[Building]]"
 status:
