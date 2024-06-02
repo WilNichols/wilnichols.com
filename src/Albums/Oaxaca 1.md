@@ -11,7 +11,7 @@ tags:
 category:
   - "[[Albums]]"
 published: 2020-03-07T00:00
-created: 2024-02-04T14:18
+date: 2024-02-04T14:18
 updated: 2024-02-06T20:24
 ---
 My last opportunity to travel before the pandemic was with my brother, shortly before Texas shut down in March 2020. We visited Oaxaca, where I was instantly shocked by the vibrant colors.

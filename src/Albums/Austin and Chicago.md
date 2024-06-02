@@ -11,7 +11,7 @@ tags:
 category:
   - "[[Albums]]"
 published: 2019-04-13T00:00
-created: 2024-02-04T14:18
+date: 2024-02-04T14:18
 updated: 2024-02-06T20:19
 ---
 I visited Austin for a week, bookended with stops through Chicago to visit my client [[The Minte]].

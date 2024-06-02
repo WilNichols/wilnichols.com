@@ -1,6 +1,6 @@
-@use 'vendor/inter';
+@use 'sass:math';
 
-@mixin light-dark($prop, $lightColor, $darkColor) {
+@mixin light-dark($prop, $lightColor, $darkColor: $lightColor) {
   #{$prop}: $lightColor;
   @media (prefers-color-scheme: dark) {
     #{$prop}: $darkColor;
@@ -38,9 +38,47 @@
 }
 
 $width: calc(30 * var(--type-0));
+$breakpoint: 480px;
+
+%font--display-regular {
+  font-family: "neue-haas-grotesk-display", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+%font--display-medium {
+  font-family: "neue-haas-grotesk-display", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+%font--display-black {
+  font-family: "neue-haas-grotesk-display", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+%font--text-regular {
+  font-family: "neue-haas-grotesk-text", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+%font--text-regular--italic {
+  font-family: "neue-haas-grotesk-text", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+%font--text-italic {
+  font-family: "neue-haas-grotesk-text", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
 
 body {
   font-size: var(--type-0);
+  @extend %font--text-regular;
   display: grid;
   place-content: center;
   padding: 0;
@@ -52,7 +90,7 @@ body {
 h1, h2, h3, h4, h5, h6, p, span {
   font-size: 1em;
   // line-height: 1.5em;
-  font-weight: 400;  
+  font-weight: unset;  
   margin: 0;
   padding: 0;
 }
@@ -62,12 +100,12 @@ ol, ul {
   padding: 0;
   list-style: none;
 }
+
 p:last-child {
   margin-bottom: 0;
 }
 
-p, h1, h2, h3, h4, 
-h5, h6, .note-title {  
+p, h1, h2, h3, h4, h5, h6, .note-title {  
   max-width: $width;
   text-wrap: balance;
 }
@@ -77,13 +115,16 @@ p {
 }
 
 a {
-  @include light-dark(color, var(--linkLight), var(--linkDark));
-  &:visited {
-    @include light-dark(color, var(--linkVisitedLight), var(--linkVisitedDark));
+  @include light-dark(color, var(--contentPrimaryLight), var(--contentPrimaryDark));
+  p & {
+    @include light-dark(color, var(--linkLight), var(--linkDark));
+    &:visited {
+      @include light-dark(color, var(--linkVisitedLight), var(--linkVisitedDark));
+    }
   }
 }
 
-.note-title {
+.note__header {
   display: inline-flex;
   flex-direction: column;
   margin: 0 auto 1.25em auto;
@@ -93,7 +134,30 @@ a {
   .heading--#{$i} {
     // margin: 0 0 .25em 0;
     font-size: var(--type-#{$i * 6 - $i});
+    @extend %font--display-medium;
   }
+}
+
+.heading--1 {
+  line-height: 1em;
+  margin: 0 0 .25em 0;
+}
+
+.page__title {
+  @extend .heading--1;
+  @extend %font--display-black;
+}
+
+.page__subtitle {
+  font-size: var(--type--1);
+  @extend %font--text-regular;
+  display: block;
+  @include light-dark(color, var(--contentSecondaryLight), var(--contentSecondaryDark));
+
+}
+
+.note__body p {
+  line-height: 1.5em;
 }
 
 .album__album-photos {
@@ -129,11 +193,14 @@ a {
   display: flex;
   flex-direction: column;
   gap: var(--type--2);
+  .note__body + & {
+    margin-top: 1em;
+  }
 }
 
 .backlinks__title {
   font-size: var(--type--1);
-  font-weight: 600;
+  @extend %font--display-medium;
   @include light-dark(color, var(--contentSecondaryLight), var(--contentSecondaryDark));
 }
 
@@ -197,51 +264,86 @@ a {
   }
 }
 
-.post-list {
+.note-list {
   display: flex;
   flex-direction: column;
   gap: 1.2em;
-  > * {
-  }
 }
 
-.post {
-  display: flex;
-  flex-direction: row;
-}
-
-.post-group__month {
+.note-group__month {
   display: flex;
   flex-direction: row-reverse;
 }
 
-.post__month {
+.note__month {
   width: 100%;
 }
 
-.post__month, .post__year {
+.note__month, .note__year {
   @extend .heading--6;
+  @extend %font--display-medium;
 }
 
-.post__year, .post__month, .post__day {
+.note__year, .note__month, .note__day {
   color: var(--contentSecondaryLight);
 }
 
-.post__link {
-  display: contents;
+.note__link {
+  position: relative;
+  display: grid;
+  grid-template-columns: min-content auto;
   text-decoration: none;
+  gap: 5px; // the size of a monospaced space character in Neue Haas Grotesk
+  @include light-dark(color, var(--contentPrimaryLight), var(--contentPrimaryDark));
+  // .note:nth-child(2) == first note in list. Don't want someone to open it and see all "unread" badges.
+  .note:nth-child(2) &::before {
+    $diameter: 8px;
+    content: '';
+    width: $diameter;
+    height: $diameter;
+    display: block;
+    position: absolute;
+    inset: 50% 0 0 -1.5 * $diameter;
+    margin: math.div($diameter, -2) 0 0 0;
+    border-radius: math.div($diameter, 2);
+    @include light-dark(background-color, var(--linkLight), var(--linkDark))
+  }
+  .note:nth-child(2) &:visited::before {
+    background-color: Canvas;
+  }
 }
 
-.post__day {
-  font-variant-alternates: tabular-nums;
+.note__title {
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.note__day {
+  font-variant-numeric: tabular-nums;
   text-decoration: none;
-  flex: 1 0;
 }
 
 .page {
   display: grid;
+}
+
+.page--notes {
   grid-template-columns: min-content minmax(320px, max-content);
   gap: 1.2em;
+  padding: var(--type-0);
+  @media (width <= $breakpoint) {
+    grid-template-columns: 100%;
+    grid-template-rows: min-content auto;
+  }
+}
+
+.page--note {
+  padding: var(--col);
+}
+
+.nav__title {
+  @extend %font--display-black;
 }
 
 .navigation__items {
@@ -249,4 +351,15 @@ a {
   flex-direction: column;
   gap: 1.2em;
   align-items: flex-end;
+  @media (width <= $breakpoint) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.nav__link {
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
 }

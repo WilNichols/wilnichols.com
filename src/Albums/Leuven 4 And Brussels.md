@@ -12,7 +12,7 @@ tags:
 category:
   - "[[Albums]]"
 published: 2019-01-07T00:00
-created: 2024-02-04T14:18
+date: 2024-02-04T14:18
 updated: 2024-02-06T20:23
 ---
 My second Winter in Belgium brought a wider range of hues than the previous year had led me to believe. Grays and blues have away to harsh and warm — but still freezing — tones.

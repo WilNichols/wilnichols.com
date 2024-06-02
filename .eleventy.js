@@ -49,11 +49,26 @@ module.exports = function(eleventyConfig) {
     return `${urlPart}?${params}`;
   });
   
-  eleventyConfig.addFilter("readableDate", (dateObj) => {
-    return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat(
-      "dd"
-    );
+  eleventyConfig.addFilter("readableDateJS", (dateObj) => {
+    return dateObj;
+    // return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat("LLL d, yyyy");
   });
+  
+  eleventyConfig.addFilter("readableDateISO", (dateObj) => {
+    return DateTime.fromISO(dateObj, { zone: "utc" }).toFormat("LLL d, yyyy");
+  });
+  
+  eleventyConfig.addFilter("postDay", (dateObj) => {
+    return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat("dd");
+  });
+  
+  eleventyConfig.addFilter('htmlDateString', (dateObj) => {
+    return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat('MMMM d, yyyy')
+  });
+  
+  eleventyConfig.addFilter('typeOf', (obj) => {
+    console.log(obj + typeof obj);
+  })
   
   eleventyConfig.addFilter("getFullMonth", (Index) => {
     const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];

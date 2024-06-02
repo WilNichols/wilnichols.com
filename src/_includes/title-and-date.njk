@@ -1,6 +1,7 @@
-<div class="note-title">
-  {% set title %}{{ altTitle if altTitle }}{{ page.fileSlug if not altTitle }}{% endset %}
-  {% if updated %}{% set updatedDate %}{{ updated | readableDate }}{% endset %}{% endif %}
-  <h1>{{ title | safe }}</h1>
-  <span class="subtitle">Published {{ publishedDate }}.{% if updated and (publishedDate !== updatedDate) %} Updated {{ updatedDate }}.{% endif %}</span>
+{% set title %}{{ altTitle if altTitle }}{{ page.fileSlug if not altTitle }}{% endset %}
+{% set date %}{{ date | readableDateISO }}{% endset %}
+{% set updated %}{{ updated | readableDateISO }}{% endset %}
+<div class="note__header">
+  <h1 class="page__title">{{ title | safe }}</h1>
+  <span class="page__subtitle">Published {{ date }}.{% if (date != updated) %} Updated {{ updated }}.{% endif %}</span>
 </div>
