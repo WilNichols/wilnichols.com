@@ -13,7 +13,3 @@
 [context.branch-deploy]
   command = "npm run netlify-build-dev"
   publish = "_site/"
-
-[[redirects]]
-  from = "/opening-the-garage/"
-  to = "/"

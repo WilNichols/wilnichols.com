@@ -12,7 +12,7 @@ tags:
 category:
   - "[[Albums]]"
 published: 2015-30-15T00:00
-created: 2024-02-04T14:18
+date: 2024-02-04T14:18
 updated: 2024-02-06T20:24
 ---
 My second trip from Lyon was only a week after the first, and with the same crowd, but this time on a shockingly budget OuiGo ticket to Marseille.

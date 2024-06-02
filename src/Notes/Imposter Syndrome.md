@@ -5,13 +5,12 @@ tags:
 author:
   - "[[Wil Nichols]]"
 url: 
-created: 2024-02-01T22:55:00
-published: 2024-01-31T12:00
+date: 2024-02-02T22:14
+updated: 2024-02-16T21:54
 topics:
   - "[[Building]]"
 status:
   - "Active"
-updated: 2024-02-01T23:52
 ---
 [[Opening the garage]] is an experiment in accountability, working publicly, and lowering my preparation-threshold required to share work. This should beget a departure from a deeply-ingrained behavior where I stress before sharing, and take unnecessary steps to polish, ultimately taking unnecessary time before sharing content — whether in the case of my team that content is knowledge, direction, and example, or in the case of this website, that content is case studies, notes, recipes, whatever it becomes.
 

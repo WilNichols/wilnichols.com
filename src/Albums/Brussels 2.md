@@ -11,7 +11,7 @@ tags:
 category:
   - "[[Albums]]"
 published: 2018-04-20T00:00
-created: 2024-02-04T14:18
+date: 2024-02-04T14:18
 updated: 2024-02-06T20:20
 ---
 As a Texan, I expect everything in my state to be bigger than, well, anything, everywhere else. The Primark in Brussels proved me wrong. A few friends went inside and took maybe an hour, while I was inside for five minutes, realized that it continued, and then left for photos on surrounding streets.

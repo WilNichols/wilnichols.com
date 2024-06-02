@@ -1,0 +1,25 @@
+---
+layout: page.njk
+---
+<div class="page page--notes">
+  <nav class="navigation">
+    <ul class="navigation__items">
+      <li class="nav__item"><h1 class="nav__title">Wil&nbsp;Nichols</h1></li>
+      <li class="nav__item"><a class="nav__link" href="mailto:{{ meta.contact.email }}">Email</a></li>
+    </ul>
+  </nav>
+  <ol class="note-list" reversed>
+    {% set currentMonth = "" %}
+    {% set currentYear = "" %}
+    {% for note in collections.notes | reverse %}
+      {% set noteMonth = note.data.month %}
+      {% set noteYear = note.data.year %}
+      {% if currentMonth != noteMonth %}
+        <li class="note-group__month">{% if currentYear != noteYear %}<h2 class="note__year">{{ noteYear }}</h2>{% endif %}<h3 class="note__month">{{ noteMonth }}</h3></li>
+      {% endif %}
+      <li class="note"><a href="{{note.url}}" class="note__link"><span class="note__day">{{ note.date | postDay }}</span><span class="note__title">{{ note.data.title }}</span></a></li>
+      {% set currentMonth = noteMonth %}
+      {% set currentYear = noteYear %}
+    {% endfor %}
+  </ol>
+</div>

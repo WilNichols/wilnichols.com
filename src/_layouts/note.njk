@@ -1,8 +1,12 @@
 ---
 layout: page.njk
 ---
-
-{% include 'title-and-date.njk' %}
-{{ content | safe }}
-
-{% include 'backlinks.njk' %}
+<div class="page page--note">
+  <main class="note">
+    {% include 'title-and-date.njk' %}
+    <div class="note__body">
+    {{ content | safe }}
+    </div>
+    {% include 'backlinks.njk' %}
+  </main>
+</div>

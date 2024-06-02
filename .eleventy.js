@@ -49,9 +49,53 @@ module.exports = function(eleventyConfig) {
     return `${urlPart}?${params}`;
   });
   
-  eleventyConfig.addFilter("postDate", (dateObj) => {
-    dateObj = dateObj.toString();
-    return DateTime.fromISO(dateObj).toLocaleString(DateTime.DATE_MED);
+  eleventyConfig.addFilter("readableDateJS", (dateObj) => {
+    return dateObj;
+    // return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat("LLL d, yyyy");
+  });
+  
+  eleventyConfig.addFilter("readableDateISO", (dateObj) => {
+    return DateTime.fromISO(dateObj, { zone: "utc" }).toFormat("LLL d, yyyy");
+  });
+  
+  eleventyConfig.addFilter("postDay", (dateObj) => {
+    return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat("dd");
+  });
+  
+  eleventyConfig.addFilter('htmlDateString', (dateObj) => {
+    return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat('MMMM d, yyyy')
+  });
+  
+  eleventyConfig.addFilter('typeOf', (obj) => {
+    console.log(obj + typeof obj);
+  })
+  
+  eleventyConfig.addFilter("getFullMonth", (Index) => {
+    const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    return month[Index];
+  })
+  
+  // https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#valid-date-string
+  eleventyConfig.addFilter("htmlDateString", (dateObj) => {
+    return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat("yyyy-LL-dd");
+  });
+  
+  eleventyConfig.addFilter("sitemapDateTimeString", (dateObj) => {
+    const dt = DateTime.fromJSDate(dateObj, { zone: "utc" });
+    if (!dt.isValid) {
+      return "";
+    }
+    return dt.toISO();
+  });
+  // https://stevenwoodson.com/blog/a-step-by-step-guide-to-sorting-eleventy-global-data-files-by-date/
+  eleventyConfig.addFilter("sortDataByCreationDate", (obj) => {
+    const sorted = {};
+    Object.keys(obj)
+      .sort((a, b) => {
+        return obj[a].data.created > obj[b].data.created ? 1 : -1;
+      })
+      .forEach((name) => (sorted[name] = obj[name]));
+    return sorted;
   });
   
   eleventyConfig.addAsyncFilter("getPhotos",  async function(dir) {
