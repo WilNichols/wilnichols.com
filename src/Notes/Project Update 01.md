@@ -15,7 +15,7 @@ That’s part of why this project has seen a four month gap. I thought the next 
 
 Takeaway: instead of iterating along an axis of thematic buckets, iterate towards use. “What do I need to casually use this next week?” as opposed to “What’s the next big task that yields a major value-add?”
 
-We’re back in Austin, purposefully. I want to miss Pittsburgh, and I miss what could’ve been there, but returning to friends and family is a hell of a respite while we plan a wedding and beyond. I wish Texas were a safe place to plan a life; living near family is centering and a kind of safe.
+The other part is that we’re back in Austin. Purposefully. I want to miss Pittsburgh, and I miss what could’ve been there, but returning to friends and family is a hell of a respite while we plan a wedding and beyond. I wish Texas were a safe place to plan a life; living near family is centering and a kind of safe.
 
 The old bar in our new neighborhood is Black Star Coop. I remember sitting there, watching the 2020 primary debates, and later electoral debates. I had a hard time going back to Scholz’s after 2016, and Black Star now has a similar sheen. 
 
