@@ -302,22 +302,18 @@ $dotDiameter: 8px;
     content: '';
     width: $dotDiameter;
     height: $dotDiameter;
-    display: inline-block;
-    inset: 50% 0 0 -1.5 * $dotDiameter;
-    margin: math.div($dotDiameter, -2) 0 0 0;
+    display: block;
     border-radius: math.div($dotDiameter, 2);
     @include light-dark(background-color, var(--linkLight), var(--linkDark))
   }
-  // .note:nth-child(2) &:visited::before {
-    // background-color: Canvas;
-  // }
-}
-
-.note__title {
-  &:hover {
+  .note:nth-child(2) &:visited::before {
+    background-color: Canvas;
+  }
+  &:hover .note__title  {
     text-decoration: underline;
   }
 }
+
 
 .note__day {
   font-variant-numeric: tabular-nums;
