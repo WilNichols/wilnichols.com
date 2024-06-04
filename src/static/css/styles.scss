@@ -288,29 +288,29 @@ a {
   color: var(--contentSecondaryLight);
 }
 
+$dotDiameter: 8px;
+
 .note__link {
-  position: relative;
   display: grid;
-  grid-template-columns: min-content auto;
+  grid-template-columns: min-content auto $dotDiameter;
   text-decoration: none;
   gap: 5px; // the size of a monospaced space character in Neue Haas Grotesk
+  align-items: center;
   @include light-dark(color, var(--contentPrimaryLight), var(--contentPrimaryDark));
   // .note:nth-child(2) == first note in list. Don't want someone to open it and see all "unread" badges.
-  .note:nth-child(2) &::before {
-    $diameter: 8px;
+  .note:nth-child(2) &::after {
     content: '';
-    width: $diameter;
-    height: $diameter;
-    display: block;
-    position: absolute;
-    inset: 50% 0 0 -1.5 * $diameter;
-    margin: math.div($diameter, -2) 0 0 0;
-    border-radius: math.div($diameter, 2);
+    width: $dotDiameter;
+    height: $dotDiameter;
+    display: inline-block;
+    inset: 50% 0 0 -1.5 * $dotDiameter;
+    margin: math.div($dotDiameter, -2) 0 0 0;
+    border-radius: math.div($dotDiameter, 2);
     @include light-dark(background-color, var(--linkLight), var(--linkDark))
   }
-  .note:nth-child(2) &:visited::before {
-    background-color: Canvas;
-  }
+  // .note:nth-child(2) &:visited::before {
+    // background-color: Canvas;
+  // }
 }
 
 .note__title {
