@@ -1,6 +1,6 @@
 ---
 date: 2024-06-03T17:58
-updated: 2024-06-03T22:32
+updated: 2024-06-03T23:16
 author:
   - "[[Wil Nichols]]"
 category:
@@ -21,7 +21,7 @@ There’s less distance between craftspeople in a cottage industry than there is
 
 Aside: there’s an adjacent argument that tries to solve this by implicit gatekeeping. Taste cannot (or is not?) taught, and therefore belongs to a select few. It’s convenient to ignore the noise when categorically rejecting everything new and establishing oneself as the great Taste Arbiter. Some advocate that the increased accessibility of tools like Figma have done a disservice by lowering the industry’s barrier to entry and allowing the tasteless hoards to call themselves “designers.” This is a convenient unifying theory, and wrong.
 
-When I first started in design, I was fortunate to have an online community to learn from. The intersection of effortless—_wow, look what they did, it’s so cool_—approachable—_less distance from me to them, and initially small followings_—and humble—_predating “smashing that ‘L’”_—created an atmosphere that enabled kids like myself to learn from their community. I remember a teenage Jesse Dodds([then](https://web.archive.org/web/20091127140924/http://jessedodds.com/), [now](https🙂/jessedodds.com)) joining an AIM video call to show me how to draw fire with my Wacom. 
+When I first started in design, I was fortunate to have an online community to learn from. The intersection of effortless—_wow, look what they did, it’s so cool_—approachable—_less distance from me to them, and initially small followings_—and humble—_predating “smashing that ‘L’”_—created an atmosphere that enabled kids like myself to learn from their community. I remember a teenage Jesse Dodds([then](https://web.archive.org/web/20091127140924/http://jessedodds.com/), [now](https://jessedodds.com)) joining an AIM video call to show me how to draw fire with my Wacom. 
 
 These two ideas exist on their own and intersect. I remember envying the skill and ease—the effortlessness—with which folks produced their art. I’m still motivated and intimidated by “it’s easy for them, but hard for me” while both recognizing the degree to which that feeds [[Imposter Syndrome | imposter syndrome]] as well as being an imitable sign of experience. We had friendly neighbors, and now have talking heads hellbent on monetizing their following.
 
