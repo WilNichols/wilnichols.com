@@ -13,6 +13,7 @@ topics:
 status:
   - "[[Active]]"
 ---
+
 A little over two years ago, I moved from a lead IC role on a design team of three to the director of a team of now six. That transition was largely out of necessity — the team needed a design leader with extensive experience at the company — but also personally driven in search of new learning opportunity.
 
 Before making that change, I’d known that I enjoyed mentoring younger designers. I started learning design processes myself when a young teenager, learning to draw icons from others’ PSDs, PSDTuts (Tuts+ or whatever they’ve become?), and MacThemes. As an IC, I’d share source files and process notes but rarely outside private chats, or as evidence of work done. Sharing work was a [[conscious act]], and so was irregular. 
@@ -26,4 +27,3 @@ I’ve comfortably worked at [Zello](https://zello.com) for nearly nine years. I
 As a product designer, I need a portfolio, I start writing case studies and then I grow bored, or more urgent work arises. Aa a photographer I’ve needed a portfolio and prioritize expediency, so my photography site didn’t scale to case studies. As a frontend engineer and prototyper, I want to show fun/cool/whatever _minutiae_. As a designer with fifteen years of experience, I want to show _a lot_. Every start and stop costs time I could spend on content, but without the aesthetics as distraction from writing — and dredging up decade-old work — I grow listless. This isn’t a unique problem, and certainly isn’t insurmountable, but it’s a _me_ problem that if further left unaddressed, will grow past ten plus years’ avoidance. This was easier back when I only drew icons. Despite the sunk cost, I’m restarting publicly and updating regularly. Instead of waiting for all case studies, I can publish one at a time. Instead of having the perfect design for the first essay, then ten essays, and then the whole site, I’ll publish as I go and regularly iterate. 
 
 So, I’m raising the garage door. This public [repo](https://github.com/wilnichols/wilnichols.com) is the start of this site. Photography is still available, for now, [here](https://photography.wilnichols.com). I’ve stripped the version number as a personal kindness.
-

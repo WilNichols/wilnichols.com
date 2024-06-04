@@ -1,6 +1,16 @@
 ---
 date: 2024-06-03T00:51
-updated: 2024-06-03T01:16
+updated: 2024-06-03T22:14
+author:
+  - "[[Wil Nichols]]"
+category:
+  - "[[Notes]]"
+tags:
+  - "[[Updates]]"
+  - "[[Building]]"
+status:
+  - "[[Complete]]"
+url: 
 ---
 
 Before this last weekend, my last commits were around February 16 where I fixed a small edge case, and a week prior where I’d spent four days confirming I could still get photo album data from AWS. I knew that to start posting, I needed to update the project to show an index of notes as opposed to only the latest note, relying on internal links to others.

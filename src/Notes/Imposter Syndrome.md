@@ -12,6 +12,7 @@ topics:
 status:
   - "Active"
 ---
+
 [[Opening the garage]] is an experiment in accountability, working publicly, and lowering my preparation-threshold required to share work. This should beget a departure from a deeply-ingrained behavior where I stress before sharing, and take unnecessary steps to polish, ultimately taking unnecessary time before sharing content — whether in the case of my team that content is knowledge, direction, and example, or in the case of this website, that content is case studies, notes, recipes, whatever it becomes.
 
 [Andy Matuschak](https://www.andymatuschak.org) calls this sharing of the less-polished [“Anti-Marketing”](https://notes.andymatuschak.org/About_these_notes?stackedNotes=zCMhncA1iSE74MKKYQS5PBZ&stackedNotes=zF9ywLHqHfN5rFuPApiyqmP), though he then scopes it to “focusing public conversation on the least rosy elements of one’s projects”. I’m not sure that I fully agree with the sentiment, but I find it aspirational. Paraphrasing, Andy says that the act of sharing the rougher parts of one’s work precludes the harmfully overreaching claims that accompany a marketed public persona, and he implies that this sharing encourages authenticity. 
