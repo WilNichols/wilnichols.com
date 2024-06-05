@@ -21,7 +21,7 @@ Then between cleaning the new apartment, I spent a few hours Saturday and anothe
 
 I stopped using Twitter a year to a year and a half ago, and the desire to engage in Discourse™—Design Twitter and electoral punditry—has changed. While some old ideas have stuck and marinated, it’s been nice to disengage and feel no desire to reengage with the impression-thirsting content farmers. That said, sometimes one wants to write something, and having somewhere to do it helps.
 
-That’s part of why this project has seen a four month gap. I thought the next major site update would have my (photography)[https://photography.wilnichols.com], but no, I made sure that the pages could build, but never updated their designs, and then they sat incomplete while life happened.
+That’s part of why this project has seen a four month gap. I thought the next major site update would have my [photography](https://photography.wilnichols.com), but no, I made sure that the pages could build, but never updated their designs, and then they sat incomplete while life happened.
 
 Takeaway: instead of iterating along an axis of thematic buckets, iterate towards use. “What do I need to casually use this next week?” as opposed to “What’s the next big task that yields a major value-add?”
 
