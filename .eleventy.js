@@ -7,6 +7,7 @@ const fs = require('fs');
 const { getAverageColor } = require('fast-average-color-node');
 const { S3Client, ListObjectsV2Command } = require("@aws-sdk/client-s3");
 const sizeOf = require('image-size');
+const pluginRss = require("@11ty/eleventy-plugin-rss");
 
 module.exports = function(eleventyConfig) {
   eleventyConfig.setQuietMode(true);
@@ -181,6 +182,9 @@ module.exports = function(eleventyConfig) {
   if (process.env.ELEVENTY_ENV == 'dev') {
     eleventyConfig.addPassthroughCopy({"src/static/css": "/src/static/css"});
   }
+  
+  // Plugins
+  eleventyConfig.addPlugin(pluginRss);
   
   // WatchTargets
   eleventyConfig.addWatchTarget("src/static/css/");

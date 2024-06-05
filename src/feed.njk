@@ -1,0 +1,27 @@
+---
+eleventyExcludeFromCollections: true
+title: "Feed"
+permalink: "feed.xml"
+layout: null
+---
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xml:base="{{ meta.url }}" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>{{ meta.title.base }}{{ meta.title.separator }}{{ title }}</title>
+    <link>{{ meta.url }}</link>
+    <atom:link href="{{ permalink | absoluteUrl(meta.url) }}" rel="self" type="application/rss+xml" />
+    <description>{{ meta.description }}</description>
+    <language>{{ meta.lang }}</language>
+    {%- for note in collections.notes | reverse %}
+    {%- set absoluteNoteUrl = note.url | absoluteUrl(meta.url) %}
+    <item>
+      <title>{{ note.data.title }}</title>
+      <link>{{ absoluteNoteUrl }}</link>
+      <description>{{ note.templateContent | htmlToAbsoluteUrls(absoluteNoteUrl) }}</description>
+      <pubDate>{{ note.date | dateToRfc822 }}</pubDate>
+      <dc:creator>{{ meta.name }}</dc:creator>
+      <guid>{{ absoluteNoteUrl }}</guid>
+    </item>
+    {%- endfor %}
+  </channel>
+</rss>

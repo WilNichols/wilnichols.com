@@ -1,11 +1,23 @@
-module.exports = {
+const me = {
+  name: 'Wil Nichols',
+  email: 'hi@wilnichols.design'
+}
+
+const meta = {
   lang: 'en',
+  url: 'https://wilnichols.com',
   description: 'Personal website of multidisciplinary designer Wil Nichols',
   contact: {
-    email: 'hi@wilnichols.design'
+    name: me.name,
+    email: me.email
   },
   title: {
-    base: 'Wil Nichols',
+    base: me.name,
     separator: ' | '
   }
+}
+
+module.exports = {
+  ...me,
+  ...meta
 }
