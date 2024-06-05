@@ -398,10 +398,7 @@ $dotDiameter: 8px;
   position: relative;
   @extend %listItemBackground;
   transition: $dur transform ease-out;
-  display: inline-block;
   &:hover {
     @extend %listItemBackgroundHover;
-    transform: translateX(-.25ex);
-    transition: $dur transform ease-out;
   }
 }
