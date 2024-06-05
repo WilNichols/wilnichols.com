@@ -288,6 +288,32 @@ a {
   color: var(--contentSecondaryLight);
 }
 
+$dur: .2s;
+
+%listItemBackground {
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -6px -8px;
+    border-radius: .6em;
+    @include light-dark(background-color, var(--contentPrimaryLight), var(--contentPrimaryDark));
+    opacity: 0;
+    transform: scale(.99);
+    filter: blur(.3em);
+    $dur: $dur * 4;
+    transition: $dur transform ease-out, $dur opacity ease-out, $dur filter ease-out;
+  }
+}
+
+%listItemBackgroundHover {
+  &::before {
+    opacity: 0.05;
+    filter: blur(0);
+    transform: scale(1);
+    transition-duration: math.div($dur, 4);
+  }
+}
+
 $dotDiameter: 8px;
 
 .note__link {
@@ -297,6 +323,8 @@ $dotDiameter: 8px;
   gap: 5px; // the size of a monospaced space character in Neue Haas Grotesk
   align-items: center;
   @include light-dark(color, var(--contentPrimaryLight), var(--contentPrimaryDark));
+  position: relative;
+  @extend %listItemBackground;
   // .note:nth-child(2) == first note in list. Don't want someone to open it and see all "unread" badges.
   .note:nth-child(2) &::after {
     content: '';
@@ -309,11 +337,23 @@ $dotDiameter: 8px;
   .note:nth-child(2) &:visited::before {
     background-color: Canvas;
   }
-  &:hover .note__title  {
-    text-decoration: underline;
+  &::after, .note__day, .note__title {
+    transition: $dur transform ease-out
+  }
+  
+  &:hover {
+    @extend %listItemBackgroundHover;
+    .note__day, .note__title {
+      transform: translateX(.25ex);
+    }
+    &::after {
+      transform: translateX(-.25ex);
+    }
+    .note__day, .note__title, &::after {
+      transition-duration: math.div($dur, 4); 
+    }
   }
 }
-
 
 .note__day {
   font-variant-numeric: tabular-nums;
@@ -355,7 +395,13 @@ $dotDiameter: 8px;
 
 .nav__link {
   text-decoration: none;
+  position: relative;
+  @extend %listItemBackground;
+  transition: $dur transform ease-out;
+  display: inline-block;
   &:hover {
-    text-decoration: underline;
+    @extend %listItemBackgroundHover;
+    transform: translateX(-.25ex);
+    transition: $dur transform ease-out;
   }
 }
