@@ -10,15 +10,18 @@ layout: page.njk
     </ul>
   </nav>
   <ol class="note-list" reversed>
+    {% set currentDay = "" %}
     {% set currentMonth = "" %}
     {% set currentYear = "" %}
     {% for note in collections.notes | reverse %}
+      {% set noteDay = note.date | postDay %}
       {% set noteMonth = note.data.month %}
       {% set noteYear = note.data.year %}
       {% if currentMonth != noteMonth %}
         <li class="note-group__month">{% if currentYear != noteYear %}<h2 class="note__year">{{ noteYear }}</h2>{% endif %}<h3 class="note__month">{{ noteMonth }}</h3></li>
       {% endif %}
-      <li class="note"><a href="{{note.url}}" class="note__link"><span class="note__day">{{ note.date | postDay }}</span><span class="note__title">{{ note.data.title }}</span></a></li>
+      <li class="note"><a href="{{ note.url }}" class="note__link"><span class="note__day">{% if (currentDay == noteDay) and (currentMonth == noteMonth) %} ↳{% else %}{{ noteDay }}{% endif %}</span><span class="note__title">{{ note.data.title }}</span></a></li>
+      {% set currentDay = noteDay %}
       {% set currentMonth = noteMonth %}
       {% set currentYear = noteYear %}
     {% endfor %}

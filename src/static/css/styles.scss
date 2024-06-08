@@ -265,9 +265,9 @@ a {
 }
 
 .note-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2em;
+  display: grid;
+  grid-template-columns: min-content auto;
+  row-gap: 1.2em;
 }
 
 .note-group__month {
@@ -314,11 +314,18 @@ $dur: .2s;
   }
 }
 
-$dotDiameter: 8px;
+.note {
+  // necessary for subgrid
+  display: contents;
+}
+
+.note__link, .note-group__month {
+  grid-column: 1 / -1;
+}
 
 .note__link {
   display: grid;
-  grid-template-columns: min-content auto $dotDiameter;
+  grid-template-columns: subgrid;
   text-decoration: none;
   gap: 5px; // the size of a monospaced space character in Neue Haas Grotesk
   align-items: center;
@@ -344,6 +351,11 @@ $dotDiameter: 8px;
 .note__day {
   font-variant-numeric: tabular-nums;
   text-decoration: none;
+  text-align: right;
+  &--hidden {
+    visibility: hidden;
+    
+  }
 }
 
 .page {
