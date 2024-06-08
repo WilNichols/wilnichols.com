@@ -247,7 +247,7 @@ a {
 
 .backlink__title {
   font-size: var(--type--1);
-  font-weight: 600;
+  @extend %font--display-medium;
 }
 
 .backlink__title, .backlink__preview {
@@ -325,20 +325,9 @@ $dotDiameter: 8px;
   @include light-dark(color, var(--contentPrimaryLight), var(--contentPrimaryDark));
   position: relative;
   @extend %listItemBackground;
-  // .note:nth-child(2) == first note in list. Don't want someone to open it and see all "unread" badges.
-  .note:nth-child(2) &::after {
-    content: '';
-    width: $dotDiameter;
-    height: $dotDiameter;
-    display: block;
-    border-radius: math.div($dotDiameter, 2);
-    @include light-dark(background-color, var(--linkLight), var(--linkDark))
-  }
-  .note:nth-child(2) &:visited::before {
-    background-color: Canvas;
-  }
-  &::after, .note__day, .note__title {
-    transition: $dur transform ease-out
+
+  .note__day, .note__title {
+    transition: $dur transform ease-out, $dur background-color ease-out;
   }
   
   &:hover {
@@ -346,10 +335,7 @@ $dotDiameter: 8px;
     .note__day, .note__title {
       transform: translateX(.25ex);
     }
-    &::after {
-      transform: translateX(-.25ex);
-    }
-    .note__day, .note__title, &::after {
+    .note__day, .note__title {
       transition-duration: math.div($dur, 4); 
     }
   }
