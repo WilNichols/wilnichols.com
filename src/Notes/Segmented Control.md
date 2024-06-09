@@ -6,5 +6,8 @@ tags:
   - Prototype
   - Zello
 type: Pen
+preview: 
+  type: vid
+  src: /assets/vid/segmented-control-pen.mp4
 url: 
 ---
