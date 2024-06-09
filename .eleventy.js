@@ -176,7 +176,6 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy({"src/robots.txt": "/robots.txt"});
   eleventyConfig.addPassthroughCopy({"src/static/img": "/assets/img"});
   eleventyConfig.addPassthroughCopy({"src/static/js": "/assets/js"});
-  eleventyConfig.addPassthroughCopy({"src/static/vid": "/assets/vid"});
   eleventyConfig.addPassthroughCopy({"src/static/favicon": "/"});
   
   // CSS Mapping
