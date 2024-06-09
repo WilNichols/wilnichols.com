@@ -36,6 +36,12 @@
   @include light-dark(--tagBackgroundColor, var(--cK90), var(--cK20));
   @include light-dark(--tagBorderColor, var(--cK80), var(--cK30));
   @include light-dark(--tagContentColor, var(--cK30), var(--cK90));
+  @include light-dark(--evergreenBackgroundColor, var(--cG90), var(--cG20));
+  @include light-dark(--evergreenBorderColor, var(--cG80), var(--cG30));
+  @include light-dark(--evergreenContentColor, var(--cG30), var(--cG90));
+  @include light-dark(--evergreenVersionBackgroundColor, var(--cG40), var(--cG50));
+  @include light-dark(--evergreenVersionBorderColor, var(--cG30), var(--cG60));
+  @include light-dark(--evergreenVersionContentColor, var(--c100), var(--c0abs));
   // layout
   --col: calc(100dvw/12);
 }
@@ -292,21 +298,49 @@ a {
   color: var(--contentSecondaryColor);
 }
 
+.note__accessories {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 5px;
+  > li {
+    display: contents;
+  }
+}
+
 .note__type {
+  $r: 4px;
+  $p: 3px 5px;
+  position: relative;
   display: inline-flex;
   justify-self: flex-end;
   // height: 16px;
   line-height: 100%;
-  border-radius: 4px;
+  border-radius: $r;
   background-color: var(--tagBackgroundColor);
   color: var(--tagContentColor);
   box-shadow: inset 0 0 0 1px var(--tagBorderColor);
   font-size: 8pt;
-  padding: 3px 5px;
+  padding: $p;
   letter-spacing: 1px;
   text-transform: uppercase;
   @extend %font--display-medium; 
   @include light-dark(mix-blend-mode, multiply, screen);
+  gap: 5px;
+  overflow: clip;
+  &--evergreen {
+    background-color: var(--evergreenBackgroundColor);
+    color: var(--evergreenContentcolor);
+    box-shadow: inset 0 0 0 1px var(--evergreenBorderColor);
+    &::after {
+      content: attr(data-version);
+      padding: $p;
+      margin: -3px -5px -3px -2px;
+      background-color: var(--evergreenVersionBackgroundColor);
+      color: var(--evergreenVersionContentColor);
+      box-shadow: inset 0 0 0 1px var(--evergreenVersionBorderColor);
+      border-radius: 0 $r $r 0;
+    }
+  }
 }
 
 $t: .2s;
@@ -357,7 +391,7 @@ $t: .2s;
     // prevents flickering with animated pseudo element
     z-index: 1;
   }
-  .note__day, .note__title, .note__type  {
+  .note__day, .note__title, .note__accessories  {
     transition: $t transform ease-out, $t background-color ease-out;
   }
   
@@ -367,10 +401,10 @@ $t: .2s;
     .note__day, .note__title {
       transform: translateX($d);
     }
-    .note__type {
+    .note__accessories {
       transform: translateX(-$d);
     }
-    .note__day, .note__title, .note__type {
+    .note__day, .note__title, .note__accessories {
       transition-duration: math.div($t, 4); 
     }
   }
