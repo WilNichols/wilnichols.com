@@ -278,6 +278,8 @@ a {
   display: grid;
   grid-template-columns: min-content auto min-content;
   row-gap: 1.2em;
+  // TODO: extract this
+  max-width: 400px;
 }
 
 .note-group__month {
@@ -302,6 +304,9 @@ a {
   display: flex;
   flex-direction: row-reverse;
   gap: 5px;
+  min-height: 1.25em;
+  line-height: 1.25em;
+  align-items: center;
   > li {
     display: contents;
   }
@@ -378,23 +383,30 @@ $t: .2s;
   grid-column: 1 / -1;
 }
 
+$note-title-gap: .25em; // the size of a monospaced space character in Neue Haas Grotesk
 .note__link {
   display: grid;
   grid-template-columns: subgrid;
   text-decoration: none;
-  gap: 5px; // the size of a monospaced space character in Neue Haas Grotesk
-  align-items: center;
+  gap: $note-title-gap;
+  align-items: flex-start;
   color: var(--contentPrimaryColor);
   position: relative;
   @extend %listItemBackground;
+  // give more space for title if no accessories
+  .note__title {
+    grid-column: 2 / 4;
+  }  
+  &--with-accessories .note__title {
+    grid-column: 2 / 3;
+  }
+  // prevents flickering with animated pseudo element
   .note__day, .note__title {
-    // prevents flickering with animated pseudo element
     z-index: 1;
   }
   .note__day, .note__title, .note__accessories  {
     transition: $t transform ease-out, $t background-color ease-out;
   }
-  
   &:hover {
     @extend %listItemBackgroundHover;
     $d: .25ex;
@@ -418,11 +430,13 @@ $t: .2s;
   text-decoration: none;
   text-align: right;
   &--hidden {
-    visibility: hidden;
-    
+    visibility: hidden; 
   }
 }
 
+.note__title {
+  padding: 0 $note-title-gap 0 0;
+}
 .page {
   display: grid;
 }
