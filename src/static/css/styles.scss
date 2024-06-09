@@ -285,6 +285,7 @@ a {
 $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas Grotesk
 
 .note-list {
+  grid-column: 2 / 3;
   display: grid;
   grid-template-columns: min-content auto min-content;
   row-gap: 1.2em;
@@ -292,6 +293,7 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
   // TODO: extract this
   max-width: 400px;
   @media (width <= $breakpoint) {
+    grid-column: 1 / -1;
     max-width: unset;
     width: 100%;
   }
@@ -468,7 +470,7 @@ $t: .2s;
   overflow: clip;
   border-radius: 4px;
   position: relative;
-  margin: 2px 0 4px 0; // this offsets the hover effects asymmetrical offsets
+  margin: 2px 0 6px 0; // this offsets the hover effects asymmetrical offsets
   &::before {
     content: '';
     position: absolute;
@@ -500,8 +502,10 @@ $t: .2s;
 }
 
 .page--notes {
-  grid-template-columns: min-content minmax(320px, max-content);
-  gap: 2.4em;
+  // 5.15em is 103px @ full-width, which is the calculated width of the "Wil Nichols" title string. It should be modified to match whatever is the widest item in the sidebar. Adds a little padding in case of different font rendering.
+  grid-template-columns: 10ex minmax(320px, max-content);
+  column-gap: 2.4em;
+  row-gap: 1.2em;
   padding: var(--type-0);
   @media (width <= $breakpoint) {
     grid-template-columns: 100%;
@@ -519,16 +523,27 @@ $t: .2s;
   line-height: 1.2em;
 }
 
+.navigation {
+  position: fixed;
+  @media (width <= $breakpoint) {
+    position: static;
+  }
+}
 
 .navigation__items {
   display: flex;
   flex-direction: column;
   gap: 1.2em;
   align-items: flex-end;
-  place-content: center;
   @media (width <= $breakpoint) {
     flex-direction: row;
     justify-content: space-between;
+  }
+}
+
+@media (width <= $breakpoint) {
+  .nav__title-container {
+    margin: 0 auto 0 0;
   }
 }
 
