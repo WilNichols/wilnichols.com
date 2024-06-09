@@ -14,6 +14,6 @@ preview:
 assets: 
   demo: /assets/embeds/segmented-control/
   html: ../static/embeds/segmented-control/index.html
-  sass: ../static/css/segmented-control.scss
+  scss: ../static/css/segmented-control.scss
 url: 
 ---

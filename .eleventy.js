@@ -42,18 +42,23 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
   
   // Filters
+  
+  eleventyConfig.addFilter("PenAssets", (object) => {
+    return Object.entries(object).filter(([key, _]) => key !== "demo");
+  });
+  
   eleventyConfig.addFilter("PenHTML", string => {
     const content = string.substring(string.indexOf("<!---->") + 7, string.lastIndexOf("<!---->"));
     return beautify.html(content, { indent_size: 2 });
-  })
+  });
   
   eleventyConfig.addFilter("PenSASS", string => {
     return beautify.css(string, { indent_size: 2 });
-  })
+  });
   
   eleventyConfig.addFilter("markdownify", string => {
       return md.render(string)
-  })
+  });
   
   // simple cache busting method from https://rob.cogit8.org/posts/2020-10-28-simple-11ty-cache-busting/
   eleventyConfig.addFilter("bust", (url) => {

@@ -512,7 +512,7 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
   }
 }
 
-.page--note {
+.page--note, .page__pen {
   padding: var(--col);
 }
 
@@ -557,4 +557,25 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
     z-index: 10;
     position: relative;
   }
+}
+
+.pen-tabs__state {
+  position: absolute;
+  inset: 0 auto auto 0;
+  visibility: hidden;
+}
+
+@for $i from 1 through 5 {
+  $tab: "[data-tab-index='tab-#{$i}']";
+  #{$tab}:target {
+    outline: 1px solid red;
+    ~ #{$tab}, ~ * #{$tab} {
+      outline: 1px solid green;
+      display: block;
+    }
+  }
+}
+ 
+.pen-tabs__panes__content {
+  display: none;
 }

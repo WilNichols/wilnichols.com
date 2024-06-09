@@ -24,6 +24,8 @@ $gap: 6px;
   justify-content: space-between;
   width: auto;
   background-color: #F8F8F8;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .item {
