@@ -1,0 +1,133 @@
+fieldset {
+  border: 0;
+}
+
+// use radio buttons for logic, but hide the button itself.
+input {
+  display: none;
+}
+
+// Fun Stuff
+$gap: 6px;
+
+// wrapping control
+.segmented-control {
+  list-style: none;
+  display: grid;
+  grid-auto-columns: 1fr;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  border-radius: 12px;
+  padding: $gap;
+  gap: $gap;
+  justify-content: space-between;
+  width: auto;
+  background-color: #F8F8F8;
+}
+
+.item {
+  white-space: nowrap;
+  width: 100%;
+  display: block;
+  text-align: center;
+  grid-row: 1 / 2;
+  position: relative;
+  padding: 8px 12px;
+  z-index: 10;
+  vertical-align: middle;
+  line-height: 16px;
+  font-size: 16px;
+  will-change: scale;
+  &:hover ~ .effect-container .hover-background {
+    background-color: #E6EFF0;
+  }
+  &:active ~ .effect-container .hover-background {
+    background-color: #DBE7E9;
+  }
+  &:active, &:active ~ .effect-container .hover-background {
+    scale: 0.95;
+  }
+  &:hover ~ .effect-container .hover-background,
+  &:active ~ .effect-container .hover-background {
+    transition-property: translate, background-color, scale;
+    transition-duration: 0s, 0.2s, .1s;
+    transition-timing-function: ease-out;
+    transition-delay: 0, 0, 0;
+  }
+  &:focus-visible {
+    box-shadow: 0 0 0 2px #EF5E14;
+    outline: none;
+  }
+  input:checked + &:focus-visible {
+    box-shadow: none;
+  }
+}
+
+.selected-background,
+.hover-background {
+  position: absolute;
+  z-index: 1;
+}
+
+.selected-background {
+  inset: 0;
+  border-radius: 4px;
+}
+
+.hover-background {
+  border: 1px solid #F8F8F8;
+  inset: 0;
+  border-radius: 4px;
+}
+
+.selected-background {
+  transition: 0.2s translate ease-out;
+  background-color: #FFFFFF;
+  box-shadow: 
+    0px 3px 6px rgba(0, 0, 0, 0.05), 
+    0px 0.9px 1.8px rgba(0, 0, 0, 0.03), 
+    0px 0.38px 0.76px rgba(0, 0, 0, 0.025), 
+    0px 0.14px 0.28px rgba(0, 0, 0, 0.017);
+}
+
+.hover-background {
+  transition-property: translate, background-color, scale;
+  // impossible high duration makes it look like it's not transitioning at all
+  transition-duration: 999999999s, 0.2s, .2s;
+  transition-timing-function: ease-out;
+  background-color: transparent;
+}
+
+.effect-container {
+  position: absolute;
+  inset: $gap;
+}
+
+// This stuff should _not_ be used in production, but gets me the behavior I want w/o JS 
+// props that change depending on number of children, and which item is selected
+@for $i from 1 through 99 {
+  .item:nth-of-type(#{$i}) ~ .effect-container * {
+    --itemCount: #{$i};
+    --itemWidth: calc((100% - (6px * (var(--itemCount) - 1)))/var(--itemCount));
+  }
+  input:nth-of-type(#{$i}):checked  ~ .effect-container, {
+    --selectedItemIndex: #{$i};
+  }
+  input:nth-of-type(#{$i}):hover  ~ .effect-container, {
+    --hoverItemIndex: #{$i};
+  }
+}
+
+// the different offsets depending on which item is selected
+.selected-background, .hover-background {
+  width: calc(var(--itemWidth) - var(--itemWidthModifier, 0px));
+}
+
+.selected-background {
+  translate: calc((100% + #{$gap}) * (var(--selectedItemIndex) - 1)) 0;
+}
+
+.hover-background {
+  translate: calc((100% + #{$gap}) * (var(--hoverItemIndex) - 1)) 0;
+}

@@ -11,5 +11,9 @@ type: Pen
 preview: 
   type: vid
   src: /assets/vid/segmented-control-pen.mp4
+assets: 
+  demo: /assets/embeds/segmented-control/
+  html: ../static/embeds/segmented-control/index.html
+  sass: ../static/css/segmented-control.scss
 url: 
 ---

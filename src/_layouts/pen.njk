@@ -1,0 +1,26 @@
+---
+layout: page.njk
+---
+<div class="page page--note">
+  <main class="note">
+    {% include "title-and-date.njk" %}
+    
+    {% if assets.demo %}
+      <iframe src="{{ assets.demo }}"></iframe>
+    {% endif %}
+    <div class="note__body">
+    {% if assets.html %}
+      {% set html %}{% include assets.html %}{% endset %}
+      {% set sass %}{% include assets.sass %}{% endset %}
+      <div class="code code--html">
+        <pre><code>{% highlight "html" %}{{ html | PenHTML | safe }}{% endhighlight %}</code></pre>
+      </div>
+    {% endif %}
+    {% if assets.sass %}
+      <div class="code code--sass">
+        <pre><code>{% highlight "scss" %}{{ sass | PenSASS | safe }}{% endhighlight %}</code></pre>
+      </div>
+    {% endif %}
+    {% include "backlinks.njk" %}
+  </main>
+</div>

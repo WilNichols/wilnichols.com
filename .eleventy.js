@@ -8,6 +8,8 @@ const { getAverageColor } = require('fast-average-color-node');
 const { S3Client, ListObjectsV2Command } = require("@aws-sdk/client-s3");
 const sizeOf = require('image-size');
 const pluginRss = require("@11ty/eleventy-plugin-rss");
+const beautify = require('js-beautify/js');
+const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 
 module.exports = function(eleventyConfig) {
   eleventyConfig.setQuietMode(true);
@@ -40,6 +42,15 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
   
   // Filters
+  eleventyConfig.addFilter("PenHTML", string => {
+    const content = string.substring(string.indexOf("<!---->") + 7, string.lastIndexOf("<!---->"));
+    return beautify.html(content, { indent_size: 2 });
+  })
+  
+  eleventyConfig.addFilter("PenSASS", string => {
+    return beautify.css(string, { indent_size: 2 });
+  })
+  
   eleventyConfig.addFilter("markdownify", string => {
       return md.render(string)
   })
@@ -179,6 +190,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy({"src/static/img": "/assets/img"});
   eleventyConfig.addPassthroughCopy({"src/static/js": "/assets/js"});
   eleventyConfig.addPassthroughCopy({"src/static/vid": "/assets/vid"});
+  eleventyConfig.addPassthroughCopy({"src/static/embeds": "/assets/embeds"});
   eleventyConfig.addPassthroughCopy({"src/static/favicon": "/"});
   
   // CSS Mapping
@@ -188,6 +200,7 @@ module.exports = function(eleventyConfig) {
   
   // Plugins
   eleventyConfig.addPlugin(pluginRss);
+  eleventyConfig.addPlugin(syntaxHighlight);
   
   // WatchTargets
   eleventyConfig.addWatchTarget("src/static/css/");
