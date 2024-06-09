@@ -17,10 +17,18 @@ layout: page.njk
       {% set noteDay = note.date | postDay %}
       {% set noteMonth = note.data.month %}
       {% set noteYear = note.data.year %}
+      {% set notePrefix %}{% if (currentDay == noteDay) and (currentMonth == noteMonth) %}↳{% else %}{{ noteDay }}{% endif %}{% endset %}
+      {% set showType %}{{ true if (note.data.type != 'Note') }}{% endset %}
       {% if currentMonth != noteMonth %}
         <li class="note-group__month">{% if currentYear != noteYear %}<h2 class="note__year">{{ noteYear }}</h2>{% endif %}<h3 class="note__month">{{ noteMonth }}</h3></li>
       {% endif %}
-      <li class="note"><a href="{{ note.url }}" class="note__link"><span class="note__day">{% if (currentDay == noteDay) and (currentMonth == noteMonth) %} ↳{% else %}{{ noteDay }}{% endif %}</span><span class="note__title">{{ note.data.title }}</span></a></li>
+      <li class="note">
+        <a href="{{ note.url }}" class="note__link">
+          <span class="note__day">{{ notePrefix }}</span>
+          <span class="note__title">{{ note.data.title }}</span>
+          {% if showType %}<span class="note__type">{{ note.data.type }}</span>{% endif %}
+        </a>
+      </li>
       {% set currentDay = noteDay %}
       {% set currentMonth = noteMonth %}
       {% set currentYear = noteYear %}

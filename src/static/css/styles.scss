@@ -1,4 +1,5 @@
 @use 'sass:math';
+@use 'color';
 
 @mixin light-dark($prop, $lightColor, $darkColor: $lightColor) {
   #{$prop}: $lightColor;
@@ -25,14 +26,16 @@
   --type-4: clamp(2.2032rem, 1.8946rem + 1.5428vi, 3.0518rem);
   --type-5: clamp(2.6438rem, 2.2181rem + 2.1288vi, 3.8147rem);
   // colors
-  --contentPrimaryLight: rgb(35, 41, 52);
-  --contentPrimaryDark: rgb(255, 255, 255);
-  --contentSecondaryLight: rgb(151, 157, 168);
-  --contentSecondaryDark: rgb(132, 138, 150);
-  --linkLight: rgb(27, 130, 227);
-  --linkDark: rgb(62, 158, 241);
-  --linkVisitedLight: rgb(177, 45, 203);
-  --linkVisitedDark:rgb(206, 61, 235);
+  @include light-dark(--materialPrimaryColor, var(--c100), var(--c0));
+  @include light-dark(--materialPrimaryHoverColor, var(--cK95), var(--cK5));
+  @include light-dark(--contentPrimaryColor, var(--cK5), var(--c100));
+  @include light-dark(--contentSecondaryColor, var(--cK50), var(--cK60));
+  @include light-dark(--contentTertiaryColor, var(--cK70), var(--cK40));
+  @include light-dark(--linkColor, var(--cB30), var(--cB50));
+  @include light-dark(--linkVisitedColor, var(--cP30), var(--cP50));
+  @include light-dark(--tagBackgroundColor, var(--cK90), var(--cK20));
+  @include light-dark(--tagBorderColor, var(--cK80), var(--cK30));
+  @include light-dark(--tagContentColor, var(--cK30), var(--cK90));
   // layout
   --col: calc(100dvw/12);
 }
@@ -84,7 +87,8 @@ body {
   padding: 0;
   margin: 0;
   min-height: 100dvh;
-  @include light-dark(color, var(--contentPrimaryLight), var(--contentPrimaryDark));
+  background-color: var(--materialPrimaryColor);
+  color: var(--contentPrimaryColor);
 }
 
 h1, h2, h3, h4, h5, h6, p, span {
@@ -115,11 +119,11 @@ p {
 }
 
 a {
-  @include light-dark(color, var(--contentPrimaryLight), var(--contentPrimaryDark));
+  color: var(--contentPrimaryColor);
   p & {
-    @include light-dark(color, var(--linkLight), var(--linkDark));
+    color: var(--linkColor);
     &:visited {
-      @include light-dark(color, var(--linkVisitedLight), var(--linkVisitedDark));
+      color: var(--linkVisitedColor);
     }
   }
 }
@@ -152,7 +156,7 @@ a {
   font-size: var(--type--1);
   @extend %font--text-regular;
   display: block;
-  @include light-dark(color, var(--contentSecondaryLight), var(--contentSecondaryDark));
+  color: var(--contentSecondaryColor);
 
 }
 
@@ -201,7 +205,7 @@ a {
 .backlinks__title {
   font-size: var(--type--1);
   @extend %font--display-medium;
-  @include light-dark(color, var(--contentSecondaryLight), var(--contentSecondaryDark));
+  color: var(--contentSecondaryColor);
 }
 
 .backlinks__list {
@@ -233,7 +237,7 @@ a {
     content: '';
     position: absolute;
     inset: 0;
-    @include light-dark(background-color, var(--contentPrimaryLight), var(--contentPrimaryDark));
+    color: var(--contentPrimaryColor);
     opacity: var(--opacity, 0.05);
     z-index: -10;
   }
@@ -251,7 +255,7 @@ a {
 }
 
 .backlink__title, .backlink__preview {
-  @include light-dark(color, var(--contentPrimaryLight), var(--contentPrimaryDark));
+  color: var(--contentPrimaryColor);
 }
 
 .backlink__preview {
@@ -266,7 +270,7 @@ a {
 
 .note-list {
   display: grid;
-  grid-template-columns: min-content auto;
+  grid-template-columns: min-content auto min-content;
   row-gap: 1.2em;
 }
 
@@ -285,35 +289,52 @@ a {
 }
 
 .note__year, .note__month, .note__day {
-  color: var(--contentSecondaryLight);
+  color: var(--contentSecondaryColor);
 }
 
-$dur: .2s;
-
-%listItemBackground {
-  &::before {
-    content: '';
-    position: absolute;
-    inset: -6px -8px;
-    border-radius: .6em;
-    @include light-dark(background-color, var(--contentPrimaryLight), var(--contentPrimaryDark));
-    opacity: 0;
-    transform: scale(.99);
-    filter: blur(.3em);
-    $dur: $dur * 4;
-    transition: $dur transform ease-out, $dur opacity ease-out, $dur filter ease-out;
-  }
+.note__type {
+  display: inline-flex;
+  justify-self: flex-end;
+  // height: 16px;
+  line-height: 100%;
+  border-radius: 4px;
+  background-color: var(--tagBackgroundColor);
+  color: var(--tagContentColor);
+  box-shadow: inset 0 0 0 1px var(--tagBorderColor);
+  font-size: 8pt;
+  padding: 3px 5px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  @extend %font--display-medium; 
+  @include light-dark(mix-blend-mode, multiply, screen);
 }
 
-%listItemBackgroundHover {
-  &::before {
-    opacity: 0.05;
-    filter: blur(0);
-    transform: scale(1);
-    transition-duration: math.div($dur, 4);
-  }
+$t: .2s;
+
+%listItemBackground::before {
+  content: '';
+  z-index: 0;
+  position: absolute;
+  inset: -6px -8px;
+  border-radius: .6em;
+  background-color: var(--materialPrimaryHoverColor);
+  opacity: 0;
+  will-change: opacity;
+  filter: blur(.3em);
+  $t: $t * 4;
+  transition: $t opacity ease-out, $t filter ease-out;
 }
 
+%listItemBackgroundHover::before {
+  opacity: 1;
+  filter: blur(0);
+  transition-duration: math.div($t, 4);
+}
+
+%listItemBackgroundActive {
+  scale: .99;
+}
+  
 .note {
   // necessary for subgrid
   display: contents;
@@ -329,22 +350,32 @@ $dur: .2s;
   text-decoration: none;
   gap: 5px; // the size of a monospaced space character in Neue Haas Grotesk
   align-items: center;
-  @include light-dark(color, var(--contentPrimaryLight), var(--contentPrimaryDark));
+  color: var(--contentPrimaryColor);
   position: relative;
   @extend %listItemBackground;
-
   .note__day, .note__title {
-    transition: $dur transform ease-out, $dur background-color ease-out;
+    // prevents flickering with animated pseudo element
+    z-index: 1;
+  }
+  .note__day, .note__title, .note__type  {
+    transition: $t transform ease-out, $t background-color ease-out;
   }
   
   &:hover {
     @extend %listItemBackgroundHover;
+    $d: .25ex;
     .note__day, .note__title {
-      transform: translateX(.25ex);
+      transform: translateX($d);
     }
-    .note__day, .note__title {
-      transition-duration: math.div($dur, 4); 
+    .note__type {
+      transform: translateX(-$d);
     }
+    .note__day, .note__title, .note__type {
+      transition-duration: math.div($t, 4); 
+    }
+  }
+  &:active {
+    @extend %listItemBackgroundActive;
   }
 }
 
@@ -395,7 +426,7 @@ $dur: .2s;
   text-decoration: none;
   position: relative;
   @extend %listItemBackground;
-  transition: $dur transform ease-out;
+  transition: $t transform ease-out;
   &:hover {
     @extend %listItemBackgroundHover;
   }

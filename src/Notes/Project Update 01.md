@@ -1,15 +1,13 @@
 ---
 date: 2024-06-02T00:51
 updated: 2024-06-03T23:16
-author:
-  - "[[Wil Nichols]]"
-category:
-  - "[[Notes]]"
+author: Wil Nichols
 tags:
-  - "[[Updates]]"
-  - "[[Building]]"
-status:
-  - "[[Complete]]"
+  - Notes
+  - Updates
+  - topic:Building
+type: Update
+status: Complete
 url: 
 ---
 

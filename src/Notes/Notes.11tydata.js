@@ -8,7 +8,6 @@ module.exports = {
     },
     year: function (data) {
       return new Date(data.date || data.page.date).getFullYear();
-    },
-    /* More cool stuff! */
+    }
   },
 }

@@ -1,15 +1,13 @@
 ---
 date: 2024-02-01T22:55
 updated: 2024-02-16T21:54
+author: Wil Nichols
 tags:
-- notes
-author:
-  - "[[Wil Nichols]]"
+  - Notes
+  - Evergreen
+type: Note
+status: Active
 url: 
-topics:
-  - "[[Evergreen]]"
-status:
-  - "[[Active]]"
 ---
 
 Part of my hangup in completing a portfolio stems from the hopefully misplaced idea that exterior presentation demands the highest degree of polish. Designers know that Dribbble posts are well beyond a realistic pale, but that doesn't prevent a tweaking, twinging intrusion — “oh, it could be better.” Despite knowing that pale skews on multiple axi — not only is the public persona unrealistically polished, it’s simply unbelievable. 
