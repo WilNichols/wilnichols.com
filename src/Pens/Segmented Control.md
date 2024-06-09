@@ -17,4 +17,4 @@ assets:
   scss: ../static/css/segmented-control.scss
 url: 
 ---
-Should UI be written this way? No, but I get a kick out of pushing basic html/css beyond how it's typically used. 
+Should UI be written this way? No, but it's amusing.

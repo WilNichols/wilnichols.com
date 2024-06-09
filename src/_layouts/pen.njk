@@ -6,30 +6,30 @@ layout: page.njk
 {% endfor %}
 <div class="page page--pen">
   <main class="pen">
-  {% include "title-and-date.njk" %}
     <div class="pen__demo">
       {% if assets.demo %}
         <iframe class="demo__iframe "src="{{ assets.demo }}" frameborder="0"></iframe>
       {% endif %}
     </div>
     <div class="pen__body">
+      {% include "title-and-date.njk" %}
       {{ content | safe }}
-    </div>
-    <div class="pen-tabs-container">
-      {% set assets = assets | PenAssets %}
-      <ul class="pen-tabs__toolbar">
-        {% for asset, src in assets %}
-          <li class="pen-tabs__tab" data-tab-index="tab-{{ loop.index }}"><a href="#{{ asset }}">{{ asset }}</a></li>
-        {% endfor %}
-      </ul>
-      <ul class="pen-tabs__panes">
-        {% for asset, src in assets %}
-          <li class="pen-tabs__panes__content" data-tab-index="tab-{{ loop.index }}">
-            {% set code %}{% include src %}{% endset %}
-            {% if asset == "html" %}{% highlight "html" %}{{ code | PenHTML | safe }}{% endhighlight %}{% elif asset == "scss" %}{% highlight "scss" %}{{ code | PenSASS | safe }}{% endhighlight %}{% else %}{% highlight %}{{ code | safe }}{% endhighlight %}{% endif %}
-          </li>
-        {% endfor %}
-      </ul>
+      <div class="pen-tabs-container">
+        {% set assets = assets | PenAssets %}
+        <ul class="pen-tabs__toolbar">
+          {% for asset, src in assets %}
+            <li class="pen-tabs__tab" data-tab-index="tab-{{ loop.index }}"><a href="#{{ asset }}">{{ asset }}</a></li>
+          {% endfor %}
+        </ul>
+        <ul class="pen-tabs__panes">
+          {% for asset, src in assets -%}
+            <li class="pen-tabs__panes__content" data-tab-index="tab-{{ loop.index }}">
+              {% set code %}{% include src %}{% endset %}
+              {% if asset == "html" %}{% highlight "html" %}{{ code | PenHTML | safe }}{% endhighlight %}{% elif asset == "scss" %}{% highlight "scss" %}{{ code | PenSASS | safe }}{% endhighlight %}{% else %}{% highlight "html" %}{{ code | safe }}{% endhighlight %}{% endif %}
+            </li>
+          {%- endfor %}
+        </ul>
+      </div>
     </div>
     {% include "backlinks.njk" %}
   </main>

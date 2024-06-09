@@ -101,12 +101,14 @@ body {
   line-height: 1.2em;
   @extend %font--text-regular;
   display: grid;
-  place-content: center;
+  justify-content: center;
+  align-content: start;
   padding: 0;
   margin: 0;
   min-height: 100dvh;
   background-color: var(--materialPrimaryColor);
   color: var(--contentPrimaryColor);
+  scrollbar-gutter: stable both-edges;
 }
 
 h1, h2, h3, h4, h5, h6, p, span {
@@ -146,6 +148,10 @@ a {
   }
 }
 
+main {
+  overflow: hidden;
+}
+
 .note__header {
   display: inline-flex;
   flex-direction: column;
@@ -177,7 +183,7 @@ a {
   color: var(--contentSecondaryColor);
 }
 
-.note__body p {
+.note__body, .pen__body p {
   line-height: 1.5em;
 }
 
@@ -515,7 +521,10 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
   }
 }
 
-.page--note, .page__pen {
+.page--note, .page--pen {
+  max-width: calc(30 * var(--type-0));
+  width: 100%;
+  box-sizing: content-box;
   padding: var(--col);
 }
 
@@ -563,34 +572,49 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
 }
 
 .pen-tabs__state {
-  position: absolute;
-  inset: 0 auto auto 0;
-  visibility: hidden;
+  display: none;
 }
 
+
+%selectedTab {
+  display: block;
+  background-color: var(--materialPrimaryColor);
+  box-shadow: 
+    var(--px) 0 0 var(--tagBorderColor), 
+    calc(-1 * var(--px)) 0 0 var(--tagBorderColor),
+    0 var(--px) 0 var(--materialPrimaryColor);
+}
+%selectedPanel {
+  display: block;
+  background-color: var(--materialPrimaryColor);
+}
 @for $i from 1 through 5 {
   $tab: "[data-tab-index='tab-#{$i}']";
   #{$tab}:target {
     // selected tab in toolbar
     ~ * .pen-tabs__tab#{$tab} {
-      display: block;
-      background-color: var(--materialPrimaryColor);
-      box-shadow: 
-        var(--px) 0 0 var(--tagBorderColor), 
-        calc(-1 * var(--px)) 0 0 var(--tagBorderColor),
-        0 var(--px) 0 var(--materialPrimaryColor);
+      @extend %selectedTab;
     }
     // selected tab pane
     ~ * .pen-tabs__panes__content#{$tab} {
-      display: block;
-      background-color: var(--materialPrimaryColor);
+      @extend %selectedPanel;
     }
   }
 }
- 
-.pen-tabs__panes {
-  display: flex;
+// Default selected tab
+$default-tab: "[data-tab-index='tab-1']";
+
+// for the default tab without a following :target item
+#{$default-tab}:not(:has(~ *:target)) {
+  ~ * .pen-tabs__tab#{$default-tab} {
+    @extend %selectedTab;
+  }
+  // selected tab pane
+  ~ * .pen-tabs__panes__content#{$default-tab} {
+    @extend %selectedPanel;
+  }
 }
+ 
 .pen-tabs__panes__content {
   display: none;
 }
@@ -621,13 +645,12 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
 .pen-tabs-container {
   $r: 4px;
   border-radius: $r;
-  display: flex;
-  flex-direction: column;
-  gap: var(--px);
+  display: grid;
+  row-gap: var(--px);
   background-clip: border-box;  
   position: relative;
   background-color: var(--materialSecondaryColor);
-  overflow: clip;
+  overflow: hidden;
   &::before {
     content: '';
     position: absolute;
@@ -640,9 +663,13 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
   }
 }
 
+.pen-tabs__panes {
+  grid-row: 2;
+}
+
 .pen-tabs__toolbar {
   display: flex;
-  flex-direction: row;
+  grid-row: 1;
   box-shadow: 0 0 0 var(--px) var(--tagBorderColor);
 }
 
@@ -657,4 +684,7 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
 
 .pen-tabs__panes__content {
   width: 100%;
+  max-width: 100%;
 }
+
+
