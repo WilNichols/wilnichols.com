@@ -13,7 +13,7 @@ layout: page.njk
     {% set currentDay = "" %}
     {% set currentMonth = "" %}
     {% set currentYear = "" %}
-    {% for note in collections.notes | reverse %}
+    {% for note in collections.Notes | reverse %}
       {% set noteDay = note.date | postDay %}
       {% set noteMonth = note.data.month %}
       {% set noteYear = note.data.year %}
