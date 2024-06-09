@@ -26,6 +26,15 @@ layout: page.njk
       {% endif %}
       <li class="note">
         <a href="{{ note.url }}" class="note__link{{ ' note__link--with-accessories' if showAccessories }}">
+          {% if note.data.preview %}
+            <div class="note__preview">
+              {% if note.data.preview.type == 'vid' %}
+                <video width="400" poster="{{ note.data.preview.src | replace('.mp4', '-poster.png')}}" autoplay loop muted playsinline>
+                  <source src="{{ note.data.preview.src }}" type="video/mp4" />
+                </video>
+              {% endif %}
+            </div>
+          {% endif %}
           <span class="note__day">{{ notePrefix }}</span>
           <span class="note__title">{{ note.data.title }}</span>
           {% if showAccessories %}
