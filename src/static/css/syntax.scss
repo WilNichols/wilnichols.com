@@ -1,0 +1,117 @@
+/**
+ * okaidia theme for JavaScript, CSS and HTML
+ * Loosely based on Monokai textmate theme by http://www.monokai.nl/
+ * @author ocodia
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+  color: var(--contentPrimaryColor);
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  font-size: var(--type--2);
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.5;
+  -moz-tab-size: 2;
+  -o-tab-size: 2;
+  tab-size: 2;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+  --commentColor: var(--contentSecondaryColor);
+  --punctuationColor: var(--contentSecondaryColor);
+  --varColor: light-dark(var(--cP40), vaR(--cP50));
+  --namespaceColor: var(--contentSecondaryColor);
+  --propColor: light-dark(var(--cB30), var(--cB50));
+  --numColor: light-dark(var(--cR40), var(--cR50));
+  --selColor: light-dark(var(--cG40), var(--cG50));
+  --funcColor: var(--contentPrimaryColor);
+  --keyColor: light-dark(var(--cO40), var(--cO50));
+  --importantColor: light-dark(var(--cO50), var(--cO60));
+  
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: 1em;
+  overflow: auto;
+  margin: 0;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: var(--commentColor);
+}
+
+.token.punctuation {
+  color: var(--punctuationColor);
+}
+
+.token.namespace {
+  // opacity: .7;
+  color: var(--namespaceColor);
+}
+
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: var(--propColor);
+}
+
+.token.boolean,
+.token.number {
+  color: var(--numColor);
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: var(--selColor);
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string,
+.token.variable {
+  color: var(--varColor);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.function,
+.token.class-name {
+  color: var(--funcColor);
+}
+
+.token.keyword {
+  color: var(--keyColor);
+}
+
+.token.regex,
+.token.important {
+  color: var(--importantColor);
+}
+
+.token.entity {
+  cursor: help;
+}

@@ -1,5 +1,6 @@
 @use 'sass:math';
 @use 'color';
+@use 'syntax';
 
 @mixin light-dark($prop, $lightColor, $darkColor: $lightColor) {
   #{$prop}: $lightColor;
@@ -28,6 +29,8 @@
   // colors
   @include light-dark(--materialPrimaryColor, var(--c100), var(--c0));
   @include light-dark(--materialPrimaryHoverColor, var(--cK95), var(--cK5));
+  @include light-dark(--materialSecondaryColor, var(--cK95), var(--cK5));
+  @include light-dark(--materialSecondaryHoverColor, var(--cK90), var(--cK10));
   @include light-dark(--contentPrimaryColor, var(--cK5), var(--c100));
   @include light-dark(--contentSecondaryColor, var(--cK50), var(--cK60));
   @include light-dark(--contentTertiaryColor, var(--cK70), var(--cK40));
@@ -568,14 +571,90 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
 @for $i from 1 through 5 {
   $tab: "[data-tab-index='tab-#{$i}']";
   #{$tab}:target {
-    outline: 1px solid red;
-    ~ #{$tab}, ~ * #{$tab} {
-      outline: 1px solid green;
+    // selected tab in toolbar
+    ~ * .pen-tabs__tab#{$tab} {
       display: block;
+      background-color: var(--materialPrimaryColor);
+      box-shadow: 
+        var(--px) 0 0 var(--tagBorderColor), 
+        calc(-1 * var(--px)) 0 0 var(--tagBorderColor),
+        0 var(--px) 0 var(--materialPrimaryColor);
+    }
+    // selected tab pane
+    ~ * .pen-tabs__panes__content#{$tab} {
+      display: block;
+      background-color: var(--materialPrimaryColor);
     }
   }
 }
  
+.pen-tabs__panes {
+  display: flex;
+}
 .pen-tabs__panes__content {
   display: none;
+}
+
+.pen__demo {
+  $r: 4px;
+  border-radius: $r;
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: clip;
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: $r;
+    $s: 0 0 0 var(--px) var(--tagBorderColor);
+    box-shadow: inset $s, $s;
+    user-select: none;
+    pointer-events: none;
+  }
+  iframe {
+    border: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+  
+.pen-tabs-container {
+  $r: 4px;
+  border-radius: $r;
+  display: flex;
+  flex-direction: column;
+  gap: var(--px);
+  background-clip: border-box;  
+  position: relative;
+  background-color: var(--materialSecondaryColor);
+  overflow: clip;
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: $r;
+    $s: 0 0 0 var(--px) var(--tagBorderColor);
+    box-shadow: inset $s, $s;
+    user-select: none;
+    pointer-events: none;
+  }
+}
+
+.pen-tabs__toolbar {
+  display: flex;
+  flex-direction: row;
+  box-shadow: 0 0 0 var(--px) var(--tagBorderColor);
+}
+
+.pen-tabs__tab {
+  font-size: 10pt;
+  padding: 0 8px;
+  a {
+    text-decoration: none;
+    @extend %font--display-medium;
+  }
+}
+
+.pen-tabs__panes__content {
+  width: 100%;
 }

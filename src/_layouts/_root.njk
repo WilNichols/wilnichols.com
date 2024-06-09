@@ -14,12 +14,6 @@
     <title>{{ meta.title.base }}{{ meta.title.separator if page.title }}{{ page.title }}</title>
     <link rel="stylesheet" href="{{ '/assets/css/styles.css' | url | bust }}">
     <link rel="stylesheet" href="https://use.typekit.net/unc0ogx.css">
-    {% if layout == "pen.njk" %}
-    <link
-      href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css"
-      rel="stylesheet"
-    />
-    {% endif %}
   </head>
   <body>
     {{ content | safe }}
