@@ -42,7 +42,7 @@
   @include light-dark(--evergreenVersionBackgroundColor, var(--cG40), var(--cG50));
   @include light-dark(--evergreenVersionBorderColor, var(--cG30), var(--cG60));
   @include light-dark(--evergreenVersionContentColor, var(--c100), var(--c0abs));
-  @include light-dark(--edgeColor, var(--cK90a), var(--cK10d));
+  @include light-dark(--edgeColor, var(--cK80a), var(--cK20d));
   // layout
   --px: calc(1px / var(--density, 1));
   @media (-webkit-min-device-pixel-ratio: 2) {
@@ -95,6 +95,7 @@ $breakpoint: 480px;
 
 body {
   font-size: var(--type-0);
+  line-height: 1.2em;
   @extend %font--text-regular;
   display: grid;
   place-content: center;
@@ -171,7 +172,6 @@ a {
   @extend %font--text-regular;
   display: block;
   color: var(--contentSecondaryColor);
-
 }
 
 .note__body p {
@@ -282,10 +282,13 @@ a {
   }
 }
 
+$note-title-gap: .25em; // the size of a monospaced space character in Neue Haas Grotesk
+
 .note-list {
   display: grid;
   grid-template-columns: min-content auto min-content;
   row-gap: 1.2em;
+  column-gap: $note-title-gap;
   // TODO: extract this
   max-width: 400px;
   @media (width <= $breakpoint) {
@@ -316,8 +319,8 @@ a {
   display: flex;
   flex-direction: row-reverse;
   gap: 5px;
-  min-height: 1.25em;
-  line-height: 1.25em;
+  min-height: 1.2em;
+  line-height: 1.2em;
   align-items: center;
   > li {
     display: contents;
@@ -397,12 +400,30 @@ $t: .2s;
   grid-column: 1 / -1;
 }
 
-$note-title-gap: .25em; // the size of a monospaced space character in Neue Haas Grotesk
+.note-list__copyright {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / -1;
+  gap: 5px;
+  .copyright__glyph {
+    color: var(--contentTertiaryColor);
+    text-align: right;
+  }
+  .copyright__text {
+    color: var(--contentSecondaryColor);
+    grid-column: 2 / 4;
+  }
+  .copyright__glyph, .copyright__text {
+    font-size: var(--type--2);
+    line-height: 1em;
+  }
+}
+
+
 .note__link {
   display: grid;
   grid-template-columns: subgrid;
   text-decoration: none;
-  gap: $note-title-gap;
   align-items: flex-start;
   color: var(--contentPrimaryColor);
   position: relative;
@@ -447,6 +468,7 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
   overflow: clip;
   border-radius: 4px;
   position: relative;
+  margin: 2px 0 4px 0; // this offsets the hover effects asymmetrical offsets
   &::before {
     content: '';
     position: absolute;
@@ -479,7 +501,7 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
 
 .page--notes {
   grid-template-columns: min-content minmax(320px, max-content);
-  gap: 1.2em;
+  gap: 2.4em;
   padding: var(--type-0);
   @media (width <= $breakpoint) {
     grid-template-columns: 100%;
@@ -494,13 +516,16 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
 
 .nav__title {
   @extend %font--display-black;
+  line-height: 1.2em;
 }
+
 
 .navigation__items {
   display: flex;
   flex-direction: column;
   gap: 1.2em;
   align-items: flex-end;
+  place-content: center;
   @media (width <= $breakpoint) {
     flex-direction: row;
     justify-content: space-between;
@@ -514,5 +539,9 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
   transition: $t transform ease-out;
   &:hover {
     @extend %listItemBackgroundHover;
+  }
+  span {
+    z-index: 10;
+    position: relative;
   }
 }

@@ -37,6 +37,8 @@ module.exports = function(eleventyConfig) {
   
   eleventyConfig.setLibrary('md', md);
   
+  eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
+  
   // Filters
   eleventyConfig.addFilter("markdownify", string => {
       return md.render(string)
