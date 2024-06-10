@@ -3,8 +3,8 @@ title: Roe v. Wade 1
 key: Roe1
 thumbnail: DSCF1061.jpg
 tags:
-  - -Group/Demonstration
-  - -Group/Roe-V-Wade
+  - Group/Demonstration
+  - Group/Roe-V-Wade
   - Camera/XT-2
   - Location/Austin
   - Location/Texas

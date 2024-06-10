@@ -3,7 +3,7 @@ title: The Election
 key: TheElection
 thumbnail: DSCF3584.jpg
 tags:
-  - -Group/Demonstration
+  - Group/Demonstration
   - Camera/XT-1
   - Location/Austin
   - Location/Texas

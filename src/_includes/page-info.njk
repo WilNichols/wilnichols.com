@@ -22,7 +22,7 @@
         <ul class="page-info__entry__value note__accessories">
           {% for tag in tags %}
             {% if 'Topic/' in tag %}
-              {% set label %}{{ tag | lower | replace('Topic/', '') }}{% endset %}
+              {% set label %}{{ tag | replace('Topic/', '') | lower }}{% endset %}
               <li><span class="note__type note__type--{{ label }}">{{ label }}</span></li>
             {% endif %}
           {% endfor %}
