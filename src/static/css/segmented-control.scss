@@ -1,3 +1,5 @@
+@use 'color';
+
 fieldset {
   border: 0;
 }
@@ -23,7 +25,7 @@ $gap: 6px;
   gap: $gap;
   justify-content: space-between;
   width: auto;
-  background-color: #F8F8F8;
+  background-color: light-dark(var(--cK95, #F8F8F8), var(--cK1, #F8F8F8));
   user-select: none;
   -webkit-user-select: none;
 }
@@ -42,10 +44,10 @@ $gap: 6px;
   font-size: 16px;
   will-change: scale;
   &:hover ~ .effect-container .hover-background {
-    background-color: #E6EFF0;
+    background-color: light-dark(var(--cK90, #E6EFF0), var(--cK5, #E6EFF0));
   }
   &:active ~ .effect-container .hover-background {
-    background-color: #DBE7E9;
+    background-color: light-dark(var(--cK80, #DBE7E9), var(--cK10, #DBE7E9));
   }
   &:active, &:active ~ .effect-container .hover-background {
     scale: 0.95;
@@ -58,7 +60,7 @@ $gap: 6px;
     transition-delay: 0, 0, 0;
   }
   &:focus-visible {
-    box-shadow: 0 0 0 2px #EF5E14;
+    box-shadow: 0 0 0 2px light-dark(var(--cB50, #EF5E14), var(--cB60, #EF5E14));
     outline: none;
   }
   input:checked + &:focus-visible {
@@ -78,14 +80,14 @@ $gap: 6px;
 }
 
 .hover-background {
-  border: 1px solid #F8F8F8;
+  border: 1px solid light-dark(var(--cK95, #F8f8f8), var(--cK1, #F8f8f8));
   inset: 0;
   border-radius: 4px;
 }
 
 .selected-background {
   transition: 0.2s translate ease-out;
-  background-color: #FFFFFF;
+  background-color: light-dark(var(--c100, #F8f8f8), var(--cK20, #F8f8f8));
   box-shadow: 
     0px 3px 6px rgba(0, 0, 0, 0.05), 
     0px 0.9px 1.8px rgba(0, 0, 0, 0.03), 
@@ -111,7 +113,7 @@ $gap: 6px;
 @for $i from 1 through 99 {
   .item:nth-of-type(#{$i}) ~ .effect-container * {
     --itemCount: #{$i};
-    --itemWidth: calc((100% - (6px * (var(--itemCount) - 1)))/var(--itemCount));
+    --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
   }
   input:nth-of-type(#{$i}):checked  ~ .effect-container, {
     --selectedItemIndex: #{$i};

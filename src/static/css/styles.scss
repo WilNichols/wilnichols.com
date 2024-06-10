@@ -45,7 +45,7 @@
   @include light-dark(--evergreenVersionBackgroundColor, var(--cG40), var(--cG50));
   @include light-dark(--evergreenVersionBorderColor, var(--cG30), var(--cG60));
   @include light-dark(--evergreenVersionContentColor, var(--c100), var(--c0abs));
-  @include light-dark(--edgeColor, var(--cK80a), var(--cK20d));
+  @include light-dark(--edgeColor, var(--cK80a), var(--cK10d));
   // layout
   --px: calc(1px / var(--density, 1));
   @media (-webkit-min-device-pixel-ratio: 2) {
@@ -656,8 +656,8 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
   display: block;
   background-color: var(--materialPrimaryColor);
   box-shadow: 
-    var(--px) 0 0 var(--tagBorderColor), 
-    calc(-1 * var(--px)) 0 0 var(--tagBorderColor),
+    var(--px) 0 0 var(--edgeColor), 
+    calc(-1 * var(--px)) 0 0 var(--edgeColor),
     0 var(--px) 0 var(--materialPrimaryColor);
 }
 %selectedPanel {
@@ -706,7 +706,7 @@ $default-tab: "[data-tab-index='tab-1']";
     position: absolute;
     inset: 0;
     border-radius: $r;
-    $s: 0 0 0 var(--px) var(--tagBorderColor);
+    $s: 0 0 0 var(--px) var(--edgeColor);
     box-shadow: inset $s, $s;
     user-select: none;
     pointer-events: none;
@@ -732,7 +732,7 @@ $default-tab: "[data-tab-index='tab-1']";
     position: absolute;
     inset: 0;
     border-radius: $r;
-    $s: 0 0 0 var(--px) var(--tagBorderColor);
+    $s: 0 0 0 var(--px) var(--edgeColor);
     box-shadow: inset $s, $s;
     user-select: none;
     pointer-events: none;
@@ -746,7 +746,7 @@ $default-tab: "[data-tab-index='tab-1']";
 .pen-tabs__toolbar {
   display: flex;
   grid-row: 1;
-  box-shadow: 0 0 0 var(--px) var(--tagBorderColor);
+  box-shadow: 0 0 0 var(--px) var(--edgeColor);
 }
 
 .pen-tabs__tab {
