@@ -3,10 +3,9 @@ date: 2024-06-02T00:51
 updated: 2024-06-03T23:16
 author: Wil Nichols
 tags:
-  - Updates
+  - Status/Complete
   - Topic/Building
-type: Update
-status: Complete
+  - Type/Update
 url: 
 ---
 

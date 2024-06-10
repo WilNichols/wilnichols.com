@@ -3,9 +3,10 @@ date: 2024-06-03T17:58
 updated: 2024-06-03T23:16
 author: Wil Nichols
 tags:
+  - Evergreen/v1
+  - Status/Active
   - Topic/Industry
-type: Note
-status: Active
+  - Type/Note
 url: 
 ---
 

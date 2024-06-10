@@ -2,8 +2,9 @@
 date: 2024-01-30T12:30
 updated: 2024-02-16T21:57
 author: Wil Nichols
-type: Note
-status: Active
+tag:
+  - Type/Note
+  - Status/Complete
 url: 
 ---
 

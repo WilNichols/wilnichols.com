@@ -3,11 +3,11 @@ date: 2024-06-08T11:58
 updated: 2024-06-08T11:58
 author: Wil Nichols
 tags:
-  - Topic/Prototype
-  - Topic/HTML
   - Topic/CSS
+  - Topic/HTML
   - Topic/no-JS
-type: Pen
+  - Topic/Prototype
+  - Type/Pen
 preview: 
   type: vid
   src: /assets/vid/segmented-control-pen.mp4
