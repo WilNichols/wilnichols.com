@@ -3,5 +3,4 @@
 {% set updated %}{{ updated | readableDateISO }}{% endset %}
 <div class="note__header">
   <h1 class="page__title">{{ title | safe }}</h1>
-  <span class="page__subtitle">Published {{ date }}.{% if (date != updated) %} Updated {{ updated }}.{% endif %}</span>
 </div>

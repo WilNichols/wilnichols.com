@@ -389,7 +389,7 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
     background-color: var(--evergreenBackgroundColor);
     color: var(--evergreenContentcolor);
     box-shadow: inset 0 0 0 var(--px) var(--evergreenBorderColor);
-    &::after {
+    &[data-version]::after {
       content: attr(data-version);
       padding: $p;
       margin: -3px -5px -3px -2px;
@@ -401,7 +401,7 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
   }
 }
 
-.note {
+.note-list .note {
   // necessary for subgrid
   display: contents;
 }
@@ -504,16 +504,20 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
 .note__title {
   padding: 0 $note-title-gap 0 0;
 }
+
 .page {
   display: grid;
+  padding: var(--col);
+  width: 100dvw;
+  min-height: 100dvh;
+  column-gap: 2.4em;
+  row-gap: 1.2em;
 }
 
 .page--notes {
-  // 5.15em is 103px @ full-width, which is the calculated width of the "Wil Nichols" title string. It should be modified to match whatever is the widest item in the sidebar. Adds a little padding in case of different font rendering.
-  grid-template-columns: 10ex minmax(320px, max-content);
-  column-gap: 2.4em;
-  row-gap: 1.2em;
-  padding: var(--type-0);
+  grid-template-columns: min-content minmax(320px, max-content);
+  align-items: start;
+  justify-content: center;
   @media (width <= $breakpoint) {
     grid-template-columns: 100%;
     grid-template-rows: min-content auto;
@@ -522,10 +526,13 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
 }
 
 .page--note, .page--pen {
-  max-width: calc(30 * var(--type-0));
-  width: 100%;
-  box-sizing: content-box;
-  padding: var(--col);
+  grid-template-columns: auto clamp(320px, 100%, $width);
+  align-items: start;
+  justify-content: center;
+  main {
+    grid-column: 2 / 3;
+    width: 100%;
+  }
 }
 
 .nav__title {
@@ -534,7 +541,8 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
 }
 
 .navigation {
-  position: fixed;
+  position: sticky;
+  top: var(--col);
   @media (width <= $breakpoint) {
     position: static;
   }
@@ -683,8 +691,19 @@ $default-tab: "[data-tab-index='tab-1']";
 }
 
 .pen-tabs__panes__content {
-  width: 100%;
-  max-width: 100%;
+  overflow: hidden;
+  max-width: $width;
+  pre, code {
+    max-width: $width;
+  }
 }
 
-
+.page-info {
+  display: flex;
+  position: sticky;
+  top: var(--column);
+  flex-direction: column;
+  font-size: var(--type--2);
+  color: var(--colorContentSecondary);
+  text-wrap: pre; 
+}

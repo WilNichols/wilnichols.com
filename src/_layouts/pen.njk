@@ -5,14 +5,15 @@ layout: page.njk
   <a class="pen-tabs__state" id="{{ asset }}" data-tab-index="tab-{{ loop.index }}">{{ asset }}</a>
 {% endfor %}
 <div class="page page--pen">
+  {% include "page-info.njk" %}
   <main class="pen">
     <div class="pen__demo">
       {% if assets.demo %}
         <iframe class="demo__iframe "src="{{ assets.demo }}" frameborder="0"></iframe>
       {% endif %}
     </div>
+    {% include "title-and-date.njk" %}
     <div class="pen__body">
-      {% include "title-and-date.njk" %}
       {{ content | safe }}
       <div class="pen-tabs-container">
         {% set assets = assets | PenAssets %}

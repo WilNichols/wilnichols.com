@@ -1,0 +1,33 @@
+{% set title %}{{ altTitle if altTitle }}{{ page.fileSlug if not altTitle }}{% endset %}
+{% set date %}{{ date | readableDateISO }}{% endset %}
+{% set updated %}{{ updated | readableDateISO }}{% endset %}
+{# {% set showType %}{{ true if (page.data.type != 'Note') }}{% endset %} #}
+
+{% set isEvergreen %}{{ true if ("Evergreen" in tags) }}{% endset %}
+{% set showTags = true %}
+<aside class="page-info">
+  <ul class="page-info__list">
+    <li class="page-info__entry"><a href="../">Back</a></li>
+    <li class="page-info__entry"><span class="page-info__entry__key">Published: </span><span class="page-info__entry__value">{{ date }}</span></li>
+    {%- if (date != updated) -%}
+      <li class="page-info__entry"><span class="page-info__entry__key">Updated: </span><span class="page-info__entry__value">{{ updated }}</span></li>
+    {%- endif -%}
+    {{ tags }}
+    {%- if isEvergreen -%}
+      <li class="page-info__entry"><span class="page-info__entry__key">Revision: </span><span class="page-info__entry__value">{{ version }}</span></li>
+    {%- endif -%}
+    {% if showTags %}
+      <li class="page-info__entry page-info__tags">
+        <span class="page-info__entry__key">Tags: </span>
+        <ul class="page-info__entry__value note__accessories">
+          {% for tag in tags %}
+            {% if 'topic:' in tag %}
+              {% set label %}{{ tag | lower | replace('topic:', '') }}{% endset %}
+              <li><span class="note__type note__type--{{ label }}">{{ label }}</span></li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </li>
+    {% endif %}
+  </ul>
+</aside>

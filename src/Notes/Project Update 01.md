@@ -3,7 +3,6 @@ date: 2024-06-02T00:51
 updated: 2024-06-03T23:16
 author: Wil Nichols
 tags:
-  - Notes
   - Updates
   - topic:Building
 type: Update

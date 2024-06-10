@@ -13,13 +13,13 @@ layout: page.njk
     {% set currentDay = "" %}
     {% set currentMonth = "" %}
     {% set currentYear = "" %}
-    {% for note in collections.Notes | reverse %}
+    {% for note in collections.all | reverse %}
       {% set noteDay = note.date | postDay %}
       {% set noteMonth = note.data.month %}
       {% set noteYear = note.data.year %}
       {% set notePrefix %}{% if (currentDay == noteDay) and (currentMonth == noteMonth) %}↳{% else %}{{ noteDay }}{% endif %}{% endset %}
       {% set showType %}{{ true if (note.data.type != 'Note') }}{% endset %}
-      {% set isEvergreen %}{{ true if ("Evergreen" in note.data.tags) }}{% endset %}
+      {% set isEvergreen %}{{ true if (note.data.tags) and ("Evergreen" in note.data.tags) }}{% endset %}
       {% set showAccessories %}{{ true if showType or isEvergreen }}{% endset %}
       {% if currentMonth != noteMonth %}
         <li class="note-group__month">{% if currentYear != noteYear %}<h2 class="note__year">{{ noteYear }}</h2>{% endif %}<h3 class="note__month">{{ noteMonth }}</h3></li>

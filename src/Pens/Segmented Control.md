@@ -3,10 +3,10 @@ date: 2024-06-08T11:58
 updated: 2024-06-08T11:58
 author: Wil Nichols
 tags:
-  - Pen
-  - Notes
-  - Prototype
-  - Zello
+  - topic:Prototype
+  - topic:HTML
+  - topic:CSS
+  - topic:no-JS
 type: Pen
 preview: 
   type: vid
