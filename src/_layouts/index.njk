@@ -1,6 +1,7 @@
 ---
 layout: page.njk
 ---
+{% from "../_includes/tag.njk" import tag as tagButton %}
 <div class="page page--notes">
   <nav class="navigation">
     <ul class="navigation__items">
@@ -18,9 +19,7 @@ layout: page.njk
       {% set noteMonth = note.data.month %}
       {% set noteYear = note.data.year %}
       {% set notePrefix %}{% if (currentDay == noteDay) and (currentMonth == noteMonth) %}↳{% else %}{{ noteDay }}{% endif %}{% endset %}
-      {% set showType %}{{ true if (note.data.type != 'Note') }}{% endset %}
-      {% set isEvergreen %}{{ true if (note.data.tags) and ("Evergreen" in note.data.tags) }}{% endset %}
-      {% set showAccessories %}{{ true if showType or isEvergreen }}{% endset %}
+      {% set showAccessories %}{% for tag in note.data.tags %}{{ true if ("Type/" in tag) and not ("Type/Note" in tag)}}{% endfor %}{% endset %}
       {% if currentMonth != noteMonth %}
         <li class="note-group__month">{% if currentYear != noteYear %}<h2 class="note__year">{{ noteYear }}</h2>{% endif %}<h3 class="note__month">{{ noteMonth }}</h3></li>
       {% endif %}
@@ -39,8 +38,7 @@ layout: page.njk
           <span class="note__title">{{ note.data.title }}</span>
           {% if showAccessories %}
             <ul class="note__accessories">
-              {% if showType %}<li><span class="note__type note__type--{{ note.data.type | lower }}">{{ note.data.type }}</span></li>{% endif %}
-              {% if isEvergreen %}<li><span class="note__type note__type--evergreen" data-version="{{ note.data.version }}">Evergreen</span></li>{% endif %}
+              {% for tag in note.data.tags %}{% if ("Type/" in tag) %}  <li>{{ tagButton(tag) }}</li>{% endif %}{% endfor %}
             </ul>
           {% endif %}
         </a>

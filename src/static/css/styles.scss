@@ -140,7 +140,7 @@ p {
 
 a {
   color: var(--contentPrimaryColor);
-  p & {
+  p &, .page-info & {
     color: var(--linkColor);
     &:visited {
       color: var(--linkVisitedColor);
@@ -155,7 +155,9 @@ main {
 .note__header {
   display: inline-flex;
   flex-direction: column;
-  margin: 0 auto 1.25em 0;
+  h1 {
+    margin: 0;
+  }
 }
 
 @for $i from 1 through 6 {
@@ -213,7 +215,6 @@ main {
 
   } 
 }
-
 
 $t: .2s;
 
@@ -526,12 +527,79 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
 }
 
 .page--note, .page--pen {
-  grid-template-columns: auto clamp(320px, 100%, $width);
-  align-items: start;
+  grid-template-columns: auto clamp(240px, min-content, $width);
+  @media (width <= $breakpoint) { 
+    grid-template-columns: 100%;
+  }
+  grid-template-rows: auto;
   justify-content: center;
-  main {
+}
+
+.page--note {
+  .back-to-index {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+  }
+  .page-info {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    @media (width <= $breakpoint) { 
+      grid-column: 1 / -1;
+    }
+  }
+  .note__header {
     grid-column: 2 / 3;
-    width: 100%;
+    grid-row: 1 / 2;
+    @media (width <= $breakpoint) { 
+      grid-column: 1 / -1;
+    }
+  }
+  .note__body {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    @media (width <= $breakpoint) { 
+      grid-column: 1 / -1;
+      grid-row: 3 / 4;
+    }
+  }
+}
+
+.page--pen {
+  .back-to-index {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+  }
+  .page-info {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    @media (width <= $breakpoint) { 
+      grid-column: 1 / -1;
+      grid-row: 2 / 3;
+    }
+  }
+  .pen__demo {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    @media (width <= $breakpoint) { 
+      grid-column: 1 / -1;
+      grid-row: 3 / 4;
+    }
+  }
+  .note__header {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    @media (width <= $breakpoint) { 
+      grid-column: 1 / -1;
+      grid-row: 1 / 2;
+    }
+  }
+  .pen__body {
+    grid-column: 2 / 3;
+    grid-row: 3 / 4;
+    @media (width <= $breakpoint) { 
+      grid-column: 1 / -1;
+      grid-row: 4 / 5;
+    }
   }
 }
 
@@ -701,9 +769,107 @@ $default-tab: "[data-tab-index='tab-1']";
 .page-info {
   display: flex;
   position: sticky;
-  top: var(--column);
+  top: var(--col);
   flex-direction: column;
   font-size: var(--type--2);
   color: var(--colorContentSecondary);
-  text-wrap: pre; 
+  @media (width <= $breakpoint) {
+    position: static;
+    flex-direction: row;
+  }
+}
+
+
+.page-info__list {
+  display: grid;
+  column-gap: 5px;
+  grid-template-columns: min-content auto;
+  @media (width <= $breakpoint) { 
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: .25rem;
+  }
+  > * {
+    margin: 0;
+  }
+  .page-info__entry__key {
+    text-align: right;
+    color: var(--contentSecondaryColor);
+    @media (width <= $breakpoint) { 
+      &::after {
+        content: ': '
+      }
+    }
+  }
+  .page-info__entry__value {
+    text-align: left;
+    @media (width <= $breakpoint) { 
+      display: inline;
+      li {
+        display: inline;
+      }
+    }
+  }
+}
+
+.page-info__entry {
+  display: grid;
+  grid-column: 1 / -1;
+  padding: .25rem 0;
+  line-height: 1.5rem;
+  min-height: 1.5rem;
+  grid-template-columns: subgrid;
+  @media (width <= $breakpoint) { 
+    display: inline;
+    padding: 0;
+    &:not(:last-child)::after {
+      content: ', '
+    }
+  }
+}
+
+.page-info__entry {
+  overflow: hidden;
+  @media (width <= $breakpoint) { 
+    &--tags {
+      display: inline;
+      .page-info__entry__value li:not(:last-child)::after {
+        content: ','
+      }
+    }
+  }
+}
+
+.back-to-index {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  @media (width <= $breakpoint) {
+    display: none;
+  }
+}
+
+.back-to-index__link {
+  display: grid;
+  place-content: center;
+  border-radius: 50%;
+  background-color: var(--materialSecondaryColor);
+  aspect-ratio: 1;
+  height: 75%;
+  max-height: calc(var(--type-5));
+  &:hover {
+    background-color: var(--materialSecondaryHoverColor);
+  }
+  &:active {
+    scale: .95;
+  }
+}
+
+.sub-list__item {
+  width: min-content;
+  @media (width <= $breakpoint) {
+    display: inline;
+    width: auto;
+  }
 }

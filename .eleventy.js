@@ -43,16 +43,20 @@ module.exports = function(eleventyConfig) {
   
   // Filters
   
-  eleventyConfig.addFilter("PenAssets", (object) => {
+  eleventyConfig.addFilter("getRevision", string => {
+    return string.split("Evergreen/v")[1];
+  });
+  
+  eleventyConfig.addFilter("penAssets", (object) => {
     return Object.entries(object).filter(([key, _]) => key !== "demo");
   });
   
-  eleventyConfig.addFilter("PenHTML", string => {
+  eleventyConfig.addFilter("penHTML", string => {
     const content = string.substring(string.indexOf("<!---->") + 7, string.lastIndexOf("<!---->"));
     return beautify.html(content, { indent_size: 2 });
   });
   
-  eleventyConfig.addFilter("PenSASS", string => {
+  eleventyConfig.addFilter("penSCSS", string => {
     return beautify.css(string, { indent_size: 2 });
   });
   
