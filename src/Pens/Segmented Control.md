@@ -3,10 +3,10 @@ date: 2024-06-08T11:58
 updated: 2024-06-08T11:58
 author: Wil Nichols
 tags:
-  - topic:Prototype
-  - topic:HTML
-  - topic:CSS
-  - topic:no-JS
+  - Topic/Prototype
+  - Topic/HTML
+  - Topic/CSS
+  - Topic/no-JS
 type: Pen
 preview: 
   type: vid

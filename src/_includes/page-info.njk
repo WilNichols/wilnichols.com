@@ -21,8 +21,8 @@
         <span class="page-info__entry__key">Tags: </span>
         <ul class="page-info__entry__value note__accessories">
           {% for tag in tags %}
-            {% if 'topic:' in tag %}
-              {% set label %}{{ tag | lower | replace('topic:', '') }}{% endset %}
+            {% if 'Topic/' in tag %}
+              {% set label %}{{ tag | lower | replace('Topic/', '') }}{% endset %}
               <li><span class="note__type note__type--{{ label }}">{{ label }}</span></li>
             {% endif %}
           {% endfor %}
