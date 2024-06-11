@@ -24,7 +24,7 @@ layout: page.njk
         <li class="note-group__month">{% if currentYear != noteYear %}<h2 class="note__year">{{ noteYear }}</h2>{% endif %}<h3 class="note__month">{{ noteMonth }}</h3></li>
       {% endif %}
       <li class="note">
-        {# <a href="{{ note.url }}" class="note__link{{ ' note__link--with-accessories' if showAccessories }}">
+        <a href="{{ note.url }}" class="note__link{{ ' note__link--with-accessories' if showAccessories }}">
           {% if note.data.preview %}
             <div class="note__preview">
               {% if note.data.preview.type == 'vid' %}
@@ -41,8 +41,7 @@ layout: page.njk
               {% for tag in note.data.tags %}{% if ("Type/" in tag) %}  <li>{{ tagButton(tag) }}</li>{% endif %}{% endfor %}
             </ul>
           {% endif %}
-        </a> #}
-        {{ note.data.eleventyExcludeFromCollections | dump }} post
+        </a>
       </li>
       {% set currentDay = noteDay %}
       {% set currentMonth = noteMonth %}
