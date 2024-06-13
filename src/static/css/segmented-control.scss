@@ -38,26 +38,23 @@ $gap: 6px;
   grid-row: 1 / 2;
   position: relative;
   padding: 8px 12px;
-  z-index: 10;
+  z-index: 100;
   vertical-align: middle;
   line-height: 16px;
   font-size: 16px;
   will-change: scale;
-  &:hover ~ .effect-container .hover-background {
+  input:not(:checked) + &:hover ~ .effect-container .hover-background, 
+  input:not(:checked) + &:active ~ .effect-container .hover-background {
     background-color: light-dark(var(--cK90, #E6EFF0), var(--cK5, #E6EFF0));
-  }
-  &:active ~ .effect-container .hover-background {
-    background-color: light-dark(var(--cK80, #DBE7E9), var(--cK10, #DBE7E9));
-  }
-  &:active, &:active ~ .effect-container .hover-background {
-    scale: 0.95;
-  }
-  &:hover ~ .effect-container .hover-background,
-  &:active ~ .effect-container .hover-background {
-    transition-property: translate, background-color, scale;
+    opacity: 1;
+    transition-property: translate, opacity, scale;
     transition-duration: 0s, 0.2s, .1s;
     transition-timing-function: ease-out;
-    transition-delay: 0, 0, 0;
+  }
+  input:not(:checked) + &:active, 
+  input:not(:checked) + &:active ~ .effect-container .hover-background {
+    scale: 0.95;
+    opacity: 1;
   }
   &:focus-visible {
     box-shadow: 0 0 0 2px light-dark(var(--cB50, #EF5E14), var(--cB60, #EF5E14));
@@ -68,24 +65,11 @@ $gap: 6px;
   }
 }
 
-.selected-background,
-.hover-background {
+.selected-background {
   position: absolute;
-  z-index: 1;
-}
-
-.selected-background {
+  z-index: 10;
   inset: 0;
   border-radius: 4px;
-}
-
-.hover-background {
-  border: 1px solid light-dark(var(--cK95, #F8f8f8), var(--cK1, #F8f8f8));
-  inset: 0;
-  border-radius: 4px;
-}
-
-.selected-background {
   transition: 0.2s translate ease-out;
   background-color: light-dark(var(--c100, #F8f8f8), var(--cK20, #F8f8f8));
   box-shadow: 
@@ -96,9 +80,15 @@ $gap: 6px;
 }
 
 .hover-background {
-  transition-property: translate, background-color, scale;
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  border: 1px solid light-dark(var(--cK95, #F8f8f8), var(--cK1, #F8f8f8));
+  opacity: 0;
+  border-radius: 4px;
+  transition-property: translate, opacity, scale;
   // impossible high duration makes it look like it's not transitioning at all
-  transition-duration: 999999999s, 0.2s, .2s;
+  transition-duration: 999999999s, 0.2s, 0.2s;
   transition-timing-function: ease-out;
   background-color: transparent;
 }

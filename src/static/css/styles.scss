@@ -487,9 +487,26 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
     $s: 0 0 0 var(--px) var(--edgeColor);
     box-shadow: $s, inset $s;
   }
-  video {
-    width: 100%;
-    height: auto;
+}
+
+.note__video-preview {
+  width: 100%;
+  height: auto;
+  background-image: var(--lightVideo);
+  @media (-webkit-min-device-pixel-ratio: 2) {
+    background-image: var(--lightVideo2x);
+  }
+  @media (-webkit-min-device-pixel-ratio: 3) {
+    background-image: var(--lightVideo3x);
+  }
+  @media (prefers-color-scheme: dark) {
+    background-image: var(--darkVideo);
+    @media (-webkit-min-device-pixel-ratio: 2) {
+      background-image: var(--darkVideo2x);
+    }
+    @media (-webkit-min-device-pixel-ratio: 3) {
+      background-image: var(--darkVideo3x);
+    }
   }
 }
 

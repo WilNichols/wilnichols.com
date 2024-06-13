@@ -10,7 +10,7 @@ tags:
   - Type/Pen
 preview: 
   type: vid
-  src: /assets/vid/segmented-control-pen.mp4
+  src: /assets/vid/segmented-control-pen
 assets: 
   demo: /assets/embeds/segmented-control/
   html: ../static/embeds/segmented-control/index.html
