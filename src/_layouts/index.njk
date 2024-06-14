@@ -77,19 +77,8 @@ layout: page.njk
                 Test 2:
                 <video 
                   width="400" 
+                  height= "300"
                   poster="/assets/img/poster.gif" 
-                  class="note__video-preview"
-                  style="
-                    --lightPoster: url({{ [note.data.preview.src, "-poster--light.png"] | join }});
-                    --darkPoster: url({{ [note.data.preview.src, "-poster--dark.png"] | join }});
-                    --lightPoster2x: url({{ [note.data.preview.src, "-poster--light@2x.png"] | join }});
-                    --darkPoster2x: url({{ [note.data.preview.src, "-poster--dark@2x.png"] | join }});
-                    --lightPoster3x: url({{ [note.data.preview.src, "-poster--light@3x.png"] | join }});
-                    --darkPoster3x: url({{ [note.data.preview.src, "-poster--dark@3x.png"] | join }})"
-                  autoplay 
-                  loop 
-                  muted 
-                  playsinline
                   >
                   <source 
                     media="
