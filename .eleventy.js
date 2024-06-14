@@ -195,6 +195,7 @@ module.exports = function(eleventyConfig) {
   });
   
   // Passthroughs. Specify individual instead of all, since sass is handled separately
+  eleventyConfig.addPassthroughCopy({"src/vid.html": "/vid.html"});
   eleventyConfig.addPassthroughCopy({"src/robots.txt": "/robots.txt"});
   eleventyConfig.addPassthroughCopy({"src/static/img": "/assets/img"});
   eleventyConfig.addPassthroughCopy({"src/static/js": "/assets/js"});
