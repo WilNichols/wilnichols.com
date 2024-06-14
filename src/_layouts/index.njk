@@ -24,11 +24,11 @@ layout: page.njk
         <li class="note-group__month">{% if currentYear != noteYear %}<h2 class="note__year">{{ noteYear }}</h2>{% endif %}<h3 class="note__month">{{ noteMonth }}</h3></li>
       {% endif %}
       <li class="note">
-        <a href="{{ note.url }}" class="note__link{{ ' note__link--with-accessories' if showAccessories }}">
+        <div href="{{ note.url }}" class="note__link{{ ' note__link--with-accessories' if showAccessories }}">
           {% if note.data.preview %}
             <div class="note__preview">
               {% if note.data.preview.type == 'vid' %}
-                {# <video 
+                <video 
                   width="400" 
                   poster="/assets/img/poster.gif" 
                   class="note__video-preview"
@@ -86,17 +86,8 @@ layout: page.njk
                       (min-resolution: 60dpi)" 
                     src="{{ note.data.preview.src }}--light.mp4"
                     type="video/mp4"/>
-                </video> #}
-                <video width="400" poster="https://graphic-post-preview--wilnichols.netlify.app/assets/img/poster.gif" class="note__video-preview">
-                  <source media="(prefers-color-scheme: light) and (-webkit-min-device-pixel-ratio: 3) and (min-resolution: 180dpi)" src="https://graphic-post-preview--wilnichols.netlify.app/assets/vid/segmented-control-pen--light@3x.mp4" type="video/mp4">
-                  <source media="(prefers-color-scheme: dark) and (-webkit-min-device-pixel-ratio: 3) and (min-resolution: 180dpi)" src="https://graphic-post-preview--wilnichols.netlify.app/assets/vid/segmented-control-pen--dark@3x.mp4" type="video/mp4">
-                  <source media="(prefers-color-scheme: light) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 120dpi)" src="https://graphic-post-preview--wilnichols.netlify.app/assets/vid/segmented-control-pen--light@2x.mp4" type="video/mp4">
-                  <source media="(prefers-color-scheme: dark) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 120dpi)" src="https://graphic-post-preview--wilnichols.netlify.app/assets/vid/segmented-control-pen--dark@2x.mp4" type="video/mp4">
-                  <source media="(prefers-color-scheme: dark) and (-webkit-min-device-pixel-ratio: 1) and (min-resolution: 60dpi)" src="https://graphic-post-preview--wilnichols.netlify.app/assets/vid/segmented-control-pen--dark.mp4" type="video/mp4">
-                  <source 
-                          media="(prefers-color-scheme: dark) and (-webkit-min-device-pixel-ratio: 1) and (min-resolution: 60dpi)" src="https://graphic-post-preview--wilnichols.netlify.app/assets/vid/segmented-control-pen--light.mp4"
-                          type="video/mp4" >
                 </video>
+                
               {% endif %}
             </div>
           {% endif %}
@@ -107,7 +98,7 @@ layout: page.njk
               {% for tag in note.data.tags %}{% if ("Type/" in tag) %}  <li>{{ tagButton(tag) }}</li>{% endif %}{% endfor %}
             </ul>
           {% endif %}
-        </a>
+        </div>
       </li>
       {% set currentDay = noteDay %}
       {% set currentMonth = noteMonth %}

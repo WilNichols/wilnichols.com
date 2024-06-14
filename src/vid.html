@@ -1,16 +1,72 @@
 <html>
   <head>
-  </head>
-  <body>
-    <video width="400" poster="https://graphic-post-preview--wilnichols.netlify.app/assets/img/poster.gif" class="note__video-preview">
-      <source media="(prefers-color-scheme: light) and (-webkit-min-device-pixel-ratio: 3) and (min-resolution: 180dpi)" src="https://graphic-post-preview--wilnichols.netlify.app/assets/vid/segmented-control-pen--light@3x.mp4" type="video/mp4">
-      <source media="(prefers-color-scheme: dark) and (-webkit-min-device-pixel-ratio: 3) and (min-resolution: 180dpi)" src="https://graphic-post-preview--wilnichols.netlify.app/assets/vid/segmented-control-pen--dark@3x.mp4" type="video/mp4">
-      <source media="(prefers-color-scheme: light) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 120dpi)" src="https://graphic-post-preview--wilnichols.netlify.app/assets/vid/segmented-control-pen--light@2x.mp4" type="video/mp4">
-      <source media="(prefers-color-scheme: dark) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 120dpi)" src="https://graphic-post-preview--wilnichols.netlify.app/assets/vid/segmented-control-pen--dark@2x.mp4" type="video/mp4">
-      <source media="(prefers-color-scheme: dark) and (-webkit-min-device-pixel-ratio: 1) and (min-resolution: 60dpi)" src="https://graphic-post-preview--wilnichols.netlify.app/assets/vid/segmented-control-pen--dark.mp4" type="video/mp4">
-      <source 
-              media="(prefers-color-scheme: dark) and (-webkit-min-device-pixel-ratio: 1) and (min-resolution: 60dpi)" src="https://graphic-post-preview--wilnichols.netlify.app/assets/vid/segmented-control-pen--light.mp4"
-              type="video/mp4" >
-    </video>
-  </body>
+  <meta name="color-scheme" content="light dark">
+  <meta name="color-scheme" content="light dark">
+  <style>
+  video {
+    height: 300px;
+    width: 400px;
+    outline: 1px solid red;
+    
+    
+    
+    --lightPoster: url(https://graphic-post-preview--wilnichols.netlify.app/assets/vid/segmented-control-pen-poster--light.png);
+                      --darkPoster: url(https://graphic-post-preview--wilnichols.netlify.app/assets/vid/segmented-control-pen-poster--dark.png);
+                      --lightPoster2x: url(/assets/vid/segmented-control-pen-poster--light@2x.png);
+                      --darkPoster2x: url(/assets/vid/segmented-control-pen-poster--dark@2x.png);
+                      --lightPoster3x: url(/assets/vid/segmented-control-pen-poster--light@3x.png);
+                      --darkPoster3x: url(/assets/vid/segmented-control-pen-poster--dark@3x.png);
+                        
+    background-image: var(--lightPoster);
+    @media (prefers-color-scheme: dark) {
+      background-image: var(--darkPoster);
+    }
+  }</style>
+</head>
+<body>
+  <video width="400" poster="https://graphic-post-preview--wilnichols.netlify.app/assets/img/poster.gif" class="note__video-preview" controls>
+    <source 
+      media="
+          (prefers-color-scheme: light) and 
+          (-webkit-min-device-pixel-ratio: 3) and 
+          (min-resolution: 180dpi)" 
+        src="https://graphic-post-preview--wilnichols.netlify.app/assets/vid/segmented-control-pen--light@3x.mp4" 
+        type="video/mp4">
+    <source 
+      media="
+        (prefers-color-scheme: dark) and 
+          (-webkit-min-device-pixel-ratio: 3) and 
+          (min-resolution: 180dpi)" 
+        src="https://graphic-post-preview--wilnichols.netlify.app/assets/vid/segmented-control-pen--dark@3x.mp4" 
+        type="video/mp4">
+    <source 
+      media="
+        (prefers-color-scheme: light) and 
+          (-webkit-min-device-pixel-ratio: 2) and 
+          (min-resolution: 120dpi)" 
+        src="https://graphic-post-preview--wilnichols.netlify.app/assets/vid/segmented-control-pen--light@2x.mp4" 
+        type="video/mp4">
+    <source 
+      media="
+        (prefers-color-scheme: dark) and 
+        (-webkit-min-device-pixel-ratio: 2) and 
+        (min-resolution: 120dpi)" 
+      src="https://graphic-post-preview--wilnichols.netlify.app/assets/vid/segmented-control-pen--dark@2x.mp4" 
+      type="video/mp4">
+    <source 
+      media="
+        (prefers-color-scheme: dark) and 
+        (-webkit-min-device-pixel-ratio: 1) and 
+        (min-resolution: 60dpi)" 
+      src="https://graphic-post-preview--wilnichols.netlify.app/assets/vid/segmented-control-pen--dark.mp4" 
+      type="video/mp4">
+    <source 
+      media="
+        (prefers-color-scheme: dark) and 
+        (-webkit-min-device-pixel-ratio: 1) and 
+        (min-resolution: 60dpi)" 
+      src="https://graphic-post-preview--wilnichols.netlify.app/assets/vid/segmented-control-pen--light.mp4"
+      type="video/mp4">
+  </video>
+</body>
 </html>
