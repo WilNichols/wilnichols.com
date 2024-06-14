@@ -46,6 +46,12 @@ layout: page.njk
                   playsinline
                   >
                   <source 
+                    media="
+                      (prefers-color-scheme: dark)" 
+                    src="{{ note.data.preview.src }}--dark.mp4" 
+                    type="video/mp4">
+                  <source 
+                    media="" 
                     src="{{ note.data.preview.src }}--light.mp4"
                     type="video/mp4">
                 </video>
