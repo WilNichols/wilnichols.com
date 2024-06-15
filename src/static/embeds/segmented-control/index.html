@@ -1,0 +1,50 @@
+<head>
+  <meta name="color-scheme" content="light dark">
+  <link rel="preconnect" href="https://rsms.me/">
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <link rel="stylesheet" href="styles.scss">
+  <link rel="stylesheet" href="/assets/css/segmented-control.css">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    :root {
+      width: 100%;
+      height: 100%;
+      font-family: inter;
+    }
+    
+    body {
+      display: grid;
+      place-content: center;
+    }
+    
+    .container {
+      display: grid;
+      place-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!---->
+    <fieldset class="segmented-control">
+      <input type="radio" id="item-1" name="segmented-control-item" checked />
+      <label class="item" for="item-1" tabindex="1">😡</label>
+      <input type="radio" id="item-2" name="segmented-control-item" />
+      <label class="item" for="item-2" tabindex="2">☹️</label>
+      <input type="radio" id="item-3" name="segmented-control-item" />
+      <label class="item" for="item-3" tabindex="3">😐</label>
+      <input type="radio" id="item-4" name="segmented-control-item" />
+      <label class="item" for="item-4" tabindex="4">☺️</label>
+      <input type="radio" id="item-5" name="segmented-control-item" />
+      <label class="item" for="item-5" tabindex="5">😍</label>
+      <div class="effect-container">
+        <div class="hover-background"></div>
+        <div class="selected-background"></div>
+      </div>
+    </fieldset>
+    <!---->
+  </div>
+</body>

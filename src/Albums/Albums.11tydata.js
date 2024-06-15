@@ -1,5 +1,6 @@
 module.exports = {
-  layout: 'album.njk',
+  layout: "album.njk",
   permalink: "/albums/{{ page.fileSlug | slugify }}/index.html",
-  tags: 'Albums'
+  tags: "Albums",
+  eleventyExcludeFromCollections: "all"
 }

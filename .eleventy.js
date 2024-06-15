@@ -8,6 +8,8 @@ const { getAverageColor } = require('fast-average-color-node');
 const { S3Client, ListObjectsV2Command } = require("@aws-sdk/client-s3");
 const sizeOf = require('image-size');
 const pluginRss = require("@11ty/eleventy-plugin-rss");
+const beautify = require('js-beautify/js');
+const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 
 module.exports = function(eleventyConfig) {
   eleventyConfig.setQuietMode(true);
@@ -37,10 +39,30 @@ module.exports = function(eleventyConfig) {
   
   eleventyConfig.setLibrary('md', md);
   
+  eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
+  
   // Filters
+  
+  eleventyConfig.addFilter("getRevision", string => {
+    return string.split("Evergreen/v")[1];
+  });
+  
+  eleventyConfig.addFilter("penAssets", (object) => {
+    return Object.entries(object).filter(([key, _]) => key !== "demo");
+  });
+  
+  eleventyConfig.addFilter("penHTML", string => {
+    const content = string.substring(string.indexOf("<!---->") + 7, string.lastIndexOf("<!---->"));
+    return beautify.html(content, { indent_size: 2 });
+  });
+  
+  eleventyConfig.addFilter("penSCSS", string => {
+    return beautify.css(string, { indent_size: 2 });
+  });
+  
   eleventyConfig.addFilter("markdownify", string => {
       return md.render(string)
-  })
+  });
   
   // simple cache busting method from https://rob.cogit8.org/posts/2020-10-28-simple-11ty-cache-busting/
   eleventyConfig.addFilter("bust", (url) => {
@@ -173,9 +195,12 @@ module.exports = function(eleventyConfig) {
   });
   
   // Passthroughs. Specify individual instead of all, since sass is handled separately
+  eleventyConfig.addPassthroughCopy({"src/vid.html": "/vid.html"});
   eleventyConfig.addPassthroughCopy({"src/robots.txt": "/robots.txt"});
   eleventyConfig.addPassthroughCopy({"src/static/img": "/assets/img"});
   eleventyConfig.addPassthroughCopy({"src/static/js": "/assets/js"});
+  eleventyConfig.addPassthroughCopy({"src/static/vid": "/assets/vid"});
+  eleventyConfig.addPassthroughCopy({"src/static/embeds": "/assets/embeds"});
   eleventyConfig.addPassthroughCopy({"src/static/favicon": "/"});
   
   // CSS Mapping
@@ -185,6 +210,7 @@ module.exports = function(eleventyConfig) {
   
   // Plugins
   eleventyConfig.addPlugin(pluginRss);
+  eleventyConfig.addPlugin(syntaxHighlight);
   
   // WatchTargets
   eleventyConfig.addWatchTarget("src/static/css/");

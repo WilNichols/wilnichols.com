@@ -1,26 +1,110 @@
 ---
 layout: page.njk
 ---
+{% from "../_includes/tag.njk" import tag as tagButton %}
 <div class="page page--notes">
   <nav class="navigation">
     <ul class="navigation__items">
-      <li class="nav__item"><h1 class="nav__title">Wil&nbsp;Nichols</h1></li>
-      <li class="nav__item"><a class="nav__link" href="feed.xml">Subscribe</a></li>
-      <li class="nav__item"><a class="nav__link" href="mailto:{{ meta.contact.email }}">Email</a></li>
+      <li class="nav__item nav__title-container"><h1 class="nav__title">{{ meta.name | replace(' ', '&nbsp;') | safe }}</h1></li>
+      <li class="nav__item"><a class="nav__link" href="feed.xml"><span>Subscribe</span></a></li>
+      <li class="nav__item"><a class="nav__link" href="mailto:{{ meta.contact.email }}"><span>Email</span></a></li>
     </ul>
   </nav>
   <ol class="note-list" reversed>
+    {% set currentDay = "" %}
     {% set currentMonth = "" %}
     {% set currentYear = "" %}
-    {% for note in collections.notes | reverse %}
+    {% for note in collections.all | reverse %}
+      {% set noteDay = note.date | postDay %}
       {% set noteMonth = note.data.month %}
       {% set noteYear = note.data.year %}
+      {% set notePrefix %}{% if (currentDay == noteDay) and (currentMonth == noteMonth) %}↳{% else %}{{ noteDay }}{% endif %}{% endset %}
+      {% set showAccessories %}{% for tag in note.data.tags %}{{ true if ("Type/" in tag) and not ("Type/Note" in tag)}}{% endfor %}{% endset %}
       {% if currentMonth != noteMonth %}
         <li class="note-group__month">{% if currentYear != noteYear %}<h2 class="note__year">{{ noteYear }}</h2>{% endif %}<h3 class="note__month">{{ noteMonth }}</h3></li>
       {% endif %}
-      <li class="note"><a href="{{note.url}}" class="note__link"><span class="note__day">{{ note.date | postDay }}</span><span class="note__title">{{ note.data.title }}</span></a></li>
+      <li class="note">
+        <a href="{{ note.url }}" class="note__link{{ ' note__link--with-accessories' if showAccessories }}">
+          {% if note.data.preview %}
+            <div class="note__preview">
+              {% if note.data.preview.type == 'vid' %}
+
+                <video 
+                  width="400" 
+                  poster="/assets/img/poster.gif" 
+                  class="note__video-preview"
+                  style="
+                    --lightPoster: url({{ [note.data.preview.src, "-poster--light.png"] | join }});
+                    --darkPoster: url({{ [note.data.preview.src, "-poster--dark.png"] | join }});
+                    --lightPoster2x: url({{ [note.data.preview.src, "-poster--light@2x.png"] | join }});
+                    --darkPoster2x: url({{ [note.data.preview.src, "-poster--dark@2x.png"] | join }});
+                    --lightPoster3x: url({{ [note.data.preview.src, "-poster--light@3x.png"] | join }});
+                    --darkPoster3x: url({{ [note.data.preview.src, "-poster--dark@3x.png"] | join }});"
+                  autoplay 
+                  loop 
+                  muted 
+                  playsinline
+                  >
+                    <source 
+                      media="
+                      (prefers-color-scheme: dark) and 
+                        (-webkit-min-device-pixel-ratio: 3) and 
+                        (min-resolution: 180dpi)" 
+                      src="{{ note.data.preview.src }}--dark@3x.mp4" 
+                      type="video/mp4">
+                    <source 
+                      media="
+                          (prefers-color-scheme: light) and 
+                          (-webkit-min-device-pixel-ratio: 3) and 
+                          (min-resolution: 180dpi)" 
+                        src="{{ note.data.preview.src }}--light@3x.mp4" 
+                        type="video/mp4">
+                    <source 
+                        media="
+                          (prefers-color-scheme: dark) and 
+                          (-webkit-min-device-pixel-ratio: 2) and 
+                          (min-resolution: 120dpi)" 
+                        src="{{ note.data.preview.src }}--dark@2x.mp4" 
+                        type="video/mp4">
+                    <source 
+                      media="
+                        (prefers-color-scheme: light) and 
+                          (-webkit-min-device-pixel-ratio: 2) and 
+                          (min-resolution: 120dpi)" 
+                        src="{{ note.data.preview.src }}--light@2x.mp4" 
+                        type="video/mp4">
+                    <source 
+                      media="
+                        (prefers-color-scheme: dark) and 
+                        (-webkit-min-device-pixel-ratio: 1) and 
+                        (min-resolution: 60dpi)" 
+                      src="{{ note.data.preview.src }}--dark.mp4" 
+                      type="video/mp4">
+                    <source 
+                      media="
+                        (prefers-color-scheme: light) and 
+                        (-webkit-min-device-pixel-ratio: 1) and 
+                        (min-resolution: 60dpi)" 
+                      src="{{ note.data.preview.src }}--light.mp4"
+                    type="video/mp4">
+                </video>
+                
+              {% endif %}
+            </div>
+          {% endif %}
+          <span class="note__day">{{ notePrefix }}</span>
+          <span class="note__title">{{ note.data.title }}</span>
+          {% if showAccessories %}
+            <ul class="note__accessories">
+              {% for tag in note.data.tags %}{% if ("Type/" in tag) %}  <li>{{ tagButton(tag) }}</li>{% endif %}{% endfor %}
+            </ul>
+          {% endif %}
+        </a>
+      </li>
+      {% set currentDay = noteDay %}
       {% set currentMonth = noteMonth %}
       {% set currentYear = noteYear %}
     {% endfor %}
+    <li class="note-list__copyright"><span class="copyright__glyph">©</span><span class="copyright__text">2008 - {% year %} {{ meta.name }}. Don't steal. I love you.</span></li>
   </ol>
 </div>

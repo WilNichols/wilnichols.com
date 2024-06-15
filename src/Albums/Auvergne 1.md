@@ -3,14 +3,11 @@ title: Auvergne 1
 key: Auvergne1
 thumbnail: DSCF5959.jpg
 tags:
-  - Album
   - Camera/XT-1
   - Location/Auzon
   - Location/Auvergne
   - Location/France
   - Period/Student
-category:
-  - "[[Albums]]"
 published: 2014-12-18T00:00
 date: 2024-02-04T14:18
 updated: 2024-02-06T20:19

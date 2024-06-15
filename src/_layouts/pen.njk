@@ -1,0 +1,34 @@
+---
+layout: page.njk
+---
+{% for asset, src in assets | penAssets %}
+  <a class="pen-tabs__state" id="{{ asset }}" data-tab-index="tab-{{ loop.index }}">{{ asset }}</a>
+{% endfor %}
+<article class="page page--pen">
+  {% include "page-info.njk" %}
+  {% include "title-and-date.njk" %}
+  <main class="pen__body">
+    <div class="pen__demo">
+      {% if assets.demo %}
+        <iframe class="demo__iframe "src="{{ assets.demo }}" frameborder="0"></iframe>
+      {% endif %}
+    </div>
+    {{ content | safe }}
+    <div class="pen-tabs-container">
+      {% set assets = assets | penAssets %}
+      <ul class="pen-tabs__toolbar">
+        {% for asset, src in assets %}
+          <li class="pen-tabs__tab" data-tab-index="tab-{{ loop.index }}"><a href="#{{ asset }}">{{ asset }}</a></li>
+        {% endfor %}
+      </ul>
+      <ul class="pen-tabs__panes">
+        {% for asset, src in assets -%}
+          <li class="pen-tabs__panes__content" data-tab-index="tab-{{ loop.index }}">
+            {% set code %}{% include src %}{% endset %}
+            {% if asset == "html" %}{% highlight "html" %}{{ code | penHTML | safe }}{% endhighlight %}{% elif asset == "scss" %}{% highlight "scss" %}{{ code | penSCSS | safe }}{% endhighlight %}{% else %}{% highlight "html" %}{{ code | safe }}{% endhighlight %}{% endif %}
+          </li>
+        {%- endfor %}
+      </ul>
+    </div>
+  </main>
+</article>

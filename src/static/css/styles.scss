@@ -1,4 +1,6 @@
 @use 'sass:math';
+@use 'color';
+@use 'syntax';
 
 @mixin light-dark($prop, $lightColor, $darkColor: $lightColor) {
   #{$prop}: $lightColor;
@@ -25,15 +27,34 @@
   --type-4: clamp(2.2032rem, 1.8946rem + 1.5428vi, 3.0518rem);
   --type-5: clamp(2.6438rem, 2.2181rem + 2.1288vi, 3.8147rem);
   // colors
-  --contentPrimaryLight: rgb(35, 41, 52);
-  --contentPrimaryDark: rgb(255, 255, 255);
-  --contentSecondaryLight: rgb(151, 157, 168);
-  --contentSecondaryDark: rgb(132, 138, 150);
-  --linkLight: rgb(27, 130, 227);
-  --linkDark: rgb(62, 158, 241);
-  --linkVisitedLight: rgb(177, 45, 203);
-  --linkVisitedDark:rgb(206, 61, 235);
+  @include light-dark(--materialPrimaryColor, var(--c100), var(--c0));
+  @include light-dark(--materialPrimaryHoverColor, var(--cK95), var(--cK5));
+  @include light-dark(--materialSecondaryColor, var(--cK95a), var(--cK5d));
+  @include light-dark(--materialSecondaryHoverColor, var(--cK90), var(--cK10));
+  @include light-dark(--contentPrimaryColor, var(--cK5), var(--c100));
+  @include light-dark(--contentSecondaryColor, var(--cK50), var(--cK60));
+  @include light-dark(--contentTertiaryColor, var(--cK70), var(--cK40));
+  @include light-dark(--linkColor, var(--cB30), var(--cB50));
+  @include light-dark(--linkVisitedColor, var(--cP30), var(--cP50));
+  @include light-dark(--tagBackgroundColor, var(--cK90), var(--cK20));
+  @include light-dark(--tagBorderColor, var(--cK80), var(--cK30));
+  @include light-dark(--tagContentColor, var(--cK30), var(--cK90));
+  @include light-dark(--evergreenBackgroundColor, var(--cG90), var(--cG20));
+  @include light-dark(--evergreenBorderColor, var(--cG80), var(--cG30));
+  @include light-dark(--evergreenContentColor, var(--cG30), var(--cG90));
+  @include light-dark(--evergreenVersionBackgroundColor, var(--cG40), var(--cG50));
+  @include light-dark(--evergreenVersionBorderColor, var(--cG30), var(--cG60));
+  @include light-dark(--evergreenVersionContentColor, var(--c100), var(--c0abs));
+  @include light-dark(--edgeColor, var(--cK80a), var(--cK10d));
+  @include light-dark(--shadowMultiplier, 1, 2);
   // layout
+  --px: calc(1px / var(--density, 1));
+  @media (-webkit-min-device-pixel-ratio: 2) {
+    --density: 2;
+  }
+  @media (-webkit-min-device-pixel-ratio: 3) {
+    --density: 3;
+  }
   --col: calc(100dvw/12);
 }
 
@@ -78,13 +99,17 @@ $breakpoint: 480px;
 
 body {
   font-size: var(--type-0);
+  line-height: 1.2em;
   @extend %font--text-regular;
-  display: grid;
-  place-content: center;
-  padding: 0;
+  // display: grid;
+  // justify-content: center;
+  // align-content: start;
+  padding: var(--col);
   margin: 0;
   min-height: 100dvh;
-  @include light-dark(color, var(--contentPrimaryLight), var(--contentPrimaryDark));
+  background-color: var(--materialPrimaryColor);
+  color: var(--contentPrimaryColor);
+  scrollbar-gutter: stable both-edges;
 }
 
 h1, h2, h3, h4, h5, h6, p, span {
@@ -115,19 +140,25 @@ p {
 }
 
 a {
-  @include light-dark(color, var(--contentPrimaryLight), var(--contentPrimaryDark));
-  p & {
-    @include light-dark(color, var(--linkLight), var(--linkDark));
+  color: var(--contentPrimaryColor);
+  p &, .page-info & {
+    color: var(--linkColor);
     &:visited {
-      @include light-dark(color, var(--linkVisitedLight), var(--linkVisitedDark));
+      color: var(--linkVisitedColor);
     }
   }
+}
+
+main {
+  overflow: hidden;
 }
 
 .note__header {
   display: inline-flex;
   flex-direction: column;
-  margin: 0 auto 1.25em auto;
+  h1 {
+    margin: 0;
+  }
 }
 
 @for $i from 1 through 6 {
@@ -152,12 +183,14 @@ a {
   font-size: var(--type--1);
   @extend %font--text-regular;
   display: block;
-  @include light-dark(color, var(--contentSecondaryLight), var(--contentSecondaryDark));
-
+  color: var(--contentSecondaryColor);
 }
 
-.note__body p {
+.note__body > *, .pen__body > * {
   line-height: 1.5em;
+  &:not(:last-child) {
+    margin: 0 auto 1em auto;
+  }
 }
 
 .album__album-photos {
@@ -187,6 +220,32 @@ a {
   } 
 }
 
+$t: .2s;
+
+%listItemBackground::before {
+  content: '';
+  z-index: 0;
+  position: absolute;
+  inset: -6px -8px;
+  border-radius: .6em;
+  background-color: var(--materialPrimaryHoverColor);
+  opacity: 0;
+  will-change: opacity;
+  filter: blur(.3em);
+  $t: $t * 4;
+  transition: $t opacity ease-out, $t filter ease-out;
+}
+
+%listItemBackgroundHover::before {
+  opacity: 1;
+  filter: blur(0);
+  transition-duration: math.div($t, 4);
+}
+
+%listItemBackgroundActive {
+  scale: .99;
+}
+  
 .backlinks {
   max-width: $width;
   margin: 0 auto;
@@ -201,7 +260,7 @@ a {
 .backlinks__title {
   font-size: var(--type--1);
   @extend %font--display-medium;
-  @include light-dark(color, var(--contentSecondaryLight), var(--contentSecondaryDark));
+  color: var(--contentSecondaryColor);
 }
 
 .backlinks__list {
@@ -219,29 +278,27 @@ a {
 }
 
 .backlink {
+  $pV: 8px;
+  $pH: 12px;
   display: inline-flex;
   flex-direction: column;
   gap: var(--type--2);
   font-size: var(--type--2);
   border-radius: 12px;
-  padding: 12px 16px;
+  padding: $pV $pH;
+  margin: 0 0 0 #{-$pH};
   overflow: hidden;
   position: relative; 
-  margin: 0;
   text-decoration: none;
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    @include light-dark(background-color, var(--contentPrimaryLight), var(--contentPrimaryDark));
-    opacity: var(--opacity, 0.05);
-    z-index: -10;
-  }
+  @extend %listItemBackground;
   &:hover {
-    --opacity: 0.075;
+    @extend %listItemBackgroundHover;
   }
   &:active {
-    --opacity: 0.1;
+    @extend %listItemBackgroundActive;
+  }
+  > * {
+    z-index: 1;
   }
 }
 
@@ -251,7 +308,7 @@ a {
 }
 
 .backlink__title, .backlink__preview {
-  @include light-dark(color, var(--contentPrimaryLight), var(--contentPrimaryDark));
+  color: var(--contentPrimaryColor);
 }
 
 .backlink__preview {
@@ -264,10 +321,21 @@ a {
   }
 }
 
+$note-title-gap: .25em; // the size of a monospaced space character in Neue Haas Grotesk
+
 .note-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2em;
+  grid-column: 2 / 3;
+  display: grid;
+  grid-template-columns: min-content auto min-content;
+  row-gap: 1.2em;
+  column-gap: $note-title-gap;
+  // TODO: extract this
+  max-width: 400px;
+  @media (width <= $breakpoint) {
+    grid-column: 1 / -1;
+    max-width: unset;
+    width: 100%;
+  }
 }
 
 .note-group__month {
@@ -285,58 +353,185 @@ a {
 }
 
 .note__year, .note__month, .note__day {
-  color: var(--contentSecondaryLight);
+  color: var(--contentSecondaryColor);
 }
 
-$dur: .2s;
-
-%listItemBackground {
-  &::before {
-    content: '';
-    position: absolute;
-    inset: -6px -8px;
-    border-radius: .6em;
-    @include light-dark(background-color, var(--contentPrimaryLight), var(--contentPrimaryDark));
-    opacity: 0;
-    transform: scale(.99);
-    filter: blur(.3em);
-    $dur: $dur * 4;
-    transition: $dur transform ease-out, $dur opacity ease-out, $dur filter ease-out;
+.note__accessories {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 5px;
+  min-height: 1.2em;
+  line-height: 1.2em;
+  align-items: center;
+  > li {
+    display: contents;
   }
 }
 
-%listItemBackgroundHover {
-  &::before {
-    opacity: 0.05;
-    filter: blur(0);
-    transform: scale(1);
-    transition-duration: math.div($dur, 4);
+.note__type {
+  $r: 4px;
+  $p: 3px 5px;
+  position: relative;
+  display: inline-flex;
+  justify-self: flex-end;
+  // height: 16px;
+  line-height: 100%;
+  border-radius: $r;
+  background-color: var(--tagBackgroundColor);
+  color: var(--tagContentColor);
+  box-shadow: inset 0 0 0 var(--px) var(--tagBorderColor);
+  font-size: 8pt;
+  padding: $p;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  @extend %font--display-medium; 
+  gap: 5px;
+  overflow: clip;
+  user-select: none;
+  -webkit-user-select: none;
+  &--evergreen {
+    background-color: var(--evergreenBackgroundColor);
+    color: var(--evergreenContentcolor);
+    box-shadow: inset 0 0 0 var(--px) var(--evergreenBorderColor);
+    &[data-version]::after {
+      content: attr(data-version);
+      padding: $p;
+      margin: -3px -5px -3px -2px;
+      background-color: var(--evergreenVersionBackgroundColor);
+      color: var(--evergreenVersionContentColor);
+      box-shadow: inset 0 0 0 var(--px) var(--evergreenVersionBorderColor);
+      border-radius: 0 $r $r 0;
+    }
   }
 }
 
-$dotDiameter: 8px;
+.note-list .note {
+  // necessary for subgrid
+  display: contents;
+}
+
+.note__link, .note-group__month {
+  grid-column: 1 / -1;
+}
+
+.note-list__copyright {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / -1;
+  gap: 5px;
+  .copyright__glyph {
+    color: var(--contentTertiaryColor);
+    text-align: right;
+  }
+  .copyright__text {
+    color: var(--contentSecondaryColor);
+    grid-column: 2 / 4;
+  }
+  .copyright__glyph, .copyright__text {
+    font-size: var(--type--2);
+    line-height: 1em;
+  }
+}
 
 .note__link {
   display: grid;
-  grid-template-columns: min-content auto $dotDiameter;
+  grid-template-columns: subgrid;
   text-decoration: none;
-  gap: 5px; // the size of a monospaced space character in Neue Haas Grotesk
-  align-items: center;
-  @include light-dark(color, var(--contentPrimaryLight), var(--contentPrimaryDark));
+  align-items: flex-start;
+  color: var(--contentPrimaryColor);
   position: relative;
   @extend %listItemBackground;
-
-  .note__day, .note__title {
-    transition: $dur transform ease-out, $dur background-color ease-out;
+  // give more space for title if no accessories
+  .note__title {
+    grid-column: 2 / 4;
+  }  
+  &--with-accessories .note__title {
+    grid-column: 2 / 3;
   }
-  
+  // prevents flickering with animated pseudo element
+  .note__day, .note__title {
+    z-index: 1;
+  }
+  .note__day, .note__title, .note__accessories  {
+    transition: $t transform ease-out, $t background-color ease-out;
+  }
   &:hover {
     @extend %listItemBackgroundHover;
+    $d: .25ex;
     .note__day, .note__title {
-      transform: translateX(.25ex);
+      transform: translateX($d);
     }
-    .note__day, .note__title {
-      transition-duration: math.div($dur, 4); 
+    .note__accessories {
+      transform: translateX(-$d);
+    }
+    .note__day, .note__title, .note__accessories {
+      transition-duration: math.div($t, 4); 
+    }
+  }
+  &:active {
+    @extend %listItemBackgroundActive;
+  }
+}
+
+.note__preview {
+  display: flex;
+  grid-column: 1 / -1;
+  z-index: 1;
+  aspect-ratio: 4 / 3;
+  overflow: clip;
+  border-radius: 4px;
+  position: relative;
+  margin: 2px 0 6px 0; // this offsets the hover effects asymmetrical offsets
+  box-shadow: 
+    0px 6px 12px 1px 0, 
+    0px 1.8px 3.6px 1px 0, 
+    0px 0.76px 1.52px 1px 0, 
+    0px 0.28px 0.56px 1px 0;
+  transition: $t box-shadow ease-out;
+  
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 4px;
+    $s: 0 0 0 var(--px) var(--edgeColor);
+    box-shadow: $s, inset $s;
+    opacity: 1;
+    transition: $t opacity ease-out;
+  }
+  .note__link:hover & {
+    box-shadow: 
+      0px 6px 12px 1px rgba(0, 0, 0, calc(0.05 * var(--shadowMultiplier, 1))), 
+      0px 1.8px 3.6px 1px rgba(0, 0, 0, calc(0.03 * var(--shadowMultiplier, 1))), 
+      0px 0.76px 1.52px 1px rgba(0, 0, 0, calc(0.025 * var(--shadowMultiplier, 1))), 
+      0px 0.28px 0.56px 1px rgba(0, 0, 0, calc(0.017 * var(--shadowMultiplier, 1)));
+    transition-duration: math.div($t, 4);
+    &::before {
+      transition-duration: inherit;
+      opacity: 0;
+    }
+  }
+}
+
+.note__video-preview {
+  width: 100%;
+  height: auto;
+  background-image: var(--lightPoster);
+  background-size: 100%;
+  @media (-webkit-min-device-pixel-ratio: 2) {
+    background-image: var(--lightPoster2x);
+  }
+  @media (-webkit-min-device-pixel-ratio: 3) {
+    background-image: var(--lightPoster3x);
+  }
+  @media (prefers-color-scheme: dark) {
+    background-image: var(--darkPoster);
+    @media (-webkit-min-device-pixel-ratio: 2) {
+      background-image: var(--darkPoster2x);
+    }
+    @media (-webkit-min-device-pixel-ratio: 3) {
+      background-image: var(--darkPoster3x);
     }
   }
 }
@@ -344,28 +539,118 @@ $dotDiameter: 8px;
 .note__day {
   font-variant-numeric: tabular-nums;
   text-decoration: none;
+  text-align: right;
+  &--hidden {
+    visibility: hidden; 
+  }
+}
+
+.note__title {
+  padding: 0 $note-title-gap 0 0;
 }
 
 .page {
   display: grid;
+  width: auto;
+  // min-height: 100dvh;
+  column-gap: 2.4em;
+  row-gap: 1.2em;
+  @media (width <= $breakpoint) {
+    align-content: start;
+  }
 }
 
 .page--notes {
   grid-template-columns: min-content minmax(320px, max-content);
-  gap: 1.2em;
-  padding: var(--type-0);
+  align-items: start;
+  justify-content: center;
   @media (width <= $breakpoint) {
     grid-template-columns: 100%;
     grid-template-rows: min-content auto;
   }
 }
 
+.page--note, .page--pen {
+  grid-template-columns: auto minmax(auto, $width);
+  @media (width <= $breakpoint) { 
+    grid-template-columns: 100%;
+  }
+  grid-template-rows: auto;
+  justify-content: center;
+}
+
 .page--note {
-  padding: var(--col);
+  .back-to-index {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+  }
+  .page-info {
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;
+    @media (width <= $breakpoint) { 
+      grid-column: 1 / -1;
+      grid-row: 2 / 3;
+    }
+  }
+  .note__header {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    @media (width <= $breakpoint) { 
+      grid-column: 1 / -1;
+    }
+  }
+  .note__body {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    @media (width <= $breakpoint) { 
+      grid-column: 1 / -1;
+      grid-row: 3 / 4;
+    }
+  }
+}
+
+.page--pen {
+  .back-to-index {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+  }
+  .page-info {
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;
+    @media (width <= $breakpoint) { 
+      grid-column: 1 / -1;
+      grid-row: 2 / 3;
+    }
+  }
+  .note__header {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    @media (width <= $breakpoint) { 
+      grid-column: 1 / -1;
+      grid-row: 1 / 2;
+    }
+  }
+  .pen__body {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    @media (width <= $breakpoint) { 
+      grid-column: 1 / -1;
+      grid-row: 3 / 4;
+    }
+  }
 }
 
 .nav__title {
   @extend %font--display-black;
+  line-height: 1.2em;
+}
+
+.navigation {
+  position: sticky;
+  top: var(--col);
+  @media (width <= $breakpoint) {
+    position: static;
+  }
 }
 
 .navigation__items {
@@ -379,12 +664,262 @@ $dotDiameter: 8px;
   }
 }
 
+@media (width <= $breakpoint) {
+  .nav__title-container {
+    margin: 0 auto 0 0;
+  }
+}
+
 .nav__link {
   text-decoration: none;
   position: relative;
   @extend %listItemBackground;
-  transition: $dur transform ease-out;
+  transition: $t transform ease-out;
   &:hover {
     @extend %listItemBackgroundHover;
+  }
+  span {
+    z-index: 10;
+    position: relative;
+  }
+}
+
+.pen-tabs__state {
+  display: none;
+}
+
+
+%selectedTab {
+  display: block;
+  background-color: var(--materialPrimaryColor);
+  box-shadow: 
+    var(--px) 0 0 var(--edgeColor), 
+    calc(-1 * var(--px)) 0 0 var(--edgeColor),
+    0 var(--px) 0 var(--materialPrimaryColor);
+}
+%selectedPanel {
+  display: block;
+  background-color: var(--materialPrimaryColor);
+}
+@for $i from 1 through 5 {
+  $tab: "[data-tab-index='tab-#{$i}']";
+  #{$tab}:target {
+    // selected tab in toolbar
+    ~ * .pen-tabs__tab#{$tab} {
+      @extend %selectedTab;
+    }
+    // selected tab pane
+    ~ * .pen-tabs__panes__content#{$tab} {
+      @extend %selectedPanel;
+    }
+  }
+}
+// Default selected tab
+$default-tab: "[data-tab-index='tab-1']";
+
+// for the default tab without a following :target item
+#{$default-tab}:not(:has(~ *:target)) {
+  ~ * .pen-tabs__tab#{$default-tab} {
+    @extend %selectedTab;
+  }
+  // selected tab pane
+  ~ * .pen-tabs__panes__content#{$default-tab} {
+    @extend %selectedPanel;
+  }
+}
+ 
+.pen-tabs__panes__content {
+  display: none;
+}
+
+.pen__demo {
+  $r: 4px;
+  border-radius: $r;
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: clip;
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: $r;
+    $s: 0 0 0 var(--px) var(--edgeColor);
+    box-shadow: inset $s, $s;
+    user-select: none;
+    pointer-events: none;
+  }
+  iframe {
+    border: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+  
+.pen-tabs-container {
+  $r: 4px;
+  border-radius: $r;
+  display: grid;
+  row-gap: var(--px);
+  background-clip: border-box;  
+  position: relative;
+  background-color: var(--materialSecondaryColor);
+  overflow: hidden;
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: $r;
+    $s: 0 0 0 var(--px) var(--edgeColor);
+    box-shadow: inset $s, $s;
+    user-select: none;
+    pointer-events: none;
+  }
+}
+
+.pen-tabs__panes {
+  grid-row: 2;
+  overflow: auto;
+}
+
+.pen-tabs__toolbar {
+  display: flex;
+  grid-row: 1;
+  box-shadow: 0 0 0 var(--px) var(--edgeColor);
+}
+
+.pen-tabs__tab {
+  font-size: 10pt;
+  padding: 0 8px;
+  a {
+    text-decoration: none;
+    @extend %font--display-medium;
+  }
+}
+
+.pen-tabs__panes__content {
+  overflow: hidden;
+  max-width: $width;
+  pre, code {
+    max-width: $width;
+  }
+}
+
+.page-info {
+  display: grid;
+  grid-template-rows: subgrid;
+  flex-direction: column;
+  font-size: var(--type--2);
+  color: var(--colorContentSecondary);
+  @media (width <= $breakpoint) {
+    position: static;
+    flex-direction: row;
+  }
+}
+
+
+.page-info__list {
+  display: grid;
+  column-gap: 5px;
+  grid-template-columns: min-content auto;
+  grid-auto-rows: min-content;
+  position: sticky;
+  top: calc(2 * 2.4em + var(--type-5));
+  @media (width <= $breakpoint) { 
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: .25rem;
+  }
+  > * {
+    margin: 0;
+  }
+  .page-info__entry__key {
+    text-align: right;
+    color: var(--contentSecondaryColor);
+    @media (width <= $breakpoint) { 
+      &::after {
+        content: ': '
+      }
+    }
+  }
+  .page-info__entry__value {
+    text-align: left;
+    @media (width <= $breakpoint) { 
+      display: inline;
+      li {
+        display: inline;
+      }
+    }
+  }
+}
+
+.page-info__entry {
+  display: grid;
+  grid-column: 1 / -1;
+  padding: .25rem 0;
+  line-height: 1.5rem;
+  min-height: 1.5rem;
+  grid-template-columns: subgrid;
+  @media (width <= $breakpoint) { 
+    display: inline;
+    padding: 0;
+    &:not(:last-child)::after {
+      content: ', '
+    }
+  }
+}
+
+.page-info__entry {
+  overflow: hidden;
+  @media (width <= $breakpoint) { 
+    &--tags {
+      display: inline;
+      .page-info__entry__value li:not(:last-child)::after {
+        content: ','
+      }
+    }
+  }
+}
+
+.back-to-index {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  z-index: 10;
+  position: sticky;
+  top: 0;
+  @media (width <= $breakpoint) {
+    display: none;
+  }
+}
+
+.back-to-index__link {
+  display: grid;
+  place-content: center;
+  border-radius: 50%;
+  aspect-ratio: 1;
+  height: 75%;
+  max-height: calc(var(--type-5));
+  backdrop-filter: blur(20px) saturate(120%);
+  -webkit-backdrop-filter: blur(20px) saturate(120%);
+  position: sticky;
+  top: 1.4em;
+  background-color: var(--materialSecondaryColor);
+  &:hover {
+    background-color: var(--materialSecondaryHoverColor);
+  }
+  &:active {
+    scale: .95;
+  }
+  svg {
+    color: var(--contentPrimaryColor);
+  }
+}
+
+.sub-list__item {
+  width: min-content;
+  @media (width <= $breakpoint) {
+    display: inline;
+    width: auto;
   }
 }

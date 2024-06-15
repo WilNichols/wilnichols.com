@@ -1,0 +1,127 @@
+@use 'color';
+
+fieldset {
+  border: 0;
+}
+
+// use radio buttons for logic, but hide the button itself.
+input {
+  display: none;
+}
+
+// Fun Stuff
+$gap: 6px;
+
+// wrapping control
+.segmented-control {
+  list-style: none;
+  display: grid;
+  grid-auto-columns: 1fr;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  border-radius: 12px;
+  padding: $gap;
+  gap: $gap;
+  justify-content: space-between;
+  width: auto;
+  background-color: light-dark(var(--cK95, #F8F8F8), var(--cK1, #F8F8F8));
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.item {
+  white-space: nowrap;
+  width: 100%;
+  display: block;
+  text-align: center;
+  grid-row: 1 / 2;
+  position: relative;
+  padding: 8px 12px;
+  z-index: 100;
+  vertical-align: middle;
+  line-height: 16px;
+  font-size: 16px;
+  will-change: scale;
+  input:not(:checked) + &:hover ~ .effect-container .hover-background, 
+  input:not(:checked) + &:active ~ .effect-container .hover-background {
+    background-color: light-dark(var(--cK90, #E6EFF0), var(--cK5, #E6EFF0));
+    opacity: 1;
+    transition-property: translate, opacity, scale;
+    transition-duration: 0s, 0.2s, .1s;
+    transition-timing-function: ease-out;
+  }
+  input:not(:checked) + &:active, 
+  input:not(:checked) + &:active ~ .effect-container .hover-background {
+    scale: 0.95;
+    opacity: 1;
+  }
+  &:focus-visible {
+    box-shadow: 0 0 0 2px light-dark(var(--cB50, #EF5E14), var(--cB60, #EF5E14));
+    outline: none;
+  }
+  input:checked + &:focus-visible {
+    box-shadow: none;
+  }
+}
+
+.selected-background {
+  position: absolute;
+  z-index: 10;
+  inset: 0;
+  border-radius: 4px;
+  transition: 0.2s translate ease-out;
+  background-color: light-dark(var(--c100, #F8f8f8), var(--cK20, #F8f8f8));
+  box-shadow: 
+    0px 3px 6px rgba(0, 0, 0, 0.05), 
+    0px 0.9px 1.8px rgba(0, 0, 0, 0.03), 
+    0px 0.38px 0.76px rgba(0, 0, 0, 0.025), 
+    0px 0.14px 0.28px rgba(0, 0, 0, 0.017);
+}
+
+.hover-background {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  border: 1px solid light-dark(var(--cK95, #F8f8f8), var(--cK1, #F8f8f8));
+  opacity: 0;
+  border-radius: 4px;
+  transition-property: translate, opacity, scale;
+  // impossible high duration makes it look like it's not transitioning at all
+  transition-duration: 999999999s, 0.2s, 0.2s;
+  transition-timing-function: ease-out;
+  background-color: transparent;
+}
+
+.effect-container {
+  position: absolute;
+  inset: $gap;
+}
+
+// This stuff should _not_ be used in production, but gets me the behavior I want w/o JS 
+// props that change depending on number of children, and which item is selected
+@for $i from 1 through 99 {
+  .item:nth-of-type(#{$i}) ~ .effect-container * {
+    --itemCount: #{$i};
+    --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+  }
+  input:nth-of-type(#{$i}):checked  ~ .effect-container, {
+    --selectedItemIndex: #{$i};
+  }
+  input:nth-of-type(#{$i}):hover  ~ .effect-container, {
+    --hoverItemIndex: #{$i};
+  }
+}
+
+// the different offsets depending on which item is selected
+.selected-background, .hover-background {
+  width: calc(var(--itemWidth) - var(--itemWidthModifier, 0px));
+}
+
+.selected-background {
+  translate: calc((100% + #{$gap}) * (var(--selectedItemIndex) - 1)) 0;
+}
+
+.hover-background {
+  translate: calc((100% + #{$gap}) * (var(--hoverItemIndex) - 1)) 0;
+}
