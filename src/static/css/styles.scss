@@ -29,7 +29,7 @@
   // colors
   @include light-dark(--materialPrimaryColor, var(--c100), var(--c0));
   @include light-dark(--materialPrimaryHoverColor, var(--cK95), var(--cK5));
-  @include light-dark(--materialSecondaryColor, var(--cK95), var(--cK5));
+  @include light-dark(--materialSecondaryColor, var(--cK95a), var(--cK5d));
   @include light-dark(--materialSecondaryHoverColor, var(--cK90), var(--cK10));
   @include light-dark(--contentPrimaryColor, var(--cK5), var(--c100));
   @include light-dark(--contentSecondaryColor, var(--cK50), var(--cK60));
@@ -46,6 +46,7 @@
   @include light-dark(--evergreenVersionBorderColor, var(--cG30), var(--cG60));
   @include light-dark(--evergreenVersionContentColor, var(--c100), var(--c0abs));
   @include light-dark(--edgeColor, var(--cK80a), var(--cK10d));
+  @include light-dark(--shadowMultiplier, 1, 2);
   // layout
   --px: calc(1px / var(--density, 1));
   @media (-webkit-min-device-pixel-ratio: 2) {
@@ -100,10 +101,10 @@ body {
   font-size: var(--type-0);
   line-height: 1.2em;
   @extend %font--text-regular;
-  display: grid;
-  justify-content: center;
-  align-content: start;
-  padding: 0;
+  // display: grid;
+  // justify-content: center;
+  // align-content: start;
+  padding: var(--col);
   margin: 0;
   min-height: 100dvh;
   background-color: var(--materialPrimaryColor);
@@ -185,8 +186,11 @@ main {
   color: var(--contentSecondaryColor);
 }
 
-.note__body, .pen__body p {
+.note__body > *, .pen__body > * {
   line-height: 1.5em;
+  &:not(:last-child) {
+    margin: 0 auto 1em auto;
+  }
 }
 
 .album__album-photos {
@@ -381,7 +385,7 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
   letter-spacing: 1px;
   text-transform: uppercase;
   @extend %font--display-medium; 
-  @include light-dark(mix-blend-mode, multiply, screen);
+  // @include light-dark(mix-blend-mode, multiply, screen);
   gap: 5px;
   overflow: clip;
   user-select: none;
@@ -479,6 +483,14 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
   border-radius: 4px;
   position: relative;
   margin: 2px 0 6px 0; // this offsets the hover effects asymmetrical offsets
+  box-shadow: 
+    0px 6px 12px 1px 0, 
+    0px 1.8px 3.6px 1px 0, 
+    0px 0.76px 1.52px 1px 0, 
+    0px 0.28px 0.56px 1px 0;
+  transition: $t box-shadow ease-out;
+  
+
   &::before {
     content: '';
     position: absolute;
@@ -486,6 +498,20 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
     border-radius: 4px;
     $s: 0 0 0 var(--px) var(--edgeColor);
     box-shadow: $s, inset $s;
+    opacity: 1;
+    transition: $t opacity ease-out;
+  }
+  .note__link:hover & {
+    box-shadow: 
+      0px 6px 12px 1px rgba(0, 0, 0, calc(0.05 * var(--shadowMultiplier, 1))), 
+      0px 1.8px 3.6px 1px rgba(0, 0, 0, calc(0.03 * var(--shadowMultiplier, 1))), 
+      0px 0.76px 1.52px 1px rgba(0, 0, 0, calc(0.025 * var(--shadowMultiplier, 1))), 
+      0px 0.28px 0.56px 1px rgba(0, 0, 0, calc(0.017 * var(--shadowMultiplier, 1)));
+    transition-duration: math.div($t, 4);
+    &::before {
+      transition-duration: inherit;
+      opacity: 0;
+    }
   }
 }
 
@@ -526,11 +552,13 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
 
 .page {
   display: grid;
-  padding: var(--col);
-  width: 100dvw;
-  min-height: 100dvh;
+  width: auto;
+  // min-height: 100dvh;
   column-gap: 2.4em;
   row-gap: 1.2em;
+  @media (width <= $breakpoint) {
+    align-content: start;
+  }
 }
 
 .page--notes {
@@ -545,7 +573,7 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
 }
 
 .page--note, .page--pen {
-  grid-template-columns: auto clamp(240px, min-content, $width);
+  grid-template-columns: auto minmax(auto, $width);
   @media (width <= $breakpoint) { 
     grid-template-columns: 100%;
   }
@@ -560,7 +588,7 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
   }
   .page-info {
     grid-column: 1 / 2;
-    grid-row: 2 / 3;
+    grid-row: 1 / 3;
     @media (width <= $breakpoint) { 
       grid-column: 1 / -1;
     }
@@ -589,18 +617,10 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
   }
   .page-info {
     grid-column: 1 / 2;
-    grid-row: 2 / 3;
+    grid-row: 1 / 3;
     @media (width <= $breakpoint) { 
       grid-column: 1 / -1;
       grid-row: 2 / 3;
-    }
-  }
-  .pen__demo {
-    grid-column: 2 / 3;
-    grid-row: 2 / 3;
-    @media (width <= $breakpoint) { 
-      grid-column: 1 / -1;
-      grid-row: 3 / 4;
     }
   }
   .note__header {
@@ -613,10 +633,10 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
   }
   .pen__body {
     grid-column: 2 / 3;
-    grid-row: 3 / 4;
+    grid-row: 2 / 3;
     @media (width <= $breakpoint) { 
       grid-column: 1 / -1;
-      grid-row: 4 / 5;
+      grid-row: 3 / 4;
     }
   }
 }
@@ -759,6 +779,7 @@ $default-tab: "[data-tab-index='tab-1']";
 
 .pen-tabs__panes {
   grid-row: 2;
+  overflow: auto;
 }
 
 .pen-tabs__toolbar {
@@ -785,9 +806,8 @@ $default-tab: "[data-tab-index='tab-1']";
 }
 
 .page-info {
-  display: flex;
-  position: sticky;
-  top: var(--col);
+  display: grid;
+  grid-template-rows: subgrid;
   flex-direction: column;
   font-size: var(--type--2);
   color: var(--colorContentSecondary);
@@ -802,6 +822,9 @@ $default-tab: "[data-tab-index='tab-1']";
   display: grid;
   column-gap: 5px;
   grid-template-columns: min-content auto;
+  grid-auto-rows: min-content;
+  position: sticky;
+  top: calc(2 * 2.4em + var(--type-5));
   @media (width <= $breakpoint) { 
     display: flex;
     flex-direction: row;
@@ -863,6 +886,9 @@ $default-tab: "[data-tab-index='tab-1']";
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  z-index: 10;
+  position: sticky;
+  top: 0;
   @media (width <= $breakpoint) {
     display: none;
   }
@@ -872,15 +898,22 @@ $default-tab: "[data-tab-index='tab-1']";
   display: grid;
   place-content: center;
   border-radius: 50%;
-  background-color: var(--materialSecondaryColor);
   aspect-ratio: 1;
   height: 75%;
   max-height: calc(var(--type-5));
+  backdrop-filter: blur(20px) saturate(120%);
+  -webkit-backdrop-filter: blur(20px) saturate(120%);
+  position: sticky;
+  top: 1.4em;
+  background-color: var(--materialSecondaryColor);
   &:hover {
     background-color: var(--materialSecondaryHoverColor);
   }
   &:active {
     scale: .95;
+  }
+  svg {
+    color: var(--contentPrimaryColor);
   }
 }
 

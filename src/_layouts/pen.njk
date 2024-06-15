@@ -4,15 +4,15 @@ layout: page.njk
 {% for asset, src in assets | penAssets %}
   <a class="pen-tabs__state" id="{{ asset }}" data-tab-index="tab-{{ loop.index }}">{{ asset }}</a>
 {% endfor %}
-<div class="page page--pen">
+<article class="page page--pen">
   {% include "page-info.njk" %}
-  <div class="pen__demo">
-    {% if assets.demo %}
-      <iframe class="demo__iframe "src="{{ assets.demo }}" frameborder="0"></iframe>
-    {% endif %}
-  </div>
   {% include "title-and-date.njk" %}
   <main class="pen__body">
+    <div class="pen__demo">
+      {% if assets.demo %}
+        <iframe class="demo__iframe "src="{{ assets.demo }}" frameborder="0"></iframe>
+      {% endif %}
+    </div>
     {{ content | safe }}
     <div class="pen-tabs-container">
       {% set assets = assets | penAssets %}
@@ -31,4 +31,4 @@ layout: page.njk
       </ul>
     </div>
   </main>
-</div>
+</article>
