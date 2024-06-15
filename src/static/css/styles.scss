@@ -385,7 +385,6 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
   letter-spacing: 1px;
   text-transform: uppercase;
   @extend %font--display-medium; 
-  // @include light-dark(mix-blend-mode, multiply, screen);
   gap: 5px;
   overflow: clip;
   user-select: none;
@@ -568,7 +567,6 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
   @media (width <= $breakpoint) {
     grid-template-columns: 100%;
     grid-template-rows: min-content auto;
-    width: 100dvw;
   }
 }
 
