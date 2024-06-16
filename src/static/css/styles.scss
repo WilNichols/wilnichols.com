@@ -130,13 +130,15 @@ p:last-child {
   margin-bottom: 0;
 }
 
-p, h1, h2, h3, h4, h5, h6, .note-title {  
+h1, h2, h3, h4, h5, h6, .note-title {  
   max-width: $width;
   text-wrap: balance;
 }
 
 p {
+  max-width: $width;
   margin: 0 auto 1em auto;
+  text-wrap: pretty;
 }
 
 a {

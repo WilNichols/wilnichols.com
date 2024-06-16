@@ -37,4 +37,10 @@ assets:
   scss: ../static/css/segmented-control.scss
 url: 
 ---
-Should UI be written this way? No, but it's amusing.
+Try the demo. 👆🏻
+
+Should UI be written this way? No, but it’s amusing. More seriously, we tend to put our cruft on the JS end of functionality when a surprising amount can be done with HTML and CSS alone. 
+
+Working on components and systems with my team, I often find that designers lacking development experience have a rough time understanding both a component’s design and programmatic inputs and outputs. Working on this with junior designers, we do an exercise where we compare basic UI elements and see if we can logically recreate one with the functionality of another. For example, radio inputs within a fieldset represent a single selection within an array, which map to a whole host of other elements—and silly dev exercises like this help to make that point. 
+
+View the source below.
