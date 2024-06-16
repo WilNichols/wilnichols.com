@@ -12,12 +12,12 @@ layout: null
     <atom:link href="{{ permalink | absoluteUrl(meta.url) }}" rel="self" type="application/rss+xml" />
     <description>{{ meta.description }}</description>
     <language>{{ meta.lang }}</language>
-    {%- for note in collections.notes | reverse %}
+    {%- for note in collections.all | reverse %}
     {%- set absoluteNoteUrl = note.url | absoluteUrl(meta.url) %}
     <item>
       <title>{{ note.data.title }}</title>
       <link>{{ absoluteNoteUrl }}</link>
-      <description>{{ note.templateContent | htmlToAbsoluteUrls(absoluteNoteUrl) }}</description>
+      <description>{% if note.data.preview %}<img src="{{ ['https://wilnichols.com', note.data.preview.meta] | join }}"  />{% endif %}{{ note.templateContent | htmlToAbsoluteUrls(absoluteNoteUrl) | safe }}</description>
       <pubDate>{{ note.date | dateToRfc822 }}</pubDate>
       <dc:creator>{{ meta.name }}</dc:creator>
       <guid>{{ absoluteNoteUrl }}</guid>

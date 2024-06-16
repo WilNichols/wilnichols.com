@@ -28,67 +28,28 @@ layout: page.njk
           {% if note.data.preview %}
             <div class="note__preview">
               {% if note.data.preview.type == 'vid' %}
-
                 <video 
                   width="400" 
                   poster="/assets/img/poster.gif" 
-                  class="note__video-preview"
+                  class="note__video-preview {{ note.data.preview.class }}"
                   style="
-                    --lightPoster: url({{ [note.data.preview.src, "-poster--light.png"] | join }});
-                    --darkPoster: url({{ [note.data.preview.src, "-poster--dark.png"] | join }});
-                    --lightPoster2x: url({{ [note.data.preview.src, "-poster--light@2x.png"] | join }});
-                    --darkPoster2x: url({{ [note.data.preview.src, "-poster--dark@2x.png"] | join }});
-                    --lightPoster3x: url({{ [note.data.preview.src, "-poster--light@3x.png"] | join }});
-                    --darkPoster3x: url({{ [note.data.preview.src, "-poster--dark@3x.png"] | join }});"
+                    {% if note.data.preview.class == 'themed-3x' %}
+                      --darkPoster3x: url({{ note.data.preview.assets[0].poster }});
+                      --lightPoster3x: url({{ note.data.preview.assets[1].poster }});
+                      --darkPoster2x: url({{ note.data.preview.assets[2].poster }});
+                      --lightPoster2x: url({{ note.data.preview.assets[3].poster }});
+                      --darkPoster: url({{ note.data.preview.assets[4].poster }});
+                      --lightPoster: url({{ note.data.preview.assets[5].poster }});
+                    {% endif %}"
                   autoplay 
                   loop 
                   muted 
                   playsinline
                   >
-                    <source 
-                      media="
-                      (prefers-color-scheme: dark) and 
-                        (-webkit-min-device-pixel-ratio: 3) and 
-                        (min-resolution: 180dpi)" 
-                      src="{{ note.data.preview.src }}--dark@3x.mp4" 
-                      type="video/mp4">
-                    <source 
-                      media="
-                          (prefers-color-scheme: light) and 
-                          (-webkit-min-device-pixel-ratio: 3) and 
-                          (min-resolution: 180dpi)" 
-                        src="{{ note.data.preview.src }}--light@3x.mp4" 
-                        type="video/mp4">
-                    <source 
-                        media="
-                          (prefers-color-scheme: dark) and 
-                          (-webkit-min-device-pixel-ratio: 2) and 
-                          (min-resolution: 120dpi)" 
-                        src="{{ note.data.preview.src }}--dark@2x.mp4" 
-                        type="video/mp4">
-                    <source 
-                      media="
-                        (prefers-color-scheme: light) and 
-                          (-webkit-min-device-pixel-ratio: 2) and 
-                          (min-resolution: 120dpi)" 
-                        src="{{ note.data.preview.src }}--light@2x.mp4" 
-                        type="video/mp4">
-                    <source 
-                      media="
-                        (prefers-color-scheme: dark) and 
-                        (-webkit-min-device-pixel-ratio: 1) and 
-                        (min-resolution: 60dpi)" 
-                      src="{{ note.data.preview.src }}--dark.mp4" 
-                      type="video/mp4">
-                    <source 
-                      media="
-                        (prefers-color-scheme: light) and 
-                        (-webkit-min-device-pixel-ratio: 1) and 
-                        (min-resolution: 60dpi)" 
-                      src="{{ note.data.preview.src }}--light.mp4"
-                    type="video/mp4">
+                  {% for asset in note.data.preview.assets %}
+                    <source media="{{ asset.media }}" src="{{ asset.source }}" type="video/mp4">
+                  {% endfor %}
                 </video>
-                
               {% endif %}
             </div>
           {% endif %}

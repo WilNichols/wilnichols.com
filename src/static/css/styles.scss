@@ -517,21 +517,23 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
 .note__video-preview {
   width: 100%;
   height: auto;
-  background-image: var(--lightPoster);
   background-size: 100%;
-  @media (-webkit-min-device-pixel-ratio: 2) {
-    background-image: var(--lightPoster2x);
-  }
-  @media (-webkit-min-device-pixel-ratio: 3) {
-    background-image: var(--lightPoster3x);
-  }
-  @media (prefers-color-scheme: dark) {
-    background-image: var(--darkPoster);
+  &.themed-3x {
+    background-image: var(--lightPoster);
     @media (-webkit-min-device-pixel-ratio: 2) {
-      background-image: var(--darkPoster2x);
+      background-image: var(--lightPoster2x);
     }
     @media (-webkit-min-device-pixel-ratio: 3) {
-      background-image: var(--darkPoster3x);
+      background-image: var(--lightPoster3x);
+    }
+    @media (prefers-color-scheme: dark) {
+      background-image: var(--darkPoster);
+      @media (-webkit-min-device-pixel-ratio: 2) {
+        background-image: var(--darkPoster2x);
+      }
+      @media (-webkit-min-device-pixel-ratio: 3) {
+        background-image: var(--darkPoster3x);
+      }
     }
   }
 }
