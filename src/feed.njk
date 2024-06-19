@@ -17,10 +17,10 @@ layout: null
     <item>
       <title>{{ note.data.title }}</title>
       <link>{{ absoluteNoteUrl }}</link>
-      <description>{% if note.data.preview %}<img src="{{ ['https://wilnichols.com', note.data.preview.meta] | join }}"  />{% endif %}{{ note.templateContent | htmlToAbsoluteUrls(absoluteNoteUrl) }}</description>
       <pubDate>{{ note.date | dateToRfc822 }}</pubDate>
       <dc:creator>{{ meta.name }}</dc:creator>
       <guid>{{ absoluteNoteUrl }}</guid>
+      <description><![CDATA[{% if note.data.preview %}<img src="{{ ['https://wilnichols.com', note.data.preview.meta] | join }}"  />{% endif %}{{ note.templateContent | htmlToAbsoluteUrls(absoluteNoteUrl) | safe }}]]></description>
     </item>
     {%- endfor %}
   </channel>
