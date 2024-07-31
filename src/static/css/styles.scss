@@ -104,7 +104,8 @@ body {
   // display: grid;
   // justify-content: center;
   // align-content: start;
-  padding: var(--col);
+  --rounding-interval: 1px;
+  padding: round(to-zero, var(--col), var(--rounding-interval));
   margin: 0;
   min-height: 100dvh;
   background-color: var(--materialPrimaryColor);
@@ -479,11 +480,9 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
   display: flex;
   grid-column: 1 / -1;
   z-index: 1;
-  aspect-ratio: 4 / 3;
-  overflow: clip;
-  border-radius: 4px;
   position: relative;
   margin: 2px 0 6px 0; // this offsets the hover effects asymmetrical offsets
+  border-radius: 4px;
   box-shadow: 
     0px 6px 12px 1px 0, 
     0px 1.8px 3.6px 1px 0, 
@@ -491,14 +490,18 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
     0px 0.28px 0.56px 1px 0;
   transition: $t box-shadow ease-out;
   
-
+  > * {
+    aspect-ratio: 4 / 3;
+    border-radius: 4px;
+    // apply to the child to avoid clipping on subpixels
+  }
   &::before {
     content: '';
     position: absolute;
     inset: 0;
     border-radius: 4px;
     $s: 0 0 0 var(--px) var(--edgeColor);
-    box-shadow: $s, inset $s;
+    box-shadow: inset $s;
     opacity: 1;
     transition: $t opacity ease-out;
   }
