@@ -443,6 +443,7 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
   align-items: flex-start;
   color: var(--contentPrimaryColor);
   position: relative;
+  row-gap: 2px; // this is a const because it looks better
   @extend %listItemBackground;
   // give more space for title if no accessories
   .note__title {
