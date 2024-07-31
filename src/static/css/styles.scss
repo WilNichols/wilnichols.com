@@ -812,7 +812,6 @@ $default-tab: "[data-tab-index='tab-1']";
   display: grid;
   grid-template-rows: subgrid;
   flex-direction: column;
-  font-size: var(--type--2);
   color: var(--colorContentSecondary);
   @media (width <= $breakpoint) {
     position: static;
@@ -824,10 +823,14 @@ $default-tab: "[data-tab-index='tab-1']";
 .page-info__list {
   display: grid;
   column-gap: 5px;
+  // set font size here despite never using as font-size to avoid extensive calc statements, and instead  em
+  font-size: var(--type-0);
+  padding: .375em 0;
+  row-gap: .5em;
   grid-template-columns: min-content auto;
   grid-auto-rows: min-content;
   position: sticky;
-  top: calc(2 * 2.4em + var(--type-5));
+  // top: calc(2 * 2.4em + var(--type-5));
   @media (width <= $breakpoint) { 
     display: flex;
     flex-direction: row;
@@ -836,6 +839,7 @@ $default-tab: "[data-tab-index='tab-1']";
   }
   > * {
     margin: 0;
+    font-size: var(--type--2);
   }
   .page-info__entry__key {
     text-align: right;
@@ -860,22 +864,17 @@ $default-tab: "[data-tab-index='tab-1']";
 .page-info__entry {
   display: grid;
   grid-column: 1 / -1;
-  padding: .25rem 0;
-  line-height: 1.5rem;
-  min-height: 1.5rem;
+  padding: 0;
+  line-height: var(--type-0);
+  min-height: var(--type-0);
   grid-template-columns: subgrid;
+  overflow: hidden;
   @media (width <= $breakpoint) { 
     display: inline;
     padding: 0;
     &:not(:last-child)::after {
       content: ', '
     }
-  }
-}
-
-.page-info__entry {
-  overflow: hidden;
-  @media (width <= $breakpoint) { 
     &--tags {
       display: inline;
       .page-info__entry__value li:not(:last-child)::after {
