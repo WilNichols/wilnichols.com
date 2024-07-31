@@ -104,6 +104,7 @@ body {
   // display: grid;
   // justify-content: center;
   // align-content: start;
+  --rounding-interval: 1px;
   padding: var(--col);
   margin: 0;
   min-height: 100dvh;
@@ -442,6 +443,7 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
   align-items: flex-start;
   color: var(--contentPrimaryColor);
   position: relative;
+  row-gap: 2px; // this is a const because it looks better
   @extend %listItemBackground;
   // give more space for title if no accessories
   .note__title {
@@ -479,11 +481,9 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
   display: flex;
   grid-column: 1 / -1;
   z-index: 1;
-  aspect-ratio: 4 / 3;
-  overflow: clip;
-  border-radius: 4px;
   position: relative;
   margin: 2px 0 6px 0; // this offsets the hover effects asymmetrical offsets
+  border-radius: 4px;
   box-shadow: 
     0px 6px 12px 1px 0, 
     0px 1.8px 3.6px 1px 0, 
@@ -491,14 +491,18 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
     0px 0.28px 0.56px 1px 0;
   transition: $t box-shadow ease-out;
   
-
+  > * {
+    aspect-ratio: 4 / 3;
+    border-radius: 4px;
+    // apply to the child to avoid clipping on subpixels
+  }
   &::before {
     content: '';
     position: absolute;
     inset: 0;
     border-radius: 4px;
     $s: 0 0 0 var(--px) var(--edgeColor);
-    box-shadow: $s, inset $s;
+    box-shadow: inset $s;
     opacity: 1;
     transition: $t opacity ease-out;
   }
@@ -812,7 +816,6 @@ $default-tab: "[data-tab-index='tab-1']";
   display: grid;
   grid-template-rows: subgrid;
   flex-direction: column;
-  font-size: var(--type--2);
   color: var(--colorContentSecondary);
   @media (width <= $breakpoint) {
     position: static;
@@ -824,10 +827,14 @@ $default-tab: "[data-tab-index='tab-1']";
 .page-info__list {
   display: grid;
   column-gap: 5px;
+  // set font size here despite never using as font-size to avoid extensive calc statements, and instead  em
+  font-size: var(--type-0);
+  padding: .375em 0;
+  row-gap: .5em;
   grid-template-columns: min-content auto;
   grid-auto-rows: min-content;
   position: sticky;
-  top: calc(2 * 2.4em + var(--type-5));
+  // top: calc(2 * 2.4em + var(--type-5));
   @media (width <= $breakpoint) { 
     display: flex;
     flex-direction: row;
@@ -836,6 +843,7 @@ $default-tab: "[data-tab-index='tab-1']";
   }
   > * {
     margin: 0;
+    font-size: var(--type--2);
   }
   .page-info__entry__key {
     text-align: right;
@@ -860,22 +868,17 @@ $default-tab: "[data-tab-index='tab-1']";
 .page-info__entry {
   display: grid;
   grid-column: 1 / -1;
-  padding: .25rem 0;
-  line-height: 1.5rem;
-  min-height: 1.5rem;
+  padding: 0;
+  line-height: var(--type-0);
+  min-height: var(--type-0);
   grid-template-columns: subgrid;
+  overflow: hidden;
   @media (width <= $breakpoint) { 
     display: inline;
     padding: 0;
     &:not(:last-child)::after {
       content: ', '
     }
-  }
-}
-
-.page-info__entry {
-  overflow: hidden;
-  @media (width <= $breakpoint) { 
     &--tags {
       display: inline;
       .page-info__entry__value li:not(:last-child)::after {
