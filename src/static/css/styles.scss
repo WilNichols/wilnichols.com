@@ -105,7 +105,7 @@ body {
   // justify-content: center;
   // align-content: start;
   --rounding-interval: 1px;
-  padding: round(to-zero, var(--col), var(--rounding-interval));
+  padding: var(--col);
   margin: 0;
   min-height: 100dvh;
   background-color: var(--materialPrimaryColor);
