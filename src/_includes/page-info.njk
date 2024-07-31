@@ -10,7 +10,7 @@
   <ul class="page-info__list">
     <li class="page-info__entry">
       <span class="page-info__entry__key">Published</span><span class="page-info__entry__value">{{ date }}</span></li>
-    {%- if (date != updated) -%}
+    {%- if update and (date != updated) -%}
       <li class="page-info__entry">
         <span class="page-info__entry__key">Updated</span><span class="page-info__entry__value">{{ updated }}</span></li>
     {%- endif -%}
