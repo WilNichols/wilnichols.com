@@ -661,6 +661,25 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
   top: var(--col);
   @media (width <= $breakpoint) {
     position: static;
+    &::before, &::after {
+      content: '';
+      position: absolute;
+      z-index: 10;
+      width: var(--col);
+      height: calc(2 * var(--col) + 1rem);
+      inset: 0;
+    }
+    &::before {
+      right: auto;
+      background-image: linear-gradient(90deg, var(--materialPrimaryColor), transparent);
+    }
+    &::after {
+      left: auto;
+      background-image: linear-gradient(-90deg, var(--materialPrimaryColor), transparent);
+    }
+    > * {
+      z-index: 1;
+    }
   }
 }
 
@@ -672,6 +691,18 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
   @media (width <= $breakpoint) {
     flex-direction: row;
     justify-content: space-between;
+    position: relative;
+    $inset: calc(-1 * var(--col));
+    inset: $inset $inset auto $inset;
+    width: 100dvw;
+    // fix for scrollbar overlap. 
+    $offset: 24px;
+    padding: var(--col) var(--col) $offset var(--col);
+    margin-bottom: -$offset;
+    overflow: auto;
+    &::-webkit-scrollbar { 
+      display: none;
+    }
   }
 }
 
