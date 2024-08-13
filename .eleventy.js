@@ -60,6 +60,17 @@ module.exports = function(eleventyConfig) {
     return beautify.css(string, { indent_size: 2 });
   });
   
+  // https://stackoverflow.com/questions/66083103/how-to-generate-a-list-of-all-collections-in-11ty
+  eleventyConfig.addCollection("tagsList", function(collectionApi) {
+      const tagsList = new Set();
+      collectionApi.getAll().map( item => {
+          if (item.data.tags) { // handle pages that don't have tags
+              item.data.tags.map( tag => tagsList.add(tag))
+          }
+      });
+      return tagsList;
+  });
+  
   eleventyConfig.addFilter("markdownify", string => {
       return md.render(string)
   });

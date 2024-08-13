@@ -6,6 +6,7 @@ tags:
   - Status/Complete
   - Topic/Building
   - Type/Update
+  - Type/Note
 url: 
 ---
 

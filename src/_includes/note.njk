@@ -1,0 +1,46 @@
+{% from "tag.njk" import tag as tagButton %}
+
+{% macro noteListItem(post, postPrefix, showAccessories) -%}
+  <a href="{{ post.url }}" class="note__link{{ ' note__link--with-accessories' if showAccessories }}">
+    {% if post.data.preview %}
+      <div class="note__preview">
+        {% if post.data.preview.type == 'vid' %}
+          {% set assetRoot %}{{ remote.gallery.base }}/{{ remote.gallery.video }}/{{ post.data.preview.dir }}/{% endset %}
+          <video 
+            width="400" 
+            poster="/assets/img/poster.gif" 
+            class="note__preview__poster {{ post.data.preview.class }}"
+            style="
+              {% if post.data.preview.class == 'themed-3x' %}
+                --darkPoster3x: url({{ assetRoot }}{{ post.data.preview.assets[0].poster }});
+                --lightPoster3x: url({{ assetRoot }}{{ post.data.preview.assets[1].poster }});
+                --darkPoster2x: url({{ assetRoot }}{{ post.data.preview.assets[2].poster }});
+                --lightPoster2x: url({{ assetRoot }}{{ post.data.preview.assets[3].poster }});
+                --darkPoster: url({{ assetRoot }}{{ post.data.preview.assets[4].poster }});
+                --lightPoster: url({{ assetRoot }}{{ post.data.preview.assets[5].poster }});
+              {% endif %}"
+            autoplay 
+            loop 
+            muted 
+            playsinline
+            >
+            {% for asset in post.data.preview.assets %}
+              <source media="{{ asset.media }}" src="{{ assetRoot }}{{ asset.source }}" type="video/mp4">
+            {% endfor %}
+          </video>
+        {% elif post.data.preview.type == 'svg' %}
+          {% set assetRoot %}{{ remote.gallery.base }}/{{ remote.gallery.video }}/{{ post.data.preview.dir }}/{% endset %}
+          <div class="note__preview__poster {{ post.data.preview.class }}">{% include "../static/embeds/dynamic-type/preview.svg" %}</div>
+        {% endif %}
+        
+      </div>
+    {% endif %}
+    <span class="note__day">{{ postPrefix }}</span>
+    <span class="note__title">{{ post.data.title }}</span>
+    {# {% if showAccessories %}
+      <ul class="note__accessories">
+        {% for tag in post.data.tags %}{% if ("Type/" in tag) %}  <li>{{ tagButton(tag) }}</li>{% endif %}{% endfor %}
+      </ul>
+    {% endif %} #}
+  </a>
+{%- endmacro %}
