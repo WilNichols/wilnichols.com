@@ -4,10 +4,11 @@ layout: page.njk
 {% from "../_includes/footer.njk" import footer %}
 {% from "../_includes/navigation.njk" import navigation with context %}
 {% from "../_includes/post-list.njk" import postList with context %}
+
 <div class="page page--notes">
   {{ navigation() }}
   <ol class="note-list" reversed>
-    {{ postList(page.data.category) }}
+    {{ postList(collections[collection]) }}
   <li class="note-list__copyright">{{ footer() }}</li>
   </ol>
 </div>

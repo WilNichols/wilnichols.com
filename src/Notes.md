@@ -1,6 +1,6 @@
 ---
 layout: 'category.njk'
 permalink: 'index.html'
-category: 'Type/Note'
+collection: Type/Note
 eleventyExcludeFromCollections: true
 ---

@@ -1,10 +1,10 @@
 {% from "../_includes/note.njk" import noteListItem with context %}
 
-{% macro postList(category) -%}
+{% macro postList(collection) -%}
   {% set currentDay = "" %}
   {% set currentMonth = "" %}
   {% set currentYear = "" %}
-  {% for post in collections.all | reverse %}
+  {% for post in collection | reverse %}
     {% set postDay = post.date | postDay %}
     {% set postMonth = post.data.month %}
     {% set postYear = post.data.year %}
