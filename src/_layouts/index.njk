@@ -1,71 +1,31 @@
 ---
 layout: page.njk
 ---
-{% from "../_includes/tag.njk" import tag as tagButton %}
+{% from "../_includes/footer.njk" import footer %}
+{% from "../_includes/navigation.njk" import navigation with context %}
+{% from "../_includes/note.njk" import noteListItem with context %}
 <div class="page page--notes">
-  <nav class="navigation">
-    <ul class="navigation__items">
-      <li class="nav__item nav__title-container"><h1 class="nav__title">{{ meta.name | replace(' ', '&nbsp;') | safe }}</h1></li>
-      <li class="nav__item"><a class="nav__link" href="feed.xml"><span>Subscribe</span></a></li>
-      <li class="nav__item"><a class="nav__link" href="mailto:{{ meta.contact.email }}"><span>Email</span></a></li>
-    </ul>
-  </nav>
+  {{ navigation() }}
   <ol class="note-list" reversed>
     {% set currentDay = "" %}
     {% set currentMonth = "" %}
     {% set currentYear = "" %}
-    {% for note in collections.all | reverse %}
-      {% set noteDay = note.date | postDay %}
-      {% set noteMonth = note.data.month %}
-      {% set noteYear = note.data.year %}
-      {% set notePrefix %}{% if (currentDay == noteDay) and (currentMonth == noteMonth) %}↳{% else %}{{ noteDay }}{% endif %}{% endset %}
-      {% set showAccessories %}{% for tag in note.data.tags %}{{ true if ("Type/" in tag) and not ("Type/Note" in tag)}}{% endfor %}{% endset %}
-      {% if currentMonth != noteMonth %}
-        <li class="note-group__month">{% if currentYear != noteYear %}<h2 class="note__year">{{ noteYear }}</h2>{% endif %}<h3 class="note__month">{{ noteMonth }}</h3></li>
+    {% for post in collections.all | reverse %}
+      {% set postDay = post.date | postDay %}
+      {% set postMonth = post.data.month %}
+      {% set postYear = post.data.year %}
+      {% set postPrefix %}{% if (currentDay == postDay) and (currentMonth == postMonth) %}↳{% else %}{{ postDay }}{% endif %}{% endset %}
+      {% set showAccessories %}{% for tag in post.data.tags %}{{ true if ("Type/" in tag) and not ("Type/Note" in tag)}}{% endfor %}{% endset %}
+      {% if currentMonth != postMonth %}
+        <li class="note-group__month">{% if currentYear != postYear %}<h2 class="note__year">{{ postYear }}</h2>{% endif %}<h3 class="note__month">{{ postMonth }}</h3></li>
       {% endif %}
       <li class="note">
-        <a href="{{ note.url }}" class="note__link{{ ' note__link--with-accessories' if showAccessories }}">
-          {% if note.data.preview %}
-            <div class="note__preview">
-              {% if note.data.preview.type == 'vid' %}
-                <video 
-                  width="400" 
-                  poster="/assets/img/poster.gif" 
-                  class="note__video-preview {{ note.data.preview.class }}"
-                  style="
-                    {% if note.data.preview.class == 'themed-3x' %}
-                      --darkPoster3x: url({{ note.data.preview.assets[0].poster }});
-                      --lightPoster3x: url({{ note.data.preview.assets[1].poster }});
-                      --darkPoster2x: url({{ note.data.preview.assets[2].poster }});
-                      --lightPoster2x: url({{ note.data.preview.assets[3].poster }});
-                      --darkPoster: url({{ note.data.preview.assets[4].poster }});
-                      --lightPoster: url({{ note.data.preview.assets[5].poster }});
-                    {% endif %}"
-                  autoplay 
-                  loop 
-                  muted 
-                  playsinline
-                  >
-                  {% for asset in note.data.preview.assets %}
-                    <source media="{{ asset.media }}" src="{{ asset.source }}" type="video/mp4">
-                  {% endfor %}
-                </video>
-              {% endif %}
-            </div>
-          {% endif %}
-          <span class="note__day">{{ notePrefix }}</span>
-          <span class="note__title">{{ note.data.title }}</span>
-          {% if showAccessories %}
-            <ul class="note__accessories">
-              {% for tag in note.data.tags %}{% if ("Type/" in tag) %}  <li>{{ tagButton(tag) }}</li>{% endif %}{% endfor %}
-            </ul>
-          {% endif %}
-        </a>
+        {{ noteListItem(post, postPrefix) }}
       </li>
-      {% set currentDay = noteDay %}
-      {% set currentMonth = noteMonth %}
-      {% set currentYear = noteYear %}
+      {% set currentDay = postDay %}
+      {% set currentMonth = postMonth %}
+      {% set currentYear = postYear %}
     {% endfor %}
-    <li class="note-list__copyright"><span class="copyright__glyph">©</span><span class="copyright__text">2008 - {% year %} {{ meta.name }}. Don't steal. I love you.</span></li>
+    <li class="note-list__copyright">{{ footer() }}</li>
   </ol>
 </div>

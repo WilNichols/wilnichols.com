@@ -1,0 +1,12 @@
+{% macro navigation() -%}
+  <nav class="navigation">
+    <ul class="navigation__items">
+      <li class="nav__item nav__title-container"><h1 class="nav__title">{{ meta.name | replace(' ', '&nbsp;') | safe }}</h1></li>
+      <li class="nav__item"><a class="nav__link" href="/"><span>Notes</span></a></li>
+      <li class="nav__item"><a class="nav__link" href="/Pens/"><span>Pens</span></a></li>
+      <li class="nav__item"><a class="nav__link" href="/Interaction/"><span>Interaction</span></a></li>
+      <li class="nav__item"><a class="nav__link" href="feed.xml"><span>RSS</span></a></li>
+      <li class="nav__item"><a class="nav__link" href="mailto:{{ meta.contact.email }}"><span>Email</span></a></li>
+    </ul>
+  </nav>
+{%- endmacro %}
