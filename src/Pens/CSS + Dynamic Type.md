@@ -1,6 +1,6 @@
 ---
 date: 2024-08-13T12:09
-originalDat: 2019-04-24T10:43
+originalDate: 2019-04-24T10:43
 author: Wil Nichols
 tags:
   - Topic/CSS
@@ -9,10 +9,10 @@ tags:
   - Topic/Accessibility
 preview: 
   type: svg
-  class: themed-3x
-  meta: /assets/img/dynamic-type@2x.png
+  meta: /assets/img/dynamic-type-preview.png
   dir: dynamic-type
-  assets: ../static/embeds/dynamic-type/index.html
+  assets: 
+    - /assets/embeds/dynamic-type/preview.svg
 assets: 
   demo: /assets/embeds/dynamic-type/
   html: ../static/embeds/dynamic-type/index.html

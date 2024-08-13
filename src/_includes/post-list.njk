@@ -14,7 +14,7 @@
       <li class="note-group__month">{% if currentYear != postYear %}<h2 class="note__year">{{ postYear }}</h2>{% endif %}<h3 class="note__month">{{ postMonth }}</h3></li>
     {% endif %}
     <li class="note">
-      {{ noteListItem(post, postPrefix) }}
+      {{ noteListItem(post, postPrefix, showAccessories) }}
     </li>
     {% set currentDay = postDay %}
     {% set currentMonth = postMonth %}

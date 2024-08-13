@@ -329,7 +329,7 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
 .note-list {
   grid-column: 2 / 3;
   display: grid;
-  grid-template-columns: min-content auto min-content;
+  grid-template-columns: min-content 100%;
   row-gap: 1.2em;
   column-gap: $note-title-gap;
   // TODO: extract this
@@ -485,10 +485,10 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
   margin: 2px 0 6px 0; // this offsets the hover effects asymmetrical offsets
   border-radius: 4px;
   box-shadow: 
-    0px 6px 12px 1px 0, 
-    0px 1.8px 3.6px 1px 0, 
-    0px 0.76px 1.52px 1px 0, 
-    0px 0.28px 0.56px 1px 0;
+    0px 6px 12px 1px transparent, 
+    0px 1.8px 3.6px 1px transparent, 
+    0px 0.76px 1.52px 1px transparent, 
+    0px 0.28px 0.56px 1px transparent;
   transition: $t box-shadow ease-out;
   
   > * {
@@ -520,10 +520,13 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
   }
 }
 
-.note__video-preview {
+.note__preview__poster {
   width: 100%;
   height: auto;
   background-size: 100%;
+  background-color: var(--materialPrimaryColor);
+  display: grid;
+  place-content: center;
   &.themed-3x {
     background-image: var(--lightPoster);
     @media (-webkit-min-device-pixel-ratio: 2) {
