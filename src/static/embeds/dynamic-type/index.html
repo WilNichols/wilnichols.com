@@ -1,0 +1,74 @@
+<head>
+  <meta name="color-scheme" content="light dark">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <link rel="stylesheet" href="/assets/css/dynamic-type.css">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    :root {
+      width: 100%;
+      height: 100%;
+      font-family: inter;
+    }
+    
+    body {
+      display: grid;
+      place-content: center;
+    }
+    
+    .container {
+      display: grid;
+      place-content: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 1rem;
+    }
+    
+    span {
+      background-color: light-dark(var(--cK90), var(--cK10));
+    }
+    
+    
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!---->
+    <div class="group">
+      <span class="title4">Title 4</span>
+    </div>
+    <div class="group">
+      <span class="title0">Title 0</span>
+      <span class="title1">Title 1</span>
+      <span class="title2">Title 2</span>
+      <span class="title3">Title 3</span>
+    </div>
+    <div class="group">
+      <span class="headline">Headline</span>
+      <span class="headline short">Headline Short</span>
+    </div>
+    <div class="group">
+      <span class="subheadline">Subheadline</span>
+      <span class="subheadline short">Subheadline Short</span>
+    </div>
+    <div class="group">
+      <span class="body short">Body Short</span>
+      <span class="body">Body</span>
+      <span class="body tall">Body Tall</span>
+    </div>
+    <div class="group">
+      <span class="caption1">Caption1</span>
+      <span class="caption1 short">Caption1 Short</span> 
+    </div>
+    <div class="group">
+     <span class="caption2">Caption2</span>
+    </div>
+    <div class="group">
+      <span class="footnote">Footnote</span>
+      <span class="footnote short">Footnote Short</span>
+    </div>
+    <!---->
+  </div>
+</body>

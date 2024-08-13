@@ -12,25 +12,26 @@ preview:
   type: vid
   class: themed-3x
   meta: /assets/vid/segmented-control-pen-poster--light@2x.png
+  dir: segmented-control
   assets:
     - media: '(prefers-color-scheme: dark) and (-webkit-min-device-pixel-ratio: 3) and (min-resolution: 180dpi)'
-      poster: /assets/vid/segmented-control-pen-poster--dark@3x.png
-      source: /assets/vid/segmented-control-pen--dark@3x.mp4
+      poster: segmented-control-pen-poster--dark@3x.png
+      source: segmented-control-pen--dark@3x.mp4
     - media: '(prefers-color-scheme: light) and (-webkit-min-device-pixel-ratio: 3) and (min-resolution: 180dpi)'
-      poster: /assets/vid/segmented-control-pen-poster--light@3x.png
-      source: /assets/vid/segmented-control-pen--light@3x.mp4
+      poster: segmented-control-pen-poster--light@3x.png
+      source: segmented-control-pen--light@3x.mp4
     - media: '(prefers-color-scheme: dark) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 120dpi)'
-      poster: /assets/vid/segmented-control-pen-poster--dark@2x.png
-      source: /assets/vid/segmented-control-pen--dark@2x.mp4
+      poster: segmented-control-pen-poster--dark@2x.png
+      source: segmented-control-pen--dark@2x.mp4
     - media: '(prefers-color-scheme: light) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 120dpi)'
-      poster: /assets/vid/segmented-control-pen-poster--light@2x.png
-      source: /assets/vid/segmented-control-pen--light@2x.mp4
+      poster: segmented-control-pen-poster--light@2x.png
+      source: segmented-control-pen--light@2x.mp4
     - media: '(prefers-color-scheme: dark) and (-webkit-min-device-pixel-ratio: 1) and (min-resolution: 60dpi)'
-      poster: /assets/vid/segmented-control-pen-poster--dark.png
-      source: /assets/vid/segmented-control-pen--dark.mp4
+      poster: segmented-control-pen-poster--dark.png
+      source: segmented-control-pen--dark.mp4
     - media: '(prefers-color-scheme: light) and (-webkit-min-device-pixel-ratio: 1) and (min-resolution: 60dpi)'
-      poster: /assets/vid/segmented-control-pen-poster--light.png
-      source: /assets/vid/segmented-control-pen--light.mp4
+      poster: segmented-control-pen-poster--light.png
+      source: segmented-control-pen--light.mp4
 assets: 
   demo: /assets/embeds/segmented-control/
   html: ../static/embeds/segmented-control/index.html
