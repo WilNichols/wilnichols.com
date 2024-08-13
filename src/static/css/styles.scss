@@ -335,7 +335,7 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
 .note-list {
   grid-column: 2 / 3;
   display: grid;
-  grid-template-columns: min-content 100%;
+  grid-template-columns: min-content auto;
   row-gap: 1.2em;
   column-gap: $note-title-gap;
   // TODO: extract this
@@ -531,8 +531,6 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
   height: auto;
   background-size: 100%;
   background-color: var(--materialPrimaryColor);
-  display: grid;
-  place-content: center;
   &.themed-3x {
     background-image: var(--lightPoster);
     @media (-webkit-min-device-pixel-ratio: 2) {
