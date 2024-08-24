@@ -1,9 +1,5 @@
-@use 'sass:math';
 @use 'root';
-@use 'tokens';
 @use 'defaults';
 @use 'wrapper-elements';
 @use 'templates';
 @use 'components';
-
-@include tokens.textElementStyles;
