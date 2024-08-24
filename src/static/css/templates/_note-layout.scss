@@ -1,3 +1,5 @@
+@use '../tokens';
+
 .page--note, .page--pen {
   grid-template-columns: auto minmax(auto, tokens.$width);
   @media (width <= tokens.$breakpoint) { 
@@ -36,3 +38,4 @@
     }
   }
 }
+

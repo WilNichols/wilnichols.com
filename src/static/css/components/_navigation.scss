@@ -1,3 +1,8 @@
+@use '../tokens';
+@use '../abstractions/hover-blur';
+
+@include tokens.textStyles;
+
 .nav__title {
   @extend %font--display-black;
   line-height: 1.2em;
@@ -63,7 +68,7 @@
   text-decoration: none;
   position: relative;
   @extend %listItemBackground;
-  transition: $t transform ease-out;
+  transition: tokens.$x transform ease-out;
   &:not(.nav__link--current):hover {
     @extend %listItemBackgroundHover;
   }

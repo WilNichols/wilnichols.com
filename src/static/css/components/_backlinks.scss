@@ -1,3 +1,9 @@
+@use '../tokens';
+@use '../abstractions/hover-blur';
+
+@include tokens.textStyles;
+@include tokens.textStyles;
+
 .backlinks {
   max-width: tokens.$width;
   margin: 0 auto;

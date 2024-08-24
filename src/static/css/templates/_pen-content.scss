@@ -1,5 +1,7 @@
 @use '../tokens';
 
+@include tokens.textStyles;
+
 .pen-tabs__state {
   display: none;
 }

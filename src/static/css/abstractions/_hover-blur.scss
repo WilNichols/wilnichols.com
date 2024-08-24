@@ -1,4 +1,5 @@
-$t: .2s;
+@use 'sass:math';
+@use '../tokens';
 
 %listItemBackground::before {
   content: '';
@@ -10,14 +11,13 @@ $t: .2s;
   opacity: 0;
   will-change: opacity;
   filter: blur(.3em);
-  $t: $t * 4;
-  transition: $t opacity ease-out, $t filter ease-out;
+  transition: tokens.$x4 opacity ease-out, tokens.$x4 filter ease-out;
 }
 
 %listItemBackgroundHover::before {
   opacity: 1;
   filter: blur(0);
-  transition-duration: math.div($t, 4);
+  transition-duration: tokens.$x;
 }
 
 %listItemBackgroundActive {

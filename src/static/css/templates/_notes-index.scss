@@ -1,3 +1,9 @@
+@use 'sass:math';
+@use '../tokens';
+@use '../abstractions/hover-blur';
+
+@include tokens.textStyles;
+
 $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas Grotesk
 
 .page--notes {
@@ -132,7 +138,7 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
     z-index: 1;
   }
   .note__day, .note__title, .note__accessories  {
-    transition: $t transform ease-out, $t background-color ease-out;
+    transition: tokens.$x transform ease-out, tokens.$x background-color ease-out;
   }
   &:hover {
     @extend %listItemBackgroundHover;
@@ -144,7 +150,7 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
       transform: translateX(-$d);
     }
     .note__day, .note__title, .note__accessories {
-      transition-duration: math.div($t, 4); 
+      transition-duration: math.div(tokens.$x, 4); 
     }
   }
   &:active {
@@ -164,7 +170,7 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
     0px 1.8px 3.6px 1px transparent, 
     0px 0.76px 1.52px 1px transparent, 
     0px 0.28px 0.56px 1px transparent;
-  transition: $t box-shadow ease-out;
+  transition: tokens.$x box-shadow ease-out;
   
   > * {
     aspect-ratio: 4 / 3;
@@ -179,7 +185,7 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
     $s: 0 0 0 var(--px) var(--edgeColor);
     box-shadow: inset $s;
     opacity: 1;
-    transition: $t opacity ease-out;
+    transition: tokens.$x opacity ease-out;
   }
   .note__link:hover & {
     box-shadow: 
@@ -187,7 +193,7 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
       0px 1.8px 3.6px 1px rgba(0, 0, 0, calc(0.03 * var(--shadowMultiplier, 1))), 
       0px 0.76px 1.52px 1px rgba(0, 0, 0, calc(0.025 * var(--shadowMultiplier, 1))), 
       0px 0.28px 0.56px 1px rgba(0, 0, 0, calc(0.017 * var(--shadowMultiplier, 1)));
-    transition-duration: math.div($t, 4);
+    transition-duration: math.div(tokens.$x, 4);
     &::before {
       transition-duration: inherit;
       opacity: 0;

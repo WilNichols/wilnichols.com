@@ -1,3 +1,5 @@
+@use '../tokens';
+
 .page-info {
   display: grid;
   grid-template-rows: subgrid;
