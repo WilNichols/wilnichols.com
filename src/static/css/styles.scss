@@ -1,14 +1,12 @@
 @use 'sass:math';
 @use 'syntax';
 @use 'tokens';
-@use 'type';
-@use 'text-styles';
 
 :root {
   @include tokens.colorAliases;
   @include tokens.colorLiterals;
   @include tokens.sizeAliases;
-
+  @include tokens.textStyles;
 }
 
 * {
