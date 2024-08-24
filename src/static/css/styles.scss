@@ -1,4 +1,5 @@
 @use 'sass:math';
+@use 'defaults';
 @use 'syntax';
 @use 'tokens';
 
@@ -7,10 +8,6 @@
   @include tokens.colorLiterals;
   @include tokens.sizeAliases;
   @include tokens.textStyles;
-}
-
-* {
-  box-sizing: border-box;
 }
 
 body {
@@ -22,54 +19,8 @@ body {
   // align-content: start;
   --rounding-interval: 1px;
   padding: var(--col);
-  margin: 0;
-  min-height: 100dvh;
   background-color: var(--materialPrimaryColor);
   color: var(--contentPrimaryColor);
-  scrollbar-gutter: stable both-edges;
-}
-
-h1, h2, h3, h4, h5, h6, p, span {
-  font-size: 1em;
-  // line-height: 1.5em;
-  font-weight: unset;  
-  margin: 0;
-  padding: 0;
-}
-
-ol, ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-p:last-child {
-  margin-bottom: 0;
-}
-
-h1, h2, h3, h4, h5, h6, .note-title {  
-  max-width: tokens.$width;
-  text-wrap: balance;
-}
-
-p {
-  max-width: tokens.$width;
-  margin: 0 auto 1em auto;
-  text-wrap: pretty;
-}
-
-a {
-  color: var(--contentPrimaryColor);
-  p &, .page-info & {
-    color: var(--linkColor);
-    &:visited {
-      color: var(--linkVisitedColor);
-    }
-  }
-}
-
-main {
-  overflow: hidden;
 }
 
 .note__header {
@@ -77,38 +28,6 @@ main {
   flex-direction: column;
   h1 {
     margin: 0;
-  }
-}
-
-@for $i from 1 through 6 {
-  .heading--#{$i} {
-    // margin: 0 0 .25em 0;
-    font-size: var(--type-#{$i * 6 - $i});
-    @extend %font--display-medium;
-  }
-}
-
-.heading--1 {
-  line-height: 1em;
-  margin: 0 0 .25em 0;
-}
-
-.page__title {
-  @extend .heading--1;
-  @extend %font--display-black;
-}
-
-.page__subtitle {
-  font-size: var(--type--1);
-  @extend %font--text-regular;
-  display: block;
-  color: var(--contentSecondaryColor);
-}
-
-.note__body > *, .pen__body > * {
-  line-height: 1.5em;
-  &:not(:last-child) {
-    margin: 0 auto 1em auto;
   }
 }
 

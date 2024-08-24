@@ -1,0 +1,42 @@
+@use 'tokens';
+
+$t: .2s;
+$note-title-gap: .25em; // the size of a monospaced space character in Neue Haas Grotesk
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  scrollbar-gutter: stable both-edges;
+}
+
+h1, h2, h3, h4, h5, h6, p, span {
+  font-size: 1em;
+  font-weight: unset;
+  margin: 0;
+  padding: 0;
+}
+
+ol, ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+main {
+  overflow: hidden;
+}
+
+.note__body > *, .pen__body > * {
+  line-height: 1.5em;
+  &:not(:last-child) {
+    margin: 0 auto 1em auto;
+  }
+}

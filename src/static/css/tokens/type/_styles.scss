@@ -1,9 +1,33 @@
 @use 'fonts';
+@use '../size/aliases' as tokens;
 @forward 'fonts';
 
 @mixin textStyles {
   @include fonts.placeholders;
-  
+
+  a {
+    color: var(--contentPrimaryColor);
+    p &, .page-info & {
+      color: var(--linkColor);
+      &:visited {
+        color: var(--linkVisitedColor);
+      }
+    }
+  }
+
+  h1, h2, h3, h4, h5, h6, .note-title, p {  
+    max-width: tokens.$width;
+  }
+
+  h1, h2, h3, h4, h5, h6, .note-title {  
+    text-wrap: balance;
+  }
+
+  p {
+    margin: 0 auto 1em auto;
+    text-wrap: pretty;
+  }
+
   @for $i from 1 through 6 {
     .heading--#{$i} {
       // margin: 0 0 .25em 0;
@@ -19,7 +43,7 @@
   
   .page__title {
     @extend .heading--1;
-    @extend %font--display-medium;
+    @extend %font--display-black;
   }
   
   .page__subtitle {
@@ -43,5 +67,14 @@
   
   .note__year, .note__month, .note__day {
     color: var(--contentSecondaryColor);
+  }
+
+  .backlink__title {
+    font-size: var(--type--1);
+    @extend %font--display-medium;
+  }
+  
+  .backlink__title, .backlink__preview {
+    color: var(--contentPrimaryColor);
   }
 }
