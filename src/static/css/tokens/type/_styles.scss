@@ -7,8 +7,9 @@
 }
 
 @mixin textElementStyles {
-  @include textStyles;
 
+  @include textStyles;
+  
   a {
     color: var(--contentPrimaryColor);
     p &, .page-info & {

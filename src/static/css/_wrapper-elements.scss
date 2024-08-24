@@ -1,9 +1,11 @@
 @use 'tokens';
 
+@include tokens.textStyles;
+
 body {
   font-size: var(--type-0);
   line-height: 1.2em;
-  // @extend %font--text-regular;
+  @extend %font--text-regular;
   // display: grid;
   // justify-content: center;
   // align-content: start;
