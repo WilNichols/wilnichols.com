@@ -1,4 +1,9 @@
-@use 'color';
+@use 'tokens';
+
+:root {
+  @include tokens.colorAliases;
+  @include tokens.colorLiterals;
+}
 
 fieldset {
   border: 0;

@@ -1,102 +1,18 @@
 @use 'sass:math';
-@use 'color';
 @use 'syntax';
+@use 'tokens';
+@use 'type';
+@use 'text-styles';
 
-@mixin light-dark($prop, $lightColor, $darkColor: $lightColor) {
-  #{$prop}: $lightColor;
-  @media (prefers-color-scheme: dark) {
-    #{$prop}: $darkColor;
-  }
+:root {
+  @include tokens.colorAliases;
+  @include tokens.colorLiterals;
+  @include tokens.sizeAliases;
+
 }
 
 * {
   box-sizing: border-box;
-}
-
-// Typography. This isn't _the_ solution — I haven't tried much with fluid scales yet, but it's _a_ solution for now. 
-/* @link https://utopia.fyi/type/calculator?c=320,17,1.2,1200,20,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
-
-:root {
-  // type
-  --type--2: clamp(0.7378rem, 0.7152rem + 0.113vi, 0.8rem);
-  --type--1: clamp(0.8854rem, 0.8438rem + 0.2083vi, 1rem);
-  --type-0: clamp(1.0625rem, 0.9943rem + 0.3409vi, 1.25rem);
-  --type-1: clamp(1.275rem, 1.1705rem + 0.5227vi, 1.5625rem);
-  --type-2: clamp(1.53rem, 1.3761rem + 0.7693vi, 1.9531rem);
-  --type-3: clamp(1.836rem, 1.6159rem + 1.1007vi, 2.4414rem);
-  --type-4: clamp(2.2032rem, 1.8946rem + 1.5428vi, 3.0518rem);
-  --type-5: clamp(2.6438rem, 2.2181rem + 2.1288vi, 3.8147rem);
-  // colors
-  @include light-dark(--materialPrimaryColor, var(--c100), var(--c0));
-  @include light-dark(--materialPrimaryInvertedColor, var(--c0), var(--c100));
-  @include light-dark(--materialPrimaryHoverColor, var(--cK95), var(--cK5));
-  @include light-dark(--materialSecondaryColor, var(--cK95a), var(--cK5d));
-  @include light-dark(--materialSecondaryHoverColor, var(--cK90), var(--cK10));
-  @include light-dark(--contentPrimaryColor, var(--cK5), var(--c100));
-  @include light-dark(--contentPrimaryInvertedColor, var(--c100), var(--cK5));
-  @include light-dark(--contentSecondaryColor, var(--cK50), var(--cK60));
-  @include light-dark(--contentTertiaryColor, var(--cK70), var(--cK40));
-  @include light-dark(--linkColor, var(--cB30), var(--cB50));
-  @include light-dark(--linkVisitedColor, var(--cP30), var(--cP50));
-  @include light-dark(--tagBackgroundColor, var(--cK90), var(--cK20));
-  @include light-dark(--tagBorderColor, var(--cK80), var(--cK30));
-  @include light-dark(--tagContentColor, var(--cK30), var(--cK90));
-  @include light-dark(--evergreenBackgroundColor, var(--cG90), var(--cG20));
-  @include light-dark(--evergreenBorderColor, var(--cG80), var(--cG30));
-  @include light-dark(--evergreenContentColor, var(--cG30), var(--cG90));
-  @include light-dark(--evergreenVersionBackgroundColor, var(--cG40), var(--cG50));
-  @include light-dark(--evergreenVersionBorderColor, var(--cG30), var(--cG60));
-  @include light-dark(--evergreenVersionContentColor, var(--c100), var(--c0abs));
-  @include light-dark(--edgeColor, var(--cK80a), var(--cK10d));
-  @include light-dark(--shadowMultiplier, 1, 2);
-  // layout
-  --px: calc(1px / var(--density, 1));
-  @media (-webkit-min-device-pixel-ratio: 2) {
-    --density: 2;
-  }
-  @media (-webkit-min-device-pixel-ratio: 3) {
-    --density: 3;
-  }
-  --col: calc(100dvw/12);
-}
-
-$width: calc(30 * var(--type-0));
-$breakpoint: 480px;
-
-%font--display-regular {
-  font-family: "neue-haas-grotesk-display", sans-serif;
-  font-weight: 500;
-  font-style: normal;
-}
-
-%font--display-medium {
-  font-family: "neue-haas-grotesk-display", sans-serif;
-  font-weight: 600;
-  font-style: normal;
-}
-
-%font--display-black {
-  font-family: "neue-haas-grotesk-display", sans-serif;
-  font-weight: 900;
-  font-style: normal;
-}
-
-%font--text-regular {
-  font-family: "neue-haas-grotesk-text", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-%font--text-regular--italic {
-  font-family: "neue-haas-grotesk-text", sans-serif;
-  font-weight: 400;
-  font-style: italic;
-}
-
-%font--text-italic {
-  font-family: "neue-haas-grotesk-text", sans-serif;
-  font-weight: 500;
-  font-style: normal;
 }
 
 body {
@@ -134,12 +50,12 @@ p:last-child {
 }
 
 h1, h2, h3, h4, h5, h6, .note-title {  
-  max-width: $width;
+  max-width: tokens.$width;
   text-wrap: balance;
 }
 
 p {
-  max-width: $width;
+  max-width: tokens.$width;
   margin: 0 auto 1em auto;
   text-wrap: pretty;
 }
@@ -252,7 +168,7 @@ $t: .2s;
 }
   
 .backlinks {
-  max-width: $width;
+  max-width: tokens.$width;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -340,7 +256,7 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
   column-gap: $note-title-gap;
   // TODO: extract this
   max-width: 400px;
-  @media (width <= $breakpoint) {
+  @media (width <= tokens.$breakpoint) {
     grid-column: 1 / -1;
     max-width: unset;
     width: 100%;
@@ -356,14 +272,6 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
   width: 100%;
 }
 
-.note__month, .note__year {
-  @extend .heading--6;
-  @extend %font--display-medium;
-}
-
-.note__year, .note__month, .note__day {
-  color: var(--contentSecondaryColor);
-}
 
 .note__accessories {
   display: flex;
@@ -570,7 +478,7 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
   // min-height: 100dvh;
   column-gap: 2.4em;
   row-gap: 1.2em;
-  @media (width <= $breakpoint) {
+  @media (width <= tokens.$breakpoint) {
     align-content: start;
   }
 }
@@ -579,15 +487,15 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
   grid-template-columns: min-content minmax(320px, max-content);
   align-items: start;
   justify-content: center;
-  @media (width <= $breakpoint) {
+  @media (width <= tokens.$breakpoint) {
     grid-template-columns: 100%;
     grid-template-rows: min-content auto;
   }
 }
 
 .page--note, .page--pen {
-  grid-template-columns: auto minmax(auto, $width);
-  @media (width <= $breakpoint) { 
+  grid-template-columns: auto minmax(auto, tokens.$width);
+  @media (width <= tokens.$breakpoint) { 
     grid-template-columns: 100%;
   }
   grid-template-rows: auto;
@@ -602,7 +510,7 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
   .page-info {
     grid-column: 1 / 2;
     grid-row: 1 / 3;
-    @media (width <= $breakpoint) { 
+    @media (width <= tokens.$breakpoint) { 
       grid-column: 1 / -1;
       grid-row: 2 / 3;
     }
@@ -610,14 +518,14 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
   .note__header {
     grid-column: 2 / 3;
     grid-row: 1 / 2;
-    @media (width <= $breakpoint) { 
+    @media (width <= tokens.$breakpoint) { 
       grid-column: 1 / -1;
     }
   }
   .note__body {
     grid-column: 2 / 3;
     grid-row: 2 / 3;
-    @media (width <= $breakpoint) { 
+    @media (width <= tokens.$breakpoint) { 
       grid-column: 1 / -1;
       grid-row: 3 / 4;
     }
@@ -632,7 +540,7 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
   .page-info {
     grid-column: 1 / 2;
     grid-row: 1 / 3;
-    @media (width <= $breakpoint) { 
+    @media (width <= tokens.$breakpoint) { 
       grid-column: 1 / -1;
       grid-row: 2 / 3;
     }
@@ -640,7 +548,7 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
   .note__header {
     grid-column: 2 / 3;
     grid-row: 1 / 2;
-    @media (width <= $breakpoint) { 
+    @media (width <= tokens.$breakpoint) { 
       grid-column: 1 / -1;
       grid-row: 1 / 2;
     }
@@ -648,7 +556,7 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
   .pen__body {
     grid-column: 2 / 3;
     grid-row: 2 / 3;
-    @media (width <= $breakpoint) { 
+    @media (width <= tokens.$breakpoint) { 
       grid-column: 1 / -1;
       grid-row: 3 / 4;
     }
@@ -663,7 +571,7 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
 .navigation {
   position: sticky;
   top: var(--col);
-  @media (width <= $breakpoint) {
+  @media (width <= tokens.$breakpoint) {
     position: static;
     &::before, &::after {
       content: '';
@@ -692,7 +600,7 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
   flex-direction: column;
   gap: 1.2em;
   align-items: flex-end;
-  @media (width <= $breakpoint) {
+  @media (width <= tokens.$breakpoint) {
     flex-direction: row;
     justify-content: space-between;
     position: relative;
@@ -710,7 +618,7 @@ $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas
   }
 }
 
-@media (width <= $breakpoint) {
+@media (width <= tokens.$breakpoint) {
   .nav__title-container {
     margin: 0 auto 0 0;
   }
@@ -855,9 +763,9 @@ $default-tab: "[data-tab-index='tab-1']";
 
 .pen-tabs__panes__content {
   overflow: hidden;
-  max-width: $width;
+  max-width: tokens.$width;
   pre, code {
-    max-width: $width;
+    max-width: tokens.$width;
   }
 }
 
@@ -866,7 +774,7 @@ $default-tab: "[data-tab-index='tab-1']";
   grid-template-rows: subgrid;
   flex-direction: column;
   color: var(--colorContentSecondary);
-  @media (width <= $breakpoint) {
+  @media (width <= tokens.$breakpoint) {
     position: static;
     flex-direction: row;
   }
@@ -884,7 +792,7 @@ $default-tab: "[data-tab-index='tab-1']";
   grid-auto-rows: min-content;
   position: sticky;
   // top: calc(2 * 2.4em + var(--type-5));
-  @media (width <= $breakpoint) { 
+  @media (width <= tokens.$breakpoint) { 
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -897,7 +805,7 @@ $default-tab: "[data-tab-index='tab-1']";
   .page-info__entry__key {
     text-align: right;
     color: var(--contentSecondaryColor);
-    @media (width <= $breakpoint) { 
+    @media (width <= tokens.$breakpoint) { 
       &::after {
         content: ': '
       }
@@ -905,7 +813,7 @@ $default-tab: "[data-tab-index='tab-1']";
   }
   .page-info__entry__value {
     text-align: left;
-    @media (width <= $breakpoint) { 
+    @media (width <= tokens.$breakpoint) { 
       display: inline;
       li {
         display: inline;
@@ -922,7 +830,7 @@ $default-tab: "[data-tab-index='tab-1']";
   min-height: var(--type-0);
   grid-template-columns: subgrid;
   overflow: hidden;
-  @media (width <= $breakpoint) { 
+  @media (width <= tokens.$breakpoint) { 
     display: inline;
     padding: 0;
     &:not(:last-child)::after {
@@ -944,7 +852,7 @@ $default-tab: "[data-tab-index='tab-1']";
   z-index: 10;
   position: sticky;
   top: 0;
-  @media (width <= $breakpoint) {
+  @media (width <= tokens.$breakpoint) {
     display: none;
   }
 }
@@ -977,7 +885,7 @@ $default-tab: "[data-tab-index='tab-1']";
 
 .sub-list__item {
   width: min-content;
-  @media (width <= $breakpoint) {
+  @media (width <= tokens.$breakpoint) {
     display: inline;
     width: auto;
   }
