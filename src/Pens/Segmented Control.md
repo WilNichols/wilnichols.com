@@ -35,7 +35,7 @@ preview:
 assets: 
   demo: /assets/embeds/segmented-control/
   html: ../static/embeds/segmented-control/index.html
-  scss: ../static/css/segmented-control.scss
+  scss: ../static/css/pens/segmented-control.scss
 url: 
 ---
 Try the demo. 👆🏻

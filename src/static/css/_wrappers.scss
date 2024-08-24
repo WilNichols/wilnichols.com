@@ -1,0 +1,25 @@
+@use 'tokens';
+
+body {
+  font-size: var(--type-0);
+  line-height: 1.2em;
+  // @extend %font--text-regular;
+  // display: grid;
+  // justify-content: center;
+  // align-content: start;
+  --rounding-interval: 1px;
+  padding: var(--col);
+  background-color: var(--materialPrimaryColor);
+  color: var(--contentPrimaryColor);
+}
+
+.page {
+  display: grid;
+  width: auto;
+  // min-height: 100dvh;
+  column-gap: 2.4em;
+  row-gap: 1.2em;
+  @media (width <= tokens.$breakpoint) {
+    align-content: start;
+  }
+}

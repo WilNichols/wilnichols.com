@@ -1,0 +1,234 @@
+$note-title-gap: .25em; // the size of a monospaced space character in Neue Haas Grotesk
+
+.page--notes {
+  grid-template-columns: min-content minmax(320px, max-content);
+  align-items: start;
+  justify-content: center;
+  @media (width <= tokens.$breakpoint) {
+    grid-template-columns: 100%;
+    grid-template-rows: min-content auto;
+  }
+}
+
+.note-list {
+  grid-column: 2 / 3;
+  display: grid;
+  grid-template-columns: min-content auto;
+  row-gap: 1.2em;
+  column-gap: $note-title-gap;
+  // TODO: extract this
+  max-width: 400px;
+  @media (width <= tokens.$breakpoint) {
+    grid-column: 1 / -1;
+    max-width: unset;
+    width: 100%;
+  }
+}
+
+.note-group__month {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.note__month {
+  width: 100%;
+}
+
+.note__accessories {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 5px;
+  min-height: 1.2em;
+  line-height: 1.2em;
+  align-items: center;
+  > li {
+    display: contents;
+  }
+}
+
+.note__type {
+  $r: 4px;
+  $p: 3px 5px;
+  position: relative;
+  display: inline-flex;
+  justify-self: flex-end;
+  // height: 16px;
+  line-height: 100%;
+  border-radius: $r;
+  background-color: var(--tagBackgroundColor);
+  color: var(--tagContentColor);
+  box-shadow: inset 0 0 0 var(--px) var(--tagBorderColor);
+  font-size: 8pt;
+  padding: $p;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  @extend %font--display-medium; 
+  gap: 5px;
+  overflow: clip;
+  user-select: none;
+  -webkit-user-select: none;
+  &--evergreen {
+    background-color: var(--evergreenBackgroundColor);
+    color: var(--evergreenContentcolor);
+    box-shadow: inset 0 0 0 var(--px) var(--evergreenBorderColor);
+    &[data-version]::after {
+      content: attr(data-version);
+      padding: $p;
+      margin: -3px -5px -3px -2px;
+      background-color: var(--evergreenVersionBackgroundColor);
+      color: var(--evergreenVersionContentColor);
+      box-shadow: inset 0 0 0 var(--px) var(--evergreenVersionBorderColor);
+      border-radius: 0 $r $r 0;
+    }
+  }
+}
+
+.note-list .note {
+  // necessary for subgrid
+  display: contents;
+}
+
+.note__link, .note-group__month {
+  grid-column: 1 / -1;
+}
+
+.note-list__copyright {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / -1;
+  gap: 5px;
+  .copyright__glyph {
+    color: var(--contentTertiaryColor);
+    text-align: right;
+  }
+  .copyright__text {
+    color: var(--contentSecondaryColor);
+    grid-column: 2 / 4;
+  }
+  .copyright__glyph, .copyright__text {
+    font-size: var(--type--2);
+    line-height: 1em;
+  }
+}
+
+.note__link {
+  display: grid;
+  grid-template-columns: subgrid;
+  text-decoration: none;
+  align-items: flex-start;
+  color: var(--contentPrimaryColor);
+  position: relative;
+  row-gap: 2px; // this is a const because it looks better
+  @extend %listItemBackground;
+  // give more space for title if no accessories
+  .note__title {
+    grid-column: 2 / 4;
+  }  
+  &--with-accessories .note__title {
+    grid-column: 2 / 3;
+  }
+  // prevents flickering with animated pseudo element
+  .note__day, .note__title {
+    z-index: 1;
+  }
+  .note__day, .note__title, .note__accessories  {
+    transition: $t transform ease-out, $t background-color ease-out;
+  }
+  &:hover {
+    @extend %listItemBackgroundHover;
+    $d: .25ex;
+    .note__day, .note__title {
+      transform: translateX($d);
+    }
+    .note__accessories {
+      transform: translateX(-$d);
+    }
+    .note__day, .note__title, .note__accessories {
+      transition-duration: math.div($t, 4); 
+    }
+  }
+  &:active {
+    @extend %listItemBackgroundActive;
+  }
+}
+
+.note__preview {
+  display: flex;
+  grid-column: 1 / -1;
+  z-index: 1;
+  position: relative;
+  margin: 2px 0 6px 0; // this offsets the hover effects asymmetrical offsets
+  border-radius: 4px;
+  box-shadow: 
+    0px 6px 12px 1px transparent, 
+    0px 1.8px 3.6px 1px transparent, 
+    0px 0.76px 1.52px 1px transparent, 
+    0px 0.28px 0.56px 1px transparent;
+  transition: $t box-shadow ease-out;
+  
+  > * {
+    aspect-ratio: 4 / 3;
+    border-radius: 4px;
+    // apply to the child to avoid clipping on subpixels
+  }
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 4px;
+    $s: 0 0 0 var(--px) var(--edgeColor);
+    box-shadow: inset $s;
+    opacity: 1;
+    transition: $t opacity ease-out;
+  }
+  .note__link:hover & {
+    box-shadow: 
+      0px 6px 12px 1px rgba(0, 0, 0, calc(0.05 * var(--shadowMultiplier, 1))), 
+      0px 1.8px 3.6px 1px rgba(0, 0, 0, calc(0.03 * var(--shadowMultiplier, 1))), 
+      0px 0.76px 1.52px 1px rgba(0, 0, 0, calc(0.025 * var(--shadowMultiplier, 1))), 
+      0px 0.28px 0.56px 1px rgba(0, 0, 0, calc(0.017 * var(--shadowMultiplier, 1)));
+    transition-duration: math.div($t, 4);
+    &::before {
+      transition-duration: inherit;
+      opacity: 0;
+    }
+  }
+}
+
+.note__preview__poster {
+  width: 100%;
+  height: auto;
+  background-size: 100%;
+  background-color: var(--materialPrimaryColor);
+  &.themed-3x {
+    background-image: var(--lightPoster);
+    @media (-webkit-min-device-pixel-ratio: 2) {
+      background-image: var(--lightPoster2x);
+    }
+    @media (-webkit-min-device-pixel-ratio: 3) {
+      background-image: var(--lightPoster3x);
+    }
+    @media (prefers-color-scheme: dark) {
+      background-image: var(--darkPoster);
+      @media (-webkit-min-device-pixel-ratio: 2) {
+        background-image: var(--darkPoster2x);
+      }
+      @media (-webkit-min-device-pixel-ratio: 3) {
+        background-image: var(--darkPoster3x);
+      }
+    }
+  }
+}
+
+.note__day {
+  font-variant-numeric: tabular-nums;
+  text-decoration: none;
+  text-align: right;
+  &--hidden {
+    visibility: hidden; 
+  }
+}
+
+.note__title {
+  padding: 0 $note-title-gap 0 0;
+}

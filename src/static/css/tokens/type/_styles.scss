@@ -4,6 +4,10 @@
 
 @mixin textStyles {
   @include fonts.placeholders;
+}
+
+@mixin textElementStyles {
+  @include textStyles;
 
   a {
     color: var(--contentPrimaryColor);

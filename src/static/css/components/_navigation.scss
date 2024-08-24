@@ -1,0 +1,85 @@
+.nav__title {
+  @extend %font--display-black;
+  line-height: 1.2em;
+}
+
+.navigation {
+  position: sticky;
+  top: var(--col);
+  @media (width <= tokens.$breakpoint) {
+    position: static;
+    &::before, &::after {
+      content: '';
+      position: absolute;
+      z-index: 10;
+      width: var(--col);
+      height: calc(2 * var(--col) + 1rem);
+      inset: 0;
+    }
+    &::before {
+      right: auto;
+      background-image: linear-gradient(90deg, var(--materialPrimaryColor), transparent);
+    }
+    &::after {
+      left: auto;
+      background-image: linear-gradient(-90deg, var(--materialPrimaryColor), transparent);
+    }
+    > * {
+      z-index: 1;
+    }
+  }
+}
+
+.navigation__items {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2em;
+  align-items: flex-end;
+  @media (width <= tokens.$breakpoint) {
+    flex-direction: row;
+    justify-content: space-between;
+    position: relative;
+    $inset: calc(-1 * var(--col));
+    inset: $inset $inset auto $inset;
+    width: 100dvw;
+    // fix for scrollbar overlap. 
+    $offset: 24px;
+    padding: var(--col) var(--col) $offset var(--col);
+    margin-bottom: -$offset;
+    overflow: auto;
+    &::-webkit-scrollbar { 
+      display: none;
+    }
+  }
+}
+
+@media (width <= tokens.$breakpoint) {
+  .nav__title-container {
+    margin: 0 auto 0 0;
+  }
+}
+
+.nav__link {
+  text-decoration: none;
+  position: relative;
+  @extend %listItemBackground;
+  transition: $t transform ease-out;
+  &:not(.nav__link--current):hover {
+    @extend %listItemBackgroundHover;
+  }
+  &.nav__link--current {
+    @extend %listItemBackground;
+    &::before {
+      background-color: var(--materialPrimaryInvertedColor);
+      opacity: 1;
+      filter: none;
+    }
+    span {
+      color: var(--contentPrimaryInvertedColor);
+    }
+  }
+  span {
+    z-index: 10;
+    position: relative;
+  }
+}
