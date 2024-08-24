@@ -16,7 +16,6 @@ layout: page.njk
     {% if photo !== ''%}
       {% set imageProps = src | imageInfo %}
       <li class="album__album-photos__photo" id="{{ fileName }}">
-        {# {% set imageProps = src | imageInfo %} #}
         {{  Picture(
             fileName = fileName,
             src = src,

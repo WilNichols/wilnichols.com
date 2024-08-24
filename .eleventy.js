@@ -143,9 +143,9 @@ module.exports = function(eleventyConfig) {
       }
     });
     const albumsParams = {
-      Bucket: 'wnphoto01',
+      Bucket: process.env.AWS_BUCKET,
       Delimiter: '/',
-      Prefix: 'gallery-2023/' + dir + '/'
+      Prefix: process.env.PHOTO_DIR + '/' + dir + '/'
     };
     
     const command = new ListObjectsV2Command(albumsParams);
@@ -167,7 +167,9 @@ module.exports = function(eleventyConfig) {
   });
   
   eleventyConfig.addAsyncFilter('imageInfo', async function(src) {
-    const path = src.replace(process.env.KXCDN, '_offline/thumbs').replace('.jpg', '.webp').replace('.png', '.webp');
+    console.log('orig: ' + src);
+    const path = src.replace(process.env.CDN, '_offline/thumbs').replace('.jpg', '.webp').replace('.png', '.webp');
+    console.log('new: ' + path);
     const width = sizeOf(path).width;
     const height = sizeOf(path).height;
     async function getColor() {
