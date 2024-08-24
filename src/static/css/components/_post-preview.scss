@@ -3,14 +3,29 @@
 @use '../abstractions/hover-blur';
 
 @include tokens.textStyles;
+@include tokens.headingStyles;
 
 .note-group__month {
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row-reverse; 
+  justify-content: flex-end;
 }
 
 .note__month {
-  width: 100%;
+  white-space-collapse: break-spaces;
+}
+
+.note__month, .note__year {
+  @extend %heading--6;
+  @extend %font--display-medium;
+}
+
+.note__month {
+  color: var(--contentPrimaryColor);
+}
+
+.note__year, .note__day {
+  color: var(--contentSecondaryColor);
 }
 
 .note__accessories {

@@ -6,6 +6,16 @@
   @include fonts.placeholders;
 }
 
+@mixin headingStyles {
+  @for $i from 1 through 6 {
+    %heading--#{$i} {
+      // margin: 0 0 .25em 0;
+      font-size: var(--type-#{$i * 6 - $i});
+      @extend %font--display-medium;
+    }
+  }
+}
+
 @mixin textElementStyles {
 
   @include textStyles;
@@ -33,11 +43,11 @@
     text-wrap: pretty;
   }
 
+  @include headingStyles;
+
   @for $i from 1 through 6 {
     .heading--#{$i} {
-      // margin: 0 0 .25em 0;
-      font-size: var(--type-#{$i * 6 - $i});
-      @extend %font--display-medium;
+      @extend %heading--#{$i};
     }
   }
   
@@ -63,15 +73,6 @@
     &:not(:last-child) {
       margin: 0 auto 1em auto;
     }
-  }
-  
-  .note__month, .note__year {
-    @extend .heading--6;
-    @extend %font--display-medium;
-  }
-  
-  .note__year, .note__month, .note__day {
-    color: var(--contentSecondaryColor);
   }
 
   .backlink__title {
