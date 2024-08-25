@@ -1,26 +1,75 @@
-{% from "../_includes/note.njk" import noteListItem with context %}
+{% from "footer.njk" import footer with context %}
+{% from "tag.njk" import tag as tagButton %}
 
-{% macro postList(collection) -%}
-  {% set currentDay = "" %}
-  {% set currentMonth = "" %}
-  {% set currentYear = "" %}
-  {% for post in collection | reverse %}
-    {% set postDay = post.date | postDay %}
-    {% set postMonth = post.data.month %}
-    {% set postYear = post.data.year %}
-    {% set postPrefix %}{% if (currentDay == postDay) and (currentMonth == postMonth) %}↳{% else %}{{ postDay }}{% endif %}{% endset %}
-    {% set showAccessories %}{% for tag in post.data.tags %}{{ true if ("Type/" in tag) and not ("Type/Note" in tag)}}{% endfor %}{% endset %}
-    {% if currentMonth != postMonth %}
-      {% if loop.index > 1 %}</ol></li>{% endif %}
-      <li class="posts-month">
-        <h2 class="note__month-and-year"><span class="note__month">{{ postMonth }}</span>{% if currentYear != postYear %} <span class="note__year">{{ postYear }}</span>{% endif %}</h2>
-        <ol class="posts">
+{% macro postListItem(post, postPrefix, showAccessories) -%}
+  <a href="{{ post.url }}" class="post__link{{ ' post__link--with-accessories' if showAccessories }}">
+    {% if post.data.preview %}
+      <div class="post__preview">
+        {% if post.data.preview.type == 'vid' %}
+          {% set assetRoot %}{{ remote.gallery.base }}/{{ remote.gallery.video }}/{{ post.data.preview.dir }}/{% endset %}
+          <video 
+            width="400" 
+            poster="/assets/img/poster.gif" 
+            class="post__preview__poster {{ post.data.preview.class }}"
+            style="
+              {% if post.data.preview.class == 'themed-3x' %}
+                --darkPoster3x: url({{ assetRoot }}{{ post.data.preview.assets[0].poster }});
+                --lightPoster3x: url({{ assetRoot }}{{ post.data.preview.assets[1].poster }});
+                --darkPoster2x: url({{ assetRoot }}{{ post.data.preview.assets[2].poster }});
+                --lightPoster2x: url({{ assetRoot }}{{ post.data.preview.assets[3].poster }});
+                --darkPoster: url({{ assetRoot }}{{ post.data.preview.assets[4].poster }});
+                --lightPoster: url({{ assetRoot }}{{ post.data.preview.assets[5].poster }});
+              {% endif %}"
+            autoplay 
+            loop 
+            muted 
+            playsinline
+            >
+            {% for asset in post.data.preview.assets %}
+              <source media="{{ asset.media }}" src="{{ assetRoot }}{{ asset.source }}" type="video/mp4">
+            {% endfor %}
+          </video>
+        {% elif post.data.preview.type == 'svg' %}
+          {% set assetRoot %}{{ remote.gallery.base }}/{{ remote.gallery.video }}/{{ post.data.preview.dir }}/{% endset %}
+          <div class="post__preview__poster {{ post.data.preview.class }}">{% include "../static/embeds/dynamic-type/preview.svg" %}</div>
+        {% endif %}
+        
+      </div>
     {% endif %}
-    <li class="note">
-      {{ noteListItem(post, postPrefix, showAccessories) }}
-    </li>
-    {% set currentDay = postDay %}
-    {% set currentMonth = postMonth %}
-    {% set currentYear = postYear %}
-  {% endfor %}
+    <span class="post__day">{{ postPrefix }}</span>
+    <span class="post__title">{{ post.data.title }}</span>
+    {# {% if showAccessories %}
+      <ul class="post__Accessories">
+        {% for tag in post.data.tags %}{% if ("Type/" in tag) %}  <li>{{ tagButton(tag) }}</li>{% endif %}{% endfor %}
+      </ul>
+    {% endif %} #}
+  </a>
+{%- endmacro %}
+
+{% macro postList(collection, renderFooter = false) -%}
+  <ol class="posts-list" reversed>
+    {% set currentDay = "" %}
+    {% set currentMonth = "" %}
+    {% set currentYear = "" %}
+    {% for post in collection | reverse %}
+      {% set postDay = post.date | postDay %}
+      {% set postMonth = post.data.month %}
+      {% set postYear = post.data.year %}
+      {% set postPrefix %}{% if (currentDay == postDay) and (currentMonth == postMonth) %}↳{% else %}{{ postDay }}{% endif %}{% endset %}
+      {% set showAccessories %}{% for tag in post.data.tags %}{{ true if ("Type/" in tag) and not ("Type/Note" in tag)}}{% endfor %}{% endset %}
+      {% if currentMonth != postMonth %}
+        {% if loop.index > 1 %}</ol></li>{% endif %}
+        <li class="posts-month">
+          <h2 class="post__month-and-year"><span class="post__month">{{ postMonth }}</span>{% if currentYear != postYear %} <span class="post__year">{{ postYear }}</span>{% endif %}</h2>
+          <ol class="posts">
+      {% endif %}
+      <li class="note">
+        {{ postListItem(post, postPrefix, showAccessories) }}
+      </li>
+      {% set currentDay = postDay %}
+      {% set currentMonth = postMonth %}
+      {% set currentYear = postYear %}
+    {% endfor %}
+    {% if renderFooter %}<li class="posts-list__copyright">{{ footer() }}</li>{% endif %}
+</ol>
 {%- endmacro %}

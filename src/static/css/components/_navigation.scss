@@ -37,10 +37,11 @@
   align-items: flex-end;
   @media (width <= tokens.$breakpoint) {
     flex-direction: row;
-    justify-content: space-between;
+    // justify-content: space-between;
     position: relative;
     $inset: calc(-1 * var(--col));
     inset: $inset $inset auto $inset;
+    gap: 1.2em;
     width: 100dvw;
     // fix for scrollbar overlap. 
     $offset: 24px;

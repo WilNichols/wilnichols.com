@@ -11,25 +11,25 @@
   justify-content: flex-end;
 }
 
-.note__month {
+.post__month {
   white-space-collapse: break-spaces;
 }
 
-.note__month, .note__year {
+.post__month, .post__year {
   // @extend %heading--6;
   font-size: var(--type--1);
   @extend %font--display-medium;
 }
 
-.note__month {
+.post__month {
   color: var(--contentPrimaryColor);
 }
 
-.note__year, .note__day {
+.post__year, .post__day {
   color: var(--contentSecondaryColor);
 }
 
-.note__accessories {
+.post__Accessories {
   display: flex;
   flex-direction: row-reverse;
   gap: 5px;
@@ -41,7 +41,7 @@
   }
 }
 
-.note__type {
+.post__type {
   $r: 4px;
   $p: 3px 5px;
   position: relative;
@@ -83,11 +83,11 @@
   display: contents;
 }
 
-.note__link, .note-group__month {
+.post__link, .note-group__month {
   grid-column: 1 / -1;
 }
 
-.note__link {
+.post__link {
   display: grid;
   grid-template-columns: subgrid;
   text-decoration: none;
@@ -97,29 +97,29 @@
   row-gap: 2px; // this is a const because it looks better
   @extend %listItemBackground;
   // give more space for title if no accessories
-  .note__title {
+  .post__title {
     grid-column: 2 / 4;
   }  
-  &--with-accessories .note__title {
+  &--with-accessories .post__title {
     grid-column: 2 / 3;
   }
   // prevents flickering with animated pseudo element
-  .note__day, .note__title {
+  .post__day, .post__title {
     z-index: 1;
   }
-  .note__day, .note__title, .note__accessories  {
+  .post__day, .post__title, .post__Accessories  {
     transition: tokens.$x transform ease-out, tokens.$x background-color ease-out;
   }
   &:hover {
     @extend %listItemBackgroundHover;
     $d: .25ex;
-    .note__day, .note__title {
+    .post__day, .post__title {
       transform: translateX($d);
     }
-    .note__accessories {
+    .post__Accessories {
       transform: translateX(-$d);
     }
-    .note__day, .note__title, .note__accessories {
+    .post__day, .post__title, .post__Accessories {
       transition-duration: math.div(tokens.$x, 4); 
     }
   }
@@ -128,7 +128,7 @@
   }
 }
 
-.note__preview {
+.post__preview {
   display: flex;
   grid-column: 1 / -1;
   z-index: 1;
@@ -157,7 +157,7 @@
     opacity: 1;
     transition: tokens.$x opacity ease-out;
   }
-  .note__link:hover & {
+  .post__link:hover & {
     box-shadow: 
       0px 6px 12px 1px rgba(0, 0, 0, calc(0.05 * var(--shadowMultiplier, 1))), 
       0px 1.8px 3.6px 1px rgba(0, 0, 0, calc(0.03 * var(--shadowMultiplier, 1))), 
@@ -171,7 +171,7 @@
   }
 }
 
-.note__preview__poster {
+.post__preview__poster {
   width: 100%;
   height: auto;
   background-size: 100%;
@@ -196,7 +196,7 @@
   }
 }
 
-.note__day {
+.post__day {
   font-variant-numeric: tabular-nums;
   text-decoration: none;
   text-align: right;
@@ -205,6 +205,6 @@
   }
 }
 
-.note__title {
+.post__title {
   padding: 0 tokens.$note-title-gap 0 0;
 }
