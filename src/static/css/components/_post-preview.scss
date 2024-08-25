@@ -16,7 +16,8 @@
 }
 
 .note__month, .note__year {
-  @extend %heading--6;
+  // @extend %heading--6;
+  font-size: var(--type--1);
   @extend %font--display-medium;
 }
 
@@ -77,7 +78,7 @@
   }
 }
 
-.note-list .note {
+.posts-list .note {
   // necessary for subgrid
   display: contents;
 }

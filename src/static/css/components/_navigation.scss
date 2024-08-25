@@ -1,12 +1,7 @@
 @use '../tokens';
-@use '../abstractions/hover-blur';
+@use '../abstractions/underline';
 
 @include tokens.textStyles;
-
-.nav__title {
-  @extend %font--display-black;
-  line-height: 1.2em;
-}
 
 .navigation {
   position: sticky;
@@ -37,7 +32,7 @@
 
 .navigation__items {
   display: flex;
-  flex-direction: column;
+  // flex-direction: column;
   gap: 1.2em;
   align-items: flex-end;
   @media (width <= tokens.$breakpoint) {
@@ -59,29 +54,21 @@
 }
 
 @media (width <= tokens.$breakpoint) {
-  .nav__title-container {
+  .navigation__title-container {
     margin: 0 auto 0 0;
   }
 }
 
-.nav__link {
+.navigation__link {
+  font-size: var(--type--1);
   text-decoration: none;
   position: relative;
-  @extend %listItemBackground;
-  transition: tokens.$x transform ease-out;
-  &:not(.nav__link--current):hover {
-    @extend %listItemBackgroundHover;
+  @extend %underline;
+  &:not(.navigation__link--current):hover::after {
+    transform: translateY(2px);
   }
-  &.nav__link--current {
-    @extend %listItemBackground;
-    &::before {
-      background-color: var(--materialPrimaryInvertedColor);
-      opacity: 1;
-      filter: none;
-    }
-    span {
-      color: var(--contentPrimaryInvertedColor);
-    }
+  &:not(.navigation__link--current):hover::after, &.navigation__link--current::after {
+    background-color: var(--materialPrimaryInvertedColor);
   }
   span {
     z-index: 10;

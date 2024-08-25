@@ -31,6 +31,10 @@
   > * {
     margin: 0;
     font-size: var(--type--2);
+    a {
+      text-decoration-thickness: unset;
+      text-underline-offset: unset;
+    }
   }
   .page-info__entry__key {
     text-align: right;

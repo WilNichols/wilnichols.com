@@ -1,6 +1,8 @@
 $width: calc(30 * var(--type-0));
 $breakpoint: 480px;
 $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas Grotesk
+$categoryWidth: 480px;
+$lineHeight: 2px;
 
 @mixin sizeAliases {
   // Typography. This isn't _the_ solution — I haven't tried much with fluid scales yet, but it's _a_ solution for now. 

@@ -2,24 +2,16 @@
 
 @include tokens.textStyles;
 
-.page--notes {
-  grid-template-columns: min-content minmax(320px, max-content);
-  align-items: start;
-  justify-content: center;
-  @media (width <= tokens.$breakpoint) {
-    grid-template-columns: 100%;
-    grid-template-rows: min-content auto;
-  }
+.posts-list, .about-me, .header {
+  max-width: tokens.$categoryWidth;
+  width: 100%;
 }
 
-.note-list {
-  grid-column: 2 / 3;
-  display: grid;
-  grid-template-columns: min-content auto;
-  row-gap: 1.2em;
-  column-gap: tokens.$note-title-gap;
-  // TODO: extract this
-  max-width: 400px;
+.posts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2em;
+  width: 100%;
   @media (width <= tokens.$breakpoint) {
     grid-column: 1 / -1;
     max-width: unset;
@@ -27,7 +19,20 @@
   }
 }
 
-.note-list__copyright {
+.posts-month {
+  display: flex;
+  flex-direction: column;
+  gap: .6em;
+}
+
+.posts {
+  display: grid;
+  grid-template-columns: min-content auto;
+  row-gap: 1.2em;
+  column-gap: tokens.$note-title-gap;
+}
+
+.posts-list__copyright {
   display: grid;
   grid-template-columns: subgrid;
   grid-column: 1 / -1;
@@ -43,5 +48,9 @@
   .copyright__glyph, .copyright__text {
     font-size: var(--type--2);
     line-height: 1em;
+  }
+  a {
+    text-decoration-thickness: unset;
+    text-underline-offset: unset;
   }
 }

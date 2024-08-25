@@ -1,0 +1,43 @@
+@use '../tokens';
+
+@include tokens.textStyles;
+
+$logoWidth: 21px;
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2em;
+}
+
+.header__logo {
+  height: 100%;
+  display: grid;
+  place-content: center;
+  aspect-ratio: 1;
+  width: $logoWidth;
+}
+
+.header__logo svg path {
+  // we use an overly specific selector because the SVG has its own fill rule in its own markup. We keep that so that the same SVG can be used independently.
+  fill: var(--contentPrimaryColor);  
+}
+
+.header__content {
+  display: flex;
+  flex-direction: column;
+}
+
+.header__name {
+  @extend %font--display-medium;
+  // font-size: var(--type--1);
+  line-height: 1.2em;
+  color: var(--contentPrimaryColor);
+}
+
+.header__title {
+  @extend %font--display-regular;
+  font-size: var(--type--1);
+  line-height: 1.2em;
+  color: var(--contentSecondaryColor);
+}

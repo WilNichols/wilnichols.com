@@ -19,8 +19,8 @@ body {
   display: grid;
   width: auto;
   // min-height: 100dvh;
-  column-gap: 2.4em;
   row-gap: 1.2em;
+  column-gap: 2.4em;
   @media (width <= tokens.$breakpoint) {
     align-content: start;
   }

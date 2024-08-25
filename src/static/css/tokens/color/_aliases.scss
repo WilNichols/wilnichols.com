@@ -13,6 +13,7 @@
   @include light-dark(--contentTertiaryColor, var(--cK70), var(--cK40));
   @include light-dark(--linkColor, var(--cB30), var(--cB50));
   @include light-dark(--linkVisitedColor, var(--cP30), var(--cP50));
+  @include light-dark(--linkUnderlineColor, var(--cK90), var(--cK40));
   @include light-dark(--tagBackgroundColor, var(--cK90), var(--cK20));
   @include light-dark(--tagBorderColor, var(--cK80), var(--cK30));
   @include light-dark(--tagContentColor, var(--cK30), var(--cK90));

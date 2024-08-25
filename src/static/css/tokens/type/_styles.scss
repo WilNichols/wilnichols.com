@@ -10,7 +10,7 @@
   @for $i from 1 through 6 {
     %heading--#{$i} {
       // margin: 0 0 .25em 0;
-      font-size: var(--type-#{$i * 6 - $i});
+      font-size: var(--type-#{6 - $i});
       @extend %font--display-medium;
     }
   }
@@ -22,6 +22,8 @@
   
   a {
     color: var(--contentPrimaryColor);
+    text-decoration-thickness: tokens.$lineHeight;
+    text-underline-offset: tokens.$lineHeight;
     p &, .page-info & {
       color: var(--linkColor);
       &:visited {
@@ -41,6 +43,10 @@
   p {
     margin: 0 auto 1em auto;
     text-wrap: pretty;
+    line-height: 1.5em;
+    &:not(:last-child) {
+      margin: 0 auto 1em auto;
+    }
   }
 
   @include headingStyles;
@@ -66,13 +72,6 @@
     @extend %font--text-regular;
     display: block;
     color: var(--contentSecondaryColor);
-  }
-  
-  .note__body > *, .pen__body > * {
-    line-height: 1.5em;
-    &:not(:last-child) {
-      margin: 0 auto 1em auto;
-    }
   }
 
   .backlink__title {
