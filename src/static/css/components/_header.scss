@@ -21,6 +21,13 @@ $logoWidth: 21px;
 .header__logo svg path {
   // we use an overly specific selector because the SVG has its own fill rule in its own markup. We keep that so that the same SVG can be used independently.
   fill: var(--contentPrimaryColor);  
+  translate: -1px -1px;
+  @media (-webkit-min-device-pixel-ratio: 2) {
+    translate: none;
+  }
+  @media (-webkit-min-device-pixel-ratio: 3) {
+    translate: -.33px -.33px;
+  }
 }
 
 .header__content {
