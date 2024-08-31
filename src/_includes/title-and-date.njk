@@ -1,6 +1,6 @@
 {% set title %}{{ altTitle if altTitle }}{{ page.fileSlug if not altTitle }}{% endset %}
 {% set date %}{{ date | readableDateISO }}{% endset %}
 {% set updated %}{{ updated | readableDateISO }}{% endset %}
-<header class="note__header">
+<header class="page-header__title">
   <h1 class="page__title">{{ title | safe }}</h1>
 </header>

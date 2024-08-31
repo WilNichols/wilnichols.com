@@ -1,0 +1,18 @@
+.page-header__title {
+  display: inline-flex;
+  flex-direction: column;
+  h1 {
+    margin: 0;
+  }
+}
+
+.note__body + .backlinks {
+  margin-top: 1em;
+}
+
+.note__body > *, .pen__body > * {
+  line-height: 1.5em;
+  &:not(:last-of-type) {
+    margin: 0 auto 1em auto;
+  }
+}

@@ -1,0 +1,64 @@
+@use '../tokens';
+@use '../abstractions/hover-blur';
+
+@include tokens.textStyles;
+
+.backlinks {
+  max-width: tokens.$width;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--type--2);
+}
+
+.backlinks__title {
+  font-size: var(--type--1);
+  @extend %font--display-medium;
+  color: var(--contentSecondaryColor);
+}
+
+.backlinks__list {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: var(--type-0);
+  flex-wrap: wrap;
+}
+
+.backlink__container {
+  @media screen and (min-width: 415px) {
+    width: calc(50% - var(--type-0));
+  }
+}
+
+.backlink {
+  @extend %linkBackground;
+  &:hover {
+    @extend %listItemBackgroundHover;
+  }
+  &:active {
+    @extend %listItemBackgroundActive;
+  }
+  > * {
+    z-index: 1;
+  }
+}
+
+.backlink__title {
+  font-size: var(--type--1);
+  @extend %font--display-medium;
+}
+
+.backlink__title, .backlink__preview {
+  color: var(--contentPrimaryColor);
+}
+
+.backlink__preview {
+  @media screen and (min-width: 415px) {
+    -webkit-line-clamp: 3;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical; 
+  }
+}

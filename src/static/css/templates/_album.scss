@@ -1,0 +1,25 @@
+.album__album-photos {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--col) / 2);
+  padding: 0 calc(var(--col) / 2);
+  box-sizing: content-box;
+}
+
+.album__album-photos__photo {
+  display: flex;
+  place-content: center;
+  picture {
+    display: block;
+    aspect-ratio: var(--ratio);
+    background-color: var(--color);
+    height: 100%;
+    max-height: calc(100dvh - 32px);
+  }
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  } 
+}

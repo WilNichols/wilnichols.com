@@ -34,7 +34,12 @@ module.exports = function(eleventyConfig) {
               match.text = (parts[1] || parts[0]).trim();
               match.url = `/${parts[0].trim().replace(/\s/g, "-").toLowerCase()}/`;
           }
-      })
+      });
+      // remove the hr
+      md.renderer.rules.footnote_block_open = () => (
+        '<section class="footnotes">\n' +
+        '<ol class="footnotes-list">\n'
+      );
   })
   
   eleventyConfig.setLibrary('md', md);

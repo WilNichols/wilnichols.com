@@ -1,4 +1,4 @@
-:root, .palette {
+@mixin colorLiterals {
   --c0: #131c29;
   --c100: #ffffff;
   --c0abs: #000000;

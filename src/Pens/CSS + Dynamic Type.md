@@ -16,7 +16,7 @@ preview:
 assets: 
   demo: /assets/embeds/dynamic-type/
   html: ../static/embeds/dynamic-type/index.html
-  scss: ../static/css/dynamic-type.scss
+  scss: ../static/css/pens/dynamic-type.scss
 url: 
 ---
 This must be viewed in Safari on macOS or iOS to make much sense—they allow one to use iOS and macOS system fonts directly on web. More importantly, they allow one to take advantage of [Dynamic Type](https://developer.apple.com/design/human-interface-guidelines/typography). Of course, use a fallback for non-Apple clients.

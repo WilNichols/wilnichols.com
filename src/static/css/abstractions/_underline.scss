@@ -1,0 +1,10 @@
+@use '../tokens';
+
+%underline::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 #{- tokens.$lineHeight} 0;
+  height: tokens.$lineHeight;
+  background-color: var(--linkUnderlineColor);
+  transition: background-color tokens.$x ease-out, transform tokens.$x ease-out;
+}
