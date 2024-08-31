@@ -12,7 +12,7 @@
 
 .note__body > *, .pen__body > * {
   line-height: 1.5em;
-  &:not(:last-child) {
+  &:not(:last-of-type) {
     margin: 0 auto 1em auto;
   }
 }

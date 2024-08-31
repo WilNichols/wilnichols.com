@@ -32,6 +32,8 @@
   .note__body {
     grid-column: 2 / 3;
     grid-row: 2 / 3;
+    // allows for outside li decoration
+    overflow: visible;
     @media (width <= tokens.$breakpoint) { 
       grid-column: 1 / -1;
       grid-row: 3 / 4;

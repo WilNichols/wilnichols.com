@@ -44,8 +44,15 @@
     margin: 0 auto 1em auto;
     text-wrap: pretty;
     line-height: 1.5em;
-    &:not(:last-child) {
+    &:not(:last-of-type) {
       margin: 0 auto 1em auto;
+    }
+  }
+  
+  sup {
+    font-size: var(--type--2);
+    a {
+      text-decoration: none;
     }
   }
 

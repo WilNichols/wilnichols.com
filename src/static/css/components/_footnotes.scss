@@ -1,0 +1,25 @@
+@use '../tokens';
+
+$gap: 1.2em;
+
+.footnotes {
+  font-size: var(--type--2);
+  border-top: 1px solid var(--edgeColor);
+  margin-top: 2rem;
+  padding-top: $gap;
+}
+
+.footnotes-list {
+  list-style: numbered;
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+}
+
+.footnote-item a {
+  text-decoration-thickness: 1px;
+}
+
+.footnote-item::marker {
+  color: var(--contentSecondaryColor);
+}
