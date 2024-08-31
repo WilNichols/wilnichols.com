@@ -1,0 +1,122 @@
+@use '../tokens';
+
+@include tokens.textStyles;
+
+.pen-tabs__state {
+  display: none;
+}
+
+%selectedTab {
+  display: block;
+  background-color: var(--materialPrimaryColor);
+  box-shadow: 
+    var(--px) 0 0 var(--edgeColor), 
+    calc(-1 * var(--px)) 0 0 var(--edgeColor),
+    0 var(--px) 0 var(--materialPrimaryColor);
+}
+%selectedPanel {
+  display: block;
+  background-color: var(--materialPrimaryColor);
+}
+@for $i from 1 through 5 {
+  $tab: "[data-tab-index='tab-#{$i}']";
+  #{$tab}:target {
+    // selected tab in toolbar
+    ~ * .pen-tabs__tab#{$tab} {
+      @extend %selectedTab;
+    }
+    // selected tab pane
+    ~ * .pen-tabs__panes__content#{$tab} {
+      @extend %selectedPanel;
+    }
+  }
+}
+// Default selected tab
+$default-tab: "[data-tab-index='tab-1']";
+
+// for the default tab without a following :target item
+#{$default-tab}:not(:has(~ *:target)) {
+  ~ * .pen-tabs__tab#{$default-tab} {
+    @extend %selectedTab;
+  }
+  // selected tab pane
+  ~ * .pen-tabs__panes__content#{$default-tab} {
+    @extend %selectedPanel;
+  }
+}
+ 
+.pen-tabs__panes__content {
+  display: none;
+}
+
+.pen__demo {
+  $r: 4px;
+  border-radius: $r;
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: clip;
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: $r;
+    $s: 0 0 0 var(--px) var(--edgeColor);
+    box-shadow: inset $s, $s;
+    user-select: none;
+    pointer-events: none;
+  }
+  iframe {
+    border: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+  
+.pen-tabs-container {
+  $r: 4px;
+  border-radius: $r;
+  display: grid;
+  row-gap: var(--px);
+  background-clip: border-box;  
+  position: relative;
+  background-color: var(--materialSecondaryColor);
+  overflow: hidden;
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: $r;
+    $s: 0 0 0 var(--px) var(--edgeColor);
+    box-shadow: inset $s, $s;
+    user-select: none;
+    pointer-events: none;
+  }
+}
+
+.pen-tabs__panes {
+  grid-row: 2;
+  overflow: auto;
+}
+
+.pen-tabs__toolbar {
+  display: flex;
+  grid-row: 1;
+  box-shadow: 0 0 0 var(--px) var(--edgeColor);
+}
+
+.pen-tabs__tab {
+  font-size: 10pt;
+  padding: 0 8px;
+  a {
+    text-decoration: none;
+    @extend %font--display-medium;
+  }
+}
+
+.pen-tabs__panes__content {
+  overflow: hidden;
+  max-width: tokens.$width;
+  pre, code {
+    max-width: tokens.$width;
+  }
+}

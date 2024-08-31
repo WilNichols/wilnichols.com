@@ -1,0 +1,7 @@
+@use 'tokens';
+
+:root {
+  @include tokens.colorAliases;
+  @include tokens.colorLiterals;
+  @include tokens.sizeAliases;
+}

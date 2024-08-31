@@ -1,0 +1,78 @@
+@use '../tokens';
+@use '../abstractions/underline';
+
+@include tokens.textStyles;
+
+.navigation {
+  position: sticky;
+  top: var(--col);
+  @media (width <= tokens.$breakpoint) {
+    position: static;
+    &::before, &::after {
+      content: '';
+      position: absolute;
+      z-index: 10;
+      width: var(--col);
+      height: calc(2 * var(--col) + 1rem);
+      inset: 0;
+    }
+    &::before {
+      right: auto;
+      background-image: linear-gradient(90deg, var(--materialPrimaryColor), transparent);
+    }
+    &::after {
+      left: auto;
+      background-image: linear-gradient(-90deg, var(--materialPrimaryColor), transparent);
+    }
+    > * {
+      z-index: 1;
+    }
+  }
+}
+
+.navigation__items {
+  display: flex;
+  // flex-direction: column;
+  gap: 1.2em;
+  align-items: flex-end;
+  @media (width <= tokens.$breakpoint) {
+    flex-direction: row;
+    // justify-content: space-between;
+    position: relative;
+    $inset: calc(-1 * var(--col));
+    inset: $inset $inset auto $inset;
+    gap: 1.2em;
+    width: 100dvw;
+    // fix for scrollbar overlap. 
+    $offset: 24px;
+    padding: var(--col) var(--col) $offset var(--col);
+    margin-bottom: -$offset;
+    overflow: auto;
+    &::-webkit-scrollbar { 
+      display: none;
+    }
+  }
+}
+
+@media (width <= tokens.$breakpoint) {
+  .navigation__title-container {
+    margin: 0 auto 0 0;
+  }
+}
+
+.navigation__link {
+  font-size: var(--type--1);
+  text-decoration: none;
+  position: relative;
+  @extend %underline;
+  &:not(.navigation__link--current):hover::after {
+    transform: translateY(2px);
+  }
+  &:not(.navigation__link--current):hover::after, &.navigation__link--current::after {
+    background-color: var(--materialPrimaryInvertedColor);
+  }
+  span {
+    z-index: 10;
+    position: relative;
+  }
+}

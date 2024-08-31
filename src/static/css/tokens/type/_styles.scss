@@ -1,0 +1,92 @@
+@use 'fonts';
+@use '../size/aliases' as tokens;
+@forward 'fonts';
+
+@mixin textStyles {
+  @include fonts.placeholders;
+}
+
+@mixin headingStyles {
+  @for $i from 1 through 6 {
+    %heading--#{$i} {
+      // margin: 0 0 .25em 0;
+      font-size: var(--type-#{6 - $i});
+      @extend %font--display-medium;
+    }
+  }
+}
+
+@mixin textElementStyles {
+
+  @include textStyles;
+  
+  a {
+    color: var(--contentPrimaryColor);
+    text-decoration-thickness: tokens.$lineHeight;
+    text-underline-offset: tokens.$lineHeight;
+    p &, .page-info & {
+      color: var(--linkColor);
+      &:visited {
+        color: var(--linkVisitedColor);
+      }
+    }
+  }
+
+  h1, h2, h3, h4, h5, h6, .note-title, p {  
+    max-width: tokens.$width;
+  }
+
+  h1, h2, h3, h4, h5, h6, .note-title {  
+    text-wrap: balance;
+  }
+
+  p {
+    margin: 0 auto 1em auto;
+    text-wrap: pretty;
+    line-height: 1.5em;
+    &:not(:last-of-type) {
+      margin: 0 auto 1em auto;
+    }
+  }
+  
+  sup {
+    font-size: var(--type--2);
+    a {
+      text-decoration: none;
+    }
+  }
+
+  @include headingStyles;
+
+  @for $i from 1 through 6 {
+    .heading--#{$i} {
+      @extend %heading--#{$i};
+    }
+  }
+  
+  .heading--1 {
+    line-height: 1em;
+    margin: 0 0 .25em 0;
+  }
+  
+  .page__title {
+    @extend .heading--1;
+    @extend %font--display-black;
+  }
+  
+  .page__subtitle {
+    font-size: var(--type--1);
+    @extend %font--text-regular;
+    display: block;
+    color: var(--contentSecondaryColor);
+  }
+
+  .backlink__title {
+    font-size: var(--type--1);
+    @extend %font--display-medium;
+  }
+  
+  .backlink__title, .backlink__preview {
+    color: var(--contentPrimaryColor);
+  }
+}

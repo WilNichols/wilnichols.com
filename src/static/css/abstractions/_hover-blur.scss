@@ -1,0 +1,42 @@
+@use 'sass:math';
+@use '../tokens';
+
+%listItemBackground::before {
+  content: '';
+  z-index: 0;
+  position: absolute;
+  inset: -6px -8px;
+  border-radius: .6em;
+  background-color: var(--materialPrimaryHoverColor);
+  opacity: 0;
+  will-change: opacity;
+  filter: blur(.3em);
+  transition: tokens.$x4 opacity ease-out, tokens.$x4 filter ease-out;
+}
+
+%listItemBackgroundHover::before {
+  opacity: 1;
+  filter: blur(0);
+  transition-duration: tokens.$x;
+}
+
+%listItemBackgroundActive {
+  scale: .99;
+}
+  
+%linkBackground {
+  $pV: 8px;
+  $pH: 12px;
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--type--2);
+  font-size: var(--type--2);
+  border-radius: 12px;
+  padding: $pV $pH;
+  margin: 0 0 0 #{-$pH};
+  overflow: hidden;
+  position: relative; 
+  text-decoration: none;
+  @extend %listItemBackground;
+}
+

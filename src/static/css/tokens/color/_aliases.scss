@@ -1,0 +1,28 @@
+@use 'literals';
+@use 'mixins' as *;
+
+@mixin colorAliases {
+  @include light-dark(--materialPrimaryColor, var(--c100), var(--c0));
+  @include light-dark(--materialPrimaryInvertedColor, var(--c0), var(--c100));
+  @include light-dark(--materialPrimaryHoverColor, var(--cK95), var(--cK5));
+  @include light-dark(--materialSecondaryColor, var(--cK95a), var(--cK5d));
+  @include light-dark(--materialSecondaryHoverColor, var(--cK90), var(--cK10));
+  @include light-dark(--contentPrimaryColor, var(--cK5), var(--c100));
+  @include light-dark(--contentPrimaryInvertedColor, var(--c100), var(--cK5));
+  @include light-dark(--contentSecondaryColor, var(--cK50), var(--cK60));
+  @include light-dark(--contentTertiaryColor, var(--cK70), var(--cK40));
+  @include light-dark(--linkColor, var(--cB30), var(--cB50));
+  @include light-dark(--linkVisitedColor, var(--cP30), var(--cP50));
+  @include light-dark(--linkUnderlineColor, var(--cK90), var(--cK40));
+  @include light-dark(--tagBackgroundColor, var(--cK90), var(--cK20));
+  @include light-dark(--tagBorderColor, var(--cK80), var(--cK30));
+  @include light-dark(--tagContentColor, var(--cK30), var(--cK90));
+  @include light-dark(--evergreenBackgroundColor, var(--cG90), var(--cG20));
+  @include light-dark(--evergreenBorderColor, var(--cG80), var(--cG30));
+  @include light-dark(--evergreenContentColor, var(--cG30), var(--cG90));
+  @include light-dark(--evergreenVersionBackgroundColor, var(--cG40), var(--cG50));
+  @include light-dark(--evergreenVersionBorderColor, var(--cG30), var(--cG60));
+  @include light-dark(--evergreenVersionContentColor, var(--c100), var(--c0abs));
+  @include light-dark(--edgeColor, var(--cK80a), var(--cK10d));
+  @include light-dark(--shadowMultiplier, 1, 2);
+}

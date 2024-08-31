@@ -1,0 +1,88 @@
+@use '../tokens';
+
+.page-info {
+  display: grid;
+  grid-template-rows: subgrid;
+  flex-direction: column;
+  color: var(--colorContentSecondary);
+  @media (width <= tokens.$breakpoint) {
+    position: static;
+    flex-direction: row;
+  }
+}
+
+.page-info__list {
+  display: grid;
+  column-gap: 5px;
+  // set font size here despite never using as font-size to avoid extensive calc statements, and instead  em
+  font-size: var(--type-0);
+  padding: .375em 0;
+  row-gap: .5em;
+  grid-template-columns: min-content auto;
+  grid-auto-rows: min-content;
+  position: sticky;
+  // top: calc(2 * 2.4em + var(--type-5));
+  @media (width <= tokens.$breakpoint) { 
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: .25rem;
+  }
+  > * {
+    margin: 0;
+    font-size: var(--type--2);
+    a {
+      text-decoration-thickness: unset;
+      text-underline-offset: unset;
+    }
+  }
+  .page-info__entry__key {
+    text-align: right;
+    color: var(--contentSecondaryColor);
+    @media (width <= tokens.$breakpoint) { 
+      &::after {
+        content: ': '
+      }
+    }
+  }
+  .page-info__entry__value {
+    text-align: left;
+    @media (width <= tokens.$breakpoint) { 
+      display: inline;
+      li {
+        display: inline;
+      }
+    }
+  }
+}
+
+.page-info__entry {
+  display: grid;
+  grid-column: 1 / -1;
+  padding: 0;
+  line-height: var(--type-0);
+  min-height: var(--type-0);
+  grid-template-columns: subgrid;
+  overflow: hidden;
+  @media (width <= tokens.$breakpoint) { 
+    display: inline;
+    padding: 0;
+    &:not(:last-child)::after {
+      content: ', '
+    }
+    &--tags {
+      display: inline;
+      .page-info__entry__value li:not(:last-child)::after {
+        content: ','
+      }
+    }
+  }
+}
+
+.sub-list__item {
+  width: min-content;
+  @media (width <= tokens.$breakpoint) {
+    display: inline;
+    width: auto;
+  }
+}

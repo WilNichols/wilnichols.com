@@ -1,0 +1,32 @@
+@use '../tokens';
+
+.page--pen {
+  .back-to-index {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+  }
+  .page-info {
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;
+    @media (width <= tokens.$breakpoint) { 
+      grid-column: 1 / -1;
+      grid-row: 2 / 3;
+    }
+  }
+  .page-header__title {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    @media (width <= tokens.$breakpoint) { 
+      grid-column: 1 / -1;
+      grid-row: 1 / 2;
+    }
+  }
+  .pen__body {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    @media (width <= tokens.$breakpoint) { 
+      grid-column: 1 / -1;
+      grid-row: 3 / 4;
+    }
+  }
+}
