@@ -20,7 +20,12 @@ layout: null
       <pubDate>{{ note.date | dateToRfc822 }}</pubDate>
       <dc:creator>{{ meta.name }}</dc:creator>
       <guid>{{ absoluteNoteUrl }}</guid>
-      <description><![CDATA[{% if note.data.preview %}<img src="{{ [note.data.preview.meta] | join }}"  />{% endif %}{{ note.templateContent | htmlToAbsoluteUrls(absoluteNoteUrl) | safe }}]]></description>
+      {% if note.data.summary -%}
+        <description>{{ note.data.summary }}</description>
+        <content:encoded><![CDATA[{% if note.data.preview %}<img src="{{ [note.data.preview.meta] | join }}"  />{% endif %}{{ note.templateContent | htmlToAbsoluteUrls(absoluteNoteUrl) | safe }}]]></content:encoded>
+      {%- else -%}
+        <description><![CDATA[{% if note.data.preview %}<img src="{{ [note.data.preview.meta] | join }}"  />{% endif %}{{ note.templateContent | htmlToAbsoluteUrls(absoluteNoteUrl) | safe }}]]></description>
+      {%- endif %}
     </item>
     {%- endfor %}
   </channel>
