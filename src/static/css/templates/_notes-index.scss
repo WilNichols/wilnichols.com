@@ -20,6 +20,17 @@ $gap: 1.2em;
     max-width: unset;
     width: 100%;
   }
+  &--grid.posts {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $gap;
+    .post__link {
+      grid-column: unset;
+    }
+  }
+  &.posts {
+    
+  }
 }
 
 .posts-month {

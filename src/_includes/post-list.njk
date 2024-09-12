@@ -1,53 +1,8 @@
 {% from "footer.njk" import footer with context %}
-{% from "tag.njk" import tag as tagButton %}
+{% from "post-preview.njk" import postPreview with context %}
 
-{% macro postListItem(post, postPrefix, showAccessories) -%}
-  <a href="{{ post.url }}" class="post__link{{ ' post__link--with-accessories' if showAccessories }}">
-    {% if post.data.preview %}
-      <div class="post__preview">
-        {% if post.data.preview.type == 'vid' %}
-          {% set assetRoot %}{{ remote.gallery.base }}/{{ remote.gallery.video }}/{{ post.data.preview.dir }}/{% endset %}
-          <video 
-            width="400" 
-            poster="/assets/img/poster.gif" 
-            class="post__preview__poster {{ post.data.preview.class }}"
-            style="
-              {% if post.data.preview.class == 'themed-3x' %}
-                --darkPoster3x: url({{ assetRoot }}{{ post.data.preview.assets[0].poster }});
-                --lightPoster3x: url({{ assetRoot }}{{ post.data.preview.assets[1].poster }});
-                --darkPoster2x: url({{ assetRoot }}{{ post.data.preview.assets[2].poster }});
-                --lightPoster2x: url({{ assetRoot }}{{ post.data.preview.assets[3].poster }});
-                --darkPoster: url({{ assetRoot }}{{ post.data.preview.assets[4].poster }});
-                --lightPoster: url({{ assetRoot }}{{ post.data.preview.assets[5].poster }});
-              {% endif %}"
-            autoplay 
-            loop 
-            muted 
-            playsinline
-            >
-            {% for asset in post.data.preview.assets %}
-              <source media="{{ asset.media }}" src="{{ assetRoot }}{{ asset.source }}" type="video/mp4">
-            {% endfor %}
-          </video>
-        {% elif post.data.preview.type == 'svg' %}
-          {% set assetRoot %}{{ remote.gallery.base }}/{{ remote.gallery.video }}/{{ post.data.preview.dir }}/{% endset %}
-          <div class="post__preview__poster {{ post.data.preview.class }}">{% include "../static/embeds/dynamic-type/preview.svg" %}</div>
-        {% endif %}
-        
-      </div>
-    {% endif %}
-    <span class="post__day">{{ postPrefix }}</span>
-    <span class="post__title">{{ post.data.title }}</span>
-    {# {% if showAccessories %}
-      <ul class="post__Accessories">
-        {% for tag in post.data.tags %}{% if ("Type/" in tag) %}  <li>{{ tagButton(tag) }}</li>{% endif %}{% endfor %}
-      </ul>
-    {% endif %} #}
-  </a>
-{%- endmacro %}
-
-{% macro postList(collection, renderFooter = false) -%}
-  <ol class="posts-list" reversed>
+{% macro postList(collection, renderFooter = false, isGrid = false) -%}
+  <ol class="posts-list{{ ' posts-list--grid' if isGrid }}" reversed>
     {% set currentDay = "" %}
     {% set currentMonth = "" %}
     {% set currentYear = "" %}
@@ -64,12 +19,36 @@
           <ol class="posts">
       {% endif %}
       <li class="note">
-        {{ postListItem(post, postPrefix, showAccessories) }}
+        {{ postPreview(post, postPrefix, showAccessories) }}
       </li>
       {% set currentDay = postDay %}
       {% set currentMonth = postMonth %}
       {% set currentYear = postYear %}
     {% endfor %}
     {% if renderFooter %}<li class="posts-list__copyright">{{ footer() }}</li>{% endif %}
-</ol>
+  </ol>
+{%- endmacro %}
+
+{% macro penList(collection, renderFooter = false) -%}
+  <ol class="posts-list posts-list--grid posts" reversed>
+    {% for post in collection | reverse %}
+      {% set showAccessories %}{% for tag in post.data.tags %}{{ true if ("Type/" in tag) and not ("Type/Note" in tag)}}{% endfor %}{% endset %}
+      <li class="note">
+        {{ postPreview(post, postPrefix, showAccessories) }}
+      </li>
+    {% endfor %}
+    {% if renderFooter %}<li class="posts-list__copyright">{{ footer() }}</li>{% endif %}
+  </ol>
+{%- endmacro %}
+
+{% macro protoypeList(collection, renderFooter = false) -%}
+  <ol class="posts-list posts-list--grid posts" reversed>
+    {% for post in collection | reverse %}
+      {% set showAccessories %}{% for tag in post.data.tags %}{{ true if ("Type/" in tag) and not ("Type/Note" in tag)}}{% endfor %}{% endset %}
+      <li class="note">
+        {{ postPreview(post, postPrefix, showAccessories, isPrototype = true) }}
+      </li>
+    {% endfor %}
+    {% if renderFooter %}<li class="posts-list__copyright">{{ footer() }}</li>{% endif %}
+  </ol>
 {%- endmacro %}

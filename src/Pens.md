@@ -1,5 +1,5 @@
 ---
-layout: 'category.njk'
+layout: 'pens-index.njk'
 permalink: '/pens/'
 title: 'Pens'
 collection: Type/Pen
