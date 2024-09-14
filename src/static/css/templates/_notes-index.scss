@@ -1,16 +1,13 @@
 @use 'sass:math';
+@use '../abstractions/containers';
 @use '../tokens';
 
 @include tokens.textStyles;
 
 $gap: 1.2em;
 
-.posts-list, .about-me, .header {
-  max-width: tokens.$categoryWidth;
-  width: 100%;
-  @media (width <= tokens.$breakpoint) {
-    max-width: unset;
-  }
+.posts-list, .about-me {
+  @extend %container-480;
 }
 
 .posts-list {

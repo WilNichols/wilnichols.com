@@ -1,0 +1,9 @@
+@use '../tokens';
+
+%container-480 {
+  max-width: tokens.$categoryWidth;
+  width: 100%;
+  @media (width <= tokens.$breakpoint) {
+    max-width: unset;
+  }
+}

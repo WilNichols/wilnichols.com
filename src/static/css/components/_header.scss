@@ -1,4 +1,5 @@
 @use '../tokens';
+@use '../abstractions/containers';
 
 @include tokens.textStyles;
 
@@ -8,6 +9,7 @@ $logoWidth: 21px;
   display: flex;
   flex-direction: column;
   gap: 1.2em;
+  @extend %container-480;
 }
 
 .header__logo {
