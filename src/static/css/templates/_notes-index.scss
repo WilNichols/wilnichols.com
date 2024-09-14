@@ -8,28 +8,34 @@ $gap: 1.2em;
 .posts-list, .about-me, .header {
   max-width: tokens.$categoryWidth;
   width: 100%;
+  @media (width <= tokens.$breakpoint) {
+    max-width: unset;
+  }
 }
 
 .posts-list {
   display: flex;
   flex-direction: column;
   gap: $gap;
+}
+
+.pen-grid, .posts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $gap;
   width: 100%;
-  @media (width <= tokens.$breakpoint) {
-    grid-column: 1 / -1;
-    max-width: unset;
-    width: 100%;
+  overflow: hidden;
+  .post__link {
+    grid-column: unset;
   }
-  &--grid.posts {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: $gap;
-    .post__link {
-      grid-column: unset;
+  > li {
+    // background-color: red;
+    // height: 50px;
+    overflow: hidden;
+    outline: 1px solid red;
+    > * {
+      // display: none;
     }
-  }
-  &.posts {
-    
   }
 }
 

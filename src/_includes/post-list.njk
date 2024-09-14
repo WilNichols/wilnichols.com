@@ -18,7 +18,7 @@
           <h2 class="post__month-and-year"><span class="post__month">{{ postMonth }}</span>{% if currentYear != postYear %} <span class="post__year">{{ postYear }}</span>{% endif %}</h2>
           <ol class="posts">
       {% endif %}
-      <li class="note">
+      <li class="post">
         {{ postPreview(post, postPrefix, showAccessories) }}
       </li>
       {% set currentDay = postDay %}
@@ -30,25 +30,25 @@
 {%- endmacro %}
 
 {% macro penList(collection, renderFooter = false) -%}
-  <ol class="posts-list posts-list--grid posts" reversed>
+  <ol class="posts-grid" reversed>
     {% for post in collection | reverse %}
       {% set showAccessories %}{% for tag in post.data.tags %}{{ true if ("Type/" in tag) and not ("Type/Note" in tag)}}{% endfor %}{% endset %}
-      <li class="note">
+      <li class="pen">
         {{ postPreview(post, postPrefix, showAccessories) }}
       </li>
     {% endfor %}
-    {% if renderFooter %}<li class="posts-list__copyright">{{ footer() }}</li>{% endif %}
+    {% if renderFooter %}<li class="posts-grid__copyright">{{ footer() }}</li>{% endif %}
   </ol>
 {%- endmacro %}
 
 {% macro protoypeList(collection, renderFooter = false) -%}
-  <ol class="posts-list posts-list--grid posts" reversed>
+  <ol class="posts-grid" reversed>
     {% for post in collection | reverse %}
       {% set showAccessories %}{% for tag in post.data.tags %}{{ true if ("Type/" in tag) and not ("Type/Note" in tag)}}{% endfor %}{% endset %}
-      <li class="note">
+      <li class="prototype">
         {{ postPreview(post, postPrefix, showAccessories, isPrototype = true) }}
       </li>
     {% endfor %}
-    {% if renderFooter %}<li class="posts-list__copyright">{{ footer() }}</li>{% endif %}
+    {% if renderFooter %}<li class="posts-grid__copyright">{{ footer() }}</li>{% endif %}
   </ol>
 {%- endmacro %}
