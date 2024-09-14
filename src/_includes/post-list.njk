@@ -25,11 +25,11 @@
       {% set currentMonth = postMonth %}
       {% set currentYear = postYear %}
     {% endfor %}
-    {% if renderFooter %}<li class="posts-list__copyright">{{ footer() }}</li>{% endif %}
+    {% if renderFooter %}<li class="posts-list__copyright footer">{{ footer() }}</li>{% endif %}
   </ol>
 {%- endmacro %}
 
-{% macro penList(collection, renderFooter = false) -%}
+{% macro penList(collection) -%}
   <ol class="posts-grid" reversed>
     {% for post in collection | reverse %}
       {% set showAccessories %}{% for tag in post.data.tags %}{{ true if ("Type/" in tag) and not ("Type/Note" in tag)}}{% endfor %}{% endset %}
@@ -37,11 +37,10 @@
         {{ postPreview(post, postPrefix, showAccessories) }}
       </li>
     {% endfor %}
-    {% if renderFooter %}<li class="posts-grid__copyright">{{ footer() }}</li>{% endif %}
   </ol>
 {%- endmacro %}
 
-{% macro protoypeList(collection, renderFooter = false) -%}
+{% macro protoypeList(collection) -%}
   <ol class="posts-grid" reversed>
     {% for post in collection | reverse %}
       {% set showAccessories %}{% for tag in post.data.tags %}{{ true if ("Type/" in tag) and not ("Type/Note" in tag)}}{% endfor %}{% endset %}
@@ -49,6 +48,5 @@
         {{ postPreview(post, postPrefix, showAccessories, isPrototype = true) }}
       </li>
     {% endfor %}
-    {% if renderFooter %}<li class="posts-grid__copyright">{{ footer() }}</li>{% endif %}
   </ol>
 {%- endmacro %}
