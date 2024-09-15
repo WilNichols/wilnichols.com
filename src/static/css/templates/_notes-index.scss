@@ -4,55 +4,6 @@
 
 @include tokens.textStyles;
 
-$gap: 1.2em;
-
-.posts-list, .about-me {
-  @extend %container-480;
-}
-
 .posts-list {
-  display: flex;
-  flex-direction: column;
-  gap: $gap;
-}
-
-.pen-grid, .posts-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: $gap;
-  width: 100%;
-  overflow: hidden;
-  .post__link {
-    grid-column: unset;
-  }
-  > li {
-    // background-color: red;
-    // height: 50px;
-    overflow: hidden;
-    outline: 1px solid red;
-    > * {
-      // display: none;
-    }
-  }
-}
-
-.posts-month {
-  display: flex;
-  flex-direction: column;
-  gap: math.div($gap, 2);
-}
-
-.posts {
-  display: grid;
-  grid-template-columns: min-content auto;
-  row-gap: .6em;
-  column-gap: tokens.$note-title-gap;
-}
-
-.posts-list__copyright {
-  display: grid;
-  grid-template-columns: subgrid;
-  grid-column: 1 / -1;
-  gap: 5px;
-  margin-top: math.div($gap, 2);
+  @extend %container-480;
 }

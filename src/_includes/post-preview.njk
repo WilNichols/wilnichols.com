@@ -47,3 +47,73 @@
     {% endif %} #}
   </a>
 {%- endmacro %}
+
+{% macro penPreview(pen) -%}
+  <a href="{{ pen.url }}" class="pen__link">
+    {% if pen.data.preview %}
+      <div class="pen__preview">
+        {% if pen.data.preview.type == 'vid' %}
+          {% set assetRoot %}{{ remote.gallery.base }}/{{ remote.gallery.video }}/{{ pen.data.preview.dir }}/{% endset %}
+          <video 
+            width="400" 
+            poster="/assets/img/poster.gif" 
+            class="pen__preview__poster {{ pen.data.preview.class }}"
+            style="
+              {% if pen.data.preview.class == 'themed-3x' %}
+                --darkPoster3x: url({{ assetRoot }}{{ pen.data.preview.assets[0].poster }});
+                --lightPoster3x: url({{ assetRoot }}{{ pen.data.preview.assets[1].poster }});
+                --darkPoster2x: url({{ assetRoot }}{{ pen.data.preview.assets[2].poster }});
+                --lightPoster2x: url({{ assetRoot }}{{ pen.data.preview.assets[3].poster }});
+                --darkPoster: url({{ assetRoot }}{{ pen.data.preview.assets[4].poster }});
+                --lightPoster: url({{ assetRoot }}{{ pen.data.preview.assets[5].poster }});
+              {% endif %}"
+            autoplay 
+            loop 
+            muted 
+            playsinline
+            >
+            {% for asset in pen.data.preview.assets %}
+              <source media="{{ asset.media }}" src="{{ assetRoot }}{{ asset.source }}" type="video/mp4">
+            {% endfor %}
+          </video>
+        {% elif pen.data.preview.type == 'svg' %}
+          {% set assetRoot %}{{ remote.gallery.base }}/{{ remote.gallery.video }}/{{ pen.data.preview.dir }}/{% endset %}
+          <div class="pen__preview__poster {{ pen.data.preview.class }}">{% include "../static/embeds/dynamic-type/preview.svg" %}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+    <span class="pen__title">{{ pen.data.title }}</span>
+  </a>
+{%- endmacro %}
+
+{% macro prototypePreview(prototype) -%}
+  <div class="prototype__entry">
+    <div class="prototype__preview">
+      {% set assetRoot %}{{ remote.gallery.base }}/{{ remote.gallery.video }}/{{ prototype.data.preview.dir }}/{% endset %}
+      <video 
+        width="400" 
+        poster="/assets/img/poster.gif" 
+        class="prototype__preview__poster {{ prototype.data.preview.class }}"
+        style="
+          {% if post.data.preview.class == 'themed-3x' %}
+            --darkPoster3x: url({{ assetRoot }}{{ prototype.data.preview.assets[0].poster }});
+            --lightPoster3x: url({{ assetRoot }}{{ prototype.data.preview.assets[1].poster }});
+            --darkPoster2x: url({{ assetRoot }}{{ prototype.data.preview.assets[2].poster }});
+            --lightPoster2x: url({{ assetRoot }}{{ prototype.data.preview.assets[3].poster }});
+            --darkPoster: url({{ assetRoot }}{{ prototype.data.preview.assets[4].poster }});
+            --lightPoster: url({{ assetRoot }}{{ prototype.data.preview.assets[5].poster }});
+          {% endif %}"
+        autoplay 
+        loop 
+        muted 
+        playsinline
+        >
+        {% for asset in prototype.data.preview.assets %}
+          <source media="{{ asset.media }}" src="{{ assetRoot }}{{ asset.source }}" type="video/mp4">
+        {% endfor %}
+      </video>
+    </div>
+    <span class="post__title">{{ prototype.data.preview.title }}</span>
+    <span class="post__body">{{ prototype.content | safe }}</span>
+  </div>
+{%- endmacro %}

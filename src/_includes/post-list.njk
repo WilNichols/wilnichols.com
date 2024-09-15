@@ -1,5 +1,5 @@
 {% from "footer.njk" import footer with context %}
-{% from "post-preview.njk" import postPreview with context %}
+{% from "post-preview.njk" import postPreview with context, penPreview with context, prototypePreview with context %}
 
 {% macro postList(collection, renderFooter = false, isGrid = false) -%}
   <ol class="posts-list{{ ' posts-list--grid' if isGrid }}" reversed>
@@ -30,11 +30,10 @@
 {%- endmacro %}
 
 {% macro penList(collection) -%}
-  <ol class="posts-grid" reversed>
-    {% for post in collection | reverse %}
-      {% set showAccessories %}{% for tag in post.data.tags %}{{ true if ("Type/" in tag) and not ("Type/Note" in tag)}}{% endfor %}{% endset %}
+  <ol class="pen-grid" reversed>
+    {% for pen in collection | reverse %}
       <li class="pen">
-        {{ postPreview(post, postPrefix, showAccessories) }}
+        {{ penPreview(pen) }}
       </li>
     {% endfor %}
   </ol>
@@ -42,10 +41,9 @@
 
 {% macro protoypeList(collection) -%}
   <ol class="posts-grid" reversed>
-    {% for post in collection | reverse %}
-      {% set showAccessories %}{% for tag in post.data.tags %}{{ true if ("Type/" in tag) and not ("Type/Note" in tag)}}{% endfor %}{% endset %}
+    {% for prototype in collection | reverse %}
       <li class="prototype">
-        {{ postPreview(post, postPrefix, showAccessories, isPrototype = true) }}
+        {{ prototypePreview(prototype) }}
       </li>
     {% endfor %}
   </ol>

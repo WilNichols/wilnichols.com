@@ -6,6 +6,92 @@
 @include tokens.headingStyles;
 
 .note-group__month {
+  grid-column: 1 / -1;
+}
+
+@mixin post($selector) {
+  .#{$selector} {
+    .#{$selector}__link {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: subgrid;
+      text-decoration: none;
+      align-items: flex-start;
+      color: var(--contentPrimaryColor);
+      position: relative;
+      row-gap: 2px; // this is a const because it looks better
+      @extend %listItemBackground;
+      &:hover {
+        @extend %listItemBackgroundHover;
+        $d: .25ex;
+        &__day, &__title {
+          transform: translateX($d);
+        }
+        &__day, &__title{
+          transition-duration: math.div(tokens.$x, 4); 
+        }
+      }
+      &:active {
+        @extend %listItemBackgroundActive;
+      }
+    }
+    .#{$selector}__preview {
+      display: flex;
+      grid-column: 1 / -1;
+      z-index: 1;
+      position: relative;
+      margin: 2px 0 6px 0; // this offsets the hover effects asymmetrical offsets
+      border-radius: 4px;
+      box-shadow: 
+        0px 6px 12px 1px transparent, 
+        0px 1.8px 3.6px 1px transparent, 
+        0px 0.76px 1.52px 1px transparent, 
+        0px 0.28px 0.56px 1px transparent;
+      transition: tokens.$x box-shadow ease-out;
+      
+      > * {
+        aspect-ratio: 4 / 3;
+        border-radius: 4px;
+        overflow: hidden;
+        // apply to the child to avoid clipping on subpixels
+      }
+      &::before {
+        /* Hello Wil */
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 4px;
+        $s: 0 0 0 var(--px) var(--edgeColor);
+        box-shadow: inset $s;
+        opacity: 1;
+        transition: tokens.$x opacity ease-out;
+      }
+    }
+    .#{$selector}__link:hover .#{$selector}__preview {
+      /* Hello Wil */
+      box-shadow: 
+        0px 6px 12px 1px rgba(0, 0, 0, calc(0.05 * var(--shadowMultiplier, 1))), 
+        0px 1.8px 3.6px 1px rgba(0, 0, 0, calc(0.03 * var(--shadowMultiplier, 1))), 
+        0px 0.76px 1.52px 1px rgba(0, 0, 0, calc(0.025 * var(--shadowMultiplier, 1))), 
+        0px 0.28px 0.56px 1px rgba(0, 0, 0, calc(0.017 * var(--shadowMultiplier, 1)));
+      transition-duration: math.div(tokens.$x, 2);
+      &::before {
+        transition-duration: inherit;
+        opacity: 0;
+      }
+    }
+    .#{$selector}__title, .#{$selector}__body, .#{$selector}__day {
+      z-index: 1;
+    }
+  }
+}
+
+@include post(pen);
+@include post(post);
+
+// Posts
+
+.note-group__month {
   display: flex;
   flex-direction: row-reverse; 
   justify-content: flex-end;
@@ -83,95 +169,26 @@
   display: contents;
 }
 
-.post__link, .note-group__month {
-  grid-column: 1 / -1;
-}
-
-.post__link {
-  display: grid;
-  grid-template-columns: subgrid;
+.post__day {
+  font-variant-numeric: tabular-nums;
   text-decoration: none;
-  align-items: flex-start;
-  color: var(--contentPrimaryColor);
-  position: relative;
-  row-gap: 2px; // this is a const because it looks better
-  @extend %listItemBackground;
-  // give more space for title if no accessories
-  .post__title {
-    grid-column: 2 / 4;
-  }  
-  &--with-accessories .post__title {
-    grid-column: 2 / 3;
-  }
-  // prevents flickering with animated pseudo element
-  .post__day, .post__title {
-    z-index: 1;
-  }
-  .post__day, .post__title, .post__Accessories  {
-    transition: tokens.$x transform ease-out, tokens.$x background-color ease-out;
-  }
-  &:hover {
-    @extend %listItemBackgroundHover;
-    $d: .25ex;
-    .post__day, .post__title {
-      transform: translateX($d);
-    }
-    .post__Accessories {
-      transform: translateX(-$d);
-    }
-    .post__day, .post__title, .post__Accessories {
-      transition-duration: math.div(tokens.$x, 4); 
-    }
-  }
-  &:active {
-    @extend %listItemBackgroundActive;
-  }
-}
-
-.post__preview {
-  display: flex;
-  grid-column: 1 / -1;
+  text-align: right;
   z-index: 1;
-  position: relative;
-  margin: 2px 0 6px 0; // this offsets the hover effects asymmetrical offsets
-  border-radius: 4px;
-  box-shadow: 
-    0px 6px 12px 1px transparent, 
-    0px 1.8px 3.6px 1px transparent, 
-    0px 0.76px 1.52px 1px transparent, 
-    0px 0.28px 0.56px 1px transparent;
-  transition: tokens.$x box-shadow ease-out;
-  
-  > * {
-    aspect-ratio: 4 / 3;
-    border-radius: 4px;
-    // apply to the child to avoid clipping on subpixels
-  }
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 4px;
-    $s: 0 0 0 var(--px) var(--edgeColor);
-    box-shadow: inset $s;
-    opacity: 1;
-    transition: tokens.$x opacity ease-out;
-  }
-  .post__link:hover & {
-    box-shadow: 
-      0px 6px 12px 1px rgba(0, 0, 0, calc(0.05 * var(--shadowMultiplier, 1))), 
-      0px 1.8px 3.6px 1px rgba(0, 0, 0, calc(0.03 * var(--shadowMultiplier, 1))), 
-      0px 0.76px 1.52px 1px rgba(0, 0, 0, calc(0.025 * var(--shadowMultiplier, 1))), 
-      0px 0.28px 0.56px 1px rgba(0, 0, 0, calc(0.017 * var(--shadowMultiplier, 1)));
-    transition-duration: math.div(tokens.$x, 4);
-    &::before {
-      transition-duration: inherit;
-      opacity: 0;
-    }
+  &--hidden {
+    visibility: hidden; 
   }
 }
 
-.post__preview__poster {
+.post__title {
+  padding: 0 tokens.$note-title-gap 0 0;
+  grid-column: 2 / 4;
+  z-index: 1;
+}
+
+// Pens
+
+
+.pen__preview__poster {
   width: 100%;
   height: auto;
   background-size: 100%;
@@ -194,17 +211,4 @@
       }
     }
   }
-}
-
-.post__day {
-  font-variant-numeric: tabular-nums;
-  text-decoration: none;
-  text-align: right;
-  &--hidden {
-    visibility: hidden; 
-  }
-}
-
-.post__title {
-  padding: 0 tokens.$note-title-gap 0 0;
 }

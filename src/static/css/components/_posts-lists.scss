@@ -1,0 +1,51 @@
+@use 'sass:math';
+@use '../abstractions/containers';
+@use '../tokens';
+
+.note-group__month {
+  grid-column: 1 / -1;
+}
+
+.posts-list {
+  display: flex;
+  flex-direction: column;
+  gap: tokens.$gap;
+}
+
+.pen-grid, .posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(#{100%/2}, #{calc(100%)/4}), 1fr));
+  gap: tokens.$gap;
+  width: 100%;
+  @extend %container-720;
+  overflow: visible;
+  .post__link {
+    grid-column: unset;
+  }
+  > li {
+    > * {
+      // display: none;
+    }
+  }
+}
+
+.posts {
+  display: grid;
+  grid-template-columns: min-content auto;
+  row-gap: .6em;
+  column-gap: tokens.$note-title-gap;
+}
+
+.posts-month {
+  display: flex;
+  flex-direction: column;
+  gap: math.div(tokens.$gap, 2);
+}
+
+.posts-list__copyright {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / -1;
+  gap: 5px;
+  margin-top: math.div(tokens.$gap, 2);
+}

@@ -1,9 +1,19 @@
 @use '../tokens';
 
-%container-480 {
+%container {
   max-width: tokens.$categoryWidth;
   width: 100%;
   @media (width <= tokens.$breakpoint) {
     max-width: unset;
   }
+}
+
+%container-480 {
+  @extend %container;
+  max-width: tokens.$categoryWidth;
+}
+
+%container-720 {
+  @extend %container;
+  max-width: tokens.$gridWidth;
 }
