@@ -2,6 +2,21 @@
 
 $gap: 1.2em;
 
+.footnote-ref {
+  font-size: var(--type--2);
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sup.footnote-ref {
+  top: -0.75em;
+}
+
+sub.footnote-ref {
+  bottom: -0.75em;
+}
+
 .footnotes {
   font-size: var(--type--2);
   border-top: 1px solid var(--edgeColor);

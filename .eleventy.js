@@ -3,6 +3,10 @@ require('dotenv').config();
 const { DateTime } = require("luxon");
 const { EleventyRenderPlugin } = require("@11ty/eleventy");
 const markdownIt = require('markdown-it');
+const markdownItAnchor = require('markdown-it-anchor')
+const markdownItAttrs = require('markdown-it-attrs')
+const markdownItFootnote = require('markdown-it-footnote');
+const markdownItTitle = require('markdown-it-title');
 const fs = require('fs');
 const { getAverageColor } = require('fast-average-color-node');
 const { S3Client, ListObjectsV2Command } = require("@aws-sdk/client-s3");
@@ -21,9 +25,10 @@ module.exports = function(eleventyConfig) {
   };
   // From Benyamin: https://github.com/binyamin/eleventy-garden/discussions/45
   const md = markdownIt(markdownItOptions)
-  .use(require('markdown-it-footnote'))
-  .use(require('markdown-it-attrs'))
-  .use(require('markdown-it-title'))
+  .use(markdownItAnchor)
+  .use(markdownItAttrs)
+  .use(markdownItFootnote)
+  .use(markdownItTitle)
   .use(function(md) {
       // Recognize Mediawiki links ([[text]])
       md.linkify.add("[[", {
