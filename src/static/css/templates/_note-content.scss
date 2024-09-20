@@ -6,6 +6,27 @@
   }
 }
 
+.note__body ol {
+  list-style: decimal;
+}
+
+.note__body ul {
+  list-style: circle;
+}
+
+.note__body ul, .note__body ol {
+  li:not(:last-child) { 
+    margin: 0 auto 1em auto;
+  }
+  li::marker {
+    color: var(--contentTertiaryColor);
+  }
+  
+  &:has(+ p) {
+    margin: 0 auto 1em auto;
+  }
+}
+
 .note__body + .backlinks {
   margin-top: 1em;
 }

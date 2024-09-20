@@ -74,16 +74,17 @@
       }
     }
   }
+
   .heading--1 {
     line-height: 1em;
     margin: 0 0 .25em 0;
   }
-  
+
   .page__title {
     @extend .heading--1;
     @extend %font--display-black;
   }
-  
+
   .page__subtitle {
     font-size: var(--type--1);
     @extend %font--text-regular;
@@ -95,7 +96,7 @@
     font-size: var(--type--1);
     @extend %font--display-medium;
   }
-  
+
   .backlink__title, .backlink__preview {
     color: var(--contentPrimaryColor);
   }
