@@ -10,7 +10,7 @@ summary:
     I turned thirty today. These are some passing thoughts.
 ---
 
-I turned thirty today. We went to one of my favorite [wine bars](https://austin.eater.com/2018/4/11/17219478/apt-115-bar-open) tonight where Joe joked that “it’s all downhill from here.” Depending on whether you align with me or my brother Simon, downhill is _easier_, but uphill is _improving_—so a safe quip? 
+I turned thirty today. We went to my [favorite](https://austin.eater.com/2018/4/11/17219478/apt-115-bar-open) wine bar tonight where Joe joked that “it’s all downhill from here.” Depending on whether you align with me or my brother Simon, downhill is _easier_, but uphill is _improving_. I’ll reassess at forty.
 
 I’ve wanted to think I’m one for birthdays, but I can’t remember having been. I like to celebrate with friends and family, but that’s rarely the day of a birthday, and so birthdays themselves are quieter and introspective. 
 
