@@ -4,11 +4,13 @@ author: Wil Nichols
 tags:
   - Type/Note
   - Topic/Feminism
-altTitle: "Tous les hommes (or the fabric of our lives)"
+altTitle: "~~Pas~~ tous les hommes"
+subtitle: "Or _the fabric of our lives_"
 ---
 
 > You want to organize men. You don’t have to search for issues. The issues are part of the fabric of your everyday lives.
-_From Andrea Dworkin's speech at the Midwest Regional Conference of the National Organization for Changing Men, 1983 in St Paul, Minnesota, printed in Letters from a War Zone, titled "I want a Twenty-Four-Hour Truce During Which There Is No Rape"_
+>
+> —— Andrea Dworkin's speech at the Midwest Regional Conference of the National Organization for Changing Men, 1983 in St Paul, Minnesota, printed in Letters from a War Zone, titled "I want a Twenty-Four-Hour Truce During Which There Is No Rape"
 
 I was a college sophomore in 2015 when Ambra Gutierrez’s allegations against Harvey Weinstein first surfaced, and a senior when they were revitalized by Alyssa Milano. I was a naive child—I remember being _shocked_ to [learn](https://news.utexas.edu/2015/09/21/campus-sexual-assault-survey-details-prevalence-at-ut-austin/) that one of four women at my university experienced sexual assault. I remember hearing about the Pikes’ “rape dungeon” from friends who rushed[^1], and then I remember sharing this, freshly shocked, over a family dinner later that week—not understanding my mother’s seemingly disinterested response, lacking the self-awareness to realize her apathy reflected she’d long internalized this truth to which I was fresh. 
 

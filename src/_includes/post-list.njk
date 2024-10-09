@@ -2,6 +2,7 @@
 {% from "tag.njk" import tag as tagButton %}
 
 {% macro postListItem(post, postPrefix, showAccessories) -%}
+{% set printedTitle %}{{ post.data.altTitle if post.data.altTitle else post.data.title }}{% endset %}
   <a href="{{ post.url }}" class="post__link{{ ' post__link--with-accessories' if showAccessories }}">
     {% if post.data.preview %}
       <div class="post__preview">
@@ -37,7 +38,7 @@
       </div>
     {% endif %}
     <span class="post__day">{{ postPrefix }}</span>
-    <span class="post__title">{{ post.data.title }}</span>
+    <span class="post__title">{{ printedTitle | markdownify | replace("<p>", "") | replace("</p>", "") | safe }}</span>
     {# {% if showAccessories %}
       <ul class="post__Accessories">
         {% for tag in post.data.tags %}{% if ("Type/" in tag) %}  <li>{{ tagButton(tag) }}</li>{% endif %}{% endfor %}
