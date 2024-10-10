@@ -2,5 +2,6 @@
 {% set date %}{{ date | readableDateISO }}{% endset %}
 {% set updated %}{{ updated | readableDateISO }}{% endset %}
 <header class="page-header__title">
-  <h1 class="page__title">{{ title | safe }}</h1>
+  <h1 class="page__title">{{ title | markdownify | replace("<p>", "") | replace("</p>", "") | safe }}</h1>
+  {% if subtitle %}<span class="page__subtitle">{{ subtitle | markdownify | replace("<p>", "") | replace("</p>", "") | safe }}</span>{% endif %}
 </header>

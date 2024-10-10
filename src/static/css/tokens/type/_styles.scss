@@ -2,6 +2,7 @@
 @use '../size/aliases' as tokens;
 @forward 'fonts';
 
+$body-gap: 1em;
 @mixin textStyles {
   @include fonts.placeholders;
 }
@@ -40,19 +41,59 @@
   }
 
   p {
-    margin: 0 auto 1em auto;
+    margin: 0 auto $body-gap auto;
     text-wrap: pretty;
     line-height: 1.5em;
-    &:not(:last-of-type) {
-      margin: 0 auto 1em auto;
-    }
   }
-  
+
   sup {
     font-size: var(--type--2);
     a {
       text-decoration: none;
     }
+  }
+
+  s {
+    text-decoration: none;
+    display: inline-block;
+    position: relative;
+    color: var(--contentTertiaryColor);
+    &::after {
+      content: '';
+      position: absolute;
+      background-color: var(--contentPrimaryColor);
+      width: 100%;
+      height: .125ex;
+      inset: 57% 0 auto 0;
+      transform: translateY(-50%);
+      // box-shadow: .0375ex solid var(--materialPrimaryColor);
+    }
+  }
+
+  blockquote {
+    $margin: 2ex;
+    &:not(:last-child) {
+      margin: 0 0 $body-gap 0;
+    }
+    p {
+      padding: 0 $margin;
+      position: relative;
+      // last-child should be the <cite>, please
+      &:not(:last-child)::before {
+        content: '';
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: 2px;
+        background-color: var(--contentTertiaryColor);
+      }
+    }
+  }
+
+  cite {
+    font-size: var(--type--2);
+    color: var(--contentSecondaryColor);
+    display: inline-block;
+    line-height: 1.5em;
   }
 
   @include headingStyles;
