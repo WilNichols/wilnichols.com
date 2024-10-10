@@ -14,14 +14,17 @@
   list-style: circle;
 }
 
-.note__body ul, .note__body ol {
-  li:not(:last-child) { 
-    margin: 0 auto 1em auto;
+.note__body ul, .note__body ol:not(.footnotes-list) {
+  li {
+    width: 100%;
+    &:not(:last-child) { 
+      margin: 0 auto 1em auto;
+    }
+    &::marker {
+      color: var(--contentTertiaryColor);
+    }
   }
-  li::marker {
-    color: var(--contentTertiaryColor);
-  }
-  
+
   &:has(+ p) {
     margin: 0 auto 1em auto;
   }
