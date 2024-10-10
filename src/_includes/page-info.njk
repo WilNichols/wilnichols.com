@@ -6,7 +6,7 @@
 {% set isEvergreen %}{% for tag in tags %}{{ true if ("Evergreen/" in tag) }}{% endfor %}{% endset %}
 {% set showTags %}{% for tag in tags %}{{ true if ("Topic/" in tag) }}{% endfor %}{% endset %}
 <aside class="page-info">
-  <div class="back-to-index"><button onclick="history.back()" class="back-to-index__button">{% include "../static/img/arrow-left--16.svg" %}</button></div>
+  <div class="back-to-index"><a href="/" class="back-to-index__button">{% include "../static/img/arrow-left--16.svg" %}</a></div>
   <ul class="page-info__list">
     <li class="page-info__entry">
       <span class="page-info__entry__key">Published</span><span class="page-info__entry__value">{{ date }}</span></li>
