@@ -7,7 +7,7 @@ tags:
   - Topic/Feminism
 altTitle: "~~Pas~~ tous les hommes"
 subtitle: "Or _the fabric of our lives_"
-summary: "Gisèle Pelicot’s rapists may claim innocence, WHILEothers blithely own up to their offenses. This defense predicates on their entitlement to the charity and empathy of both their fellow men and larger community."
+summary: "Gisèle Pelicot’s rapists may claim innocence, while others blithely own up to their offenses. This defense predicates on their entitlement to the charity and empathy of both their fellow men and larger community."
 ---
 
 > You want to organize men. You don’t have to search for issues. The issues are part of the fabric of your everyday lives.
