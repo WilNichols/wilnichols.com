@@ -18,7 +18,7 @@ const meta = {
   }
 }
 
-module.exports = {
+export default function () {
   ...me,
   ...meta
 }

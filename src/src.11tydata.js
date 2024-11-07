@@ -1,4 +1,4 @@
-module.exports = {
+export default function () {
   eleventyComputed: {
     title: "{{ page.fileSlug }}",
     month: function (data) {
