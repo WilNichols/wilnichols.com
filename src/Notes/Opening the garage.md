@@ -2,10 +2,12 @@
 date: 2024-01-30T12:30
 updated: 2024-02-16T21:57
 author: Wil Nichols
-tag:
+tags:
   - Type/Note
   - Status/Complete
-url: 
+permalink: /opening-the-garage/
+summary: 
+  Working openly and publicly is good for community learning.
 ---
 
 A little over two years ago, I moved from a lead IC role on a design team of three to the director of a team of now six. That transition was largely out of necessity — the team needed a design leader with extensive experience at the company — but also personally driven in search of new learning opportunity.
