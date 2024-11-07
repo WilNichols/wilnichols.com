@@ -7,12 +7,8 @@
 
 {% macro albumsList() -%}
   <ol class="album-list" reversed>
-  wtf: {{ collections.albumGroups | dump }}
-  {% for albumGroup in collections.albumGroups %}
-    {% set currentGroup = "" %}
-    <li>{{ albumGroup }}</li>
-    {% set currentAlbumGroup = albumGroup %}
-  {% endfor %}
+  {# wtf: {{ collections.albumGroups | dump }} #}
+  
     {# {% set currentAlbumGroup = "" %}
     {% for album in collections.Albums %}
       {% set albumGroup = album.data.organization.group %}

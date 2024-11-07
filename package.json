@@ -21,7 +21,7 @@
     "build:minify": " html-minifier --input-dir _site --output-dir _site --file-ext html --remove-comments --collapse-whitespace --minify-js --minify-urls --use-short-doctype"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^2.0.1",
+    "@11ty/eleventy": "^3.0.0",
     "@11ty/eleventy-plugin-rss": "^1.2.0",
     "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.0",
     "markdown-it": "^14.0.0",
@@ -32,6 +32,7 @@
     "title-case": "^4.3.1"
   },
   "dependencies": {
+    "@11ty/eleventy-upgrade-help": "^3.0.1",
     "@aws-sdk/client-s3": "^3.504.0",
     "autoprefixer": "^10.4.17",
     "aws-sdk": "^2.1550.0",

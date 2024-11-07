@@ -1,21 +1,23 @@
-require('dotenv').config();
+import dotenv from "dotenv";
+import UpgradeHelper from "@11ty/eleventy-upgrade-help";
+import { DateTime } from "luxon";
+import { EleventyRenderPlugin } from "@11ty/eleventy";
+import markdownIt from 'markdown-it';
+import markdownItAnchor from 'markdown-it-anchor';
+import markdownItAttrs from 'markdown-it-attrs';
+import markdownItFootnote from 'markdown-it-footnote';
+import markdownItTitle from 'markdown-it-title';
+import fs from 'fs';
+import { getAverageColor } from 'fast-average-color-node';
+import { S3Client, ListObjectsV2Command } from "@aws-sdk/client-s3";
+import sizeOf from 'image-size';
+import pluginRss from "@11ty/eleventy-plugin-rss";
+import beautify from 'js-beautify';
+import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 
-const { DateTime } = require("luxon");
-const { EleventyRenderPlugin } = require("@11ty/eleventy");
-const markdownIt = require('markdown-it');
-const markdownItAnchor = require('markdown-it-anchor')
-const markdownItAttrs = require('markdown-it-attrs')
-const markdownItFootnote = require('markdown-it-footnote');
-const markdownItTitle = require('markdown-it-title');
-const fs = require('fs');
-const { getAverageColor } = require('fast-average-color-node');
-const { S3Client, ListObjectsV2Command } = require("@aws-sdk/client-s3");
-const sizeOf = require('image-size');
-const pluginRss = require("@11ty/eleventy-plugin-rss");
-const beautify = require('js-beautify/js');
-const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
+dotenv.config();
 
-module.exports = function(eleventyConfig) {
+export default function (eleventyConfig) {
   eleventyConfig.setQuietMode(true);
   const markdownItOptions = {
       html: true,
@@ -79,14 +81,6 @@ module.exports = function(eleventyConfig) {
           }
       });
       return tagsList;
-  });
-  
-  eleventyConfig.addCollection("albumGroups", function(collectionApi) {
-      const albumGroups = new Set();
-      collectionApi.getFilteredByTags("Albums").map( item => {
-          albumGroups.add(item.data.organization.group)
-      });
-      return albumGroups;
   });
   
   eleventyConfig.addFilter("markdownify", string => {
