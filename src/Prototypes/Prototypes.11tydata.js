@@ -1,4 +1,6 @@
 export default function () {
-  permalink: "/{{ page.fileSlug | slugify }}/index.html",
-  tags: "Prototypes"
+  return {
+    permalink: "/{{ page.fileSlug | slugify }}/index.html",
+    tags: "Prototypes"
+  }
 }
