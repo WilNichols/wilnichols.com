@@ -31,12 +31,13 @@
         </ul>
       </li>
     {% endif %}
+    {% set backlinks = collections.all | links_to(page.url) %}
     {% if backlinks.length > 0 %}
     <li class="page-info__entry page-info__entry--tags">
       <span class="page-info__entry__key">Backlinks</span>
       <ul class="page-info__entry__value">
         {% for link in backlinks %}
-          <li class="sub-list__item"><a href="{{ link.url }}">{{ link.title }}</a></li>
+          <li class="sub-list__item"><a href="{{ link.url }}">{{ link.data.title }}</a></li>
         {% endfor %}
       </ul>
     </li>

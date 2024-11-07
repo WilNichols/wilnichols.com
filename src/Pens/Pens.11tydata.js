@@ -1,5 +1,7 @@
-module.exports = {
-  permalink: "/{{ page.fileSlug | slugify }}/index.html",
-  tags: "Pens",
-  layout: "pen.njk"
+export default function () {
+  return {
+    permalink: "/{{ page.fileSlug | slugify }}/index.html",
+    tags: "Pens",
+    layout: "pen.njk"
+  }
 }
