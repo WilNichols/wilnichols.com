@@ -11,7 +11,7 @@
 
 {% macro header() -%}
   <header class="header">
-  <div class="header__logo">{% include "../static/img/logo--16.svg" %}</div>
+  <div class="header__logo"><a href="/">{% include "../static/img/logo--16.svg" %}</a></div>
   <div class="header__content">
     <h1 class="header__name">{{ meta.name | replace(' ', '&nbsp;') | safe }}</h1>
     <h2 class="header__title">{{ meta.jobTitle | safe }}</h2>

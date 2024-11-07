@@ -1,21 +1,23 @@
-require('dotenv').config();
+import dotenv from 'dotenv';
+import { DateTime } from 'luxon';
+import { EleventyRenderPlugin } from '@11ty/eleventy';
+import markdownIt from 'markdown-it';
+import markdownItAnchor from 'markdown-it-anchor';
+import markdownItAttrs from 'markdown-it-attrs';
+import markdownItFootnote from 'markdown-it-footnote';
+import markdownItTitle from 'markdown-it-title';
+import fs from 'fs';
+import { getAverageColor } from 'fast-average-color-node';
+import { S3Client, ListObjectsV2Command } from '@aws-sdk/client-s3';
+import sizeOf from 'image-size';
+import pluginRss from '@11ty/eleventy-plugin-rss';
+import beautify from 'js-beautify';
+import syntaxHighlight from '@11ty/eleventy-plugin-syntaxhighlight';
+import { JSDOM } from 'jsdom';
 
-const { DateTime } = require("luxon");
-const { EleventyRenderPlugin } = require("@11ty/eleventy");
-const markdownIt = require('markdown-it');
-const markdownItAnchor = require('markdown-it-anchor')
-const markdownItAttrs = require('markdown-it-attrs')
-const markdownItFootnote = require('markdown-it-footnote');
-const markdownItTitle = require('markdown-it-title');
-const fs = require('fs');
-const { getAverageColor } = require('fast-average-color-node');
-const { S3Client, ListObjectsV2Command } = require("@aws-sdk/client-s3");
-const sizeOf = require('image-size');
-const pluginRss = require("@11ty/eleventy-plugin-rss");
-const beautify = require('js-beautify/js');
-const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
+dotenv.config();
 
-module.exports = function(eleventyConfig) {
+export default async function(eleventyConfig) {
   eleventyConfig.setQuietMode(true);
   const markdownItOptions = {
       html: true,
@@ -30,16 +32,16 @@ module.exports = function(eleventyConfig) {
   .use(markdownItFootnote)
   .use(markdownItTitle)
   .use(function(md) {
-      // Recognize Mediawiki links ([[text]])
-      md.linkify.add("[[", {
-          validate: /^\s?([^\[\]\|\n\r]+)(\|[^\[\]\|\n\r]+)?\s?\]\]/,
-          normalize: match => {
-              const parts = match.raw.slice(2,-2).split("|");
-              parts[0] = parts[0].replace(/.(md|markdown)\s?$/i, "");
-              match.text = (parts[1] || parts[0]).trim();
-              match.url = `/${parts[0].trim().replace(/\s/g, "-").toLowerCase()}/`;
-          }
-      });
+    // Recognize Mediawiki links ([[text]])
+    md.linkify.add("[[", {
+        validate: /^\s?([^\[\]\|\n\r]+)(\|[^\[\]\|\n\r]+)?\s?\]\]/,
+        normalize: match => {
+            const parts = match.raw.slice(2,-2).split("|");
+            parts[0] = parts[0].replace(/.(md|markdown)\s?$/i, "");
+            match.text = (parts[1] || parts[0]).trim();
+            match.url = `/${parts[0].trim().replace(/\s/g, "-").toLowerCase()}/`;
+        }
+    });
       // remove the hr
       md.renderer.rules.footnote_block_open = () => (
         '<section class="footnotes">\n' +
@@ -52,6 +54,36 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
   
   // Filters
+  
+  eleventyConfig.addFilter("links_to", async function(collection, target) {
+    const hostname = "wilnichols.com";
+    const cache = {};
+    function getLinks(html) {
+        if (cache[html]) {
+            return cache[html];
+        }
+    
+        const dom = new JSDOM(html);
+        const document = dom.window.document;
+    
+        const result = new Set([...document.querySelectorAll("a[href]")]
+            .map(x => {
+                let href = x.getAttribute("href");
+    
+                // Normalise internal links
+                const url = new URL(href, `https://${hostname}`);
+                if (url.hostname == hostname) {
+                    return url.pathname;
+                }
+    
+                url.hash = "";
+                return url.toString();
+            }));
+        cache[html] = result;
+        return result;
+    }
+      return collection.filter(item => getLinks(item.content).has(target));
+  });
   
   eleventyConfig.addFilter("getRevision", string => {
     return string.split("Evergreen/v")[1];
@@ -214,7 +246,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.setServerOptions({
     liveReload: true
   });
-  
+
   // Passthroughs. Specify individual instead of all, since sass is handled separately
   eleventyConfig.addPassthroughCopy({"src/vid.html": "/vid.html"});
   eleventyConfig.addPassthroughCopy({"src/robots.txt": "/robots.txt"});
@@ -223,16 +255,16 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy({"src/static/vid": "/assets/vid"});
   eleventyConfig.addPassthroughCopy({"src/static/embeds": "/assets/embeds"});
   eleventyConfig.addPassthroughCopy({"src/static/favicon": "/"});
-  
+
   // CSS Mapping
   if (process.env.ELEVENTY_ENV == 'dev') {
     eleventyConfig.addPassthroughCopy({"src/static/css": "/src/static/css"});
   }
-  
+
   // Plugins
   eleventyConfig.addPlugin(pluginRss);
   eleventyConfig.addPlugin(syntaxHighlight);
-  
+
   // WatchTargets
   eleventyConfig.addWatchTarget("src/static/css/");
   eleventyConfig.addWatchTarget("src/static/js/");

@@ -2,17 +2,19 @@
 date: 2024-01-30T12:30
 updated: 2024-02-16T21:57
 author: Wil Nichols
-tag:
+tags:
   - Type/Note
   - Status/Complete
-url: 
+permalink: /opening-the-garage/
+summary: 
+  Working openly and publicly is good for community learning.
 ---
 
 A little over two years ago, I moved from a lead IC role on a design team of three to the director of a team of now six. That transition was largely out of necessity — the team needed a design leader with extensive experience at the company — but also personally driven in search of new learning opportunity.
 
-Before making that change, I’d known that I enjoyed mentoring younger designers. I started learning design processes myself when a young teenager, learning to draw icons from others’ PSDs, PSDTuts (Tuts+ or whatever they’ve become?), and MacThemes. As an IC, I’d share source files and process notes but rarely outside private chats, or as evidence of work done. Sharing work was a [[conscious act]], and so was irregular. 
+Before making that change, I’d known that I enjoyed mentoring younger designers. I started learning design processes myself when a young teenager, learning to draw icons from others’ PSDs, PSDTuts (Tuts+ or whatever they’ve become?), and MacThemes. As an IC, I’d share source files and process notes but rarely outside private chats, or as evidence of work done. Sharing work was a conscious act, and so was irregular. 
 
-Now, I try (and struggle) to work with the [garage door up](https://notes.andymatuschak.org/About_these_notes?stackedNotes=zCMhncA1iSE74MKKYQS5PBZ). There’s no implicit  threshold preventing me from sharing _if I’m always sharing_. This means that at work, I work in shared documents. Local files quickly enter version control in common repos. Status updates are shared regularly, despite risking [[  Online Performance and Anti-Marketing |performative updates]]. I’ve found that this creates a kind of obligation that pushes me towards a greater focus.
+Now, I try (and struggle) to work with the [garage door up](https://notes.andymatuschak.org/About_these_notes?stackedNotes=zCMhncA1iSE74MKKYQS5PBZ). There’s no implicit  threshold preventing me from sharing _if I’m always sharing_. This means that at work, I work in shared documents. Local files quickly enter version control in common repos. Status updates are shared regularly, despite risking [[ Performativity and Anti-Marketing | performative updates]]. I’ve found that this creates a kind of obligation that pushes me towards a greater focus.
 
 And in that interest, I’m now working on this portfolio publicly. I don’t know that I’ve ever had a _good_ portfolio. The last time I had a public portfolio _at all_ was in 2015. I’ve put together pitch decks with narrative case studies, but nothing holistic.
 
