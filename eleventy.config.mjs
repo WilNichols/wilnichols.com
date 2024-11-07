@@ -1,5 +1,4 @@
 import dotenv from 'dotenv';
-import UpgradeHelper from '@11ty/eleventy-upgrade-help';
 import { DateTime } from 'luxon';
 import { EleventyRenderPlugin } from '@11ty/eleventy';
 import markdownIt from 'markdown-it';
