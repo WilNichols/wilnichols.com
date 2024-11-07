@@ -1,5 +1,8 @@
 ---
 title: Auvergne 5
+organization: 
+  group: Auvergne
+  entry: 5
 key: Auvergne5
 thumbnail: DSCF5667.jpg
 tags:

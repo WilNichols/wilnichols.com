@@ -1,5 +1,8 @@
 ---
 title: Austin 3
+organization: 
+  group: Austin
+  entry: 3
 key: Austin3
 thumbnail: DSCF3143.jpg
 tags:

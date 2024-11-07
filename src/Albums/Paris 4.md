@@ -1,5 +1,8 @@
 ---
 title: Paris 4
+organization: 
+  group: Paris
+  entry: 4
 key: Paris4
 thumbnail: DSCF2663.jpg
 tags:

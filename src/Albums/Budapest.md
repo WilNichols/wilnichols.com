@@ -1,5 +1,7 @@
 ---
 title: Budapest
+organization: 
+  group: Budapest
 key: Budapest
 thumbnail: DSCF4554.jpg
 tags:

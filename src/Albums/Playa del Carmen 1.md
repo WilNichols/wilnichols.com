@@ -1,5 +1,8 @@
 ---
 title: Playa del Carmen 1
+organization: 
+  group: Playa del Carmen
+  entry: 1
 key: PlayaDelCarmen1
 thumbnail: DSCF2945.jpg
 tags:

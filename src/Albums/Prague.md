@@ -1,5 +1,8 @@
 ---
 title: Prague
+organization: 
+  group: Prague
+  entry: 1
 key: Prague
 thumbnail: DSCF8818.jpg
 tags:

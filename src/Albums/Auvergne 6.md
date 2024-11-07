@@ -1,5 +1,8 @@
 ---
 title: Auvergne 6
+organization: 
+  group: Auvergne
+  entry: 6
 key: Auvergne6
 thumbnail: DSCF3036.jpg
 tags:

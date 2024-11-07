@@ -1,5 +1,7 @@
 ---
 title: San Francisco
+organization: 
+  group: San Francisco
 key: SanFrancisco
 thumbnail: DSCF9734.jpg
 tags:

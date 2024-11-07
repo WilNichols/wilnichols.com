@@ -1,5 +1,7 @@
 ---
 title: Giant’s Causeway
+organization: 
+  group: Giant's Causeway
 key: Causeway
 thumbnail: DSCF0946.jpg
 tags:

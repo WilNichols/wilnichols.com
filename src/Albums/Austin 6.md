@@ -1,5 +1,8 @@
 ---
 title: Austin 6
+organization: 
+  group: Austin
+  entry: 6
 key: Austin6
 thumbnail: DSCF6201.jpg
 tags:

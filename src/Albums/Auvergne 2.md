@@ -1,5 +1,8 @@
 ---
 title: Auvergne 2
+organization: 
+  group: Auvergne
+  entry: 2
 key: Auvergne2
 thumbnail: DSCF7093.jpg
 tags:

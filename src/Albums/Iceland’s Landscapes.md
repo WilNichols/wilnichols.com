@@ -1,5 +1,8 @@
 ---
 title: Iceland’s Landscapes
+organization: 
+  group: Iceland
+  entry: 2
 key: Iceland2022Landscapes
 thumbnail: DSCF7658.jpg
 tags:

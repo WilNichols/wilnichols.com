@@ -1,5 +1,8 @@
 ---
 title: Aix-en-Provence
+organization: 
+  group: Aix-en-Provence
+  entry: 2016
 key: Aix
 thumbnail: DSCF2975.jpg
 tags:

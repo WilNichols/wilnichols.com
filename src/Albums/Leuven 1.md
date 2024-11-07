@@ -1,5 +1,8 @@
 ---
 title: Leuven 1
+organization: 
+  group: Leuven
+  entry: 1
 key: Leuven1
 thumbnail: DSCF8019.jpg
 tags:

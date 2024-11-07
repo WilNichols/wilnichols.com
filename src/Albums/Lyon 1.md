@@ -1,5 +1,8 @@
 ---
 title: Lyon 1
+organization: 
+  group: Lyon
+  entry: 1
 key: Lyon1
 thumbnail: DSCF9920.jpg
 tags:

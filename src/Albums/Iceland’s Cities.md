@@ -1,5 +1,8 @@
 ---
 title: Iceland’s Cities
+organization: 
+  group: Iceland
+  entry: 3
 key: Iceland2022Urban
 thumbnail: DSCF6676.jpg
 tags:

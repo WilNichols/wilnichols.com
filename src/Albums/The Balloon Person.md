@@ -1,5 +1,7 @@
 ---
 title: The Balloon Person
+organization: 
+  group: The Balloon Person
 key: TheBalloonPerson
 thumbnail: DSCF6918.jpg
 tags:

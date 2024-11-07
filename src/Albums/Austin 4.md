@@ -1,5 +1,8 @@
 ---
 title: Austin 4
+organization: 
+  group: Austin
+  entry: 4
 key: Austin4
 thumbnail: DSCF6270.jpg
 tags:

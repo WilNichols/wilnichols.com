@@ -1,5 +1,8 @@
 ---
 title: Women’s March 2
+organization: 
+  group: Women’s March
+  entry: 2
 key: WomensMarch2
 thumbnail: DSCF5271.jpg
 tags:

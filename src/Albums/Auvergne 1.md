@@ -1,5 +1,8 @@
 ---
 title: Auvergne 1
+organization: 
+  group: Auvergne
+  entry: 1
 key: Auvergne1
 thumbnail: DSCF5959.jpg
 tags:

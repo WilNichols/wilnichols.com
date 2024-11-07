@@ -1,5 +1,8 @@
 ---
 title: Bruges 2
+organization: 
+  group: Bruges
+  entry: 2
 key: Bruges2
 thumbnail: DSCF7429.jpg
 tags:

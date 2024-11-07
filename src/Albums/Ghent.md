@@ -1,5 +1,7 @@
 ---
 title: Ghent
+organization: 
+  group: Ghent
 key: Ghent
 thumbnail: DSCF5972.jpg
 tags:

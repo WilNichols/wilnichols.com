@@ -1,5 +1,7 @@
 ---
 title: Austin and Chicago
+organization: 
+  group: Austin and Chicago
 key: AustinAndChicago
 thumbnail: DSCF5499.jpg
 tags:

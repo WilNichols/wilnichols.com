@@ -1,0 +1,27 @@
+{% from "footer.njk" import footer with context %}
+{% from "tag.njk" import tag as tagButton %}
+
+{% macro postListItem(post, postPrefix, showAccessories) -%}
+ Album
+{%- endmacro %}
+
+{% macro albumsList() -%}
+  <ol class="album-list" reversed>
+  wtf: {{ collections.albumGroups | dump }}
+  {% for albumGroup in collections.albumGroups %}
+    {% set currentGroup = "" %}
+    <li>{{ albumGroup }}</li>
+    {% set currentAlbumGroup = albumGroup %}
+  {% endfor %}
+    {# {% set currentAlbumGroup = "" %}
+    {% for album in collections.Albums %}
+      {% set albumGroup = album.data.organization.group %}
+      <div class="album-group">
+        {% if currentAlbumGroup != albumGroup %}{{ albumGroup }}{% endif %}
+        {{ album.data.organization.entry }}
+      </div>
+      {% set currentAlbumGroup = albumGroup %}
+    {% endfor %}
+    {% if renderFooter %}<li class="posts-list__copyright">{{ footer() }}</li>{% endif %} #}
+  </ol>
+{%- endmacro %}

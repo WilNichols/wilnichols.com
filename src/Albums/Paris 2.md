@@ -1,5 +1,8 @@
 ---
 title: Paris 2
+organization: 
+  group: Paris
+  entry: 2
 key: Paris2
 thumbnail: DSCF1803.jpg
 tags:

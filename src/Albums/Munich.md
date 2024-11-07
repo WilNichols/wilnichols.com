@@ -1,5 +1,7 @@
 ---
 title: Munich
+organization: 
+  group: Munich
 key: Munich
 thumbnail: DSCF8803.jpg
 tags:

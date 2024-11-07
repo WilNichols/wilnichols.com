@@ -1,5 +1,8 @@
 ---
 title: Oaxaca 1
+organization: 
+  group: Oaxaca
+  entry: 1
 key: Oaxaca1
 thumbnail: DSCF5786.jpg
 tags:

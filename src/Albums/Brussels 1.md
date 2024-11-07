@@ -1,5 +1,8 @@
 ---
 title: Brussels 1
+organization: 
+  group: Brussels
+  entry: 1
 key: Brussels1
 thumbnail: DSCF0633.jpg
 tags:

@@ -1,5 +1,8 @@
 ---
 title: San Fermin at Antone’s
+organization: 
+  group: San Fermin
+  entry: 1
 key: SanFermin2017
 thumbnail: DSCF8788.jpg
 tags:

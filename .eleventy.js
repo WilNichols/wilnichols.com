@@ -81,6 +81,14 @@ module.exports = function(eleventyConfig) {
       return tagsList;
   });
   
+  eleventyConfig.addCollection("albumGroups", function(collectionApi) {
+      const albumGroups = new Set();
+      collectionApi.getFilteredByTags("Albums").map( item => {
+          albumGroups.add(item.data.organization.group)
+      });
+      return albumGroups;
+  });
+  
   eleventyConfig.addFilter("markdownify", string => {
       return md.render(string)
   });

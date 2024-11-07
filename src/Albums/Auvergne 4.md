@@ -1,5 +1,8 @@
 ---
 title: Auvergne 4
+organization: 
+  group: Auvergne
+  entry: 4
 key: Auvergne4
 thumbnail: DSCF7310.jpg
 tags:

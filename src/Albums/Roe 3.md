@@ -1,5 +1,8 @@
 ---
 title: Roe v. Wade 3
+organization: 
+  group: Row v. Wade
+  entry: 3
 key: Roe3
 thumbnail: DSCF5408.jpg
 tags:

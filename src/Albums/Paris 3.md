@@ -1,5 +1,8 @@
 ---
 title: Paris 3
+organization: 
+  group: Paris
+  entry: 3
 key: Paris3
 thumbnail: DSCF5192.jpg
 tags:

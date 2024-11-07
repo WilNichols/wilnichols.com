@@ -1,5 +1,8 @@
 ---
 title: Austin 7
+organization: 
+  group: Austin
+  entry: 7
 key: Austin7
 thumbnail: DSCF0713.jpg
 tags:

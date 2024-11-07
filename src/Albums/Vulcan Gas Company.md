@@ -1,5 +1,7 @@
 ---
 title: Vulcan Gas Company
+organization: 
+  group: Vulcan Gas Company
 key: VulcanGasCompany
 thumbnail: DSCF3945.jpg
 tags:

@@ -1,5 +1,7 @@
 ---
 title: Auvergne and Paris
+organization: 
+  group: Auvergne and Paris
 key: AuvergneAndParis
 thumbnail: DSCF5287.jpg
 tags:

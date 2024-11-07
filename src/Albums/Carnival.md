@@ -1,5 +1,7 @@
 ---
 title: Carnival
+organization: 
+  group: Carnival
 key: Carnival
 thumbnail: DSCF7110.jpg
 tags:

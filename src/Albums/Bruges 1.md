@@ -1,5 +1,8 @@
 ---
 title: Bruges 1
+organization: 
+  group: Bruges
+  entry: 1
 key: Bruges1
 thumbnail: DSCF5557.jpg
 tags:

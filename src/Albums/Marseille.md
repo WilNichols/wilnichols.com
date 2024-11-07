@@ -1,5 +1,7 @@
 ---
 title: Marseille
+organization: 
+  group: Marseille
 key: Marseille
 thumbnail: DSCF8702.jpg
 tags:

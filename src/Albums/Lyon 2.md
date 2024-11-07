@@ -1,5 +1,8 @@
 ---
 title: Lyon 2
+organization: 
+  group: Lyon
+  entry: 2
 key: Lyon2
 thumbnail: DSCF5412.jpg
 tags:

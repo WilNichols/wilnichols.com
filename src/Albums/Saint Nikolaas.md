@@ -1,5 +1,7 @@
 ---
 title: Saint Nikolaas
+organization: 
+  group: Saint Nikolaas
 key: LeuvenSaintNikolaas
 thumbnail: DSCF9302.jpg
 tags:

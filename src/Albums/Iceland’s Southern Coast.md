@@ -1,5 +1,8 @@
 ---
 title: Iceland’s Southern Coast
+organization: 
+  group: Iceland
+  entry: 1
 key: Iceland2015SouthernCoast
 thumbnail: DSCF8208.jpg
 tags:

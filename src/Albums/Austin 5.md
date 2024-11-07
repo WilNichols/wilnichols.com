@@ -1,5 +1,8 @@
 ---
 title: Austin 5
+organization: 
+  group: Austin
+  entry: 5
 key: Austin5
 thumbnail: DSCF0994.jpg
 tags:

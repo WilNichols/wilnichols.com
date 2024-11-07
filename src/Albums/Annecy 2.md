@@ -1,5 +1,8 @@
 ---
 title: Annecy 2
+organization: 
+  group: Annecy
+  entry: 2
 key: Annecy2
 thumbnail: DSCF5909.jpg
 tags:

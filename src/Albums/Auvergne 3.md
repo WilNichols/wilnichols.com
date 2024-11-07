@@ -1,5 +1,8 @@
 ---
 title: Auvergne 3
+organization: 
+  group: Auvergne
+  entry: 3
 key: Auvergne3
 thumbnail: DSCF0762.jpg
 tags:

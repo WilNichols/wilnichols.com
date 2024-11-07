@@ -1,6 +1,9 @@
 ---
 title: Leuven 3
 key: Leuven3
+organization: 
+  group: Leuven
+  entry: 3
 thumbnail: DSCF7269.jpg
 tags:
   - Camera/XT-2

@@ -1,5 +1,7 @@
 ---
 title: Bedouine
+organization: 
+  group: Bedouine
 key: Bedouine
 thumbnail: DSCF4231.jpg
 tags:

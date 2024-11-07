@@ -1,6 +1,8 @@
 ---
 title: The Election
 key: TheElection
+organization: 
+  group: The Election
 thumbnail: DSCF3584.jpg
 tags:
   - Group/Demonstration

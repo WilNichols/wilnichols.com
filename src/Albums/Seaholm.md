@@ -1,5 +1,7 @@
 ---
 title: Seaholm
+organization: 
+  group: Seaholm
 key: Seaholm
 thumbnail: DSCF1362.jpg
 tags:

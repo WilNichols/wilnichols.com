@@ -1,6 +1,9 @@
 ---
 title: Lyon 3
 key: Lyon3
+organization: 
+  group: Lyon
+  entry: 3
 thumbnail: DSCF5756.jpg
 tags:
   - Camera/XT-2

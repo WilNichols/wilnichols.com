@@ -1,5 +1,8 @@
 ---
 title: Lisbon 2
+organization: 
+  group: Lisbon
+  entry: 2
 key: Lisbon2
 thumbnail: DSCF2513.jpg
 tags:

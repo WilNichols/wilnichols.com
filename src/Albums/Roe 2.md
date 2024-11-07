@@ -1,5 +1,8 @@
 ---
 title: Roe v. Wade 2
+organization: 
+  group: Row v. Wade
+  entry: 2
 key: Roe2
 thumbnail: DSCF5311.jpg
 tags:

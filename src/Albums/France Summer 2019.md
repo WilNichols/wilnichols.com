@@ -1,5 +1,7 @@
 ---
 title: France, Summer 2019
+organization: 
+  group: France, Summer 2019
 key: FranceSummer2019
 thumbnail: DSCF0117.jpg
 tags:

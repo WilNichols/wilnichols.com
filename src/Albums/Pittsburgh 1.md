@@ -1,5 +1,8 @@
 ---
 title: Pittsburgh 1
+organization: 
+  group: Pittsburgh
+  entry: 1
 key: Pittsburgh1
 thumbnail: DSCF6417.jpg
 tags:

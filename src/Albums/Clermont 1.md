@@ -1,5 +1,8 @@
 ---
 title: Clermont-Ferrand 1
+organization: 
+  group: Clermont-Ferrand
+  entry: 1
 key: Clermont1
 thumbnail: DSCF3429.jpg
 tags:

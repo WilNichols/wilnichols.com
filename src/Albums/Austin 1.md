@@ -1,5 +1,8 @@
 ---
 title: Austin 1
+organization: 
+  group: Austin
+  entry: 1
 key: Austin1
 thumbnail: DSCF9085.jpg
 tags:

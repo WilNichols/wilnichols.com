@@ -1,5 +1,7 @@
 ---
 title: Manchester & Belfast
+organization: 
+  group: Manchester & Belfast
 key: ManchesterAndBelfast
 thumbnail: DSCF0415.jpg
 tags:

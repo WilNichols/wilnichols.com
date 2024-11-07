@@ -1,5 +1,7 @@
 ---
 title: Adrian’s Goodbye Party
+organization: 
+  group: Adrian’s Goodbye Party
 key: Adrian
 thumbnail: DSCF5719.jpg
 tags:

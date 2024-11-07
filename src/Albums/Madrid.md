@@ -1,5 +1,7 @@
 ---
 title: Madrid
+organization: 
+  group: Madrid
 key: Madrid
 thumbnail: DSCF4451.jpg
 tags:

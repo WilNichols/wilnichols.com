@@ -1,6 +1,9 @@
 ---
 title: Leuven 2
 key: Leuven2
+organization: 
+  group: Leuven
+  entry: 2
 thumbnail: DSCF0196.jpg
 tags:
   - Camera/XT-2

@@ -1,5 +1,8 @@
 ---
 title: Lisbon 1
+organization: 
+  group: Lisbon
+  entry: 1
 key: Lisbon1
 thumbnail: DSCF5180.jpg
 tags:

@@ -1,5 +1,8 @@
 ---
 title: Leuven 4 and Brussels
+organization: 
+  group: Leuven
+  entry: 4
 key: Leuven4AndBrussels
 thumbnail: DSCF6189.jpg
 tags:

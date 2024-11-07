@@ -1,5 +1,8 @@
 ---
 title: Leuven 5 and Brussels
+organization: 
+  group: Leuven
+  entry: 5
 key: Leuven5AndBrussels
 thumbnail: DSCF7052.jpg
 tags:

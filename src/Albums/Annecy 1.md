@@ -1,5 +1,8 @@
 ---
 title: Annecy 1
+organization: 
+  group: Annecy
+  entry: 1
 key: Annecy1
 thumbnail: DSCF8007.jpg
 tags:

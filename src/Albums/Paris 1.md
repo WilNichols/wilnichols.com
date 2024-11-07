@@ -1,5 +1,8 @@
 ---
 title: Paris 1
+organization: 
+  group: Paris
+  entry: 1
 key: Paris1
 thumbnail: DSCF2472.jpg
 tags:

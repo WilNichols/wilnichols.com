@@ -1,5 +1,7 @@
 ---
 title: Florence
+organization: 
+  group: Florence
 key: Florence
 thumbnail: DSCF9650.jpg
 tags:

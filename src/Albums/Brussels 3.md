@@ -1,5 +1,8 @@
 ---
 title: Brussels 3
+organization: 
+  group: Brussels
+  entry: 3
 key: Brussels3
 thumbnail: DSCF8011.jpg
 tags:

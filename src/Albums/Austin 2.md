@@ -1,5 +1,8 @@
 ---
 title: Austin 2
+organization: 
+  group: Austin
+  entry: 2
 key: Austin2
 thumbnail: DSCF5594.jpg
 tags:

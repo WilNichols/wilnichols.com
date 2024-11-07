@@ -1,5 +1,7 @@
 ---
 title: Destin
+organization: 
+  group: Destin
 key: Hackathon2018
 thumbnail: DSCF2843.jpg
 tags:

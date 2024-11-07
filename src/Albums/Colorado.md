@@ -1,5 +1,7 @@
 ---
 title: Colorado
+organization: 
+  group: Colorado
 key: Colorado
 thumbnail: DSCF6219.jpg
 tags:

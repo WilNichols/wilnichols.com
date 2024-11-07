@@ -1,5 +1,8 @@
 ---
 title: Brussels 4
+organization: 
+  group: Brussels
+  entry: 4
 key: Brussels4
 thumbnail: DSCF0556.jpg
 tags:

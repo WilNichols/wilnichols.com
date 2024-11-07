@@ -1,5 +1,8 @@
 ---
 title: San Fermin at Mohawk
+organization: 
+  group: San Fermin
+  entry: 2
 key: SanFermin2019
 thumbnail: DSCF1499.jpg
 tags:

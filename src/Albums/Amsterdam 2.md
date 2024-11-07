@@ -1,5 +1,8 @@
 ---
 title: Amsterdam 2
+organization: 
+  group: Amsterdam
+  entry: 2
 key: Amsterdam2
 thumbnail: DSCF3423.jpg
 thumbnailAlt: DSCF3615.jpg

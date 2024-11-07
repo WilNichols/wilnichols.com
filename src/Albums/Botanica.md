@@ -1,5 +1,7 @@
 ---
 title: Botanica
+organization: 
+  group: Botanica
 key: Botanica
 thumbnail: DSCF9129.jpg
 tags:

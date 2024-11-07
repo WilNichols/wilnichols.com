@@ -1,5 +1,7 @@
 ---
 title: London
+organization: 
+  group: London
 key: London
 thumbnail: DSCF6435.jpg
 tags:

@@ -1,5 +1,8 @@
 ---
 title: Brussels 2
+organization: 
+  group: Brussels
+  entry: 2
 key: Brussels2
 thumbnail: DSCF3252.jpg
 tags:
