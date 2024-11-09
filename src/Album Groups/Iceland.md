@@ -1,7 +1,4 @@
 ---
 title: Iceland
-tags:
-  - AlbumGroup/Iceland
-  - Location/Iceland
-published:
+tag: AlbumGroup/Iceland
 ---

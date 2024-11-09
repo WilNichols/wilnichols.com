@@ -1,7 +1,4 @@
 ---
 title: France
-tags:
-  - AlbumGroup/France
-  - Location/France
-published:
+tag: AlbumGroup/France
 ---

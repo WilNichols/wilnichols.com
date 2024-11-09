@@ -1,7 +1,4 @@
 ---
 title: Oaxaca
-tags:
-  - AlbumGroup/Oaxaca
-  - Location/Oaxaca
-published:
+tag: AlbumGroup/Oaxaca
 ---
