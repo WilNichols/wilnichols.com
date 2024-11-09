@@ -1,8 +1,5 @@
 ---
 title: Paris 1
-organization: 
-  group: Paris
-  entry: 1
 key: Paris1
 thumbnail: DSCF2472.jpg
 tags:
@@ -10,6 +7,7 @@ tags:
   - Location/Paris
   - Location/France
   - Period/Study-Abroad
+  - AlbumGroup/Paris
 published: 2015-03-24T00:00
 ---
 After Hillary and I visited [[Aix-en-Provence]], we went back to Paris from where she returned to Sheffield.

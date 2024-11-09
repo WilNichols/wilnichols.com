@@ -1,8 +1,5 @@
 ---
 title: Bruges 2
-organization: 
-  group: Bruges
-  entry: 2
 key: Bruges2
 thumbnail: DSCF7429.jpg
 tags:
@@ -10,6 +7,7 @@ tags:
   - Location/Bruges
   - Location/Belgium
   - Period/KULeuven
+  - AlbumGroup/Bruges
 published: 2018-09-14T00:00
 ---
 We returned to Bruges after close to a year. This visit, I focused significantly less on capturing the architecture and aesthetic of the city, and focused instead on capturing the people, and their interactions within their constructed environment.

@@ -1,7 +1,5 @@
 ---
 title: New Orleans
-organization: 
-  group: Ner Orleans
 key: NewOrleans
 thumbnail: DSCF1503.jpg
 tags:
@@ -9,6 +7,7 @@ tags:
   - Location/New-Orleans
   - Location/Louisiana
   - Period/COVID
+  - AlbumGroup/Americana
 published: 2022-03-12T00:00
 ---
 I visited NOLA in March 2022. I’d been before with coworkers for a night on drive to [[Destin]], but this time I was able to walk all day and explore outside Bourbon Street.

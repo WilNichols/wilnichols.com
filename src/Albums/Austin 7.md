@@ -1,8 +1,5 @@
 ---
 title: Austin 7
-organization: 
-  group: Austin
-  entry: 7
 key: Austin7
 thumbnail: DSCF0713.jpg
 tags:
@@ -11,6 +8,7 @@ tags:
   - Location/Austin
   - Location/Texas
   - Period/COVID
+  - AlbumGroup/Austin
 published: 2021-01-23T00:00
 ---
 These were taken between 2021 and 2022, as the novelty of my new neighborhood eroded and I began traveling further from home.
