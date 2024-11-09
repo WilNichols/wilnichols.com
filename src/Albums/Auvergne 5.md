@@ -9,6 +9,6 @@ tags:
   - Location/France
   - Period/KULeuven
   - AlbumGroup/Auvergne
-published: 2018-06-29T00:00
+date: 2018-06-29
 ---
 I took three weeks in Auzon over the summer, where Simon joined me, staying between my parents and friends. The final photos are from Léotoing, where my family would picnic when Simon and I were children.

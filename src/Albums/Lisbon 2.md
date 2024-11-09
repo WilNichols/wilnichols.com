@@ -8,6 +8,6 @@ tags:
   - Location/Portugal
   - Period/KULeuven
   - AlbumGroup/Lisbon
-published: 2019-01-25T00:00
+date: 2019-01-25
 ---
 After Christmas with my family, and the Near Year with my friends, it was relieving to take time for myself. The new surroundings coupled with Lisbon’s bright pastels and warmth didn’t hurt.

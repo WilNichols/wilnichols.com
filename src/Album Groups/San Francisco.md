@@ -1,7 +1,7 @@
 ---
 title: San Francisco
 tags:
-  - AlbumGroup/SanFrancisco
-  - Location/SanFrancisco
+  - AlbumGroup/San-Francisco
+  - Location/San-Francisco
 published:
 ---

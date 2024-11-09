@@ -7,6 +7,6 @@ tags:
   - Location/Iceland
   - Period/Study-Abroad
   - AlbumGroup/Iceland
-published: 2015-06-09T00:00
+date: 2015-06-09
 ---
 Returning from studying for a semester in Lyon, I met my dad and brother in Iceland where we briefly stayed in Reykjavik, and toured the southern coast.

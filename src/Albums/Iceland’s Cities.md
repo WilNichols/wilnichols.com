@@ -8,6 +8,6 @@ tags:
   - Location/Iceland
   - Period/Sabbatical
   - AlbumGroup/Iceland
-published: 2022-08-31T00:00
+date: 2022-08-31
 ---
 We spent four days in Reykjavik, a few days in different towns while driving the Ring Road, and then another three back in the city.

@@ -8,6 +8,6 @@ tags:
   - Location/Czech-Republic
   - Period/KULeuven
   - AlbumGroup/Europe
-published: 2018-10-19T00:00
+date: 2018-10-19
 ---
 I took a beautiful trip to Prague for my birthday in 2018.

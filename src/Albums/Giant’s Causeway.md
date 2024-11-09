@@ -7,6 +7,6 @@ tags:
   - Location/Northern-Ireland
   - Period/Study-Abroad
   - AlbumGroup/UK
-published: 2015-02-25T00:00
+date: 2015-02-25
 ---
 Staying in Belfast, Giant’s Causeway was only a few-hour train North of us. It was incredible.

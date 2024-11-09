@@ -1,0 +1,31 @@
+{% from "footer.njk" import footer with context %}
+{% from "tag.njk" import tag as tagButton %}
+
+{% macro postListItem(post, postPrefix, showAccessories) -%}
+ Album
+{%- endmacro %}
+
+{% macro albumGroups() -%}
+  <ol class="album-groups-list" reversed>
+  {% for albumGroup in collections.AlbumGroups %}
+  <li class="album-group">
+    <h2 class="album-group__title">{{ albumGroup.data.title }}</h2>
+    {% set albumCollection = albumGroup.data.tags %}
+    <ol class="album-group__albums-list">
+    {% for tag in albumGroup.data.tags %}
+      {% if ("AlbumGroup/" in tag) %}
+        {% set AlbumGroup = tag %}
+        {% for album in collections[tag] %}
+          {% if album.data.permalink %} {# Check that it's an album and not a group #}
+            {% set isLast = (loop.length == loop.index + 1) %}
+            {% set title %}{{ album.data.title | replace(albumGroup.data.title, '') }}{% endset %}
+            <li class="album-group__album"><a href="{{ album.data.permalink }}">{{ title }}</a>{% if not isLast %},{% endif %}</li>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    {% endfor %}
+    </ol>
+  </li>
+  {% endfor %}
+  </ol>
+{%- endmacro %}

@@ -9,6 +9,6 @@ tags:
   - Location/Austin
   - Location/Texas
   - AlbumGroup/Roe
-published: 2022-07-26T00:00
+date: 2022-07-26
 ---
 A couple of weeks after the actual Court opinion was published, a Beto rally organized in East Austin.

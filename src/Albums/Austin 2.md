@@ -8,6 +8,6 @@ tags:
   - Location/Texas
   - Period/Student
   - AlbumGroup/Austin
-published: 2017-01-29T00:00
+date: 2017-01-29
 ---
 These were taken throughout the Spring of my senior year at UT.

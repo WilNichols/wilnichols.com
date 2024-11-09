@@ -9,6 +9,6 @@ tags:
   - Location/France
   - Period/Study-Abroad
   - AlbumGroup/France
-published: 2015-30-15T00:00
+date: 2015-30-15
 ---
 My second trip from Lyon was only a week after the first, and with the same crowd, but this time on a shockingly budget OuiGo ticket to Marseille.

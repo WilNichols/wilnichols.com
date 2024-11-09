@@ -8,6 +8,6 @@ tags:
   - Location/France
   - Period/Study-Abroad
   - AlbumGroup/Paris
-published: 2015-03-24T00:00
+date: 2015-03-24
 ---
 After Hillary and I visited [[Aix-en-Provence]], we went back to Paris from where she returned to Sheffield.

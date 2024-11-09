@@ -10,6 +10,6 @@ tags:
   - Location/Texas
   - Period/Student
   - AlbumGroup/WomensMarch
-published: 2017-01-22T00:00
+date: 2017-01-22
 ---
 The 2017 Women’s March was a great and positive coming-together following the Election, and unlike other collective outpourings of grief and anger, offered a left a genuinely uplifting an empowering sentiment.
