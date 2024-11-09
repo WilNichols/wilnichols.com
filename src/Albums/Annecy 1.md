@@ -9,6 +9,6 @@ tags:
   - Location/Rhône-Alpes
   - Period/Study-Abroad
   - AlbumGroup/Annecy
-published: 2015-01-23T00:00
+date: 2015-01-23
 ---
 After reaching the canals and then the lake, it became clear why some call Annecy the "Venice of the Alps".

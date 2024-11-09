@@ -8,7 +8,7 @@ tags:
   - Location/Austin
   - Period/KULeuven
   - AlbumGroup/Austin
-published: 2019-04-13T00:00
+date: 2019-04-13
 ---
 I visited Austin for a week, bookended with stops through Chicago to visit my client [[The Minte]].
 <!-- TODO Wil: add link once the case study exists -->

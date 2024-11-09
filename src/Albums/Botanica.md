@@ -8,6 +8,6 @@ tags:
   - Location/Germany
   - Period/KULeuven
   - AlbumGroup/Munich
-published: 2019-07-08T00:00
+date: 2019-07-08
 ---
 Our visit to Munich’s botanical gardens quickly became a study in light and texture.

@@ -8,6 +8,6 @@ tags:
   - Location/Texas
   - Period/KULeuven
   - AlbumGroup/Austin
-published: 2017-01-15T00:00
+date: 2017-01-15
 ---
 This collection covers photos from the Fall and Winter of 2017, and the month I returned between Christmas, and then [[Leuven 1 | Leuven]] in February.

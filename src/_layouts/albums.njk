@@ -2,7 +2,7 @@
 layout: page.njk
 ---
 {% from "../_includes/header.njk" import header with context %}
-{% from "../_includes/albums-list.njk" import albumsList with context %}
+{% from "../_includes/albums-index.njk" import albumGroups with context %}
 
 <div class="page page--category">
   {{ header() }}
@@ -11,5 +11,5 @@ layout: page.njk
     {{ content | safe }}
   </div>
   {%- endif %}
-  {{ albumsList() }}
+  {{ albumGroups() }}
 </div>

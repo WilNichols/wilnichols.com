@@ -9,6 +9,6 @@ tags:
   - Location/Netherlands
   - Period/KULeuven
   - AlbumGroup/Amsterdam
-published: 2019-01-31T00:00
+date: 2019-01-31
 ---
 In a fit of spontaneity, we took a day trip to Amsterdam on one of our last weekends before moving.

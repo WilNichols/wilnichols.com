@@ -7,7 +7,7 @@ tags:
   - Location/London
   - Location/United-Kingdom
   - Period/Study-Abroad
-  - AlbumGroup/United-Kingdom
-published: 2015-04-24T00:00
+  - AlbumGroup/UK
+date: 2015-04-24
 ---
 The fourth stop on my roommate’s and my Easter travel from Lyon, Victoria and I took a few days in London, where we explored Shoreditch, the downtown, and (of course) the Warner Bros Harry Potter Museum.

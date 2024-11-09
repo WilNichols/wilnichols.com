@@ -9,6 +9,6 @@ tags:
   - Location/Belgium
   - Period/KULeuven
   - AlbumGroup/Leuven
-published: 2019-01-07T00:00
+date: 2019-01-07
 ---
 My second Winter in Belgium brought a wider range of hues than the previous year had led me to believe. Grays and blues have away to harsh and warm — but still freezing — tones.

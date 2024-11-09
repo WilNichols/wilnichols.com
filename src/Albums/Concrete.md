@@ -8,6 +8,6 @@ tags:
   - Location/Texas
   - Period/Student
   - AlbumGroup/Austin
-published: 2015-06-26T00:00
+date: 2015-06-26
 ---
 Buildings in this part of downtown Austin tend to have a nearly brutal, nondescript geometry.
