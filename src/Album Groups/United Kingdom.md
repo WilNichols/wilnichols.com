@@ -1,7 +1,4 @@
 ---
 title: The United Kingdom
-tags:
-  - AlbumGroup/UK
-  - Location/UK
-published:
+tag: AlbumGroup/UK
 ---

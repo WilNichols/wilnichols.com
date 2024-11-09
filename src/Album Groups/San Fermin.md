@@ -1,7 +1,4 @@
 ---
 title: San Fermin
-tags:
-  - AlbumGroup/San-Fermin
-  - Location/Austin
-published:
+tag: AlbumGroup/San-Fermin
 ---

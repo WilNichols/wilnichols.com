@@ -1,7 +1,4 @@
 ---
 title: Anency
-tags:
-  - AlbumGroup/Annecy
-  - Location/Annecy
-published:
+tag: AlbumGroup/Annecy
 ---

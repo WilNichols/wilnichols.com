@@ -1,7 +1,4 @@
 ---
 title: Auvergne
-tags:
-  - AlbumGroup/Auvergne
-  - Location/Auvergne
-published:
+tag: AlbumGroup/Auvergne
 ---

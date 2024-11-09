@@ -1,7 +1,4 @@
 ---
 title: Lyon
-tags:
-  - AlbumGroup/Lyon
-  - Location/Lyon
-published:
+tag: AlbumGroup/Lyon
 ---

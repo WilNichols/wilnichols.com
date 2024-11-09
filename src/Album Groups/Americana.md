@@ -1,7 +1,4 @@
 ---
 title: Americana
-tags:
-  - AlbumGroup/Americana
-  - Location/USA
-published:
+tag: AlbumGroup/Americana
 ---
