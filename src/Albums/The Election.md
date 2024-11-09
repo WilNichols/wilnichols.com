@@ -1,8 +1,6 @@
 ---
 title: The Election
 key: TheElection
-organization: 
-  group: The Election
 thumbnail: DSCF3584.jpg
 tags:
   - Group/Demonstration
@@ -10,6 +8,7 @@ tags:
   - Location/Austin
   - Location/Texas
   - Period/Student
+  - AlbumGroup/Austin
 published: 2016-11-10T00:00
 ---
-Better than the November sixth itself I much more significantly remember the following day as a necessary and appropriate collective outpouring of emotion.
+Better than November sixth itself I much more significantly remember the following day as a necessary and appropriate collective outpouring of emotion.

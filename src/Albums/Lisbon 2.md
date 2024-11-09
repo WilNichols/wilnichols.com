@@ -1,8 +1,5 @@
 ---
 title: Lisbon 2
-organization: 
-  group: Lisbon
-  entry: 2
 key: Lisbon2
 thumbnail: DSCF2513.jpg
 tags:
@@ -10,6 +7,7 @@ tags:
   - Location/Lisbon
   - Location/Portugal
   - Period/KULeuven
+  - AlbumGroup/Lisbon
 published: 2019-01-25T00:00
 ---
 After Christmas with my family, and the Near Year with my friends, it was relieving to take time for myself. The new surroundings coupled with Lisbon’s bright pastels and warmth didn’t hurt.

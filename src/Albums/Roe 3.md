@@ -1,8 +1,5 @@
 ---
 title: Roe v. Wade 3
-organization: 
-  group: Row v. Wade
-  entry: 3
 key: Roe3
 thumbnail: DSCF5408.jpg
 tags:
@@ -11,6 +8,7 @@ tags:
   - Camera/XT-4
   - Location/Austin
   - Location/Texas
+  - AlbumGroup/Roe
 published: 2022-07-26T00:00
 ---
 A couple of weeks after the actual Court opinion was published, a Beto rally organized in East Austin.
