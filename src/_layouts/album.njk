@@ -1,3 +1,34 @@
 ---
+layout: page.njk
+eleventyImport:
 
 ---
+{%- from 'picture.njk' import Picture with context -%}
+
+{% include 'title-and-date.njk' %}
+{{ content | safe }}
+
+{% set photos = key | getPhotos %}
+{% set albumLength %}{{ photos | length }}{% endset %}
+<ul class="album__album-photos">
+
+  {% for photo in photos | reverse %}
+  
+    {# {{ loop.index }} #}
+    {# {% if loop.index < 15 %}{% set loading = 'eager' %}{% else %}{% set loading = 'lazy' %}{% endif %}
+    {% set src %}{{ remote.gallery.base }}/{{ remote.gallery.photos }}/{{ key }}/{{ photo }}{% endset %}
+    {% set fileName %}{{ photo | slugify }}{% endset %}
+    {% if photo !== ''%}
+      {% set imageProps = src | imageInfo %}
+      <li class="album__album-photos__photo" id="{{ fileName }}">
+        {{  Picture(
+            fileName = fileName,
+            src = src,
+            loading = loading,
+            imageProps = imageProps
+        ) }}
+      </li>
+    {% endif %} #}
+  {% endfor %}
+</ul>
+{% include 'backlinks.njk' %}
