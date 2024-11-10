@@ -1,5 +1,6 @@
 ---
 title: Clermont-Ferrand 2
+shortTitle: Two
 key: Clermont2
 thumbnail: DSCF4506.jpg
 tags:

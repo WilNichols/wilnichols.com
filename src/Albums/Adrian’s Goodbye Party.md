@@ -1,5 +1,6 @@
 ---
 title: Adrian’s Goodbye Party
+shortTitle: Adrian’s
 key: Adrian
 thumbnail: DSCF5719.jpg
 tags:

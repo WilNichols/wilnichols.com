@@ -1,5 +1,6 @@
 ---
 title: Lyon 3
+shortTitle: Three
 key: Lyon3
 thumbnail: DSCF5756.jpg
 tags:

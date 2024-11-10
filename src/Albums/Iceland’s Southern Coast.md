@@ -1,5 +1,6 @@
 ---
-title: Iceland’s Southern Coast
+title: Iceland, 2015
+shortTitle: 2015
 key: Iceland2015SouthernCoast
 thumbnail: DSCF8208.jpg
 tags:

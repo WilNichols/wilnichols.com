@@ -1,5 +1,6 @@
 ---
 title: Roe v. Wade 3
+shortTitle: Three
 key: Roe3
 thumbnail: DSCF5408.jpg
 tags:

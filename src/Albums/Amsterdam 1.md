@@ -1,5 +1,6 @@
 ---
 title: Amsterdam 1
+shortTitle: One
 key: Amsterdam1
 thumbnail: DSCF0270.jpg
 thumbnailAlt: DSCF0271.jpg

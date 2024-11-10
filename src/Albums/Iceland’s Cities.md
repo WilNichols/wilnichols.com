@@ -1,5 +1,6 @@
 ---
 title: Iceland’s Cities
+shortTitle: 2022 Cities
 key: Iceland2022Urban
 thumbnail: DSCF6676.jpg
 tags:

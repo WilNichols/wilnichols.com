@@ -1,5 +1,6 @@
 ---
 title: Leuven 5 and Brussels
+shortTitle: Five & Brussels
 key: Leuven5AndBrussels
 thumbnail: DSCF7052.jpg
 tags:

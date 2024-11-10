@@ -1,5 +1,6 @@
 ---
 title: The Balloon Person
+shortTitle: Balloons
 key: TheBalloonPerson
 thumbnail: DSCF6918.jpg
 tags:

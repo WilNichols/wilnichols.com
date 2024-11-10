@@ -1,5 +1,6 @@
 ---
 title: Roe v. Wade 2
+shortTitle: Two
 key: Roe2
 thumbnail: DSCF5311.jpg
 tags:

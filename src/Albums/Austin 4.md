@@ -1,5 +1,6 @@
 ---
 title: Austin 4
+shortTitle: Four
 key: Austin4
 thumbnail: DSCF6270.jpg
 tags:

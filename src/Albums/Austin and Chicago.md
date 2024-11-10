@@ -1,5 +1,6 @@
 ---
 title: Austin and Chicago
+shortTitle: "& Chicago"
 key: AustinAndChicago
 thumbnail: DSCF5499.jpg
 tags:

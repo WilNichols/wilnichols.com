@@ -1,5 +1,6 @@
 ---
 title: Lyon 1
+shortTitle: One
 key: Lyon1
 thumbnail: DSCF9920.jpg
 tags:

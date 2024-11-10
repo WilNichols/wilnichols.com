@@ -1,5 +1,6 @@
 ---
 title: Leuven 2
+shortTitle: Two
 key: Leuven2
 thumbnail: DSCF0196.jpg
 tags:

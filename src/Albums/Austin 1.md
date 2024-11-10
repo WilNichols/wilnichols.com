@@ -1,5 +1,6 @@
 ---
 title: Austin 1
+shortTitle: One
 key: Austin1
 thumbnail: DSCF9085.jpg
 tags:

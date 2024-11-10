@@ -1,5 +1,6 @@
 ---
 title: Paris 2
+shortTitle: Two
 key: Paris2
 thumbnail: DSCF1803.jpg
 tags:

@@ -1,5 +1,6 @@
 ---
 title: Iceland’s Landscapes
+shortTitle: 2022 Landscapes
 key: Iceland2022Landscapes
 thumbnail: DSCF7658.jpg
 tags:

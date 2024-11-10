@@ -1,5 +1,6 @@
 ---
 title: Lyon 2
+shortTitle: Two
 key: Lyon2
 thumbnail: DSCF5412.jpg
 tags:

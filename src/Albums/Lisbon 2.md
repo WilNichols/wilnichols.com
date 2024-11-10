@@ -1,5 +1,6 @@
 ---
 title: Lisbon 2
+shortTitle: Two
 key: Lisbon2
 thumbnail: DSCF2513.jpg
 tags:

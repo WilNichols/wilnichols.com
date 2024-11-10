@@ -1,5 +1,6 @@
 ---
 title: Leuven 1
+shortTitle: One
 key: Leuven1
 thumbnail: DSCF8019.jpg
 tags:

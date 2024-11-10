@@ -1,5 +1,6 @@
 ---
 title: Brussels 4
+shortTitle: Four
 key: Brussels4
 thumbnail: DSCF0556.jpg
 tags:

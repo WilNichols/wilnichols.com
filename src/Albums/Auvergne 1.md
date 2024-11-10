@@ -1,5 +1,6 @@
 ---
 title: Auvergne 1
+shortTitle: One
 key: Auvergne1
 thumbnail: DSCF5959.jpg
 tags:

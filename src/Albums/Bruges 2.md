@@ -1,5 +1,6 @@
 ---
 title: Bruges 2
+shortTitle: Two
 key: Bruges2
 thumbnail: DSCF7429.jpg
 tags:

@@ -1,5 +1,6 @@
 ---
 title: Austin 6
+shortTitle: Six
 key: Austin6
 thumbnail: DSCF6201.jpg
 tags:

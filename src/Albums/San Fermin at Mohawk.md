@@ -1,5 +1,6 @@
 ---
 title: San Fermin at Mohawk
+shortTitle: Mohawk
 key: SanFermin2019
 thumbnail: DSCF1499.jpg
 tags:

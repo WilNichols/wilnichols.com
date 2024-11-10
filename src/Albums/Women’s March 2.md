@@ -1,5 +1,6 @@
 ---
 title: Women’s March 2
+shortTitle: Two
 key: WomensMarch2
 thumbnail: DSCF5271.jpg
 tags:

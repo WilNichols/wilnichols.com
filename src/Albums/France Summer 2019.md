@@ -1,5 +1,6 @@
 ---
 title: France, Summer 2019
+shortTitle: Summer 209
 key: FranceSummer2019
 thumbnail: DSCF0117.jpg
 tags:

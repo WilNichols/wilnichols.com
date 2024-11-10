@@ -1,5 +1,6 @@
 ---
 title: Paris 1
+shortTitle: One
 key: Paris1
 thumbnail: DSCF2472.jpg
 tags:
