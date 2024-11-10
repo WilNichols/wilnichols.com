@@ -7,6 +7,11 @@
 
 // $gap: 1.2em;
 
+.page--albums {
+  display: flex;
+  flex-direction: column;
+}
+
 .album-groups-list {
   max-width: tokens.$categoryWidth;
   width: 100%;
@@ -49,12 +54,23 @@
     position: absolute;
     transition: background-color .2s ease-out,transform .2s ease-out;
   }
-  &:hover::after {
-    transform: translateY(2px);
-    background-color: var(--materialPrimaryInvertedColor);
+  &:hover {
+    & + .album-preview {
+      opacity: 1;
+    }
+    &::after {
+      transform: translateY(2px);
+      background-color: var(--materialPrimaryInvertedColor);
+    }
   }
 }
 
+.album-preview {
+  position: fixed;
+  width: calc(50vw - var(--col));
+  inset: var(--col) var(--col) var(--col) 50vw;
+  // opacity: 0;
+}
 .album-groups-list__copyright {
   display: flex;
   gap: 5px;

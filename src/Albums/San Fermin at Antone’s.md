@@ -2,7 +2,7 @@
 title: San Fermin at Antone’s
 shortTitle: Antone’s
 key: SanFermin2017
-thumbnail: DSCF8788.jpg
+thumbnail: DSCF8635.jpg
 tags:
   - Camera/XT-1
   - Location/Austin

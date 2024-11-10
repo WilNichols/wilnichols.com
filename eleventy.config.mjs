@@ -15,6 +15,7 @@ import beautify from 'js-beautify';
 import syntaxHighlight from '@11ty/eleventy-plugin-syntaxhighlight';
 import { JSDOM } from 'jsdom';
 
+
 dotenv.config();
 
 export default async function(eleventyConfig) {
@@ -204,21 +205,23 @@ export default async function(eleventyConfig) {
     } catch (error) {
       return 'AWS failure'
     } finally {
+      // console.log(albums)
       return albums;
     }
   });
   
   eleventyConfig.addAsyncFilter('imageInfo', async function(src) {
-    const path = src.replace(process.env.KXCDN, '_offline/thumbs').replace('.jpg', '.webp').replace('.png', '.webp');
-    const width = sizeOf(path).width;
-    const height = sizeOf(path).height;
-    async function getColor() {
-      return getAverageColor(path).then(color => {
-          return color.hex;
-      });
-    };
-    const color = await getColor();
-    return {path: path, height: height, width: width, ratio: width/height, color: color};
+      const path = src.replace(process.env.KXCDN, '_offline/thumbs').replace('.jpg', '.webp').replace('.png', '.webp');
+      const width = sizeOf(path).width;
+      const height = sizeOf(path).height;
+      async function getColor() {
+        return getAverageColor(path).then(color => {
+            return color.hex;
+        });
+      };
+      const color = await getColor();
+      const obj = {path: path, height: height, width: width, ratio: width/height, color: color};
+      return obj;
   });
   
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
