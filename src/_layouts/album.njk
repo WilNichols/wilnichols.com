@@ -1,7 +1,7 @@
 ---
 layout: page.njk
 eleventyImport:
-
+  collections: ["photos"]
 ---
 {%- from 'picture.njk' import Picture with context -%}
 
@@ -11,11 +11,8 @@ eleventyImport:
 {% set photos = key | getPhotos %}
 {% set albumLength %}{{ photos | length }}{% endset %}
 <ul class="album__album-photos">
-
   {% for photo in photos | reverse %}
-  
-    {# {{ loop.index }} #}
-    {# {% if loop.index < 15 %}{% set loading = 'eager' %}{% else %}{% set loading = 'lazy' %}{% endif %}
+    {% if loop.index < 15 %}{% set loading = 'eager' %}{% else %}{% set loading = 'lazy' %}{% endif %}
     {% set src %}{{ remote.gallery.base }}/{{ remote.gallery.photos }}/{{ key }}/{{ photo }}{% endset %}
     {% set fileName %}{{ photo | slugify }}{% endset %}
     {% if photo !== ''%}
@@ -28,7 +25,7 @@ eleventyImport:
             imageProps = imageProps
         ) }}
       </li>
-    {% endif %} #}
+    {% endif %}
   {% endfor %}
 </ul>
 {% include 'backlinks.njk' %}
