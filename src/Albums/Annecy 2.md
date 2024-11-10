@@ -1,5 +1,6 @@
 ---
 title: Annecy 2
+shortTitle: Two
 key: Annecy2
 thumbnail: DSCF5909.jpg
 tags:

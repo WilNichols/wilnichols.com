@@ -1,5 +1,6 @@
 ---
 title: Auvergne 4
+shortTitle: Four
 key: Auvergne4
 thumbnail: DSCF7310.jpg
 tags:

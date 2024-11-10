@@ -1,5 +1,6 @@
 ---
 title: Bruges 1
+shortTitle: One
 key: Bruges1
 thumbnail: DSCF5557.jpg
 tags:

@@ -1,5 +1,6 @@
 ---
 title: Playa del Carmen 1
+shortTitle: One
 key: PlayaDelCarmen1
 thumbnail: DSCF2945.jpg
 tags:

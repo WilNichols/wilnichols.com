@@ -1,5 +1,6 @@
 ---
 title: Women’s March 1
+shortTitle: One
 key: WomensMarch1
 thumbnail: DSCF5278.jpg
 tags:

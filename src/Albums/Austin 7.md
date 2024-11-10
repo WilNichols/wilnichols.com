@@ -1,5 +1,6 @@
 ---
 title: Austin 7
+shortTitle: Seven
 key: Austin7
 thumbnail: DSCF0713.jpg
 tags:

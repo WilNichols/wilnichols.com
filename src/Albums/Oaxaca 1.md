@@ -1,5 +1,6 @@
 ---
 title: Oaxaca 1
+shortTitle: One
 key: Oaxaca1
 thumbnail: DSCF5786.jpg
 tags:

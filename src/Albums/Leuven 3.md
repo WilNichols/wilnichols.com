@@ -1,5 +1,6 @@
 ---
 title: Leuven 3
+shortTitle: Three
 key: Leuven3
 thumbnail: DSCF7269.jpg
 tags:

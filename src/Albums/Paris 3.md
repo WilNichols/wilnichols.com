@@ -1,5 +1,6 @@
 ---
 title: Paris 3
+shortTitle: Three
 key: Paris3
 thumbnail: DSCF5192.jpg
 tags:

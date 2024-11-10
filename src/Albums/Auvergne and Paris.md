@@ -1,5 +1,6 @@
 ---
 title: Auvergne and Paris
+shortTitle: "& Paris"
 key: AuvergneAndParis
 thumbnail: DSCF5287.jpg
 tags:

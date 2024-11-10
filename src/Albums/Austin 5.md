@@ -1,5 +1,6 @@
 ---
 title: Austin 5
+shortTitle: Five
 key: Austin5
 thumbnail: DSCF0994.jpg
 tags:

@@ -1,5 +1,6 @@
 ---
 title: Lisbon 1
+shortTitle: One
 key: Lisbon1
 thumbnail: DSCF5180.jpg
 tags:

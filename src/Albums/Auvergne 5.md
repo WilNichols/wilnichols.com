@@ -1,5 +1,6 @@
 ---
 title: Auvergne 5
+shortTitle: Five
 key: Auvergne5
 thumbnail: DSCF5667.jpg
 tags:

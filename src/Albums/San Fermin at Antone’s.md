@@ -1,5 +1,6 @@
 ---
 title: San Fermin at Antone’s
+shortTitle: Antone’s
 key: SanFermin2017
 thumbnail: DSCF8788.jpg
 tags:

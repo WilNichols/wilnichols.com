@@ -5,11 +5,6 @@
 @include tokens.textStyles;
 @include tokens.headingStyles;
 
-.note-group__month {
-  display: flex;
-  flex-direction: row-reverse; 
-  justify-content: flex-end;
-}
 
 .post__month {
   white-space-collapse: break-spaces;
@@ -83,7 +78,7 @@
   display: contents;
 }
 
-.post__link, .note-group__month {
+.post__link {
   grid-column: 1 / -1;
 }
 

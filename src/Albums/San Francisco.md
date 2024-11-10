@@ -1,5 +1,6 @@
 ---
 title: San Francisco 1
+shortTitle: One
 key: SanFrancisco
 thumbnail: DSCF9734.jpg
 tags:

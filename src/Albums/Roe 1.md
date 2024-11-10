@@ -1,5 +1,6 @@
 ---
 title: Roe v. Wade 1
+shortTitle: One
 key: Roe1
 thumbnail: DSCF1061.jpg
 tags:

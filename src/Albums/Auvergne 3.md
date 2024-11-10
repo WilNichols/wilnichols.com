@@ -1,5 +1,6 @@
 ---
 title: Auvergne 3
+shortTitle: Three
 key: Auvergne3
 thumbnail: DSCF0762.jpg
 tags:

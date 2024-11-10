@@ -1,5 +1,6 @@
 ---
 title: Austin 3
+shortTitle: Three
 key: Austin3
 thumbnail: DSCF3143.jpg
 tags:
@@ -8,6 +9,6 @@ tags:
   - Location/Texas
   - Period/KULeuven
   - AlbumGroup/Austin
-date: 2017-01-15
+date: 2017-03-15
 ---
-This collection covers photos from the Fall and Winter of 2017, and the month I returned between Christmas, and then [[Leuven 1 | Leuven]] in February.
+This collection covers ATX photos from the Spring through Winter of 2017, before moving to [[Leuven 1 | Leuven]] in February.

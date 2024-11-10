@@ -1,5 +1,6 @@
 ---
 title: Brussels 2
+shortTitle: Two
 key: Brussels2
 thumbnail: DSCF3252.jpg
 tags:

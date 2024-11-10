@@ -1,5 +1,6 @@
 ---
 title: Auvergne 6
+shortTitle: Six
 key: Auvergne6
 thumbnail: DSCF3036.jpg
 tags:

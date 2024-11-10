@@ -1,5 +1,6 @@
 ---
 title: Carnaval Venitien d’Annecy
+shortTitle: Carnaval
 key: CarnavalVenitien
 thumbnail: DSCF0169.jpg
 tags:

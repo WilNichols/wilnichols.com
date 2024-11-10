@@ -1,5 +1,6 @@
 ---
 title: Pittsburgh 1
+shortTitle: One
 key: Pittsburgh1
 thumbnail: DSCF6417.jpg
 tags:

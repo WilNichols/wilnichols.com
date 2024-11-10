@@ -1,5 +1,6 @@
 ---
 title: Annecy 1
+shortTitle: One
 key: Annecy1
 thumbnail: DSCF8007.jpg
 tags:

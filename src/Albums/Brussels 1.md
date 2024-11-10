@@ -1,5 +1,6 @@
 ---
 title: Brussels 1
+shortTitle: One
 key: Brussels1
 thumbnail: DSCF0633.jpg
 tags:

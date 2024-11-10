@@ -7,7 +7,7 @@ tags:
   - Location/Budapest
   - Location/Hungary
   - Period/KULeuven
-  - AlbumGroup/Europe
+  - AlbumGroup/The-E.U.
 date: 2019-03-10
 ---
 For his Spring Break, Simon flew to Brussels, from where we then spent five days in Budapest.

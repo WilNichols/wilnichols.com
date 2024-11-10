@@ -1,5 +1,6 @@
 ---
 title: Auvergne 2
+shortTitle: Two
 key: Auvergne2
 thumbnail: DSCF7093.jpg
 tags:

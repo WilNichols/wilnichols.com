@@ -1,5 +1,6 @@
 ---
 title: Aix-en-Provence
+shortTitle: Aix
 key: Aix
 thumbnail: DSCF2975.jpg
 tags:

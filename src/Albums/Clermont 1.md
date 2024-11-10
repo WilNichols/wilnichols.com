@@ -1,5 +1,6 @@
 ---
 title: Clermont-Ferrand 1
+shortTitle: One
 key: Clermont1
 thumbnail: DSCF3429.jpg
 tags:

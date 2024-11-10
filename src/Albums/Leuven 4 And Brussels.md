@@ -1,5 +1,6 @@
 ---
 title: Leuven 4 and Brussels
+shortTitle: Four & Brussels
 key: Leuven4AndBrussels
 thumbnail: DSCF6189.jpg
 tags:

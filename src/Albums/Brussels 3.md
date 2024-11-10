@@ -1,5 +1,6 @@
 ---
 title: Brussels 3
+shortTitle: Three
 key: Brussels3
 thumbnail: DSCF8011.jpg
 tags:

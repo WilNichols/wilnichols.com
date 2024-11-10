@@ -7,7 +7,7 @@ tags:
   - Location/Ghent
   - Location/Belgium
   - Period/KULeuven
-  - AlbumGroup/Europe
+  - AlbumGroup/The-E.U.
 date: 2019-04-26
 ---
 After first visiting Ghent, I was dissatisfied with being unable to take enough photos, so Eladio and I returned in warmer weather.
