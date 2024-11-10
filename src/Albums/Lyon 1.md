@@ -2,7 +2,7 @@
 title: Lyon 1
 shortTitle: One
 key: Lyon1
-thumbnail: DSCF9920.jpg
+thumbnail: DSCF7529.jpg
 tags:
   - Camera/XT-1
   - Location/Lyon
