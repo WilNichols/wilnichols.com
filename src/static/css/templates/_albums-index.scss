@@ -27,6 +27,7 @@
 .album-group__albums-list {
   display: inline;
   font-size: var(--type-0);
+  line-height: 1.5em;
   @extend %font--text-regular;
 }
 
