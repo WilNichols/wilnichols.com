@@ -103,9 +103,9 @@ export default async function(eleventyConfig) {
   });
   
   // https://stackoverflow.com/questions/66083103/how-to-generate-a-list-of-all-collections-in-11ty
-  eleventyConfig.addCollection("tagsList", function(collectionApi) {
+  eleventyConfig.addCollection("tagsList", function(collectionsApi) {
       const tagsList = new Set();
-      collectionApi.getAll().map( item => {
+      collectionsApi.getAll().map( item => {
           if (item.data.tags) { // handle pages that don't have tags
               item.data.tags.map( tag => tagsList.add(tag))
           }
