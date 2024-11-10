@@ -1,5 +1,5 @@
 ---
 layout: 'albums.njk'
-permalink: '/photo/'
+permalink: '/albums/'
 eleventyExcludeFromCollections: true
 ---
