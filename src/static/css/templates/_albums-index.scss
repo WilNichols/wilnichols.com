@@ -69,8 +69,26 @@
   position: fixed;
   width: calc(50vw - var(--col));
   inset: var(--col) var(--col) var(--col) 50vw;
-  // opacity: 0;
+  opacity: 0;
+  
+  picture {
+    position: relative;
+    aspect-ratio: var(--ratio); // populated via inline css
+    width: auto;
+    height: auto;
+    max-height: 100%;
+    display: block;
+    img {
+      height: auto;
+      width: auto;
+      max-height: 100%;
+      max-width: 100%;
+      position: absolute;
+    }
+  }
 }
+
+
 .album-groups-list__copyright {
   display: flex;
   gap: 5px;

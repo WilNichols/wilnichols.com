@@ -14,33 +14,5 @@ eleventyImport:
     {{ content | safe }}
   </div>
   {%- endif %}
-  <ol class="album-groups-list" reversed>
-    {% asyncEach albumGroup in collections.AlbumGroups | reverse %}
-      <li class="album-group">
-        <h2 class="album-group__title">{{ albumGroup.data.title }}</h2>
-        <ol class="album-group__albums-list">
-          {% set albumGroup = albumGroup.data.tag %}
-          {% asyncEach album in collections[albumGroup] | reverse %}
-            
-            {% if album.data.permalink and (album.data.thumbnail !== '') %} 
-                {% set previewSrc %}{{ remote.gallery.base }}/{{ remote.gallery.photos }}/{{ album.data.key }}/{{ album.data.thumbnail }}{% endset %}
-                {% set imageProps = previewSrc | imageInfo %}
-                <li class="album-group__album">
-                  <a class="album-group__album__link" href="{{ album.data.permalink }}" data-preview="{{ previewSrc }}">{{ album.data.shortTitle if album.data.shortTitle else album.data.title | replace(albumGroup.data.title, '') }}</a>{% if not loop.last %},{% endif %}
-                  <div class="album-preview">
-                    {{  Picture(
-                        fileName = album.data.thumbnail,
-                        src = previewSrc,
-                        loading = loading,
-                        imageProps = imageProps
-                    ) }}
-                  </div>
-                </li>
-            {% endif %}
-          {% endeach %}
-        </ol>
-      </li>
-    {% endeach %}
-    <li class="album-groups-list__copyright">{{ footer() }}</li>
-  </ol>
-</div>
+  {% include "../_includes/album-list.njk" %}
+  </div>
