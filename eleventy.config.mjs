@@ -177,39 +177,43 @@ export default async function(eleventyConfig) {
   });
   
   eleventyConfig.addAsyncFilter("getPhotos",  async function(dir) {
+    // do some Async work
+    // console.log('getting photos for ' + dir);
+    const client = new S3Client({ 
+      region: "us-east-1" ,
+      credentials: {
+        accessKeyId: process.env.WN_AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.WN_AWS_SECRET_ACCESS_KEY
+      }
+    });
+    const albumsParams = {
+      Bucket: 'wnphoto01',
+      Delimiter: '/',
+      Prefix: 'gallery-2023/' + dir + '/'
+    };
+    
+    const command = new ListObjectsV2Command(albumsParams);
+    let data;
+    let album;
     let asset = new AssetCache(dir);
     if (asset.isCacheValid("1d")) {
       // return cached data.
       return asset.getCachedValue(); // a promise
-    } else {
-      // do some Async work
-      // console.log('getting photos for ' + dir);
-      const client = new S3Client({ 
-        region: "us-east-1" ,
-        credentials: {
-          accessKeyId: process.env.WN_AWS_ACCESS_KEY_ID,
-          secretAccessKey: process.env.WN_AWS_SECRET_ACCESS_KEY
-        }
-      });
-      const albumsParams = {
-        Bucket: 'wnphoto01',
-        Delimiter: '/',
-        Prefix: 'gallery-2023/' + dir + '/'
-      };
-      const command = new ListObjectsV2Command(albumsParams);
-      let data;
-      let album;
-      try {
+    } 
+    try {
+      if (process.env.OFFLINE) {
+        albums = JSON.parse(fs.readFileSync('./_offline/aws/' + dir + '.json'));
+      } else {
         data = await client.send(command);
         album = data.Contents.map(a => a.Key.replace(albumsParams.Prefix, '').replace(albumsParams.Delimiter, ''));
-        // fs.writeFileSync('./aws-' + dir + '.json', JSON.stringify(albums, null, 1) , 'utf-8');
-      } catch (error) {
-        return 'AWS failure'
-      } finally {
-        console.log(albums);
-        await asset.save(album, "json");
-        return album;
-      }
+      };
+      // fs.writeFileSync('./aws-' + dir + '.json', JSON.stringify(albums, null, 1) , 'utf-8');
+    } catch (error) {
+      return 'AWS failure'
+    } finally {
+      console.log(albums);
+      await asset.save(album, "json");
+      return album;
     }
   });
   
