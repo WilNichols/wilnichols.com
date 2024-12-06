@@ -1,3 +1,4 @@
+import { AssetCache } from "@11ty/eleventy-fetch";
 import dotenv from 'dotenv';
 import { DateTime } from 'luxon';
 import { EleventyRenderPlugin } from '@11ty/eleventy';
@@ -193,20 +194,26 @@ export default async function(eleventyConfig) {
     
     const command = new ListObjectsV2Command(albumsParams);
     let data;
-    let albums;
+    let album;
+    let asset = new AssetCache(dir);
+    if (asset.isCacheValid("1d")) {
+      // return cached data.
+      return asset.getCachedValue(); // a promise
+    } 
     try {
       if (process.env.OFFLINE) {
         albums = JSON.parse(fs.readFileSync('./_offline/aws/' + dir + '.json'));
       } else {
         data = await client.send(command);
-        albums = data.Contents.map(a => a.Key.replace(albumsParams.Prefix, '').replace(albumsParams.Delimiter, ''));
+        album = data.Contents.map(a => a.Key.replace(albumsParams.Prefix, '').replace(albumsParams.Delimiter, ''));
       };
       // fs.writeFileSync('./aws-' + dir + '.json', JSON.stringify(albums, null, 1) , 'utf-8');
     } catch (error) {
       return 'AWS failure'
     } finally {
-      // console.log(albums)
-      return albums;
+      console.log(albums);
+      await asset.save(album, "json");
+      return album;
     }
   });
   
