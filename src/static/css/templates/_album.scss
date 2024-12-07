@@ -65,6 +65,8 @@ body:has(> .page--album) {
   display: flex;
   place-content: center;
   scroll-snap-align: center;
+  opacity: var(--opacity, 1);
+  transform: scale(max(1, var(--scale, 1)));
   picture {
     display: block;
     aspect-ratio: var(--ratio);
