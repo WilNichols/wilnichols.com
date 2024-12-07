@@ -11,6 +11,6 @@ tags:
   - Location/Texas
   - Period/Student
   - AlbumGroup/WomensMarch
-date: 2017-01-22
+date: 2017-01-22T00:00
 ---
 These shots continue [[Women’s March 1]].

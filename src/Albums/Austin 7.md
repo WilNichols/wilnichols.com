@@ -10,6 +10,6 @@ tags:
   - Location/Texas
   - Period/COVID
   - AlbumGroup/Austin
-date: 2021-01-23
+date: 2021-01-23T00:00
 ---
 These were taken between 2021 and 2022, as the novelty of my new neighborhood eroded and I began traveling further from home.

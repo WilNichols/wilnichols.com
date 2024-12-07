@@ -9,6 +9,6 @@ tags:
   - Location/Mexico
   - Period/pre-COVID
   - AlbumGroup/Oaxaca
-date: 2020-03-07
+date: 2020-03-07T00:00
 ---
 My last opportunity to travel before the pandemic was with my brother, shortly before Texas shut down in March 2020. We visited Oaxaca, where I was instantly shocked by the vibrant colors.
