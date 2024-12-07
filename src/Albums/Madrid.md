@@ -3,7 +3,7 @@ title: Madrid
 key: Madrid
 thumbnail: DSCF4451.jpg
 tags:
-  - Camera/XT-1
+  - Camera/X-T1
   - Location/Madrid
   - Location/Spain
   - Period/Study-Abroad

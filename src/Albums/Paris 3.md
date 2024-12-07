@@ -4,7 +4,7 @@ shortTitle: Three
 key: Paris3
 thumbnail: DSCF5192.jpg
 tags:
-  - Camera/XT-2
+  - Camera/X-T2
   - Location/Paris
   - Location/France
   - Period/KULeuven

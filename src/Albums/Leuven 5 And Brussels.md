@@ -4,7 +4,7 @@ shortTitle: Five & Brussels
 key: Leuven5AndBrussels
 thumbnail: DSCF7052.jpg
 tags:
-  - Camera/XT-2
+  - Camera/X-T2
   - Location/Leuven
   - Location/Brussels
   - Location/Belgium

@@ -4,7 +4,7 @@ key: TheElection
 thumbnail: DSCF3584.jpg
 tags:
   - Group/Demonstration
-  - Camera/XT-1
+  - Camera/X-T1
   - Location/Austin
   - Location/Texas
   - Period/Student

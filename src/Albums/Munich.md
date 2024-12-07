@@ -3,7 +3,7 @@ title: Munich
 key: Munich
 thumbnail: DSCF8803.jpg
 tags:
-  - Camera/XT-2
+  - Camera/X-T2
   - Location/Munich
   - Location/Germany
   - Period/KULeuven

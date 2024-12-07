@@ -4,7 +4,7 @@ shortTitle: Two
 key: Clermont2
 thumbnail: DSCF4506.jpg
 tags:
-  - Camera/XT-2
+  - Camera/X-T2
   - Location/Clermont-Ferrand
   - Location/Auvergne
   - Location/France

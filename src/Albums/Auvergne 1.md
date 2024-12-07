@@ -4,7 +4,7 @@ shortTitle: One
 key: Auvergne1
 thumbnail: DSCF5959.jpg
 tags:
-  - Camera/XT-1
+  - Camera/X-T1
   - Location/Auzon
   - Location/Auvergne
   - Location/France

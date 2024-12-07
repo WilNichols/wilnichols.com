@@ -5,7 +5,7 @@ key: Amsterdam2
 thumbnail: DSCF3423.jpg
 thumbnailAlt: DSCF3615.jpg
 tags:
-  - Camera/XT-2
+  - Camera/X-T2
   - Location/Amsterdam
   - Location/Netherlands
   - Period/KULeuven

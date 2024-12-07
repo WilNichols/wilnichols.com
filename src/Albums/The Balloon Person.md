@@ -4,7 +4,7 @@ shortTitle: Balloons
 key: TheBalloonPerson
 thumbnail: DSCF6918.jpg
 tags:
-  - Camera/XT-1
+  - Camera/X-T1
   - Location/Lyon
   - Location/Rhône-Alpes
   - Location/France

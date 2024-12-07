@@ -4,7 +4,7 @@ shortTitle: Two
 key: Annecy2
 thumbnail: DSCF5909.jpg
 tags:
-  - Camera/XT-2
+  - Camera/X-T2
   - Location/France
   - Location/Annecy
   - Location/Rhône-Alpes

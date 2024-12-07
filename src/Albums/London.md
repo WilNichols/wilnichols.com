@@ -3,7 +3,7 @@ title: London
 key: London
 thumbnail: DSCF6435.jpg
 tags:
-  - Camera/XT-1
+  - Camera/X-T1
   - Location/London
   - Location/United-Kingdom
   - Period/Study-Abroad

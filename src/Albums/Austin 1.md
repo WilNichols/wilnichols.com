@@ -4,7 +4,7 @@ shortTitle: One
 key: Austin1
 thumbnail: DSCF9085.jpg
 tags:
-  - Camera/XT-1
+  - Camera/X-T1
   - Location/Austin
   - Location/Texas
   - Period/Student

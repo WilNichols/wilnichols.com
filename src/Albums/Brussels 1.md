@@ -4,7 +4,7 @@ shortTitle: One
 key: Brussels1
 thumbnail: DSCF0633.jpg
 tags:
-  - Camera/XT-2
+  - Camera/X-T2
   - Location/Brussels
   - Location/Belgium
   - Period/KULeuven

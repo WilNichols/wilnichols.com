@@ -3,7 +3,7 @@ title: Ghent
 key: Ghent
 thumbnail: DSCF5972.jpg
 tags:
-  - Camera/XT-2
+  - Camera/X-T2
   - Location/Ghent
   - Location/Belgium
   - Period/KULeuven

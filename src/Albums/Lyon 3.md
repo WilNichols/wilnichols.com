@@ -4,7 +4,7 @@ shortTitle: Three
 key: Lyon3
 thumbnail: DSCF5756.jpg
 tags:
-  - Camera/XT-2
+  - Camera/X-T2
   - Location/Lyon
   - Location/Rhône-Alpes
   - Period/KULeuven

@@ -4,7 +4,7 @@ shortTitle: Carnaval
 key: CarnavalVenitien
 thumbnail: DSCF0169.jpg
 tags:
-  - Camera/XT-1
+  - Camera/X-T1
   - Location/Annecy
   - Location/France
   - Period/Study-Abroad

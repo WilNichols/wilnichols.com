@@ -3,7 +3,7 @@ title: Bedouine
 key: Bedouine
 thumbnail: DSCF4231.jpg
 tags:
-  - Camera/XT-2
+  - Camera/X-T2
   - Musician/Bedouine
   - Location/Austin
   - Location/Texas

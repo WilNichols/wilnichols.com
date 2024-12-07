@@ -4,7 +4,7 @@ shortTitle: One
 key: Oaxaca1
 thumbnail: DSCF5786.jpg
 tags:
-  - Camera/XT-2
+  - Camera/X-T2
   - Location/Oaxaca
   - Location/Mexico
   - Period/pre-COVID

@@ -3,7 +3,7 @@ title: Budapest
 key: Budapest
 thumbnail: DSCF4554.jpg
 tags:
-  - Camera/XT-2
+  - Camera/X-T2
   - Location/Budapest
   - Location/Hungary
   - Period/KULeuven

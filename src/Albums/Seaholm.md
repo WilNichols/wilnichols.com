@@ -3,7 +3,7 @@ title: Seaholm
 key: Seaholm
 thumbnail: DSCF1362.jpg
 tags:
-  - Camera/XT-1
+  - Camera/X-T1
   - Location/Austin
   - Location/Texas
   - Period/Student

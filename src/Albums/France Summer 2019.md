@@ -4,7 +4,7 @@ shortTitle: Summer 2009
 key: FranceSummer2019
 thumbnail: DSCF0117.jpg
 tags:
-  - Camera/XT-2
+  - Camera/X-T2
   - Location/France
   - Period/KULeuven
   - AlbumGroup/France

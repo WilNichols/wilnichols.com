@@ -4,7 +4,7 @@ shortTitle: Two
 key: Leuven2
 thumbnail: DSCF0196.jpg
 tags:
-  - Camera/XT-2
+  - Camera/X-T2
   - Location/Leuven
   - Location/Belgium
   - Period/KULeuven

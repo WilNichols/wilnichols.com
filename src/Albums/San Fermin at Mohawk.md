@@ -4,7 +4,7 @@ shortTitle: Mohawk
 key: SanFermin2019
 thumbnail: DSCF1499.jpg
 tags:
-  - Camera/XT-2
+  - Camera/X-T2
   - Location/Austin
   - Location/Texas
   - Musician/San-Fermin

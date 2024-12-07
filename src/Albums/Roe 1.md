@@ -6,7 +6,7 @@ thumbnail: DSCF1061.jpg
 tags:
   - Group/Demonstration
   - Group/Roe-V-Wade
-  - Camera/XT-2
+  - Camera/X-T2
   - Location/Austin
   - Location/Texas
   - AlbumGroup/Roe

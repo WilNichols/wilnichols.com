@@ -3,7 +3,7 @@ title: Destin
 key: Hackathon2018
 thumbnail: DSCF2843.jpg
 tags:
-  - Camera/XT-2
+  - Camera/X-T2
   - Hackathon
   - Location/Destin
   - Location/Florida

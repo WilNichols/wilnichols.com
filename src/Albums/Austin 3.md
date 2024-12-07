@@ -4,7 +4,7 @@ shortTitle: Three
 key: Austin3
 thumbnail: DSCF3143.jpg
 tags:
-  - Camera/XT-2
+  - Camera/X-T2
   - Location/Austin
   - Location/Texas
   - Period/KULeuven

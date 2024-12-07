@@ -4,7 +4,7 @@ shortTitle: 2022 Cities
 key: Iceland2022Urban
 thumbnail: DSCF6676.jpg
 tags:
-  - Camera/XT-4
+  - Camera/X-T4
   - Location/Reykjavik
   - Location/Iceland
   - Period/Sabbatical

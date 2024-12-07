@@ -3,7 +3,7 @@ title: Marseille
 key: Marseille
 thumbnail: DSCF8702.jpg
 tags:
-  - Camera/XT-1
+  - Camera/X-T1
   - Location/Marseille
   - Location/Provence
   - Location/France

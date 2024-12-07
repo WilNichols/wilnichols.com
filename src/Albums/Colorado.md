@@ -3,7 +3,7 @@ title: Colorado
 key: Colorado
 thumbnail: DSCF6219.jpg
 tags:
-  - Camera/XT-1
+  - Camera/X-T1
   - Location/Colorado
   - Period/Student
   - AlbumGroup/The-U.S.

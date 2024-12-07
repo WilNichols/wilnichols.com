@@ -3,7 +3,7 @@ title: Concrete
 key: Concrete
 thumbnail: DSCF9212.jpg
 tags:
-  - Camera/XT-1
+  - Camera/X-T1
   - Location/Austin
   - Location/Texas
   - Period/Student
