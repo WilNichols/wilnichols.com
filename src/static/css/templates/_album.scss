@@ -1,14 +1,70 @@
-.album__album-photos {
+@use '../tokens';
+
+body:has(> .page--album) {
+  background-color: var(--photoBackgroundMaterialColor);
+  padding: 0;
+}
+
+.page--album {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: calc(var(--col) / 2);
-  padding: 0 calc(var(--col) / 2);
-  box-sizing: content-box;
+  scroll-snap-type: y mandatory;
+  -webkit-overflow-scrolling: touch;
+  overflow-y: scroll;
+  padding: var(--col);
+  height: 100vh;
+}
+
+.page--album .page-header__title-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--type-0);
+  justify-content: center;
+  scroll-snap-align: start;
+  // necessary for preserving padding with scroll snapping
+  border-top: var(--col) solid transparent;
+}
+
+.page--album .page-header__title-container, 
+.page--album .album-intro {
+  width: 100%;
+  max-width: tokens.$width;
+}
+
+.page--album .album-info__list {
+  display: flex;
+  column-gap: 2ex;
+  font-size: var(--type--2);
+  flex-wrap: wrap;
+}
+
+.album-info__entry {
+  display: flex;
+  gap: 5px;
+}
+
+.album-info__entry__key {
+  color: var(--contentSecondaryColor);
+}
+
+.album-info__entry__value {
+  color: var(--contentPrimaryColor);
+  white-space: nowrap;
+  
+}
+
+.album-intro {}
+
+.album__album-photos {
+  display: contents;
 }
 
 .album__album-photos__photo {
   display: flex;
   place-content: center;
+  scroll-snap-align: center;
   picture {
     display: block;
     aspect-ratio: var(--ratio);

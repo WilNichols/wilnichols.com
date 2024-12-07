@@ -4,7 +4,7 @@ shortTitle: Aix
 key: Aix
 thumbnail: DSCF2975.jpg
 tags:
-  - Camera/XT-1
+  - Camera/X-T1
   - Location/France
   - Location/Aix-en-Provence
   - Location/Provence

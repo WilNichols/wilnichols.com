@@ -1,12 +1,14 @@
 {% macro AlbumInfo() %}
   <div class="album-info">
     <ul class="album-info__list">
-      <li class="album-info__entry--date"><span>{{ date | readableDateISO }}</span></li>
+      <li class="album-info__entry album-info__entry--date"><span class="album-info__entry__key">Published</span><span class="album-info__entry__value">{{ date | readableDateISO }}</span></li>
       {% for tag in tags -%}
-        {% set parsedTag = tag.split('/') %}
-        {% set tagName = parsedTag[0] %}
-        {% set tagValue = parsedTag[1] %}
-        <li class="album-info__entry--{{ tagName }}">{{ tagValue }}</li>
+        {% if (not "AlbumGroup" in tag) and (not "Albums" in tag) %}
+          {% set parsedTag = tag.split('/') %}
+          {% set tagName = parsedTag[0] %}
+          {% set tagValue = parsedTag[1] %}
+          <li class="album-info__entry album-info__entry--{{ tagName }}"><span class="album-info__entry__key">{{ tagName }}</span><span class="album-info__entry__value">{{ tagValue }}</span></li>
+        {% endif %}
       {%- endfor %}
     </ul>
   </div>

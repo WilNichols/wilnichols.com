@@ -7,30 +7,32 @@ eleventyImport:
 {%- from 'title-and-date.njk' import PageTitle with context -%}
 {%- from 'page-info.njk' import AlbumInfo with context -%}
 
-<header class="page-header__title-container">
-  {{ PageTitle(el="div") }}
-  {{ AlbumInfo() }}
-</header>
-<div>
-  {{ content | safe }}
+<div class="page page--album">
+  <header class="page-header__title-container">
+    {{ PageTitle(el="div") }}
+    {{ AlbumInfo() }}
+    <div class="album-intro">
+      {{ content | safe }}
+    </div>
+  </header>
+  {% set photos = key | getPhotos %}
+  {% set albumLength %}{{ photos | length }}{% endset %}
+  <ul class="album__album-photos">
+    {% for photo in photos | reverse %}
+      {% if loop.index < 3 %}{% set loading = 'eager' %}{% else %}{% set loading = 'lazy' %}{% endif %}
+      {% set src %}{{ remote.gallery.base }}/{{ remote.gallery.photos }}/{{ key }}/{{ photo }}{% endset %}
+      {% set fileName %}{{ photo | slugify }}{% endset %}
+      {% if photo !== ''%}
+        {% set imageProps = src | imageInfo %}
+        <li class="album__album-photos__photo" id="{{ fileName }}">
+          {{  Picture(
+              fileName = fileName,
+              src = src,
+              loading = loading,
+              imageProps = imageProps
+          ) }}
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
 </div>
-{% set photos = key | getPhotos %}
-{% set albumLength %}{{ photos | length }}{% endset %}
-<ul class="album__album-photos">
-  {% for photo in photos | reverse %}
-    {% if loop.index < 3 %}{% set loading = 'eager' %}{% else %}{% set loading = 'lazy' %}{% endif %}
-    {% set src %}{{ remote.gallery.base }}/{{ remote.gallery.photos }}/{{ key }}/{{ photo }}{% endset %}
-    {% set fileName %}{{ photo | slugify }}{% endset %}
-    {% if photo !== ''%}
-      {% set imageProps = src | imageInfo %}
-      <li class="album__album-photos__photo" id="{{ fileName }}">
-        {{  Picture(
-            fileName = fileName,
-            src = src,
-            loading = loading,
-            imageProps = imageProps
-        ) }}
-      </li>
-    {% endif %}
-  {% endfor %}
-</ul>
