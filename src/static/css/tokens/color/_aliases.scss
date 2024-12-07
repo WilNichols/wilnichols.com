@@ -2,6 +2,7 @@
 @use 'mixins' as *;
 
 @mixin colorAliases {
+  @include light-dark(--photoBackgroundMaterialColor, var(--c100), #000);
   @include light-dark(--materialPrimaryColor, var(--c100), var(--c0));
   @include light-dark(--materialPrimaryInvertedColor, var(--c0), var(--c100));
   @include light-dark(--materialPrimaryHoverColor, var(--cK95), var(--cK5));
@@ -13,7 +14,7 @@
   @include light-dark(--contentTertiaryColor, var(--cK70), var(--cK40));
   @include light-dark(--linkColor, var(--cB30), var(--cB50));
   @include light-dark(--linkVisitedColor, var(--cP30), var(--cP50));
-  @include light-dark(--linkUnderlineColor, var(--cK90), var(--cK40));
+  @include light-dark(--linkUnderlineColor, var(--cK90a), var(--cK40d));
   @include light-dark(--tagBackgroundColor, var(--cK90), var(--cK20));
   @include light-dark(--tagBorderColor, var(--cK80), var(--cK30));
   @include light-dark(--tagContentColor, var(--cK30), var(--cK90));
