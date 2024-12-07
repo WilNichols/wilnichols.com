@@ -9,6 +9,6 @@ tags:
   - Location/Texas
   - Period/KULeuven
   - AlbumGroup/Austin
-date: 2017-03-15
+date: 2017-03-15T00:00
 ---
 This collection covers ATX photos from the Spring through Winter of 2017, before moving to [[Leuven 1 | Leuven]] in February.

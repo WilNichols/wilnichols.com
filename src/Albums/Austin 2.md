@@ -9,6 +9,6 @@ tags:
   - Location/Texas
   - Period/Student
   - AlbumGroup/Austin
-date: 2017-01-29
+date: 2017-01-29T00:00
 ---
 These were taken throughout the Fall of my senior year at UT.
