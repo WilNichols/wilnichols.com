@@ -1,46 +1,62 @@
-{% set title %}{{ altTitle if altTitle }}{{ page.fileSlug if not altTitle }}{% endset %}
-{% set date %}{{ date | readableDateISO }}{% endset %}
-{% set updated %}{{ updated | readableDateISO }}{% endset %}
-{# {% set showType %}{{ true if (page.data.type != 'Note') }}{% endset %} #}
+{% macro AlbumInfo() %}
+  <div class="album-info">
+    <ul class="album-info__list">
+      <li class="album-info__entry--date"><span>{{ date | readableDateISO }}</span></li>
+      {% for tag in tags -%}
+        {% set parsedTag = tag.split('/') %}
+        {% set tagName = parsedTag[0] %}
+        {% set tagValue = parsedTag[1] %}
+        <li class="album-info__entry--{{ tagName }}">{{ tagValue }}</li>
+      {%- endfor %}
+    </ul>
+  </div>
+{% endmacro %}
 
-{% set isEvergreen %}{% for tag in tags %}{{ true if ("Evergreen/" in tag) }}{% endfor %}{% endset %}
-{% set showTags %}{% for tag in tags %}{{ true if ("Topic/" in tag) }}{% endfor %}{% endset %}
-<aside class="page-info">
-  <div class="back-to-index"><a href="/" class="back-to-index__button">{% include "../static/img/arrow-left--16.svg" %}</a></div>
-  <ul class="page-info__list">
-    <li class="page-info__entry">
-      <span class="page-info__entry__key">Published</span><span class="page-info__entry__value">{{ date }}</span></li>
-    {%- if update and (date != updated) -%}
+{% macro EditorialInfo(backlinks) %}
+  {% set title %}{{ altTitle if altTitle }}{{ page.fileSlug if not altTitle }}{% endset %}
+  {% set date %}{{ date | readableDateISO }}{% endset %}
+  {% set updated %}{{ updated | readableDateISO }}{% endset %}
+  {# {% set showType %}{{ true if (page.data.type != 'Note') }}{% endset %} #}
+  
+  {% set isEvergreen %}{% for tag in tags %}{{ true if ("Evergreen/" in tag) }}{% endfor %}{% endset %}
+  {% set showTags %}{% for tag in tags %}{{ true if ("Topic/" in tag) }}{% endfor %}{% endset %}
+  <aside class="page-info">
+    <div class="back-to-index"><a href="/" class="back-to-index__button">{% include "../static/img/arrow-left--16.svg" %}</a></div>
+    <ul class="page-info__list">
       <li class="page-info__entry">
-        <span class="page-info__entry__key">Updated</span><span class="page-info__entry__value">{{ updated }}</span></li>
-    {%- endif -%}
-    {# {{ tags }} #}
-    {%- if isEvergreen -%}
-      <li class="page-info__entry"><span class="page-info__entry__key">Revision</span><span class="page-info__entry__value">{% for tag in tags %}{% if "Evergreen" in tag %}{{ tag | getRevision }}{% endif %}{% endfor %}</span></li>
-    {%- endif -%}
-    {% if showTags %}
-      <li class="page-info__entry page-info__entry--tags">
-        <span class="page-info__entry__key">Tags</span>
-        <ul class="page-info__entry__value">
-          {% for tag in tags %}
-            {% if 'Topic/' in tag %}
-              {% set label %}{{ tag | replace('Topic/', '') }}{% endset %}
-              <li>{{ label }}</li>
-            {% endif %}
-          {% endfor %}
-        </ul>
-      </li>
-    {% endif %}
-    {% set backlinks = collections.all | links_to(page.url) %}
-    {% if backlinks.length > 0 %}
-    <li class="page-info__entry page-info__entry--tags">
-      <span class="page-info__entry__key">Backlinks</span>
-      <ul class="page-info__entry__value">
-        {% for link in backlinks %}
-          <li class="sub-list__item"><a href="{{ link.url }}">{{ link.data.title }}</a></li>
-        {% endfor %}
-      </ul>
-    </li>
-    {% endif %}
-  </ul>
-</aside>
+        <span class="page-info__entry__key">Published</span><span class="page-info__entry__value">{{ date }}</span></li>
+      {%- if update and (date != updated) -%}
+        <li class="page-info__entry">
+          <span class="page-info__entry__key">Updated</span><span class="page-info__entry__value">{{ updated }}</span></li>
+      {%- endif -%}
+      {# {{ tags }} #}
+      {%- if isEvergreen -%}
+        <li class="page-info__entry"><span class="page-info__entry__key">Revision</span><span class="page-info__entry__value">{% for tag in tags %}{% if "Evergreen" in tag %}{{ tag | getRevision }}{% endif %}{% endfor %}</span></li>
+      {%- endif -%}
+      {% if showTags %}
+        <li class="page-info__entry page-info__entry--tags">
+          <span class="page-info__entry__key">Tags</span>
+          <ul class="page-info__entry__value">
+            {% for tag in tags %}
+              {% if 'Topic/' in tag %}
+                {% set label %}{{ tag | replace('Topic/', '') }}{% endset %}
+                <li>{{ label }}</li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </li>
+      {% endif %}
+      
+      {% if backlinks.length > 0 %}
+        <li class="page-info__entry page-info__entry--tags">
+          <span class="page-info__entry__key">Backlinks</span>
+          <ul class="page-info__entry__value">
+            {% for link in backlinks %}
+              <li class="sub-list__item"><a href="{{ link.url }}">{{ link.data.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </li>
+      {% endif %}
+    </ul>
+  </aside>
+{% endmacro %}

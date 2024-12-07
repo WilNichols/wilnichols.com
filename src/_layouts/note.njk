@@ -1,9 +1,13 @@
 ---
 layout: page.njk
 ---
+{%- from 'title-and-date.njk' import PageTitle with context -%}
+{%- from 'page-info.njk' import EditorialInfo with context -%}
+
 <article class="page page--note">
-  {% include "page-info.njk" %}
-  {% include 'title-and-date.njk' %}
+  {% set backlinks = collections.all | links_to(page.url) %}
+  {{ EditorialInfo(backlinks) }}
+  {{ PageTitle() }}
   <main class="note__body">
   {{ content | safe }}
   </main>

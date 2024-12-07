@@ -1,12 +1,16 @@
 ---
 layout: page.njk
 ---
+{%- from 'title-and-date.njk' import PageTitle with context -%}
+{%- from 'page-info.njk' import EditorialInfo with context -%}
+
 {% for asset, src in assets | penAssets %}
   <a class="pen-tabs__state" id="{{ asset }}" data-tab-index="tab-{{ loop.index }}">{{ asset }}</a>
 {% endfor %}
 <article class="page page--pen">
-  {% include "page-info.njk" %}
-  {% include "title-and-date.njk" %}
+  {% set backlinks = collections.all | links_to(page.url) %}
+  {{ EditorialInfo(backlinks) }}
+  {{ PageTitle() }}
   <main class="pen__body">
     <div class="pen__demo">
       {% if assets.demo %}
