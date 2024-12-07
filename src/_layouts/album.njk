@@ -36,3 +36,42 @@ eleventyImport:
     {% endfor %}
   </ul>
 </div>
+
+<script>
+  var windowCenter = window.innerHeight / 2;
+  var items = document.getElementsByClassName("album__album-photos__photo");
+  
+  function clamp(val, min = 0, max = 1) {
+    return Math.min(Math.max(val, min), max);
+  }
+  
+  // https://easings.net/#easeInOutQuart
+  function easeInOutQuad(x) {
+    return x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
+  }
+  
+  function logEase(x) {
+    return 1.2 - .75 * Math.exp(-x);
+  }
+  
+  function scrollPosition() {
+    console.log('hello');
+    for (i = 0; i < items.length; i++) {
+      var margin = 10;
+      var itemCenter =  items[i].getBoundingClientRect().top + items[i].getBoundingClientRect().height * .5;
+      var itemDistanceFromCenter = Math.abs(windowCenter - itemCenter);
+      var itemPercentDistanceFromCenter = itemDistanceFromCenter/windowCenter;
+      var itemProgressLinear = -(itemPercentDistanceFromCenter - 1);
+      var itemProgressCurved = easeInOutQuad(clamp(itemProgressLinear, 0, windowCenter));
+      var itemScale = 1 + itemProgressCurved * .2;
+      var itemOpacity = logEase(itemProgressLinear);
+      items[i].style.setProperty("--scale", itemScale);
+      items[i].style.setProperty("--opacity", itemOpacity);
+    }
+  }
+  
+  scrollPosition();
+  document.getElementsByClassName('page--album')[0].onscroll = function() {
+    scrollPosition();
+  }
+</script>
