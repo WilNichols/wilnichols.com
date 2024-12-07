@@ -98,7 +98,7 @@ $previewBreakpoint: (tokens.$breakpoint * 2) * 1.33;
       position: absolute;
       opacity: 0;
       filter: blur(.6em);
-      transform: scale(0.975);
+      transform: scale(0.9875);
       transition: tokens.$x opacity ease-out, tokens.$x filter ease-out, tokens.$x transform ease-out;
     }
   }
