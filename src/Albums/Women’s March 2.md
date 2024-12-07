@@ -6,7 +6,7 @@ thumbnail: DSCF5271.jpg
 tags:
   - Group/Womens-March
   - Group/Demonstration
-  - Camera/XT-1
+  - Camera/X-T1
   - Location/Austin
   - Location/Texas
   - Period/Student

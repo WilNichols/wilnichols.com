@@ -4,7 +4,7 @@ shortTitle: Two
 key: Austin2
 thumbnail: DSCF5594.jpg
 tags:
-  - Camera/XT-1
+  - Camera/X-T1
   - Location/Austin
   - Location/Texas
   - Period/Student

@@ -4,7 +4,7 @@ shortTitle: One
 key: Lisbon1
 thumbnail: DSCF5180.jpg
 tags:
-  - Camera/XT-1
+  - Camera/X-T1
   - Location/Lisbon
   - Location/Portugal
   - Period/Study-Abroad

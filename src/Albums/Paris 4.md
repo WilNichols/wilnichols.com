@@ -4,7 +4,7 @@ shortTitle: Four
 key: Paris4
 thumbnail: DSCF2663.jpg
 tags:
-  - Camera/XT-2
+  - Camera/X-T2
   - Location/Paris
   - Location/France
   - Period/KULeuven

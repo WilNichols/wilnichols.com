@@ -4,7 +4,7 @@ shortTitle: Four
 key: Auvergne4
 thumbnail: DSCF7310.jpg
 tags:
-  - Camera/XT-2
+  - Camera/X-T2
   - Location/Auzon
   - Location/Auvergne
   - Location/France

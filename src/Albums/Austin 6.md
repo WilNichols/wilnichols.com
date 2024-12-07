@@ -4,7 +4,7 @@ shortTitle: Six
 key: Austin6
 thumbnail: DSCF6201.jpg
 tags:
-  - Camera/XT-2
+  - Camera/X-T2
   - Location/Austin
   - Location/Texas
   - Period/COVID

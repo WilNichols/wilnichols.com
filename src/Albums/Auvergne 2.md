@@ -4,7 +4,7 @@ shortTitle: Two
 key: Auvergne2
 thumbnail: DSCF7093.jpg
 tags:
-  - Camera/XT-1
+  - Camera/X-T1
   - Location/Auzon
   - Location/Auvergne
   - Location/France

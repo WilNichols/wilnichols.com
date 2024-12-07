@@ -4,7 +4,7 @@ shortTitle: Two
 key: Lisbon2
 thumbnail: DSCF2513.jpg
 tags:
-  - Camera/XT-2
+  - Camera/X-T2
   - Location/Lisbon
   - Location/Portugal
   - Period/KULeuven

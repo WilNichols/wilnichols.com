@@ -3,7 +3,7 @@ title: Florence
 key: Florence
 thumbnail: DSCF9650.jpg
 tags:
-  - Camera/XT-2
+  - Camera/X-T2
   - Location/Florence
   - Location/Italy
   - Period/KULeuven

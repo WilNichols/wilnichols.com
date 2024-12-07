@@ -4,7 +4,7 @@ shortTitle: One
 key: SanFrancisco
 thumbnail: DSCF9734.jpg
 tags:
-  - Camera/XT-2
+  - Camera/X-T2
   - Location/San-Francisco
   - Location/The-Bay
   - Location/California

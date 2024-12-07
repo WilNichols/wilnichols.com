@@ -6,7 +6,7 @@ thumbnail: DSCF5408.jpg
 tags:
   - Group/Demonstration
   - Group/Roe-V-Wade
-  - Camera/XT-4
+  - Camera/X-T4
   - Location/Austin
   - Location/Texas
   - AlbumGroup/Roe

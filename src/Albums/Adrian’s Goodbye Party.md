@@ -4,7 +4,7 @@ shortTitle: Adrian’s
 key: Adrian
 thumbnail: DSCF5719.jpg
 tags:
-  - Camera/XT-1
+  - Camera/X-T1
   - Location/Austin
   - Location/Texas
   - Period/Student

@@ -4,7 +4,7 @@ shortTitle: One
 key: Annecy1
 thumbnail: DSCF8007.jpg
 tags:
-  - Camera/XT-1
+  - Camera/X-T1
   - Location/France
   - Location/Annecy
   - Location/Rhône-Alpes

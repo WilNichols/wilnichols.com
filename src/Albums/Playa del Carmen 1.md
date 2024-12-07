@@ -4,7 +4,7 @@ shortTitle: One
 key: PlayaDelCarmen1
 thumbnail: DSCF2945.jpg
 tags:
-  - Camera/XT-2
+  - Camera/X-T2
   - Location/Playa-del-Carman
   - Location/Mexico
   - Hackathon

@@ -3,7 +3,7 @@ title: Prague
 key: Prague
 thumbnail: DSCF8818.jpg
 tags:
-  - Camera/XT-2
+  - Camera/X-T2
   - Location/Prague
   - Location/Czech-Republic
   - Period/KULeuven

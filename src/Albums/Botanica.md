@@ -3,7 +3,7 @@ title: Botanica
 key: Botanica
 thumbnail: DSCF9129.jpg
 tags:
-  - Camera/XT-2
+  - Camera/X-T2
   - Location/Munich
   - Location/Germany
   - Period/KULeuven

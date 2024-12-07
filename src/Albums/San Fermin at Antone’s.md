@@ -4,7 +4,7 @@ shortTitle: Antone’s
 key: SanFermin2017
 thumbnail: DSCF8635.jpg
 tags:
-  - Camera/XT-1
+  - Camera/X-T1
   - Location/Austin
   - Location/Texas
   - Musician/San-Fermin

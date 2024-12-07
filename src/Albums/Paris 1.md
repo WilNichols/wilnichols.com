@@ -4,7 +4,7 @@ shortTitle: One
 key: Paris1
 thumbnail: DSCF2472.jpg
 tags:
-  - Camera/XT-1
+  - Camera/X-T1
   - Location/Paris
   - Location/France
   - Period/Study-Abroad

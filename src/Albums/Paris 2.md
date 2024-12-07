@@ -4,7 +4,7 @@ shortTitle: Two
 key: Paris2
 thumbnail: DSCF1803.jpg
 tags:
-  - Camera/XT-2
+  - Camera/X-T2
   - Location/Paris
   - Location/France
   - Period/KULeuven

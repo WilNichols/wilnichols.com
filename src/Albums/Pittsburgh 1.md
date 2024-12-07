@@ -4,7 +4,7 @@ shortTitle: One
 key: Pittsburgh1
 thumbnail: DSCF6417.jpg
 tags:
-  - Camera/XT-4
+  - Camera/X-T4
   - Location/Pittsburgh
   - Location/Pennsylvania
   - AlbumGroup/Pittsburgh

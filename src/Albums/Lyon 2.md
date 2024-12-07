@@ -4,7 +4,7 @@ shortTitle: Two
 key: Lyon2
 thumbnail: DSCF5412.jpg
 tags:
-  - Camera/XT-2
+  - Camera/X-T2
   - Location/Lyon
   - Location/Rhône-Alpes
   - Period/KULeuven

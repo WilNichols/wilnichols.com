@@ -3,7 +3,7 @@ title: Breckenridge
 key: Breckenridge
 thumbnail: DSCF6443.jpg
 tags:
-  - Camera/XT-2
+  - Camera/X-T2
   - Hackathon
   - Location/Breckenridge
   - Location/Colorado

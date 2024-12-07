@@ -4,7 +4,7 @@ shortTitle: Six
 key: Auvergne6
 thumbnail: DSCF3036.jpg
 tags:
-  - Camera/XT-4
+  - Camera/X-T4
   - Location/Auzon
   - Location/Brioude
   - Location/Auvergne

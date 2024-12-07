@@ -3,7 +3,7 @@ title: Manchester & Belfast
 key: ManchesterAndBelfast
 thumbnail: DSCF0415.jpg
 tags:
-  - Camera/XT-1
+  - Camera/X-T1
   - Location/Manchester
   - Location/Belfast
   - Location/Ireland

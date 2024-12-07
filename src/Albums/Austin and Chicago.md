@@ -4,7 +4,7 @@ shortTitle: "& Chicago"
 key: AustinAndChicago
 thumbnail: DSCF5499.jpg
 tags:
-  - Camera/XT-2
+  - Camera/X-T2
   - Location/Chicago
   - Location/Austin
   - Period/KULeuven

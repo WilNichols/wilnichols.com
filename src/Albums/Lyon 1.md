@@ -4,7 +4,7 @@ shortTitle: One
 key: Lyon1
 thumbnail: DSCF7529.jpg
 tags:
-  - Camera/XT-1
+  - Camera/X-T1
   - Location/Lyon
   - Location/Rhône-Alpes
   - Period/Study-Abroad

@@ -3,7 +3,7 @@ title: Saint Nikolaas
 key: LeuvenSaintNikolaas
 thumbnail: DSCF9302.jpg
 tags:
-  - Camera/XT-2
+  - Camera/X-T2
   - Location/Leuven
   - Location/Belgium
   - Period/KULeuven

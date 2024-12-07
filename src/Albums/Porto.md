@@ -3,7 +3,7 @@ title: Porto
 key: Porto
 thumbnail: DSCF2825.jpg
 tags:
-  - Camera/XT-2
+  - Camera/X-T2
   - Location/Porto
   - Location/Portugal
   - Period/KULeuven

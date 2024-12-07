@@ -3,7 +3,7 @@ title: Carnival
 key: Carnival
 thumbnail: DSCF7110.jpg
 tags:
-  - Camera/XT-2
+  - Camera/X-T2
   - Location/Leuven
   - Location/Belgium
   - Period/KULeuven

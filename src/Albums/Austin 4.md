@@ -4,7 +4,7 @@ shortTitle: Four
 key: Austin4
 thumbnail: DSCF6270.jpg
 tags:
-  - Camera/XT-2
+  - Camera/X-T2
   - Location/Austin
   - Location/Texas
   - Period/KULeuven

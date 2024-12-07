@@ -4,7 +4,7 @@ shortTitle: Three
 key: Leuven3
 thumbnail: DSCF7269.jpg
 tags:
-  - Camera/XT-2
+  - Camera/X-T2
   - Location/Leuven
   - Location/Belgium
   - Period/KULeuven
