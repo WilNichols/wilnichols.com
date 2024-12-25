@@ -248,7 +248,6 @@ export default async function(eleventyConfig) {
   });
 
   // Passthroughs. Specify individual instead of all, since sass is handled separately
-  eleventyConfig.addPassthroughCopy({"src/tackle/index.html": "/tackle/index.html"});
   eleventyConfig.addPassthroughCopy({"src/robots.txt": "/robots.txt"});
   eleventyConfig.addPassthroughCopy({"src/static/img": "/assets/img"});
   eleventyConfig.addPassthroughCopy({"src/static/js": "/assets/js"});
