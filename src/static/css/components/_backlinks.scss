@@ -32,7 +32,9 @@
 }
 
 .backlink {
-  @extend %linkBackground;
+  & {
+    @extend %linkBackground;
+  }
   &:hover {
     @extend %listItemBackgroundHover;
   }

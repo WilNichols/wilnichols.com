@@ -25,10 +25,10 @@
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0",
-    "@11ty/eleventy-plugin-rss": "^1.2.0",
+    "@11ty/eleventy-plugin-rss": "^2.0.2",
     "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.0",
     "markdown-it": "^14.0.0",
-    "markdown-it-anchor": "^8.6.7",
+    "markdown-it-anchor": "^9.2.0",
     "markdown-it-attrs": "^4.2.0",
     "markdown-it-footnote": "^4.0.0",
     "sass": "^1.70.0",
@@ -38,7 +38,7 @@
     "@aws-sdk/client-s3": "^3.504.0",
     "autoprefixer": "^10.4.17",
     "aws-sdk": "^2.1550.0",
-    "cssnano": "^6.0.3",
+    "cssnano": "^7.0.6",
     "dotenv": "^16.4.1",
     "fast-average-color-node": "^3.0.0",
     "html-minifier": "^4.0.0",
@@ -54,7 +54,7 @@
     "postcss-import": "^16.0.0",
     "stylelint": "^16.2.0",
     "stylelint-config-idiomatic-order": "^10.0.0",
-    "stylelint-config-sass-guidelines": "^11.0.0",
+    "stylelint-config-sass-guidelines": "^12.1.0",
     "stylelint-order": "^6.0.4",
     "stylelint-scss": "^6.1.0"
   }

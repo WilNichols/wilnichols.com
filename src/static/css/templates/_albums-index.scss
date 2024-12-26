@@ -64,7 +64,9 @@ $previewBreakpoint: (tokens.$breakpoint * 2) * 1.33;
       @media screen and (width <= $previewBreakpoint) {
         opacity: 0.33;
       }
-      transition-duration: tokens.$x4;
+      & {
+        transition-duration: tokens.$x4;
+      }
     }
     &::after {
       transform: translateY(2px);
@@ -76,20 +78,24 @@ $previewBreakpoint: (tokens.$breakpoint * 2) * 1.33;
 .album-preview {
   $left: max(calc(tokens.$categoryWidth + var(--col)), 50vw);
   $halfCol: calc(var(--col)/2);
-  position: fixed;
-  width: 50vw;
-  inset: $halfCol $halfCol $halfCol auto;
+  & {
+    z-index: -10;
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+    position: fixed;
+    width: 50vw;
+    inset: $halfCol $halfCol $halfCol auto;
+  }
   @media screen and (width <= $previewBreakpoint) {
     width: auto;
     inset: $halfCol;
     justify-content: center;
   }
-  z-index: -10;
-  display: grid;
-  place-items: center;
-  pointer-events: none;
   picture {
-    display: contents;
+    & {
+      display: contents;
+    }
     img {
       height: auto;
       width: auto;
@@ -106,8 +112,10 @@ $previewBreakpoint: (tokens.$breakpoint * 2) * 1.33;
 
 
 .album-groups-list__copyright {
-  display: flex;
-  gap: 5px;
+  & {
+    display: flex;
+    gap: 5px;
+  }
   .copyright__glyph {
     color: var(--contentTertiaryColor);
     text-align: right;
