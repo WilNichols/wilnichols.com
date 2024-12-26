@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import { DateTime } from 'luxon';
 import { EleventyRenderPlugin } from '@11ty/eleventy';
+import { EleventyHtmlBasePlugin } from "@11ty/eleventy";
 import markdownIt from 'markdown-it';
 import markdownItAnchor from 'markdown-it-anchor';
 import markdownItAttrs from 'markdown-it-attrs';
@@ -266,6 +267,7 @@ export default async function(eleventyConfig) {
   // Plugins
   eleventyConfig.addPlugin(pluginRss);
   eleventyConfig.addPlugin(syntaxHighlight);
+  eleventyConfig.addPlugin(EleventyHtmlBasePlugin);
 
   // WatchTargets
   eleventyConfig.addWatchTarget("src/static/css/");

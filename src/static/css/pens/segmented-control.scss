@@ -36,18 +36,20 @@ $gap: 6px;
 }
 
 .item {
-  white-space: nowrap;
-  width: 100%;
-  display: block;
-  text-align: center;
-  grid-row: 1 / 2;
-  position: relative;
-  padding: 8px 12px;
-  z-index: 100;
-  vertical-align: middle;
-  line-height: 16px;
-  font-size: 16px;
-  will-change: scale;
+  & {
+    white-space: nowrap;
+    width: 100%;
+    display: block;
+    text-align: center;
+    grid-row: 1 / 2;
+    position: relative;
+    padding: 8px 12px;
+    z-index: 100;
+    vertical-align: middle;
+    line-height: 16px;
+    font-size: 16px;
+    will-change: scale;
+  }
   input:not(:checked) + &:hover ~ .effect-container .hover-background, 
   input:not(:checked) + &:active ~ .effect-container .hover-background {
     background-color: light-dark(var(--cK90, #E6EFF0), var(--cK5, #E6EFF0));
