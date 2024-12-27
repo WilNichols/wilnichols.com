@@ -24,7 +24,7 @@ eleventyImport:
       {% set fileName %}{{ photo | slugify }}{% endset %}
       {% if photo !== ''%}
         {% set imageProps = src | imageInfo %}
-        <li class="album__album-photos__photo" id="{{ fileName }}">
+        <li class="album__album-photos__photo" id="{{ fileName | replace('-jpg', '') | replace('dscf', '') }}">
           {{  Picture(
               fileName = fileName,
               src = src,

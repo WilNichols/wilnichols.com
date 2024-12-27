@@ -9,6 +9,5 @@ tags:
   - Period/Sabbatical
   - AlbumGroup/Iceland
 date: 2022-09-04T00:00
-permalink: '/albums/icelands-landscapes/'
 ---
 In my Fall 2022 sabbatical, I took two weeks in Iceland, the middle of which we spent driving the Ring Road.

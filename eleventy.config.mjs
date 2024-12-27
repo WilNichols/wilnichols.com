@@ -1,7 +1,6 @@
 import dotenv from 'dotenv';
 import { DateTime } from 'luxon';
-import { EleventyRenderPlugin } from '@11ty/eleventy';
-import { EleventyHtmlBasePlugin } from "@11ty/eleventy";
+import { EleventyRenderPlugin, EleventyHtmlBasePlugin } from '@11ty/eleventy';
 import markdownIt from 'markdown-it';
 import markdownItAnchor from 'markdown-it-anchor';
 import markdownItAttrs from 'markdown-it-attrs';

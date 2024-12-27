@@ -12,6 +12,5 @@ tags:
   - Period/Student
   - AlbumGroup/WomensMarch
 date: 2017-01-22T00:00
-permalink: '/albums/womens-march-1/'
 ---
 The 2017 Women’s March was a great and positive coming-together following the Election, and unlike other collective outpourings of grief and anger, offered a left a genuinely uplifting an empowering sentiment.

@@ -12,6 +12,5 @@ tags:
   - Period/Student
   - AlbumGroup/WomensMarch
 date: 2017-01-22T00:00
-permalink: '/albums/womens-march-2/'
 ---
 These shots continue [[Women’s March 1]].
