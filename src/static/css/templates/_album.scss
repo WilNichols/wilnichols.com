@@ -9,7 +9,7 @@ body:has(> .page--album) {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: calc(var(--col) / 2);
+  gap: calc(var(--col) / 3);
   scroll-snap-type: y mandatory;
   -webkit-overflow-scrolling: touch;
   overflow-y: scroll;
@@ -65,18 +65,19 @@ body:has(> .page--album) {
   & {
     display: flex;
     place-content: center;
-    scroll-snap-align: center;
-    /* Wil, what the hell */
+    scroll-snap-align: center; 
   }
   picture {
     display: block;
     aspect-ratio: var(--ratio);
     background-color: var(--color);
-    max-height: calc(100dvh - 32px);
-    max-width: calc(100dvw - 32px);
+    $intrinsicWidth: calc(100dvw - var(--col)); 
+    $maxHeight: calc(100dvh - var(--col)); 
+    $maxWidth: calc($maxHeight * var(--ratio));
+    width: min($intrinsicWidth, $maxWidth);
+    height: min(calc($intrinsicWidth / var(--ratio)), $maxHeight);
   }
   img {
-    object-fit: cover;
     display: block;
     width: 100%;
     height: 100%;

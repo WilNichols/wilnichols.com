@@ -6,30 +6,30 @@
   imageProps,
   loading = 'lazy'
 ) %}
-      <picture style="--ratio: {{ imageProps.ratio }}; --color: {{ imageProps. color }}">
-        <source
-          sizes="
-          (max-width: 640px) 640px, 
-          (max-width: 960px) 960px, 
-          (max-width: 1200px) 1200px, 
-          (min-width: 1201px) 1800px
-          "
-          srcset="
-            {{ src }}?width=640px&format=webp, 
-            {{ src }}?width=960px&format=webp 960w, 
-            {{ src }}?width=1200px&format=webp 1200w, 
-            {{ src }}?width=1800px&format=webp 1800w
-          "
-        >
-        <img 
-          class=""
-          src="{{ src }}?width=1200&format=webp" 
-          width="{{ imageProps.width }}" 
-          height="{{ imageProps.height }}"
-          alt="{% if title %}{{ title }}{% else %}{{ fileName }}{% endif %}"
-          loading="{{ loading }}"
-        />
-        <div class="blurUp"></div>
-      </picture>
+  <picture class="picture--{{ imageProps.orientation }}" style="--ratio: {{ imageProps.ratio }}; --color: {{ imageProps. color }}">
+    <source
+      sizes="
+        (max-width: 640px) 640px, 
+        (max-width: 960px) 960px, 
+        (max-width: 1200px) 1200px, 
+        (min-width: 1201px) 1800px
+      "
+      srcset="
+        {{ src }}?width=640px&format=webp, 
+        {{ src }}?width=960px&format=webp 960w, 
+        {{ src }}?width=1200px&format=webp 1200w, 
+        {{ src }}?width=1800px&format=webp 1800w
+      "
+    >
+    <img 
+      class=""
+      src="{{ src }}?width=6&format=webp" 
+      width="{{ imageProps.width * 1000 }}" 
+      height="{{ imageProps.height * 1000 }}"
+      alt="{% if title %}{{ title }}{% else %}{{ fileName }}{% endif %}"
+      loading="{{ loading }}"
+    />
+    <div class="blurUp"></div>
+  </picture>
 {% endmacro %}
 

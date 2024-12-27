@@ -195,33 +195,29 @@ export default async function(eleventyConfig) {
     let data;
     let albums;
     try {
-      if (process.env.OFFLINE) {
-        albums = JSON.parse(fs.readFileSync('./_offline/aws/' + dir + '.json'));
-      } else {
-        data = await client.send(command);
-        albums = data.Contents.map(a => a.Key.replace(albumsParams.Prefix, '').replace(albumsParams.Delimiter, ''));
-      };
-      // fs.writeFileSync('./aws-' + dir + '.json', JSON.stringify(albums, null, 1) , 'utf-8');
+      data = await client.send(command);
+      albums = data.Contents.map(a => a.Key.replace(albumsParams.Prefix, '').replace(albumsParams.Delimiter, ''));
+      
     } catch (error) {
       return 'AWS failure'
     } finally {
-      // console.log(albums)
       return albums;
     }
   });
   
   eleventyConfig.addAsyncFilter('imageInfo', async function(src) {
-      const path = src.replace(process.env.KXCDN, '_offline/thumbs').replace('.jpg', '.webp').replace('.png', '.webp');
-      const width = sizeOf(path).width;
-      const height = sizeOf(path).height;
-      async function getColor() {
-        return getAverageColor(path).then(color => {
-            return color.hex;
-        });
-      };
-      const color = await getColor();
-      const obj = {path: path, height: height, width: width, ratio: width/height, color: color};
-      return obj;
+    const path = src.replace(process.env.KXCDN, '_offline/thumbs').replace('.jpg', '.webp').replace('.png', '.webp');
+    const width = sizeOf(path).width;
+    const height = sizeOf(path).height;
+    let orientation = (width == height) ? 'square' : (( width > height ) ? 'landscape' : 'portrait');
+    async function getColor() {
+      return getAverageColor(path).then(color => {
+          return color.hex;
+      });
+    };
+    const color = await getColor();
+    const obj = {path: path, height: height, width: width, ratio: width/height, orientation: orientation, color: color};
+    return obj;
   });
   
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
