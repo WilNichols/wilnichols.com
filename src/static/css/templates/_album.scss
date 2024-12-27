@@ -69,7 +69,7 @@ body:has(> .page--album) {
   }
   picture {
     display: block;
-    aspect-ratio: var(--ratio);
+    position: relative;
     background-color: var(--color);
     $intrinsicWidth: calc(100dvw - var(--col)); 
     $maxHeight: calc(100dvh - var(--col)); 
@@ -82,5 +82,21 @@ body:has(> .page--album) {
     width: 100%;
     height: 100%;
     overflow: hidden;
+    z-index: 10;
+    & + .blurUp {
+      z-index: 100;
+      position: absolute;
+      inset: 0;
+      will-change: backdrop-filter;
+      backdrop-filter: blur(20px) saturate(1.3);
+      transition: backdrop-filter 1s ease-out;
+    }
+    &.imgLoaded {
+      opacity: 1;
+    }
+    &.imgLoaded + .blurUp {
+      backdrop-filter: blur(0) saturate(1);
+    } 
   } 
+  
 }

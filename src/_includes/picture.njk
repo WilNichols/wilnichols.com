@@ -15,17 +15,17 @@
         (min-width: 1201px) 1800px
       "
       srcset="
-        {{ src }}?width=640px&format=webp, 
-        {{ src }}?width=960px&format=webp 960w, 
-        {{ src }}?width=1200px&format=webp 1200w, 
-        {{ src }}?width=1800px&format=webp 1800w
+        {{ src }}?width=2400px&format=webp, 
+        {{ src }}?width=1100px&format=webp 960w, 
+        {{ src }}?width=1400px&format=webp 1200w, 
+        {{ src }}?width=2000px&format=webp 1800w
       "
     >
     <img 
-      class=""
-      src="{{ src }}?width=6&format=webp" 
-      width="{{ imageProps.width * 1000 }}" 
-      height="{{ imageProps.height * 1000 }}"
+      class="progressiveImg"
+      src="{{ src }}?width=1400&format=webp" 
+      width="{{ imageProps.width }}" 
+      height="{{ imageProps.height }}"
       alt="{% if title %}{{ title }}{% else %}{{ fileName }}{% endif %}"
       loading="{{ loading }}"
     />
