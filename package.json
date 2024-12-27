@@ -17,6 +17,7 @@
     "watch:sass": "sass --watch --poll src/static/css:_tmp",
     "build:sass": "sass src/static/css:_tmp",
     "watch:postcss": "postcss _tmp/*.css -d _site/assets/css/ -w --verbose -u postcss-combine-duplicated-selectors cssnano",
+    "watch:morepostcss": "postcss _tmp/**/*.css -d _site/assets/css/ -w --verbose -u postcss-combine-duplicated-selectors cssnano",
     "build:postcss": "postcss _tmp/*.css -d _site/assets/css/ -u postcss-import autoprefixer postcss-combine-duplicated-selectors cssnano",
     "build:morepostcss": "postcss _tmp/**/*.css -d _site/assets/css/ -u postcss-import autoprefixer postcss-combine-duplicated-selectors cssnano",
     "build:eleventy": "eleventy",
