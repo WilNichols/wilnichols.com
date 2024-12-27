@@ -14,10 +14,9 @@
     "build": "ELEVENTY_ENV=prod npm-run-all build:sass build:eleventy build:morepostcss build:postcss && rm -rf _tmp && npm run build:minify",
     "mv-deps": "cp -R node_modules/@fancyapps/ui/dist/fancybox/ src/static/js/fancybox",
     "watch:eleventy": "eleventy --serve",
-    "watch:sass": "sass --watch src/static/css:_tmp",
+    "watch:sass": "sass --watch --poll src/static/css:_tmp",
     "build:sass": "sass src/static/css:_tmp",
     "watch:postcss": "postcss _tmp/*.css -d _site/assets/css/ -w --verbose -u postcss-combine-duplicated-selectors cssnano",
-    "watch:morepostcss": "postcss _tmp/**/*.css -d _site/assets/css/ -w --verbose -u postcss-combine-duplicated-selectors cssnano",
     "build:postcss": "postcss _tmp/*.css -d _site/assets/css/ -u postcss-import autoprefixer postcss-combine-duplicated-selectors cssnano",
     "build:morepostcss": "postcss _tmp/**/*.css -d _site/assets/css/ -u postcss-import autoprefixer postcss-combine-duplicated-selectors cssnano",
     "build:eleventy": "eleventy",
@@ -31,7 +30,6 @@
     "markdown-it-anchor": "^9.2.0",
     "markdown-it-attrs": "^4.2.0",
     "markdown-it-footnote": "^4.0.0",
-    "sass": "^1.70.0",
     "title-case": "^4.3.1"
   },
   "dependencies": {
@@ -52,6 +50,7 @@
     "postcss-cli": "^11.0.0",
     "postcss-combine-duplicated-selectors": "^10.0.3",
     "postcss-import": "^16.0.0",
+    "sass": "^1.83.0",
     "stylelint": "^16.2.0",
     "stylelint-config-idiomatic-order": "^10.0.0",
     "stylelint-config-sass-guidelines": "^12.1.0",
