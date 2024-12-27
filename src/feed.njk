@@ -4,7 +4,7 @@ title: "Feed"
 permalink: "feed.xml"
 layout: null
 eleventyImport:
-  collections: "all"
+  collections: "notes"
 ---
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xml:base="{{ meta.url }}" xmlns:atom="http://www.w3.org/2005/Atom">
@@ -14,7 +14,7 @@ eleventyImport:
     <atom:link href="{{ permalink | htmlBaseUrl(meta.url) }}" rel="self" type="application/rss+xml" />
     <description>{{ meta.description }}</description>
     <language>{{ meta.lang }}</language>
-    {%- for note in collections.all | reverse %}
+    {%- for note in collections.Notes | reverse %}
       {% if note.url %}
         {%- set absoluteNoteUrl %}{{ note.url | htmlBaseUrl(meta.url) }}{% endset %}
         <item>
@@ -25,9 +25,9 @@ eleventyImport:
           <guid>{{ absoluteNoteUrl }}</guid>
           {% if note.data.summary -%}
             <description>{{ note.data.summary }}</description>
-            <content:encoded><![CDATA[{% if note.data.preview %}<img src="{{ [note.data.preview.meta] | join }}"  />{% endif %}{{ note.templateContent | htmlToAbsoluteUrls(absoluteNoteUrl) | safe }}]]></content:encoded>
+            <content:encoded><![CDATA[{% if note.data.preview %}<img src="{{ [note.data.preview.meta] | join }}"  />{% endif %}{{ note.content | renderTransforms(note.data.page, meta.url) | safe }}]]></content:encoded>
           {%- else -%}
-            <description><![CDATA[{% if note.data.preview %}<img src="{{ [note.data.preview.meta] | join }}"  />{% endif %}{{ note.templateContent | htmlToAbsoluteUrls(absoluteNoteUrl) | safe }}]]></description>
+            <description><![CDATA[{% if note.data.preview %}<img src="{{ [note.data.preview.meta] | join }}"  />{% endif %}{{ note.content | renderTransforms(note.data.page, meta.url) | safe }}]]></description>
           {%- endif %}
         </item>
       {% endif %}
