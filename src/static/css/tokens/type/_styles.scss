@@ -75,20 +75,26 @@ $body-gap: 1em;
     &:not(:last-child) {
       margin: 0 0 $body-gap 0;
     }
+    %line {
+      content: '';
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 2px;
+      background-color: var(--contentTertiaryColor);
+    }
     p {
       padding: 0 $margin;
       position: relative;
       // last-child should be the <cite>, please
       &:not(:last-child)::before {
-        content: '';
-        position: absolute;
-        inset: 0 auto 0 0;
-        width: 2px;
-        background-color: var(--contentTertiaryColor);
+        @extend %line;
       }
       &:has(> cite) {
         margin: -1em 0 0 0;
       }
+    }
+    &.blockquote--no-cite p::before {
+      @extend %line;
     }
   }
 
