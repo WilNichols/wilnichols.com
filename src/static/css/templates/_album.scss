@@ -10,19 +10,19 @@ body:has(> .page--album) {
   flex-direction: column;
   align-items: center;
   gap: calc(var(--col) / 3);
-  scroll-snap-type: y mandatory;
+  // scroll-snap-type: y mandatory;
   -webkit-overflow-scrolling: touch;
   overflow-y: scroll;
   padding: var(--col);
   height: 100vh;
 }
 
-.page--album .page-header__title-container {
+.page--album .page-header__container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: var(--type-0);
   justify-content: center;
-  scroll-snap-align: start;
+  // scroll-snap-align: start;
   // necessary for preserving padding with scroll snapping
   border-top: var(--col) solid transparent;
 }
@@ -31,18 +31,6 @@ body:has(> .page--album) {
 .page--album .album-intro {
   width: 100%;
   max-width: tokens.$width;
-}
-
-.page--album .album-info__list {
-  display: flex;
-  column-gap: 2ex;
-  font-size: var(--type--2);
-  flex-wrap: wrap;
-}
-
-.album-info__entry {
-  display: flex;
-  gap: 5px;
 }
 
 .album-info__entry__key {
@@ -65,7 +53,7 @@ body:has(> .page--album) {
   & {
     display: flex;
     place-content: center;
-    scroll-snap-align: center; 
+    // scroll-snap-align: center; 
   }
   picture {
     display: block;

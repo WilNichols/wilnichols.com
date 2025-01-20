@@ -1,18 +1,25 @@
-{% macro AlbumInfo() %}
+{% macro AlbumInfo() -%}
   <div class="album-info">
     <ul class="album-info__list">
       <li class="album-info__entry album-info__entry--date"><span class="album-info__entry__key">Published</span><span class="album-info__entry__value">{{ date | readableDateISO }}</span></li>
+      {% set tagName = "" %}
       {% for tag in tags -%}
         {% if (not "AlbumGroup" in tag) and (not "Albums" in tag) %}
           {% set parsedTag = tag.split('/') %}
-          {% set tagName = parsedTag[0] %}
-          {% set tagValue = parsedTag[1] %}
-          <li class="album-info__entry album-info__entry--{{ tagName }}"><span class="album-info__entry__key">{{ tagName }}</span><span class="album-info__entry__value">{{ tagValue }}</span></li>
+          {% set thisTagName = parsedTag[0] %}
+          {% set thisTagValue = parsedTag[1] %}
+          {% if (loop.index > 1) and (tagName != thisTagName) %}</li>{% endif %}
+          {% if tagName != thisTagName -%}
+            <li class="album-info__entry album-info__entry--{{ thisTagName }}"><span class="album-info__entry__key">{{ thisTagName }}</span><span class="album-info__entry__value">{{ thisTagValue }}</span>
+          {%- elif tagName == thisTagName -%}
+            <span class="album-info__entry__value">{{ thisTagValue }}</span>
+          {% endif %}
         {% endif %}
+        {% set tagName = thisTagName %}
       {%- endfor %}
     </ul>
   </div>
-{% endmacro %}
+{%- endmacro %}
 
 {% macro EditorialInfo(backlinks) %}
   {% set title %}{{ altTitle if altTitle }}{{ page.fileSlug if not altTitle }}{% endset %}

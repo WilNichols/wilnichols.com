@@ -8,11 +8,15 @@ eleventyImport:
 {%- from 'page-info.njk' import AlbumInfo with context -%}
 
 <div class="page page--album">
-  <header class="page-header__title-container">
-    {{ PageTitle(el="div") }}
-    {{ AlbumInfo() }}
-    <div class="album-intro">
-      {{ content | safe }}
+  <header class="page-header__container">
+    <aside class="page-header__aside">
+      {{ AlbumInfo() }}
+    </aside>
+    <div class="page-header__title-container">
+      {{ PageTitle(el="div") }}
+      <div class="album-intro">
+        {{ content | safe }}
+      </div>
     </div>
   </header>
   {% set photos = key | getPhotos %}

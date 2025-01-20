@@ -1,6 +1,7 @@
 @use '../tokens';
 
-.page-info {
+.page-info,
+.album-info {
   & {
     display: grid;
     grid-template-rows: subgrid;
@@ -13,7 +14,8 @@
   }
 }
 
-.page-info__list {
+.page-info__list,
+.album-info__list {
   & {
     display: grid;
     column-gap: 5px;
@@ -42,7 +44,8 @@
       text-underline-offset: unset;
     }
   }
-  .page-info__entry__key {
+  .page-info__entry__key,
+  .album-info__entry__key {
     & {
       text-align: right;
       color: var(--contentSecondaryColor);
@@ -66,7 +69,8 @@
   }
 }
 
-.page-info__entry {
+.page-info__entry,
+.album-info__entry {
   & {
     display: grid;
     grid-column: 1 / -1;
@@ -89,6 +93,22 @@
       .page-info__entry__value li:not(:last-child)::after {
         content: ','
       }
+    }
+  }
+}
+
+.album-info__entry {
+  & {
+    display: inline-grid;
+  }
+}
+.album-info__entry__value {
+  & {
+    grid-column: 2 / 3;
+  }
+  &:has(+ &) {
+    &::after {
+      content: ', ';
     }
   }
 }
