@@ -7,7 +7,7 @@ tags:
   - Hackathon
   - Location/Breckenridge
   - Location/Colorado
-  - Period/Student
+  - Period/Undergraduate
   - AlbumGroup/The-U.S.
 date: 2017-12-02T00:00
 ---

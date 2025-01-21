@@ -7,7 +7,7 @@ tags:
   - Camera/X-T1
   - Location/Austin
   - Location/Texas
-  - Period/Student
+  - Period/Undergraduate
   - AlbumGroup/Austin
 date: 2015-06-23T00:00
 ---

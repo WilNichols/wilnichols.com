@@ -6,7 +6,7 @@ tags:
   - Camera/X-T1
   - Location/Terlinguia
   - Location/Texas
-  - Period/Pre-COVID
+  - Period/Pre-COVIDVID
   - AlbumGroup/The-U.S.
 date: 2019-12-29T00:00
 ---

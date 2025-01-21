@@ -14,17 +14,21 @@
   }
 }
 
+%page-info__grid {
+  display: grid;
+  column-gap: 10px; // it's like two spaces
+  // set font size here despite never using as font-size to avoid extensive calc statements, and instead  em
+  font-size: var(--type-0);
+  padding: .375em 0; // aligns the first baseline
+  row-gap: .5em;
+  grid-template-columns: min-content auto;
+  grid-auto-rows: min-content;
+}
+
 .page-info__list,
 .album-info__list {
   & {
-    display: grid;
-    column-gap: 5px;
-    // set font size here despite never using as font-size to avoid extensive calc statements, and instead  em
-    font-size: var(--type-0);
-    padding: .375em 0;
-    row-gap: .5em;
-    grid-template-columns: min-content auto;
-    grid-auto-rows: min-content;
+    @extend %page-info__grid;
     position: sticky;
     // top: calc(2 * 2.4em + var(--type-5));
   }
@@ -34,26 +38,11 @@
     flex-wrap: wrap;
     gap: .25rem;
   }
-  > * {
-    & {
-      margin: 0;
-      font-size: var(--type--2);
-    }
-    a {
-      text-decoration-thickness: unset;
-      text-underline-offset: unset;
-    }
-  }
   .page-info__entry__key,
   .album-info__entry__key {
     & {
       text-align: right;
       color: var(--contentSecondaryColor);
-    }
-    @media (width <= tokens.$breakpoint) { 
-      &::after {
-        content: ': '
-      }
     }
   }
   .page-info__entry__value {
@@ -69,16 +58,34 @@
   }
 }
 
+%page-info__entry-style {
+  padding: 0;
+  margin: 0;
+  font-size: var(--type--2);
+  line-height: var(--type-0);
+  min-height: var(--type-0);
+  overflow: hidden;
+  a {
+    text-decoration-thickness: unset;
+    text-underline-offset: unset;
+  }
+}
+
+.page-info__entry--back-link {
+  @extend %page-info__grid;
+  @extend %page-info__entry-style;
+  text-decoration-color: var(--linkColor) !important;
+  color: var(--linkColor) !important;
+  align-self: end;
+  padding: .375em 0; // aligns baseline with page title
+}
 .page-info__entry,
 .album-info__entry {
   & {
+    grid-template-columns: subgrid;
     display: grid;
     grid-column: 1 / -1;
-    padding: 0;
-    line-height: var(--type-0);
-    min-height: var(--type-0);
-    grid-template-columns: subgrid;
-    overflow: hidden;
+    @extend %page-info__entry-style;
   }
   @media (width <= tokens.$breakpoint) {
     & { 

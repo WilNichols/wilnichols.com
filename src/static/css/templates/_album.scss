@@ -18,23 +18,78 @@ body:has(> .page--album) {
 }
 
 .page--album .page-header__container {
-  display: flex;
-  flex-direction: row;
-  gap: var(--type-0);
-  justify-content: center;
+  & {
+    display: grid;
+    border-top: var(--col) solid transparent;
+    grid-template-columns: auto minmax(auto, tokens.$width);
+    grid-template-rows: auto;
+    justify-content: center;
+    column-gap: 2.4em;
+    row-gap: 1.2em;
+    width: auto;
+  }
+  @media (width <= tokens.$breakpoint) { 
+    grid-template-columns: 100%;
+  }
   // scroll-snap-align: start;
   // necessary for preserving padding with scroll snapping
-  border-top: var(--col) solid transparent;
 }
 
-.page--album .page-header__title-container, 
-.page--album .album-intro {
-  width: 100%;
-  max-width: tokens.$width;
+.page--note, .page--pen {
+  & {
+    grid-template-columns: auto minmax(auto, tokens.$width);
+    grid-template-rows: auto;
+    justify-content: center;
+  }
+  @media (width <= tokens.$breakpoint) { 
+    grid-template-columns: 100%;
+  }
+}
+
+.page--album {
+  .back-to-index {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+  }
+  .album-info {
+    & {
+      grid-column: 1 / 2;
+      grid-row: 1 / 3;
+    }
+    @media (width <= tokens.$breakpoint) { 
+      grid-column: 1 / -1;
+      grid-row: 2 / 3;
+    }
+  }
+  .page-header__title {
+    & {
+      grid-column: 2 / 3;
+      grid-row: 1 / 2;
+    }
+    @media (width <= tokens.$breakpoint) { 
+      grid-column: 1 / -1;
+    }
+  }
+  .album-intro {
+    & {
+      grid-column: 2 / 3;
+      grid-row: 2 / 3;
+      // allows for outside li decoration
+      overflow: visible;
+    }
+    @media (width <= tokens.$breakpoint) { 
+      grid-column: 1 / -1;
+      grid-row: 3 / 4;
+    }
+  }
 }
 
 .album-info__entry__key {
   color: var(--contentSecondaryColor);
+  svg path {
+    fill: currentcolor;
+  }
+    
 }
 
 .album-info__entry__value {

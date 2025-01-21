@@ -9,7 +9,7 @@ tags:
   - Camera/X-T1
   - Location/Austin
   - Location/Texas
-  - Period/Student
+  - Period/Undergraduate
   - AlbumGroup/WomensMarch
 date: 2017-01-22T00:00
 ---

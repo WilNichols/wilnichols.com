@@ -5,7 +5,7 @@ thumbnail: DSCF6219.jpg
 tags:
   - Camera/X-T1
   - Location/Colorado
-  - Period/Student
+  - Period/Undergraduate
   - AlbumGroup/The-U.S.
 date: 2017-03-13T00:00
 ---

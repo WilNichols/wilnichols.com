@@ -8,7 +8,7 @@ tags:
   - Location/Austin
   - Location/Texas
   - Musician/San-Fermin
-  - Period/Student
+  - Period/Undergraduate
   - AlbumGroup/San-Fermin
 date: 2017-05-03T00:00
 ---

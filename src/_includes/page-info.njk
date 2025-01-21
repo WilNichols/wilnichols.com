@@ -1,24 +1,32 @@
-{% macro AlbumInfo() -%}
-  <div class="album-info">
+{% macro AlbumInfo(el="div") -%}
+  <{{ el }} class="album-info">
+    <a href="../" class="page-info__entry--back-link"><span class="page-info__entry__key">{% include "../static/img/back--12.svg" %}</span><span class="page-info__entry__value">Back</span></a>
     <ul class="album-info__list">
-      <li class="album-info__entry album-info__entry--date"><span class="album-info__entry__key">Published</span><span class="album-info__entry__value">{{ date | readableDateISO }}</span></li>
-      {% set tagName = "" %}
-      {% for tag in tags -%}
-        {% if (not "AlbumGroup" in tag) and (not "Albums" in tag) %}
-          {% set parsedTag = tag.split('/') %}
-          {% set thisTagName = parsedTag[0] %}
-          {% set thisTagValue = parsedTag[1] %}
-          {% if (loop.index > 1) and (tagName != thisTagName) %}</li>{% endif %}
-          {% if tagName != thisTagName -%}
-            <li class="album-info__entry album-info__entry--{{ thisTagName }}"><span class="album-info__entry__key">{{ thisTagName }}</span><span class="album-info__entry__value">{{ thisTagValue }}</span>
-          {%- elif tagName == thisTagName -%}
-            <span class="album-info__entry__value">{{ thisTagValue }}</span>
-          {% endif %}
-        {% endif %}
-        {% set tagName = thisTagName %}
-      {%- endfor %}
+      <li class="album-info__entry album-info__entry--date"><span class="album-info__entry__key">{% include "../static/img/published--12.svg" %}</span><span class="album-info__entry__value">{{ date | readableDateISO }}</span></li>
+      {%- set tagName = "" -%}
+      {%- for tag in tags -%}
+        {%- if (not "AlbumGroup" in tag) and (not "Albums" in tag) -%}
+          {%- set parsedTag = tag.split('/') -%}
+          {%- set thisTagName = parsedTag[0] -%}
+          {%- set thisTagIcon -%}
+            {% if thisTagName == "Group" %}{% include "../static/img/group--12.svg" %}
+            {% elif thisTagName == "Camera" %}{% include "../static/img/camera--12.svg" %}
+            {% elif thisTagName == "Location" %}{% include "../static/img/location--12.svg" %}
+            {% elif thisTagName == "Period" %}{% include "../static/img/period--12.svg" %}
+            {% endif %}
+          {%- endset -%}
+          {%- set thisTagValue = parsedTag[1] -%}
+          {%- if ((loop.index > 2) and (tagName != thisTagName)) -%}</span></li>{%- endif -%}
+          {%- if tagName != thisTagName -%}
+            <li class="album-info__entry album-info__entry--{{ thisTagName }}">
+              <span class="album-info__entry__key">{{- thisTagIcon | safe -}}</span>
+              <span class="album-info__entry__value">{{- thisTagValue -}}{%- elif tagName == thisTagName -%}, {{ thisTagValue -}}{% endif %}
+        {%- endif -%}
+        {%- set tagName = thisTagName -%}
+        {%- if loop.last -%}</span></li>{%- endif -%}
+      {%- endfor -%}
     </ul>
-  </div>
+  </{{ el }}>
 {%- endmacro %}
 
 {% macro EditorialInfo(backlinks) %}

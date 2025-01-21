@@ -9,14 +9,10 @@ eleventyImport:
 
 <div class="page page--album">
   <header class="page-header__container">
-    <aside class="page-header__aside">
-      {{ AlbumInfo() }}
-    </aside>
-    <div class="page-header__title-container">
-      {{ PageTitle(el="div") }}
-      <div class="album-intro">
-        {{ content | safe }}
-      </div>
+    {{ AlbumInfo(el="aside") }}
+    {{ PageTitle(el="div") }}
+    <div class="album-intro">
+      {{ content | safe }}
     </div>
   </header>
   {% set photos = key | getPhotos %}

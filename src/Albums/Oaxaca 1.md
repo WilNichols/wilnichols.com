@@ -7,7 +7,7 @@ tags:
   - Camera/X-T2
   - Location/Oaxaca
   - Location/Mexico
-  - Period/pre-COVID
+  - Period/Pre-COVIDVID
   - AlbumGroup/Oaxaca
 date: 2020-03-07T00:00
 ---

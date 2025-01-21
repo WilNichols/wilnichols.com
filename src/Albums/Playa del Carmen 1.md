@@ -8,7 +8,7 @@ tags:
   - Location/Playa-del-Carman
   - Location/Mexico
   - Hackathon
-  - Period/pre-COVID
+  - Period/Pre-COVIDVID
   - AlbumGroup/Playa
 date: 2019-12-08T00:00
 ---

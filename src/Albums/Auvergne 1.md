@@ -8,7 +8,7 @@ tags:
   - Location/Auzon
   - Location/Auvergne
   - Location/France
-  - Period/Student
+  - Period/Undergraduate
   - AlbumGroup/Auvergne
 date: 2014-12-18T00:00
 ---
