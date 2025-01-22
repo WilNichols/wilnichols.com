@@ -4,31 +4,33 @@ title: "Feed"
 permalink: "feed.xml"
 layout: null
 eleventyImport:
-  collections: "all"
+  collections: "notes"
 ---
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xml:base="{{ meta.url }}" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>{{ meta.title.base }}{{ meta.title.separator }}{{ title }}</title>
     <link>{{ meta.url }}</link>
-    <atom:link href="{{ permalink | absoluteUrl(meta.url) }}" rel="self" type="application/rss+xml" />
+    <atom:link href="{{ permalink | htmlBaseUrl(meta.url) }}" rel="self" type="application/rss+xml" />
     <description>{{ meta.description }}</description>
     <language>{{ meta.lang }}</language>
-    {%- for note in collections.all | reverse %}
-    {%- set absoluteNoteUrl = note.url | absoluteUrl(meta.url) %}
-    <item>
-      <title>{{ note.data.title }}</title>
-      <link>{{ absoluteNoteUrl }}</link>
-      <pubDate>{{ note.date | dateToRfc822 }}</pubDate>
-      <dc:creator>{{ meta.name }}</dc:creator>
-      <guid>{{ absoluteNoteUrl }}</guid>
-      {% if note.data.summary -%}
-        <description>{{ note.data.summary }}</description>
-        <content:encoded><![CDATA[{% if note.data.preview %}<img src="{{ [note.data.preview.meta] | join }}"  />{% endif %}{{ note.templateContent | htmlToAbsoluteUrls(absoluteNoteUrl) | safe }}]]></content:encoded>
-      {%- else -%}
-        <description><![CDATA[{% if note.data.preview %}<img src="{{ [note.data.preview.meta] | join }}"  />{% endif %}{{ note.templateContent | htmlToAbsoluteUrls(absoluteNoteUrl) | safe }}]]></description>
-      {%- endif %}
-    </item>
+    {%- for note in collections.Notes | reverse %}
+      {% if note.url %}
+        {%- set absoluteNoteUrl %}{{ note.url | htmlBaseUrl(meta.url) }}{% endset %}
+        <item>
+          <title>{{ note.data.title }}</title>
+          <link>{{ absoluteNoteUrl }}</link>
+          <pubDate>{{ note.date | dateToRfc822 }}</pubDate>
+          <dc:creator>{{ meta.name }}</dc:creator>
+          <guid>{{ absoluteNoteUrl }}</guid>
+          {% if note.data.summary -%}
+            <description>{{ note.data.summary }}</description>
+            <content:encoded><![CDATA[{% if note.data.preview %}<img src="{{ [note.data.preview.meta] | join }}"  />{% endif %}{{ note.content | renderTransforms(note.data.page, meta.url) | safe }}]]></content:encoded>
+          {%- else -%}
+            <description><![CDATA[{% if note.data.preview %}<img src="{{ [note.data.preview.meta] | join }}"  />{% endif %}{{ note.content | renderTransforms(note.data.page, meta.url) | safe }}]]></description>
+          {%- endif %}
+        </item>
+      {% endif %}
     {%- endfor %}
   </channel>
 </rss>

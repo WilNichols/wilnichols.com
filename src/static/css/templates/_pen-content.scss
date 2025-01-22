@@ -51,10 +51,13 @@ $default-tab: "[data-tab-index='tab-1']";
 
 .pen__demo {
   $r: 4px;
-  border-radius: $r;
-  position: relative;
-  aspect-ratio: 16/9;
-  overflow: clip;
+  & {
+    border-radius: $r;
+    position: relative;
+    aspect-ratio: 16/9;
+    overflow: clip;
+    margin: 0 auto 1em;
+  }
   &::before {
     content: '';
     position: absolute;
@@ -74,13 +77,16 @@ $default-tab: "[data-tab-index='tab-1']";
   
 .pen-tabs-container {
   $r: 4px;
-  border-radius: $r;
-  display: grid;
-  row-gap: var(--px);
-  background-clip: border-box;  
-  position: relative;
-  background-color: var(--materialSecondaryColor);
-  overflow: hidden;
+  & {
+    border-radius: $r;
+    display: grid;
+    row-gap: var(--px);
+    background-clip: border-box;  
+    position: relative;
+    background-color: var(--materialSecondaryColor);
+    overflow: hidden;
+    margin: 1em auto 0;
+  }
   &::before {
     content: '';
     position: absolute;
@@ -105,8 +111,10 @@ $default-tab: "[data-tab-index='tab-1']";
 }
 
 .pen-tabs__tab {
-  font-size: 10pt;
-  padding: 0 8px;
+  & {
+    font-size: 10pt;
+    padding: 0 8px;
+  }
   a {
     text-decoration: none;
     @extend %font--display-medium;
@@ -114,8 +122,10 @@ $default-tab: "[data-tab-index='tab-1']";
 }
 
 .pen-tabs__panes__content {
-  overflow: hidden;
-  max-width: tokens.$width;
+  & {
+    overflow: hidden;
+    max-width: tokens.$width;
+  }
   pre, code {
     max-width: tokens.$width;
   }

@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import { DateTime } from 'luxon';
-import { EleventyRenderPlugin } from '@11ty/eleventy';
+import { EleventyRenderPlugin, EleventyHtmlBasePlugin } from '@11ty/eleventy';
 import markdownIt from 'markdown-it';
 import markdownItAnchor from 'markdown-it-anchor';
 import markdownItAttrs from 'markdown-it-attrs';
@@ -10,10 +10,12 @@ import fs from 'fs';
 import { getAverageColor } from 'fast-average-color-node';
 import { S3Client, ListObjectsV2Command } from '@aws-sdk/client-s3';
 import sizeOf from 'image-size';
+import slugify from "@sindresorhus/slugify";
 import pluginRss from '@11ty/eleventy-plugin-rss';
 import beautify from 'js-beautify';
 import syntaxHighlight from '@11ty/eleventy-plugin-syntaxhighlight';
 import { JSDOM } from 'jsdom';
+
 
 dotenv.config();
 
@@ -39,7 +41,7 @@ export default async function(eleventyConfig) {
             const parts = match.raw.slice(2,-2).split("|");
             parts[0] = parts[0].replace(/.(md|markdown)\s?$/i, "");
             match.text = (parts[1] || parts[0]).trim();
-            match.url = `/${parts[0].trim().replace(/\s/g, "-").toLowerCase()}/`;
+            match.url = `/` + slugify(`${parts[0].trim().replace(/\s/g, "-")}/`).replace('-s', 's') + `/`;
         }
     });
       // remove the hr
@@ -103,9 +105,9 @@ export default async function(eleventyConfig) {
   });
   
   // https://stackoverflow.com/questions/66083103/how-to-generate-a-list-of-all-collections-in-11ty
-  eleventyConfig.addCollection("tagsList", function(collectionApi) {
+  eleventyConfig.addCollection("tagsList", function(collectionsApi) {
       const tagsList = new Set();
-      collectionApi.getAll().map( item => {
+      collectionsApi.getAll().map( item => {
           if (item.data.tags) { // handle pages that don't have tags
               item.data.tags.map( tag => tagsList.add(tag))
           }
@@ -194,13 +196,9 @@ export default async function(eleventyConfig) {
     let data;
     let albums;
     try {
-      if (process.env.OFFLINE) {
-        albums = JSON.parse(fs.readFileSync('./_offline/aws/' + dir + '.json'));
-      } else {
-        data = await client.send(command);
-        albums = data.Contents.map(a => a.Key.replace(albumsParams.Prefix, '').replace(albumsParams.Delimiter, ''));
-      };
-      // fs.writeFileSync('./aws-' + dir + '.json', JSON.stringify(albums, null, 1) , 'utf-8');
+      data = await client.send(command);
+      albums = data.Contents.map(a => a.Key.replace(albumsParams.Prefix, '').replace(albumsParams.Delimiter, ''));
+      
     } catch (error) {
       return 'AWS failure'
     } finally {
@@ -212,13 +210,15 @@ export default async function(eleventyConfig) {
     const path = src.replace(process.env.KXCDN, '_offline/thumbs').replace('.jpg', '.webp').replace('.png', '.webp');
     const width = sizeOf(path).width;
     const height = sizeOf(path).height;
+    let orientation = (width == height) ? 'square' : (( width > height ) ? 'landscape' : 'portrait');
     async function getColor() {
       return getAverageColor(path).then(color => {
           return color.hex;
       });
     };
     const color = await getColor();
-    return {path: path, height: height, width: width, ratio: width/height, color: color};
+    const obj = {path: path, height: height, width: width, ratio: width/height, orientation: orientation, color: color};
+    return obj;
   });
   
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -263,6 +263,7 @@ export default async function(eleventyConfig) {
   // Plugins
   eleventyConfig.addPlugin(pluginRss);
   eleventyConfig.addPlugin(syntaxHighlight);
+  eleventyConfig.addPlugin(EleventyHtmlBasePlugin);
 
   // WatchTargets
   eleventyConfig.addWatchTarget("src/static/css/");

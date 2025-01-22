@@ -4,8 +4,10 @@
 @include tokens.textStyles;
 
 .navigation {
-  position: sticky;
-  top: var(--col);
+  & {
+    position: sticky;
+    top: var(--col);
+  }
   @media (width <= tokens.$breakpoint) {
     position: static;
     &::before, &::after {
@@ -31,23 +33,27 @@
 }
 
 .navigation__items {
-  display: flex;
-  // flex-direction: column;
-  gap: 1.2em;
-  align-items: flex-end;
-  @media (width <= tokens.$breakpoint) {
-    flex-direction: row;
-    // justify-content: space-between;
-    position: relative;
-    $inset: calc(-1 * var(--col));
-    inset: $inset $inset auto $inset;
+  & {
+    display: flex;
+    // flex-direction: column;
     gap: 1.2em;
-    width: 100dvw;
-    // fix for scrollbar overlap. 
-    $offset: 24px;
-    padding: var(--col) var(--col) $offset var(--col);
-    margin-bottom: -$offset;
-    overflow: auto;
+    align-items: flex-end;
+  }
+  @media (width <= tokens.$breakpoint) {
+    & {
+      flex-direction: row;
+      // justify-content: space-between;
+      position: relative;
+      $inset: calc(-1 * var(--col));
+      inset: $inset $inset auto $inset;
+      gap: 1.2em;
+      width: 100dvw;
+      // fix for scrollbar overlap. 
+      $offset: 24px;
+      padding: var(--col) var(--col) $offset var(--col);
+      margin-bottom: -$offset;
+      overflow: auto;
+    }
     &::-webkit-scrollbar { 
       display: none;
     }
@@ -61,10 +67,12 @@
 }
 
 .navigation__link {
-  font-size: var(--type--1);
-  text-decoration: none;
-  position: relative;
-  @extend %underline;
+  & {
+    font-size: var(--type--1);
+    text-decoration: none;
+    position: relative;
+    @extend %underline;
+  }
   &:not(.navigation__link--current):hover::after {
     transform: translateY(2px);
   }

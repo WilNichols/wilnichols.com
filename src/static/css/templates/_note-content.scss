@@ -1,6 +1,8 @@
 .page-header__title {
-  display: inline-flex;
-  flex-direction: column;
+  & {
+    display: inline-flex;
+    flex-direction: column;
+  }
   h1 {
     margin: 0;
   }
@@ -16,7 +18,9 @@
 
 .note__body ul, .note__body ol:not(.footnotes-list) {
   li {
-    width: 100%;
+    & {
+      width: 100%;
+    }
     &:not(:last-child) { 
       margin: 0 auto 1em auto;
     }
@@ -35,7 +39,9 @@
 }
 
 .note__body > p, .pen__body > p {
-  line-height: 1.5em;
+  & {
+    line-height: 1.5em;
+  }
   &:not(:last-of-type) {
     margin: 0 auto 1em auto;
   }
