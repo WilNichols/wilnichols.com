@@ -4,7 +4,7 @@
     {% set updated %}{{ updated | readableDateISO }}{% endset %}
     <a href="../" class="page-info__entry--back-link"><span class="page-info__entry__key">{% include "../static/img/back--12.svg" %}</span><span class="page-info__entry__value">Back</span></a>
     <ul class="page-info__list">
-      <li class="page-info__entry page-info__entry--date"><span class="page-info__entry__key">{% include "../static/img/published--12.svg" %}</span><span class="page-info__entry__value">{{ date | readableDateISO }}</span></li>
+      <li class="page-info__entry page-info__entry--date"><span class="page-info__entry__key">{% include "../static/img/published--12.svg" %}</span><span class="page-info__entry__value">{{ date }}</span></li>
       {%- set tagName = "" -%}
       {%- for tag in tags -%}
         {%- if (not "AlbumGroup" in tag) and (not "Albums" in tag) -%}

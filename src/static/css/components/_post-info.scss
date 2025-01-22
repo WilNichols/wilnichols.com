@@ -1,5 +1,7 @@
 @use '../tokens';
 
+$tableGap: 10px;
+
 .page-info {
   & {
     display: grid;
@@ -15,53 +17,52 @@
 
 %page-info__grid {
   display: grid;
-  column-gap: 10px; // it's like two spaces
+  column-gap: $tableGap; // it's like two spaces
   // set font size here despite never using as font-size to avoid extensive calc statements, and instead  em
   font-size: var(--type-0);
   padding: .375em 0; // aligns the first baseline
   row-gap: .5em;
   grid-template-columns: min-content auto;
   grid-auto-rows: min-content;
+  @media (width <= tokens.$breakpoint) {
+    & { 
+      padding: 0;
+    }
+  }
 }
 
 .page-info__list {
   & {
     @extend %page-info__grid;
-    position: sticky;
-    // top: calc(2 * 2.4em + var(--type-5));
   }
   @media (width <= tokens.$breakpoint) { 
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: .25rem;
+    gap: 1rem;
   }
-  .page-info__entry__key {
-    & {
-      text-align: right;
-      color: var(--contentSecondaryColor);
-    }
-  }
-  .page-info__entry__value {
-    & {
-      text-align: left;
-    }
-    @media (width <= tokens.$breakpoint) { 
-      display: inline;
-      li {
-        display: inline;
-      }
-    }
+}
+
+.page-info__entry__key {
+  & {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: var(--type-0);
+    // width: var(--type-0);
+    color: var(--contentSecondaryColor);
   }
 }
 
 %page-info__entry-style {
-  padding: 0;
-  margin: 0;
-  font-size: var(--type--2);
-  line-height: var(--type-0);
-  min-height: var(--type-0);
-  overflow: hidden;
+  & {
+    padding: 0;
+    margin: 0;
+    font-size: var(--type--2);
+    line-height: var(--type-0);
+    min-height: var(--type-0);
+    overflow: hidden;
+  }
   a {
     text-decoration-thickness: unset;
     text-underline-offset: unset;
@@ -71,10 +72,13 @@
 .page-info__entry--back-link {
   @extend %page-info__grid;
   @extend %page-info__entry-style;
-  text-decoration-color: var(--linkColor) !important;
-  color: var(--linkColor) !important;
-  align-self: end;
-  padding: .375em 0; // aligns baseline with page title
+  & {
+    text-decoration-color: var(--linkColor) !important;
+    align-self: end;
+  }
+  & > * {
+    color: var(--linkColor) !important;
+  }
 }
 .page-info__entry {
   & {
@@ -85,17 +89,8 @@
   }
   @media (width <= tokens.$breakpoint) {
     & { 
-      display: inline;
-      padding: 0;
-    }
-    &:not(:last-child)::after {
-      content: ', '
-    }
-    &--tags {
-      display: inline;
-      .page-info__entry__value li:not(:last-child)::after {
-        content: ','
-      }
+      display: inline-flex;
+      gap: $tableGap;
     }
   }
 }
