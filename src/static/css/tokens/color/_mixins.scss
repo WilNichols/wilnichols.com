@@ -1,5 +1,7 @@
 @mixin light-dark($prop, $lightColor, $darkColor: $lightColor) {
-  #{$prop}: $lightColor;
+  & {
+    #{$prop}: $lightColor;
+  }
   @media (prefers-color-scheme: dark) {
     #{$prop}: $darkColor;
   }

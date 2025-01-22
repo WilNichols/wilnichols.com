@@ -1,0 +1,1863 @@
+:root {
+  --photoBackgroundMaterialColor: var(--c100);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --photoBackgroundMaterialColor: #000;
+  }
+}
+:root {
+  --materialPrimaryColor: var(--c100);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --materialPrimaryColor: var(--c0);
+  }
+}
+:root {
+  --materialPrimaryInvertedColor: var(--c0);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --materialPrimaryInvertedColor: var(--c100);
+  }
+}
+:root {
+  --materialPrimaryHoverColor: var(--cK95);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --materialPrimaryHoverColor: var(--cK5);
+  }
+}
+:root {
+  --materialSecondaryColor: var(--cK95a);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --materialSecondaryColor: var(--cK5d);
+  }
+}
+:root {
+  --materialSecondaryHoverColor: var(--cK90);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --materialSecondaryHoverColor: var(--cK10);
+  }
+}
+:root {
+  --contentPrimaryColor: var(--cK5);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --contentPrimaryColor: var(--c100);
+  }
+}
+:root {
+  --contentPrimaryInvertedColor: var(--c100);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --contentPrimaryInvertedColor: var(--cK5);
+  }
+}
+:root {
+  --contentSecondaryColor: var(--cK50);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --contentSecondaryColor: var(--cK60);
+  }
+}
+:root {
+  --contentTertiaryColor: var(--cK70);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --contentTertiaryColor: var(--cK40);
+  }
+}
+:root {
+  --linkColor: var(--cB30);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --linkColor: var(--cB50);
+  }
+}
+:root {
+  --linkVisitedColor: var(--cP30);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --linkVisitedColor: var(--cP50);
+  }
+}
+:root {
+  --linkUnderlineColor: var(--cK90a);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --linkUnderlineColor: var(--cK40d);
+  }
+}
+:root {
+  --tagBackgroundColor: var(--cK90);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --tagBackgroundColor: var(--cK20);
+  }
+}
+:root {
+  --tagBorderColor: var(--cK80);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --tagBorderColor: var(--cK30);
+  }
+}
+:root {
+  --tagContentColor: var(--cK30);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --tagContentColor: var(--cK90);
+  }
+}
+:root {
+  --evergreenBackgroundColor: var(--cG90);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --evergreenBackgroundColor: var(--cG20);
+  }
+}
+:root {
+  --evergreenBorderColor: var(--cG80);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --evergreenBorderColor: var(--cG30);
+  }
+}
+:root {
+  --evergreenContentColor: var(--cG30);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --evergreenContentColor: var(--cG90);
+  }
+}
+:root {
+  --evergreenVersionBackgroundColor: var(--cG40);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --evergreenVersionBackgroundColor: var(--cG50);
+  }
+}
+:root {
+  --evergreenVersionBorderColor: var(--cG30);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --evergreenVersionBorderColor: var(--cG60);
+  }
+}
+:root {
+  --evergreenVersionContentColor: var(--c100);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --evergreenVersionContentColor: var(--c0abs);
+  }
+}
+:root {
+  --edgeColor: var(--cK80a);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --edgeColor: var(--cK10d);
+  }
+}
+:root {
+  --shadowMultiplier: 1;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --shadowMultiplier: 2;
+  }
+}
+:root {
+  --c0: #131c29;
+  --c100: #ffffff;
+  --c0abs: #000000;
+  --cK99: #fcfdfe;
+  --cK95: #f5f7f9;
+  --cK90: #eaedf2;
+  --cK80: #dae0e7;
+  --cK70: #bcc5d0;
+  --cK60: #a4afbc;
+  --cK50: #8e9bab;
+  --cK40: #7e8ea0;
+  --cK30: #6c7b8e;
+  --cK20: #556577;
+  --cK10: #414f60;
+  --cK5: #2e3a4a;
+  --cK1: #1d2836;
+  --cR99: #fffcfc;
+  --cR95: #fef4f3;
+  --cR90: #ffe6e4;
+  --cR80: #fecec9;
+  --cR70: #f2a7a0;
+  --cR60: #f88a83;
+  --cR50: #f56360;
+  --cR40: #ed4045;
+  --cR30: #da2a37;
+  --cR20: #b90f27;
+  --cR10: #93081f;
+  --cR5: #6e0a18;
+  --cR1: #4c0a12;
+  --cO99: #fffdf7;
+  --cO95: #fff6e4;
+  --cO90: #ffe9d0;
+  --cO80: #fdd1b1;
+  --cO70: #f9a771;
+  --cO60: #fc8b51;
+  --cO50: #ee6e40;
+  --cO40: #e15c34;
+  --cO30: #cc4727;
+  --cO20: #ad2f22;
+  --cO10: #8d1a24;
+  --cO5: #71000a;
+  --cO1: #500007;
+  --cY99: #fefdf6;
+  --cY95: #fef8d6;
+  --cY90: #ffeea3;
+  --cY80: #fed83f;
+  --cY70: #ecbf12;
+  --cY60: #d6a713;
+  --cY50: #c49005;
+  --cY40: #b78010;
+  --cY30: #a56c0e;
+  --cY20: #8d5406;
+  --cY10: #733e0a;
+  --cY5: #5a2a04;
+  --cY1: #431900;
+  --cG99: #f7ffff;
+  --cG95: #e6fdf8;
+  --cG90: #cff7ea;
+  --cG80: #aeebd2;
+  --cG70: #81d1ac;
+  --cG60: #60bf90;
+  --cG50: #43b277;
+  --cG40: #30a160;
+  --cG30: #2b904e;
+  --cG20: #28753d;
+  --cG10: #1f5c2b;
+  --cG5: #11451a;
+  --cG1: #08300d;
+  --cB99: #f9feff;
+  --cB95: #edfafe;
+  --cB90: #daf1fe;
+  --cB80: #c2e5fe;
+  --cB70: #90cbfe;
+  --cB60: #6eb2fe;
+  --cB50: #5399fe;
+  --cB40: #4e86f8;
+  --cB30: #466ee8;
+  --cB20: #3b52d0;
+  --cB10: #3138b2;
+  --cB5: #271e94;
+  --cB1: #1d0475;
+  --cP99: #fffcfe;
+  --cP95: #fdf4fc;
+  --cP90: #f7e7f9;
+  --cP80: #f1d3fd;
+  --cP70: #dfacff;
+  --cP60: #cb8ffe;
+  --cP50: #b673fc;
+  --cP40: #a562f7;
+  --cP30: #8e4fe4;
+  --cP20: #733ac7;
+  --cP10: #5926a7;
+  --cP5: #431189;
+  --cP1: #2e0268;
+  --c0a: rgb(1 11 25 / .92);
+  --c100a: rgb(255 255 255 / .0);
+  --c0absa: #000000;
+  --cK99a: rgb(105 155 205 / .02);
+  --cK95a: rgb(5 55 105 / .04);
+  --cK90a: rgb(22 55 111 / .09);
+  --cK80a: rgb(8 48 95 / .15);
+  --cK70a: rgb(7 40 81 / .27);
+  --cK60a: rgb(2 33 69 / .36);
+  --cK50a: rgb(4 33 68 / .45);
+  --cK40a: rgb(2 33 69 / .51);
+  --cK30a: rgb(2 27 60 / .58);
+  --cK20a: rgb(1 25 52 / .67);
+  --cK10a: rgb(2 20 43 / .75);
+  --cK5a: rgb(0 15 34 / .82);
+  --cK1a: rgb(1 13 29 / .89);
+  --cR99a: rgb(255 105 105 / .02);
+  --cR95a: rgb(235 35 15 / .05);
+  --cR90a: rgb(255 28 10 / .11);
+  --cR80a: rgb(250 32 10 / .22);
+  --cR70a: rgb(221 23 5 / .38);
+  --cR60a: rgb(241 16 2 / .49);
+  --cR50a: rgb(239 7 3 / .63);
+  --cR40a: rgb(231 0 7 / .75);
+  --cR30a: rgb(211 1 17 / .84);
+  --cR20a: rgb(181 2 28 / .95);
+  --cR10a: rgb(144 0 24 / .97);
+  --cR5a: rgb(106 2 17 / .97);
+  --cR1a: rgb(70 2 11 / .97);
+  --cO99a: rgb(255 205 55 / .04);
+  --cO95a: rgb(255 173 10 / .11);
+  --cO90a: rgb(255 139 8 / .19);
+  --cO80a: rgb(249 107 3 / .31);
+  --cO70a: rgb(244 98 1 / .56);
+  --cO60a: rgb(251 87 3 / .69);
+  --cO50a: rgb(232 62 0 / .75);
+  --cO40a: rgb(218 51 1 / .80);
+  --cO30a: rgb(195 39 1 / .85);
+  --cO20a: rgb(161 16 1 / .87);
+  --cO10a: rgb(128 1 12 / .90);
+  --cO5a: #71000a;
+  --cO1a: #500007;
+  --cY99a: rgb(230 205 30 / .04);
+  --cY95a: rgb(249 214 14 / .17);
+  --cY90a: rgb(255 209 6 / .37);
+  --cY80a: rgb(254 204 2 / .76);
+  --cY70a: rgb(235 186 0 / .93);
+  --cY60a: rgb(211 160 1 / .93);
+  --cY50a: rgb(195 143 2 / .99);
+  --cY40a: rgb(178 120 1 / .94);
+  --cY30a: rgb(160 100 1 / .95);
+  --cY20a: rgb(139 81 1 / .98);
+  --cY10a: rgb(111 56 2 / .97);
+  --cY5a: rgb(88 40 1 / .99);
+  --cY1a: #431900;
+  --cG99a: rgb(55 255 255 / .04);
+  --cG95a: rgb(5 235 185 / .10);
+  --cG90a: rgb(2 213 144 / .19);
+  --cG80a: rgb(2 193 114 / .32);
+  --cG70a: rgb(3 163 89 / .50);
+  --cG60a: rgb(3 153 79 / .63);
+  --cG50a: rgb(1 151 71 / .74);
+  --cG40a: rgb(3 140 61 / .82);
+  --cG30a: rgb(3 123 44 / .84);
+  --cG20a: rgb(2 93 27 / .85);
+  --cG10a: rgb(0 70 14 / .88);
+  --cG5a: rgb(2 57 11 / .94);
+  --cG1a: rgb(0 42 6 / .97);
+  --cB99a: rgb(55 222 255 / .03);
+  --cB95a: rgb(30 193 243 / .08);
+  --cB90a: rgb(8 162 248 / .15);
+  --cB80a: rgb(1 147 251 / .24);
+  --cB70a: rgb(3 137 253 / .44);
+  --cB60a: rgb(1 120 253 / .56.99999999999999);
+  --cB50a: rgb(2 105 254 / .68);
+  --cB40a: rgb(2 82 245 / .70);
+  --cB30a: rgb(2 56 223 / .73);
+  --cB20a: rgb(0 30 194 / .77);
+  --cB10a: rgb(1 9 160 / .81);
+  --cB5a: rgb(12 2 135 / .89);
+  --cB1a: rgb(27 1 116 / .99);
+  --cP99a: rgb(255 105 205 / .02);
+  --cP95a: rgb(215 35 195 / .05);
+  --cP90a: rgb(175 15 195 / .10);
+  --cP80a: rgb(177 11 244 / .18);
+  --cP70a: rgb(158 3 255 / .33);
+  --cP60a: rgb(137 0 253 / .44);
+  --cP50a: rgb(122 0 250 / .55);
+  --cP40a: rgb(110 2 242 / .62);
+  --cP30a: rgb(94 4 216 / .70);
+  --cP20a: rgb(76 2 183 / .78);
+  --cP10a: rgb(62 3 153 / .86);
+  --cP5a: rgb(55 2 129 / .94);
+  --cP1a: #2e0268;
+  --c0d: rgb(19 28 41 / 0);
+  --c100d: #ffffff;
+  --c0absd: #000000;
+  --cK99d: #fcfdfe;
+  --cK95d: rgb(250 251 253 / .98);
+  --cK90d: rgb(248 250 255 / .94);
+  --cK80d: rgb(243 248 254 / .89);
+  --cK70d: rgb(233 242 252 / .79);
+  --cK60d: rgb(229 241 254 / .69);
+  --cK50d: rgb(221 236 254 / .61);
+  --cK40d: rgb(210 232 254 / .56);
+  --cK30d: rgb(204 226 251 / .48);
+  --cK20d: rgb(197 225 252 / .37);
+  --cK10d: rgb(196 224 253 / .26);
+  --cK5d: rgb(188 216 247 / .16);
+  --cK1d: rgb(162 199 227 / .07);
+  --cR99d: #fffcfc;
+  --cR95d: rgb(254 244 243 / .98);
+  --cR90d: rgb(255 230 228 / .94);
+  --cR80d: rgb(254 206 201 / .89);
+  --cR70d: rgb(254 174 166 / .95);
+  --cR60d: rgb(253 140 133 / .98);
+  --cR50d: rgb(254 102 98 / .96);
+  --cR40d: rgb(253 67 71 / .93);
+  --cR30d: rgb(253 44 57 / .85);
+  --cR20d: rgb(253 10 38 / .71);
+  --cR10d: rgb(197 0 27 / .72);
+  --cR5d: rgb(159 0 15 / .65);
+  --cR1d: rgb(107 0 6 / .65);
+  --cO99d: #fffdf7;
+  --cO95d: #fff6e4;
+  --cO90d: #ffe9d0;
+  --cO80d: #fdd1b1;
+  --cO70d: rgb(254 170 114 / .98);
+  --cO60d: rgb(254 140 81 / .99);
+  --cO50d: rgb(254 116 66 / .93);
+  --cO40d: rgb(253 101 54 / .88);
+  --cO30d: rgb(253 82 38 / .79);
+  --cO20d: rgb(252 57 30 / .66);
+  --cO10d: rgb(254 24 31 / .52);
+  --cO5d: #71000a;
+  --cO1d: #500007;
+  --cY99d: #fefdf6;
+  --cY95d: #fef8d6;
+  --cY90d: #ffeea3;
+  --cY80d: #fed83f;
+  --cY70d: rgb(255 205 16 / .92);
+  --cY60d: rgb(254 195 14 / .83);
+  --cY50d: rgb(220 160 0 / .88);
+  --cY40d: rgb(253 171 5 / .70);
+  --cY30d: rgb(240 149 0 / .66);
+  --cY20d: rgb(161 93 0 / .86);
+  --cY10d: rgb(145 73 0 / .76);
+  --cY5d: rgb(97 43 0 / .91);
+  --cY1d: #431900;
+  --cG99d: #f7ffff;
+  --cG95d: #e6fdf8;
+  --cG90d: rgb(213 254 240 / .97);
+  --cG80d: rgb(187 253 225 / .92);
+  --cG70d: rgb(157 254 205 / .80);
+  --cG60d: rgb(126 254 184 / .72);
+  --cG50d: rgb(91 252 157 / .67);
+  --cG40d: rgb(68 253 134 / .59);
+  --cG30d: rgb(65 251 112 / .52);
+  --cG20d: rgb(72 251 91 / .40);
+  --cG10d: rgb(60 249 48 / .29);
+  --cG5d: rgb(14 139 0 / .37);
+  --cG1d: rgb(3 57 0 / .69);
+  --cB99d: #f9feff;
+  --cB95d: #edfafe;
+  --cB90d: #daf1fe;
+  --cB80d: #c2e5fe;
+  --cB70d: #90cbfe;
+  --cB60d: #6eb2fe;
+  --cB50d: #5399fe;
+  --cB40d: rgb(80 137 254 / .97);
+  --cB30d: rgb(76 119 253 / .90);
+  --cB20d: rgb(70 96 252 / .79);
+  --cB10d: rgb(65 71 252 / .65);
+  --cB5d: rgb(59 32 255 / .50);
+  --cB1d: rgb(31 0 129 / .86);
+  --cP99d: #fffcfe;
+  --cP95d: #fdf4fc;
+  --cP90d: rgb(252 235 253 / .98);
+  --cP80d: #f1d3fd;
+  --cP70d: #dfacff;
+  --cP60d: #cb8ffe;
+  --cP50d: rgb(184 116 254 / .99);
+  --cP40d: rgb(170 100 253 / .97);
+  --cP30d: rgb(159 86 253 / .88);
+  --cP20d: rgb(149 69 255 / .74);
+  --cP10d: rgb(138 45 255 / .59);
+  --cP5d: rgb(126 4 254 / .45);
+  --cP1d: rgb(48 0 109 / .93);
+}
+
+fieldset {
+  border: 0;
+}
+
+input {
+  display: none;
+}
+
+.segmented-control {
+  list-style: none;
+  display: grid;
+  grid-auto-columns: 1fr;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  border-radius: 12px;
+  padding: 6px;
+  gap: 6px;
+  justify-content: space-between;
+  width: auto;
+  background-color: light-dark(var(--cK95, #F8F8F8), var(--cK1, #F8F8F8));
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.item {
+  white-space: nowrap;
+  width: 100%;
+  display: block;
+  text-align: center;
+  grid-row: 1/2;
+  position: relative;
+  padding: 8px 12px;
+  z-index: 100;
+  vertical-align: middle;
+  line-height: 16px;
+  font-size: 16px;
+  will-change: scale;
+}
+input:not(:checked) + .item:hover ~ .effect-container .hover-background, input:not(:checked) + .item:active ~ .effect-container .hover-background {
+  background-color: light-dark(var(--cK90, #E6EFF0), var(--cK5, #E6EFF0));
+  opacity: 1;
+  transition-property: translate, opacity, scale;
+  transition-duration: 0s, 0.2s, 0.1s;
+  transition-timing-function: ease-out;
+}
+input:not(:checked) + .item:active, input:not(:checked) + .item:active ~ .effect-container .hover-background {
+  scale: 0.95;
+  opacity: 1;
+}
+.item:focus-visible {
+  box-shadow: 0 0 0 2px light-dark(var(--cB50, #EF5E14), var(--cB60, #EF5E14));
+  outline: none;
+}
+input:checked + .item:focus-visible {
+  box-shadow: none;
+}
+
+.selected-background {
+  position: absolute;
+  z-index: 10;
+  inset: 0;
+  border-radius: 4px;
+  transition: 0.2s translate ease-out;
+  background-color: light-dark(var(--c100, #F8f8f8), var(--cK20, #F8f8f8));
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.05), 0px 0.9px 1.8px rgba(0, 0, 0, 0.03), 0px 0.38px 0.76px rgba(0, 0, 0, 0.025), 0px 0.14px 0.28px rgba(0, 0, 0, 0.017);
+}
+
+.hover-background {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  border: 1px solid light-dark(var(--cK95, #F8f8f8), var(--cK1, #F8f8f8));
+  opacity: 0;
+  border-radius: 4px;
+  transition-property: translate, opacity, scale;
+  transition-duration: 999999999s, 0.2s, 0.2s;
+  transition-timing-function: ease-out;
+  background-color: transparent;
+}
+
+.effect-container {
+  position: absolute;
+  inset: 6px;
+}
+
+.item:nth-of-type(1) ~ .effect-container * {
+  --itemCount: 1;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(1):checked ~ .effect-container {
+  --selectedItemIndex: 1;
+}
+
+input:nth-of-type(1):hover ~ .effect-container {
+  --hoverItemIndex: 1;
+}
+
+.item:nth-of-type(2) ~ .effect-container * {
+  --itemCount: 2;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(2):checked ~ .effect-container {
+  --selectedItemIndex: 2;
+}
+
+input:nth-of-type(2):hover ~ .effect-container {
+  --hoverItemIndex: 2;
+}
+
+.item:nth-of-type(3) ~ .effect-container * {
+  --itemCount: 3;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(3):checked ~ .effect-container {
+  --selectedItemIndex: 3;
+}
+
+input:nth-of-type(3):hover ~ .effect-container {
+  --hoverItemIndex: 3;
+}
+
+.item:nth-of-type(4) ~ .effect-container * {
+  --itemCount: 4;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(4):checked ~ .effect-container {
+  --selectedItemIndex: 4;
+}
+
+input:nth-of-type(4):hover ~ .effect-container {
+  --hoverItemIndex: 4;
+}
+
+.item:nth-of-type(5) ~ .effect-container * {
+  --itemCount: 5;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(5):checked ~ .effect-container {
+  --selectedItemIndex: 5;
+}
+
+input:nth-of-type(5):hover ~ .effect-container {
+  --hoverItemIndex: 5;
+}
+
+.item:nth-of-type(6) ~ .effect-container * {
+  --itemCount: 6;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(6):checked ~ .effect-container {
+  --selectedItemIndex: 6;
+}
+
+input:nth-of-type(6):hover ~ .effect-container {
+  --hoverItemIndex: 6;
+}
+
+.item:nth-of-type(7) ~ .effect-container * {
+  --itemCount: 7;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(7):checked ~ .effect-container {
+  --selectedItemIndex: 7;
+}
+
+input:nth-of-type(7):hover ~ .effect-container {
+  --hoverItemIndex: 7;
+}
+
+.item:nth-of-type(8) ~ .effect-container * {
+  --itemCount: 8;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(8):checked ~ .effect-container {
+  --selectedItemIndex: 8;
+}
+
+input:nth-of-type(8):hover ~ .effect-container {
+  --hoverItemIndex: 8;
+}
+
+.item:nth-of-type(9) ~ .effect-container * {
+  --itemCount: 9;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(9):checked ~ .effect-container {
+  --selectedItemIndex: 9;
+}
+
+input:nth-of-type(9):hover ~ .effect-container {
+  --hoverItemIndex: 9;
+}
+
+.item:nth-of-type(10) ~ .effect-container * {
+  --itemCount: 10;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(10):checked ~ .effect-container {
+  --selectedItemIndex: 10;
+}
+
+input:nth-of-type(10):hover ~ .effect-container {
+  --hoverItemIndex: 10;
+}
+
+.item:nth-of-type(11) ~ .effect-container * {
+  --itemCount: 11;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(11):checked ~ .effect-container {
+  --selectedItemIndex: 11;
+}
+
+input:nth-of-type(11):hover ~ .effect-container {
+  --hoverItemIndex: 11;
+}
+
+.item:nth-of-type(12) ~ .effect-container * {
+  --itemCount: 12;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(12):checked ~ .effect-container {
+  --selectedItemIndex: 12;
+}
+
+input:nth-of-type(12):hover ~ .effect-container {
+  --hoverItemIndex: 12;
+}
+
+.item:nth-of-type(13) ~ .effect-container * {
+  --itemCount: 13;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(13):checked ~ .effect-container {
+  --selectedItemIndex: 13;
+}
+
+input:nth-of-type(13):hover ~ .effect-container {
+  --hoverItemIndex: 13;
+}
+
+.item:nth-of-type(14) ~ .effect-container * {
+  --itemCount: 14;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(14):checked ~ .effect-container {
+  --selectedItemIndex: 14;
+}
+
+input:nth-of-type(14):hover ~ .effect-container {
+  --hoverItemIndex: 14;
+}
+
+.item:nth-of-type(15) ~ .effect-container * {
+  --itemCount: 15;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(15):checked ~ .effect-container {
+  --selectedItemIndex: 15;
+}
+
+input:nth-of-type(15):hover ~ .effect-container {
+  --hoverItemIndex: 15;
+}
+
+.item:nth-of-type(16) ~ .effect-container * {
+  --itemCount: 16;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(16):checked ~ .effect-container {
+  --selectedItemIndex: 16;
+}
+
+input:nth-of-type(16):hover ~ .effect-container {
+  --hoverItemIndex: 16;
+}
+
+.item:nth-of-type(17) ~ .effect-container * {
+  --itemCount: 17;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(17):checked ~ .effect-container {
+  --selectedItemIndex: 17;
+}
+
+input:nth-of-type(17):hover ~ .effect-container {
+  --hoverItemIndex: 17;
+}
+
+.item:nth-of-type(18) ~ .effect-container * {
+  --itemCount: 18;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(18):checked ~ .effect-container {
+  --selectedItemIndex: 18;
+}
+
+input:nth-of-type(18):hover ~ .effect-container {
+  --hoverItemIndex: 18;
+}
+
+.item:nth-of-type(19) ~ .effect-container * {
+  --itemCount: 19;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(19):checked ~ .effect-container {
+  --selectedItemIndex: 19;
+}
+
+input:nth-of-type(19):hover ~ .effect-container {
+  --hoverItemIndex: 19;
+}
+
+.item:nth-of-type(20) ~ .effect-container * {
+  --itemCount: 20;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(20):checked ~ .effect-container {
+  --selectedItemIndex: 20;
+}
+
+input:nth-of-type(20):hover ~ .effect-container {
+  --hoverItemIndex: 20;
+}
+
+.item:nth-of-type(21) ~ .effect-container * {
+  --itemCount: 21;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(21):checked ~ .effect-container {
+  --selectedItemIndex: 21;
+}
+
+input:nth-of-type(21):hover ~ .effect-container {
+  --hoverItemIndex: 21;
+}
+
+.item:nth-of-type(22) ~ .effect-container * {
+  --itemCount: 22;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(22):checked ~ .effect-container {
+  --selectedItemIndex: 22;
+}
+
+input:nth-of-type(22):hover ~ .effect-container {
+  --hoverItemIndex: 22;
+}
+
+.item:nth-of-type(23) ~ .effect-container * {
+  --itemCount: 23;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(23):checked ~ .effect-container {
+  --selectedItemIndex: 23;
+}
+
+input:nth-of-type(23):hover ~ .effect-container {
+  --hoverItemIndex: 23;
+}
+
+.item:nth-of-type(24) ~ .effect-container * {
+  --itemCount: 24;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(24):checked ~ .effect-container {
+  --selectedItemIndex: 24;
+}
+
+input:nth-of-type(24):hover ~ .effect-container {
+  --hoverItemIndex: 24;
+}
+
+.item:nth-of-type(25) ~ .effect-container * {
+  --itemCount: 25;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(25):checked ~ .effect-container {
+  --selectedItemIndex: 25;
+}
+
+input:nth-of-type(25):hover ~ .effect-container {
+  --hoverItemIndex: 25;
+}
+
+.item:nth-of-type(26) ~ .effect-container * {
+  --itemCount: 26;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(26):checked ~ .effect-container {
+  --selectedItemIndex: 26;
+}
+
+input:nth-of-type(26):hover ~ .effect-container {
+  --hoverItemIndex: 26;
+}
+
+.item:nth-of-type(27) ~ .effect-container * {
+  --itemCount: 27;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(27):checked ~ .effect-container {
+  --selectedItemIndex: 27;
+}
+
+input:nth-of-type(27):hover ~ .effect-container {
+  --hoverItemIndex: 27;
+}
+
+.item:nth-of-type(28) ~ .effect-container * {
+  --itemCount: 28;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(28):checked ~ .effect-container {
+  --selectedItemIndex: 28;
+}
+
+input:nth-of-type(28):hover ~ .effect-container {
+  --hoverItemIndex: 28;
+}
+
+.item:nth-of-type(29) ~ .effect-container * {
+  --itemCount: 29;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(29):checked ~ .effect-container {
+  --selectedItemIndex: 29;
+}
+
+input:nth-of-type(29):hover ~ .effect-container {
+  --hoverItemIndex: 29;
+}
+
+.item:nth-of-type(30) ~ .effect-container * {
+  --itemCount: 30;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(30):checked ~ .effect-container {
+  --selectedItemIndex: 30;
+}
+
+input:nth-of-type(30):hover ~ .effect-container {
+  --hoverItemIndex: 30;
+}
+
+.item:nth-of-type(31) ~ .effect-container * {
+  --itemCount: 31;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(31):checked ~ .effect-container {
+  --selectedItemIndex: 31;
+}
+
+input:nth-of-type(31):hover ~ .effect-container {
+  --hoverItemIndex: 31;
+}
+
+.item:nth-of-type(32) ~ .effect-container * {
+  --itemCount: 32;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(32):checked ~ .effect-container {
+  --selectedItemIndex: 32;
+}
+
+input:nth-of-type(32):hover ~ .effect-container {
+  --hoverItemIndex: 32;
+}
+
+.item:nth-of-type(33) ~ .effect-container * {
+  --itemCount: 33;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(33):checked ~ .effect-container {
+  --selectedItemIndex: 33;
+}
+
+input:nth-of-type(33):hover ~ .effect-container {
+  --hoverItemIndex: 33;
+}
+
+.item:nth-of-type(34) ~ .effect-container * {
+  --itemCount: 34;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(34):checked ~ .effect-container {
+  --selectedItemIndex: 34;
+}
+
+input:nth-of-type(34):hover ~ .effect-container {
+  --hoverItemIndex: 34;
+}
+
+.item:nth-of-type(35) ~ .effect-container * {
+  --itemCount: 35;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(35):checked ~ .effect-container {
+  --selectedItemIndex: 35;
+}
+
+input:nth-of-type(35):hover ~ .effect-container {
+  --hoverItemIndex: 35;
+}
+
+.item:nth-of-type(36) ~ .effect-container * {
+  --itemCount: 36;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(36):checked ~ .effect-container {
+  --selectedItemIndex: 36;
+}
+
+input:nth-of-type(36):hover ~ .effect-container {
+  --hoverItemIndex: 36;
+}
+
+.item:nth-of-type(37) ~ .effect-container * {
+  --itemCount: 37;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(37):checked ~ .effect-container {
+  --selectedItemIndex: 37;
+}
+
+input:nth-of-type(37):hover ~ .effect-container {
+  --hoverItemIndex: 37;
+}
+
+.item:nth-of-type(38) ~ .effect-container * {
+  --itemCount: 38;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(38):checked ~ .effect-container {
+  --selectedItemIndex: 38;
+}
+
+input:nth-of-type(38):hover ~ .effect-container {
+  --hoverItemIndex: 38;
+}
+
+.item:nth-of-type(39) ~ .effect-container * {
+  --itemCount: 39;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(39):checked ~ .effect-container {
+  --selectedItemIndex: 39;
+}
+
+input:nth-of-type(39):hover ~ .effect-container {
+  --hoverItemIndex: 39;
+}
+
+.item:nth-of-type(40) ~ .effect-container * {
+  --itemCount: 40;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(40):checked ~ .effect-container {
+  --selectedItemIndex: 40;
+}
+
+input:nth-of-type(40):hover ~ .effect-container {
+  --hoverItemIndex: 40;
+}
+
+.item:nth-of-type(41) ~ .effect-container * {
+  --itemCount: 41;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(41):checked ~ .effect-container {
+  --selectedItemIndex: 41;
+}
+
+input:nth-of-type(41):hover ~ .effect-container {
+  --hoverItemIndex: 41;
+}
+
+.item:nth-of-type(42) ~ .effect-container * {
+  --itemCount: 42;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(42):checked ~ .effect-container {
+  --selectedItemIndex: 42;
+}
+
+input:nth-of-type(42):hover ~ .effect-container {
+  --hoverItemIndex: 42;
+}
+
+.item:nth-of-type(43) ~ .effect-container * {
+  --itemCount: 43;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(43):checked ~ .effect-container {
+  --selectedItemIndex: 43;
+}
+
+input:nth-of-type(43):hover ~ .effect-container {
+  --hoverItemIndex: 43;
+}
+
+.item:nth-of-type(44) ~ .effect-container * {
+  --itemCount: 44;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(44):checked ~ .effect-container {
+  --selectedItemIndex: 44;
+}
+
+input:nth-of-type(44):hover ~ .effect-container {
+  --hoverItemIndex: 44;
+}
+
+.item:nth-of-type(45) ~ .effect-container * {
+  --itemCount: 45;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(45):checked ~ .effect-container {
+  --selectedItemIndex: 45;
+}
+
+input:nth-of-type(45):hover ~ .effect-container {
+  --hoverItemIndex: 45;
+}
+
+.item:nth-of-type(46) ~ .effect-container * {
+  --itemCount: 46;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(46):checked ~ .effect-container {
+  --selectedItemIndex: 46;
+}
+
+input:nth-of-type(46):hover ~ .effect-container {
+  --hoverItemIndex: 46;
+}
+
+.item:nth-of-type(47) ~ .effect-container * {
+  --itemCount: 47;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(47):checked ~ .effect-container {
+  --selectedItemIndex: 47;
+}
+
+input:nth-of-type(47):hover ~ .effect-container {
+  --hoverItemIndex: 47;
+}
+
+.item:nth-of-type(48) ~ .effect-container * {
+  --itemCount: 48;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(48):checked ~ .effect-container {
+  --selectedItemIndex: 48;
+}
+
+input:nth-of-type(48):hover ~ .effect-container {
+  --hoverItemIndex: 48;
+}
+
+.item:nth-of-type(49) ~ .effect-container * {
+  --itemCount: 49;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(49):checked ~ .effect-container {
+  --selectedItemIndex: 49;
+}
+
+input:nth-of-type(49):hover ~ .effect-container {
+  --hoverItemIndex: 49;
+}
+
+.item:nth-of-type(50) ~ .effect-container * {
+  --itemCount: 50;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(50):checked ~ .effect-container {
+  --selectedItemIndex: 50;
+}
+
+input:nth-of-type(50):hover ~ .effect-container {
+  --hoverItemIndex: 50;
+}
+
+.item:nth-of-type(51) ~ .effect-container * {
+  --itemCount: 51;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(51):checked ~ .effect-container {
+  --selectedItemIndex: 51;
+}
+
+input:nth-of-type(51):hover ~ .effect-container {
+  --hoverItemIndex: 51;
+}
+
+.item:nth-of-type(52) ~ .effect-container * {
+  --itemCount: 52;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(52):checked ~ .effect-container {
+  --selectedItemIndex: 52;
+}
+
+input:nth-of-type(52):hover ~ .effect-container {
+  --hoverItemIndex: 52;
+}
+
+.item:nth-of-type(53) ~ .effect-container * {
+  --itemCount: 53;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(53):checked ~ .effect-container {
+  --selectedItemIndex: 53;
+}
+
+input:nth-of-type(53):hover ~ .effect-container {
+  --hoverItemIndex: 53;
+}
+
+.item:nth-of-type(54) ~ .effect-container * {
+  --itemCount: 54;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(54):checked ~ .effect-container {
+  --selectedItemIndex: 54;
+}
+
+input:nth-of-type(54):hover ~ .effect-container {
+  --hoverItemIndex: 54;
+}
+
+.item:nth-of-type(55) ~ .effect-container * {
+  --itemCount: 55;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(55):checked ~ .effect-container {
+  --selectedItemIndex: 55;
+}
+
+input:nth-of-type(55):hover ~ .effect-container {
+  --hoverItemIndex: 55;
+}
+
+.item:nth-of-type(56) ~ .effect-container * {
+  --itemCount: 56;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(56):checked ~ .effect-container {
+  --selectedItemIndex: 56;
+}
+
+input:nth-of-type(56):hover ~ .effect-container {
+  --hoverItemIndex: 56;
+}
+
+.item:nth-of-type(57) ~ .effect-container * {
+  --itemCount: 57;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(57):checked ~ .effect-container {
+  --selectedItemIndex: 57;
+}
+
+input:nth-of-type(57):hover ~ .effect-container {
+  --hoverItemIndex: 57;
+}
+
+.item:nth-of-type(58) ~ .effect-container * {
+  --itemCount: 58;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(58):checked ~ .effect-container {
+  --selectedItemIndex: 58;
+}
+
+input:nth-of-type(58):hover ~ .effect-container {
+  --hoverItemIndex: 58;
+}
+
+.item:nth-of-type(59) ~ .effect-container * {
+  --itemCount: 59;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(59):checked ~ .effect-container {
+  --selectedItemIndex: 59;
+}
+
+input:nth-of-type(59):hover ~ .effect-container {
+  --hoverItemIndex: 59;
+}
+
+.item:nth-of-type(60) ~ .effect-container * {
+  --itemCount: 60;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(60):checked ~ .effect-container {
+  --selectedItemIndex: 60;
+}
+
+input:nth-of-type(60):hover ~ .effect-container {
+  --hoverItemIndex: 60;
+}
+
+.item:nth-of-type(61) ~ .effect-container * {
+  --itemCount: 61;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(61):checked ~ .effect-container {
+  --selectedItemIndex: 61;
+}
+
+input:nth-of-type(61):hover ~ .effect-container {
+  --hoverItemIndex: 61;
+}
+
+.item:nth-of-type(62) ~ .effect-container * {
+  --itemCount: 62;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(62):checked ~ .effect-container {
+  --selectedItemIndex: 62;
+}
+
+input:nth-of-type(62):hover ~ .effect-container {
+  --hoverItemIndex: 62;
+}
+
+.item:nth-of-type(63) ~ .effect-container * {
+  --itemCount: 63;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(63):checked ~ .effect-container {
+  --selectedItemIndex: 63;
+}
+
+input:nth-of-type(63):hover ~ .effect-container {
+  --hoverItemIndex: 63;
+}
+
+.item:nth-of-type(64) ~ .effect-container * {
+  --itemCount: 64;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(64):checked ~ .effect-container {
+  --selectedItemIndex: 64;
+}
+
+input:nth-of-type(64):hover ~ .effect-container {
+  --hoverItemIndex: 64;
+}
+
+.item:nth-of-type(65) ~ .effect-container * {
+  --itemCount: 65;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(65):checked ~ .effect-container {
+  --selectedItemIndex: 65;
+}
+
+input:nth-of-type(65):hover ~ .effect-container {
+  --hoverItemIndex: 65;
+}
+
+.item:nth-of-type(66) ~ .effect-container * {
+  --itemCount: 66;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(66):checked ~ .effect-container {
+  --selectedItemIndex: 66;
+}
+
+input:nth-of-type(66):hover ~ .effect-container {
+  --hoverItemIndex: 66;
+}
+
+.item:nth-of-type(67) ~ .effect-container * {
+  --itemCount: 67;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(67):checked ~ .effect-container {
+  --selectedItemIndex: 67;
+}
+
+input:nth-of-type(67):hover ~ .effect-container {
+  --hoverItemIndex: 67;
+}
+
+.item:nth-of-type(68) ~ .effect-container * {
+  --itemCount: 68;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(68):checked ~ .effect-container {
+  --selectedItemIndex: 68;
+}
+
+input:nth-of-type(68):hover ~ .effect-container {
+  --hoverItemIndex: 68;
+}
+
+.item:nth-of-type(69) ~ .effect-container * {
+  --itemCount: 69;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(69):checked ~ .effect-container {
+  --selectedItemIndex: 69;
+}
+
+input:nth-of-type(69):hover ~ .effect-container {
+  --hoverItemIndex: 69;
+}
+
+.item:nth-of-type(70) ~ .effect-container * {
+  --itemCount: 70;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(70):checked ~ .effect-container {
+  --selectedItemIndex: 70;
+}
+
+input:nth-of-type(70):hover ~ .effect-container {
+  --hoverItemIndex: 70;
+}
+
+.item:nth-of-type(71) ~ .effect-container * {
+  --itemCount: 71;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(71):checked ~ .effect-container {
+  --selectedItemIndex: 71;
+}
+
+input:nth-of-type(71):hover ~ .effect-container {
+  --hoverItemIndex: 71;
+}
+
+.item:nth-of-type(72) ~ .effect-container * {
+  --itemCount: 72;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(72):checked ~ .effect-container {
+  --selectedItemIndex: 72;
+}
+
+input:nth-of-type(72):hover ~ .effect-container {
+  --hoverItemIndex: 72;
+}
+
+.item:nth-of-type(73) ~ .effect-container * {
+  --itemCount: 73;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(73):checked ~ .effect-container {
+  --selectedItemIndex: 73;
+}
+
+input:nth-of-type(73):hover ~ .effect-container {
+  --hoverItemIndex: 73;
+}
+
+.item:nth-of-type(74) ~ .effect-container * {
+  --itemCount: 74;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(74):checked ~ .effect-container {
+  --selectedItemIndex: 74;
+}
+
+input:nth-of-type(74):hover ~ .effect-container {
+  --hoverItemIndex: 74;
+}
+
+.item:nth-of-type(75) ~ .effect-container * {
+  --itemCount: 75;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(75):checked ~ .effect-container {
+  --selectedItemIndex: 75;
+}
+
+input:nth-of-type(75):hover ~ .effect-container {
+  --hoverItemIndex: 75;
+}
+
+.item:nth-of-type(76) ~ .effect-container * {
+  --itemCount: 76;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(76):checked ~ .effect-container {
+  --selectedItemIndex: 76;
+}
+
+input:nth-of-type(76):hover ~ .effect-container {
+  --hoverItemIndex: 76;
+}
+
+.item:nth-of-type(77) ~ .effect-container * {
+  --itemCount: 77;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(77):checked ~ .effect-container {
+  --selectedItemIndex: 77;
+}
+
+input:nth-of-type(77):hover ~ .effect-container {
+  --hoverItemIndex: 77;
+}
+
+.item:nth-of-type(78) ~ .effect-container * {
+  --itemCount: 78;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(78):checked ~ .effect-container {
+  --selectedItemIndex: 78;
+}
+
+input:nth-of-type(78):hover ~ .effect-container {
+  --hoverItemIndex: 78;
+}
+
+.item:nth-of-type(79) ~ .effect-container * {
+  --itemCount: 79;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(79):checked ~ .effect-container {
+  --selectedItemIndex: 79;
+}
+
+input:nth-of-type(79):hover ~ .effect-container {
+  --hoverItemIndex: 79;
+}
+
+.item:nth-of-type(80) ~ .effect-container * {
+  --itemCount: 80;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(80):checked ~ .effect-container {
+  --selectedItemIndex: 80;
+}
+
+input:nth-of-type(80):hover ~ .effect-container {
+  --hoverItemIndex: 80;
+}
+
+.item:nth-of-type(81) ~ .effect-container * {
+  --itemCount: 81;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(81):checked ~ .effect-container {
+  --selectedItemIndex: 81;
+}
+
+input:nth-of-type(81):hover ~ .effect-container {
+  --hoverItemIndex: 81;
+}
+
+.item:nth-of-type(82) ~ .effect-container * {
+  --itemCount: 82;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(82):checked ~ .effect-container {
+  --selectedItemIndex: 82;
+}
+
+input:nth-of-type(82):hover ~ .effect-container {
+  --hoverItemIndex: 82;
+}
+
+.item:nth-of-type(83) ~ .effect-container * {
+  --itemCount: 83;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(83):checked ~ .effect-container {
+  --selectedItemIndex: 83;
+}
+
+input:nth-of-type(83):hover ~ .effect-container {
+  --hoverItemIndex: 83;
+}
+
+.item:nth-of-type(84) ~ .effect-container * {
+  --itemCount: 84;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(84):checked ~ .effect-container {
+  --selectedItemIndex: 84;
+}
+
+input:nth-of-type(84):hover ~ .effect-container {
+  --hoverItemIndex: 84;
+}
+
+.item:nth-of-type(85) ~ .effect-container * {
+  --itemCount: 85;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(85):checked ~ .effect-container {
+  --selectedItemIndex: 85;
+}
+
+input:nth-of-type(85):hover ~ .effect-container {
+  --hoverItemIndex: 85;
+}
+
+.item:nth-of-type(86) ~ .effect-container * {
+  --itemCount: 86;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(86):checked ~ .effect-container {
+  --selectedItemIndex: 86;
+}
+
+input:nth-of-type(86):hover ~ .effect-container {
+  --hoverItemIndex: 86;
+}
+
+.item:nth-of-type(87) ~ .effect-container * {
+  --itemCount: 87;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(87):checked ~ .effect-container {
+  --selectedItemIndex: 87;
+}
+
+input:nth-of-type(87):hover ~ .effect-container {
+  --hoverItemIndex: 87;
+}
+
+.item:nth-of-type(88) ~ .effect-container * {
+  --itemCount: 88;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(88):checked ~ .effect-container {
+  --selectedItemIndex: 88;
+}
+
+input:nth-of-type(88):hover ~ .effect-container {
+  --hoverItemIndex: 88;
+}
+
+.item:nth-of-type(89) ~ .effect-container * {
+  --itemCount: 89;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(89):checked ~ .effect-container {
+  --selectedItemIndex: 89;
+}
+
+input:nth-of-type(89):hover ~ .effect-container {
+  --hoverItemIndex: 89;
+}
+
+.item:nth-of-type(90) ~ .effect-container * {
+  --itemCount: 90;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(90):checked ~ .effect-container {
+  --selectedItemIndex: 90;
+}
+
+input:nth-of-type(90):hover ~ .effect-container {
+  --hoverItemIndex: 90;
+}
+
+.item:nth-of-type(91) ~ .effect-container * {
+  --itemCount: 91;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(91):checked ~ .effect-container {
+  --selectedItemIndex: 91;
+}
+
+input:nth-of-type(91):hover ~ .effect-container {
+  --hoverItemIndex: 91;
+}
+
+.item:nth-of-type(92) ~ .effect-container * {
+  --itemCount: 92;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(92):checked ~ .effect-container {
+  --selectedItemIndex: 92;
+}
+
+input:nth-of-type(92):hover ~ .effect-container {
+  --hoverItemIndex: 92;
+}
+
+.item:nth-of-type(93) ~ .effect-container * {
+  --itemCount: 93;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(93):checked ~ .effect-container {
+  --selectedItemIndex: 93;
+}
+
+input:nth-of-type(93):hover ~ .effect-container {
+  --hoverItemIndex: 93;
+}
+
+.item:nth-of-type(94) ~ .effect-container * {
+  --itemCount: 94;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(94):checked ~ .effect-container {
+  --selectedItemIndex: 94;
+}
+
+input:nth-of-type(94):hover ~ .effect-container {
+  --hoverItemIndex: 94;
+}
+
+.item:nth-of-type(95) ~ .effect-container * {
+  --itemCount: 95;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(95):checked ~ .effect-container {
+  --selectedItemIndex: 95;
+}
+
+input:nth-of-type(95):hover ~ .effect-container {
+  --hoverItemIndex: 95;
+}
+
+.item:nth-of-type(96) ~ .effect-container * {
+  --itemCount: 96;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(96):checked ~ .effect-container {
+  --selectedItemIndex: 96;
+}
+
+input:nth-of-type(96):hover ~ .effect-container {
+  --hoverItemIndex: 96;
+}
+
+.item:nth-of-type(97) ~ .effect-container * {
+  --itemCount: 97;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(97):checked ~ .effect-container {
+  --selectedItemIndex: 97;
+}
+
+input:nth-of-type(97):hover ~ .effect-container {
+  --hoverItemIndex: 97;
+}
+
+.item:nth-of-type(98) ~ .effect-container * {
+  --itemCount: 98;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(98):checked ~ .effect-container {
+  --selectedItemIndex: 98;
+}
+
+input:nth-of-type(98):hover ~ .effect-container {
+  --hoverItemIndex: 98;
+}
+
+.item:nth-of-type(99) ~ .effect-container * {
+  --itemCount: 99;
+  --itemWidth: calc((100% - (6px * (var(--itemCount) - 1))) / var(--itemCount));
+}
+
+input:nth-of-type(99):checked ~ .effect-container {
+  --selectedItemIndex: 99;
+}
+
+input:nth-of-type(99):hover ~ .effect-container {
+  --hoverItemIndex: 99;
+}
+
+.selected-background, .hover-background {
+  width: calc(var(--itemWidth) - var(--itemWidthModifier, 0px));
+}
+
+.selected-background {
+  translate: calc((100% + 6px) * (var(--selectedItemIndex) - 1)) 0;
+}
+
+.hover-background {
+  translate: calc((100% + 6px) * (var(--hoverItemIndex) - 1)) 0;
+}
+
+/*# sourceMappingURL=segmented-control.css.map */

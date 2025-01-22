@@ -1,15 +1,18 @@
 ---
 layout: page.njk
+eleventyImport:
+  collections: ["albumGroups", "albums"]
 ---
 {% from "../_includes/header.njk" import header with context %}
-{% from "../_includes/albums-list.njk" import albumsList with context %}
+{% from "../_includes/picture.njk" import Picture with context %}
+{% from "../_includes/footer.njk" import footer with context %}
 
-<div class="page page--category">
+<div class="page page--albums">
   {{ header() }}
   {% if content -%}
   <div class="about-me">
     {{ content | safe }}
   </div>
   {%- endif %}
-  {{ albumsList() }}
-</div>
+  {% include "../_includes/album-list.njk" %}
+  </div>

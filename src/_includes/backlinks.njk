@@ -1,3 +1,4 @@
+{% set backlinks = collections.all | links_to(page.url) %}
 {% if backlinks.length > 0 %}
   <div class="backlinks">
     <span class="backlinks__title">Backlinks</span>

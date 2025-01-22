@@ -1,0 +1,133 @@
+@use 'sass:math';
+@use '../tokens';
+
+@include tokens.textStyles;
+@include tokens.headingStyles;
+@include tokens.placeholders;
+
+// $gap: 1.2em;
+
+.page--albums {
+  display: flex;
+  flex-direction: column;
+}
+
+.album-groups-list {
+  max-width: tokens.$categoryWidth;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: calc(1.2 * var(--type-0));
+}
+
+.album-group {
+}
+
+.album-group__title {
+  @extend %heading--5;
+  display: inline-block;
+  line-height: 1.2em;
+}
+
+.album-group__albums-list {
+  display: inline;
+  font-size: var(--type-0);
+  line-height: 1.5em;
+  @extend %font--text-regular;
+}
+
+.album-group__album {
+  white-space: nowrap;
+  display: inline;
+}
+
+$previewBreakpoint: (tokens.$breakpoint * 2) * 1.33;
+
+.album-group__album__link {
+  // color: var(--contentSecondaryColor);
+  position: relative;
+  text-decoration: none;
+  &::after {
+    background-color: var(--linkUnderlineColor);
+    content: "";
+    z-index: -1;
+    height: 2px;
+    inset: auto 0 0 0;
+    position: absolute;
+    transition: background-color .2s ease-out,transform .2s ease-out;
+  }
+  &:hover {
+    & + .album-preview img {
+      filter: blur(0);
+      transform: scale(1);
+      opacity: 1;
+      @media screen and (width <= $previewBreakpoint) {
+        opacity: 0.33;
+      }
+      & {
+        transition-duration: tokens.$x4;
+      }
+    }
+    &::after {
+      transform: translateY(2px);
+      background-color: var(--materialPrimaryInvertedColor);
+    }
+  }
+}
+
+.album-preview {
+  $left: max(calc(tokens.$categoryWidth + var(--col)), 50vw);
+  $halfCol: calc(var(--col)/2);
+  & {
+    z-index: -10;
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+    position: fixed;
+    width: 50vw;
+    inset: $halfCol $halfCol $halfCol auto;
+  }
+  @media screen and (width <= $previewBreakpoint) {
+    width: auto;
+    inset: $halfCol;
+    justify-content: center;
+  }
+  picture {
+    & {
+      display: contents;
+    }
+    img {
+      height: auto;
+      width: auto;
+      max-height: 100%;
+      max-width: 100%;
+      position: absolute;
+      opacity: 0;
+      filter: blur(.6em);
+      transform: scale(0.9875);
+      transition: tokens.$x opacity ease-out, tokens.$x filter ease-out, tokens.$x transform ease-out;
+    }
+  }
+}
+
+
+.album-groups-list__copyright {
+  & {
+    display: flex;
+    gap: 5px;
+  }
+  .copyright__glyph {
+    color: var(--contentTertiaryColor);
+    text-align: right;
+  }
+  .copyright__text {
+    color: var(--contentSecondaryColor);
+  }
+  .copyright__glyph, .copyright__text {
+    font-size: var(--type--2);
+  }
+  a {
+    text-decoration-thickness: unset;
+    text-underline-offset: unset;
+  }
+}

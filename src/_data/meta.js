@@ -7,7 +7,7 @@ export default function () {
   
   const meta = {
     lang: 'en',
-    url: 'https://wilnichols.com',
+    url: 'https://wilnichols.com/',
     description: 'Personal website of multidisciplinary designer Wil Nichols',
     contact: {
       name: me.name,

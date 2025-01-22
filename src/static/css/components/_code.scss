@@ -24,7 +24,7 @@ pre[class*="language-"] {
   hyphens: none;
   --commentColor: var(--contentSecondaryColor);
   --punctuationColor: var(--contentSecondaryColor);
-  --varColor: light-dark(var(--cP40), vaR(--cP50));
+  --varColor: light-dark(var(--cP40), var(--cP50));
   --namespaceColor: var(--contentSecondaryColor);
   --propColor: light-dark(var(--cB30), var(--cB50));
   --numColor: light-dark(var(--cR40), var(--cR50));
