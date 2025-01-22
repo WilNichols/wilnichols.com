@@ -24,7 +24,7 @@ body:has(> .page--album) {
     $gap: calc(2 * var(--col));
     border-top: $gap solid transparent;
     margin-bottom: $gap;
-    grid-template-columns: auto minmax(auto, tokens.$width);
+    grid-template-columns: minmax(auto, calc(tokens.$width / 4)) minmax(auto, tokens.$width);
     grid-template-rows: auto;
     justify-content: center;
     column-gap: 2.4em;
@@ -38,16 +38,6 @@ body:has(> .page--album) {
   // necessary for preserving padding with scroll snapping
 }
 
-.page--note, .page--pen {
-  & {
-    grid-template-columns: auto minmax(auto, tokens.$width);
-    grid-template-rows: auto;
-    justify-content: center;
-  }
-  @media (width <= tokens.$breakpoint) { 
-    grid-template-columns: 100%;
-  }
-}
 
 .page--album {
   .page-info__entry--back-link {
@@ -130,5 +120,4 @@ body:has(> .page--album) {
       backdrop-filter: blur(0) saturate(1);
     } 
   } 
-  
 }

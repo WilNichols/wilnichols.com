@@ -1,8 +1,9 @@
+@use 'sass:math';
 @use '../tokens';
 
 .page--note, .page--pen {
   & {
-    grid-template-columns: auto minmax(auto, tokens.$width);
+    grid-template-columns: minmax(auto, calc(tokens.$width / 4)) minmax(auto, tokens.$width);
     grid-template-rows: auto;
     justify-content: center;
   }
