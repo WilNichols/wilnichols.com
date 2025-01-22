@@ -1,8 +1,8 @@
 {% macro AlbumInfo(el="div") -%}
-  <{{ el }} class="album-info">
+  <{{ el }} class="page-info">
     <a href="../" class="page-info__entry--back-link"><span class="page-info__entry__key">{% include "../static/img/back--12.svg" %}</span><span class="page-info__entry__value">Back</span></a>
-    <ul class="album-info__list">
-      <li class="album-info__entry album-info__entry--date"><span class="album-info__entry__key">{% include "../static/img/published--12.svg" %}</span><span class="album-info__entry__value">{{ date | readableDateISO }}</span></li>
+    <ul class="page-info__list">
+      <li class="page-info__entry page-info__entry--date"><span class="page-info__entry__key">{% include "../static/img/published--12.svg" %}</span><span class="page-info__entry__value">{{ date | readableDateISO }}</span></li>
       {%- set tagName = "" -%}
       {%- for tag in tags -%}
         {%- if (not "AlbumGroup" in tag) and (not "Albums" in tag) -%}
@@ -18,9 +18,9 @@
           {%- set thisTagValue = parsedTag[1] -%}
           {%- if ((loop.index > 2) and (tagName != thisTagName)) -%}</span></li>{%- endif -%}
           {%- if tagName != thisTagName -%}
-            <li class="album-info__entry album-info__entry--{{ thisTagName }}">
-              <span class="album-info__entry__key">{{- thisTagIcon | safe -}}</span>
-              <span class="album-info__entry__value">{{- thisTagValue -}}{%- elif tagName == thisTagName -%}, {{ thisTagValue -}}{% endif %}
+            <li class="page-info__entry page-info__entry--{{ thisTagName }}">
+              <span class="page-info__entry__key">{{- thisTagIcon | safe -}}</span>
+              <span class="page-info__entry__value">{{- thisTagValue -}}{%- elif tagName == thisTagName -%}, {{ thisTagValue -}}{% endif %}
         {%- endif -%}
         {%- set tagName = thisTagName -%}
         {%- if loop.last -%}</span></li>{%- endif -%}

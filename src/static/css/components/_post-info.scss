@@ -1,7 +1,6 @@
 @use '../tokens';
 
-.page-info,
-.album-info {
+.page-info {
   & {
     display: grid;
     grid-template-rows: subgrid;
@@ -25,8 +24,7 @@
   grid-auto-rows: min-content;
 }
 
-.page-info__list,
-.album-info__list {
+.page-info__list {
   & {
     @extend %page-info__grid;
     position: sticky;
@@ -38,8 +36,7 @@
     flex-wrap: wrap;
     gap: .25rem;
   }
-  .page-info__entry__key,
-  .album-info__entry__key {
+  .page-info__entry__key {
     & {
       text-align: right;
       color: var(--contentSecondaryColor);
@@ -79,8 +76,7 @@
   align-self: end;
   padding: .375em 0; // aligns baseline with page title
 }
-.page-info__entry,
-.album-info__entry {
+.page-info__entry {
   & {
     grid-template-columns: subgrid;
     display: grid;
@@ -100,22 +96,6 @@
       .page-info__entry__value li:not(:last-child)::after {
         content: ','
       }
-    }
-  }
-}
-
-.album-info__entry {
-  & {
-    display: inline-grid;
-  }
-}
-.album-info__entry__value {
-  & {
-    grid-column: 2 / 3;
-  }
-  &:has(+ &) {
-    &::after {
-      content: ', ';
     }
   }
 }
