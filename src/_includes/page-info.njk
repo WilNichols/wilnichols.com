@@ -59,18 +59,17 @@
 {%- endmacro %}
 
 {% macro EditorialInfo(backlinks) %}
-  backlinks: {{ backlinks.length }}
   {% set date %}{{ date | readableDateISO }}{% endset %}
-  {% set updated %}{{ updated | readableDateISO }}{% endset %}
+  {% set updatedString %}{{ updated | readableDateISO }}{% endset %}
   {% set isEvergreen %}{% for tag in tags %}{{ true if ("Evergreen/" in tag) }}{% endfor %}{% endset %}
   {% set showTags %}{% for tag in tags %}{{ true if ("Topic/" in tag) }}{% endfor %}{% endset %}
   <aside class="page-info">
     <a id="back-button" href="../" class="page-info__entry--back-link"><span class="page-info__entry__key">{% include "../static/img/back--12.svg" %}</span><span class="page-info__entry__value">Back</span></a>
     <ul class="page-info__list">
       <li class="page-info__entry page-info__entry--date"><span class="page-info__entry__key">{% include "../static/img/published--12.svg" %}</span><span class="page-info__entry__value">{{ date }}</span></li>
-      {%- if update and (date != updated) -%}
+      {%- if updated and (date != updated) -%}
         <li class="page-info__entry">
-          <span class="page-info__entry__key">{% include "../static/img/updated--12.svg" %}</span><span class="page-info__entry__value">{{ updated }}</span></li>
+          <span class="page-info__entry__key">{% include "../static/img/updated--12.svg" %}</span><span class="page-info__entry__value">{{ updatedString }}</span></li>
       {%- endif -%}
       {# {%- if isEvergreen -%}
         <li class="page-info__entry"><span class="page-info__entry__key">Revision</span><span class="page-info__entry__value">{% for tag in tags %}{% if "Evergreen" in tag %}{{ tag | getRevision }}{% endif %}{% endfor %}</span></li>
