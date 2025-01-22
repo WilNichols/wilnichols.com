@@ -54,20 +54,8 @@ $body-gap: 1em;
   }
 
   s {
-    text-decoration: none;
-    display: inline-block;
-    position: relative;
-    color: var(--contentTertiaryColor);
-    &::after {
-      content: '';
-      position: absolute;
-      background-color: var(--contentPrimaryColor);
-      width: 100%;
-      height: .125ex;
-      inset: 57% 0 auto 0;
-      transform: translateY(-50%);
-      // box-shadow: .0375ex solid var(--materialPrimaryColor);
-    }
+    color: var(--contentSecondaryColor);
+    text-decoration-color: var(--contentPrimaryColor);
   }
 
   blockquote {
