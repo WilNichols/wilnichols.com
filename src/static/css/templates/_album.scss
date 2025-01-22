@@ -30,12 +30,12 @@ body:has(> .page--album) {
     column-gap: 2.4em;
     row-gap: 1.2em;
     width: auto;
+    scroll-snap-align: start;
+    // necessary for preserving padding with scroll snapping
   }
   @media (width <= tokens.$breakpoint) { 
     grid-template-columns: 100%;
   }
-  scroll-snap-align: start;
-  // necessary for preserving padding with scroll snapping
 }
 
 
