@@ -13,4 +13,4 @@ tags:
   - AlbumGroup/WomensMarch
 date: 2017-01-22T00:00
 ---
-These shots continue [Women’s March 1](/albums/womens-march-1).
+These shots continue [[Women’s March 1]].
