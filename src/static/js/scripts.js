@@ -1,4 +1,3 @@
-console.log('running js');
 let body = document.getElementsByTagName('body')[0];
 body.classList.add('page-loaded');
 

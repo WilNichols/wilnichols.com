@@ -10,6 +10,7 @@ import fs from 'fs';
 import { getAverageColor } from 'fast-average-color-node';
 import { S3Client, ListObjectsV2Command } from '@aws-sdk/client-s3';
 import sizeOf from 'image-size';
+import slugify from "@sindresorhus/slugify";
 import pluginRss from '@11ty/eleventy-plugin-rss';
 import beautify from 'js-beautify';
 import syntaxHighlight from '@11ty/eleventy-plugin-syntaxhighlight';
@@ -40,7 +41,7 @@ export default async function(eleventyConfig) {
             const parts = match.raw.slice(2,-2).split("|");
             parts[0] = parts[0].replace(/.(md|markdown)\s?$/i, "");
             match.text = (parts[1] || parts[0]).trim();
-            match.url = `/${parts[0].trim().replace(/\s/g, "-").toLowerCase()}/`;
+            match.url = `/` + slugify(`${parts[0].trim().replace(/\s/g, "-")}/`).replace('-s', 's');
         }
     });
       // remove the hr

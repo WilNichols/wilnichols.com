@@ -1,8 +1,24 @@
+{% macro _backButtonScript() %}
+  <script>
+    let previousPage;
+    if (document.referrer.includes(location.host) && (document.referrer != location.href)) {
+      previousPage = "#";
+      document.getElementById("back-button").addEventListener("click", (e) => {
+        e.preventDefault();
+        history.back();
+      });
+    } else {
+      previousPage = "../";
+    };
+    document.getElementById("back-button").href = previousPage;
+  </script>
+{% endmacro %}
+
 {% macro AlbumInfo(el="aside") -%}
   <{{ el }} class="page-info">
     {% set date %}{{ date | readableDateISO }}{% endset %}
     {% set updated %}{{ updated | readableDateISO }}{% endset %}
-    <a href="../" class="page-info__entry--back-link"><span class="page-info__entry__key">{% include "../static/img/back--12.svg" %}</span><span class="page-info__entry__value">Back</span></a>
+    <a id="back-button" href="../" class="page-info__entry--back-link"><span class="page-info__entry__key">{% include "../static/img/back--12.svg" %}</span><span class="page-info__entry__value">Back</span></a>
     <ul class="page-info__list">
       <li class="page-info__entry page-info__entry--date"><span class="page-info__entry__key">{% include "../static/img/published--12.svg" %}</span><span class="page-info__entry__value">{{ date }}</span></li>
       {%- set tagName = "" -%}
@@ -39,15 +55,17 @@
       {% endif %}
     </ul>
   </{{ el }}>
+  {{ _backButtonScript() }}
 {%- endmacro %}
 
-{% macro EditorialInfo(backlinks, el="aside") %}
+{% macro EditorialInfo(backlinks) %}
+  backlinks: {{ backlinks.length }}
   {% set date %}{{ date | readableDateISO }}{% endset %}
   {% set updated %}{{ updated | readableDateISO }}{% endset %}
   {% set isEvergreen %}{% for tag in tags %}{{ true if ("Evergreen/" in tag) }}{% endfor %}{% endset %}
   {% set showTags %}{% for tag in tags %}{{ true if ("Topic/" in tag) }}{% endfor %}{% endset %}
-  <{{ el }} class="page-info">
-    <a href="../" class="page-info__entry--back-link"><span class="page-info__entry__key">{% include "../static/img/back--12.svg" %}</span><span class="page-info__entry__value">Back</span></a>
+  <aside class="page-info">
+    <a id="back-button" href="../" class="page-info__entry--back-link"><span class="page-info__entry__key">{% include "../static/img/back--12.svg" %}</span><span class="page-info__entry__value">Back</span></a>
     <ul class="page-info__list">
       <li class="page-info__entry page-info__entry--date"><span class="page-info__entry__key">{% include "../static/img/published--12.svg" %}</span><span class="page-info__entry__value">{{ date }}</span></li>
       {%- if update and (date != updated) -%}
@@ -81,5 +99,6 @@
         </li>
       {% endif %}
     </ul>
-  </{{ el }}>
+  </aside>
+  {{ _backButtonScript() }}
 {% endmacro %}

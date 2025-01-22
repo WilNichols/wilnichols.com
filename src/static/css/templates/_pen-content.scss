@@ -85,6 +85,7 @@ $default-tab: "[data-tab-index='tab-1']";
     position: relative;
     background-color: var(--materialSecondaryColor);
     overflow: hidden;
+    margin: 1em auto 0;
   }
   &::before {
     content: '';
