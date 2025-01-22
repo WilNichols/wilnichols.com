@@ -47,9 +47,9 @@
           <span class="page-info__entry__key">Updated</span><span class="page-info__entry__value">{{ updated }}</span></li>
       {%- endif -%}
       {# {{ tags }} #}
-      {%- if isEvergreen -%}
+      {# {%- if isEvergreen -%}
         <li class="page-info__entry"><span class="page-info__entry__key">Revision</span><span class="page-info__entry__value">{% for tag in tags %}{% if "Evergreen" in tag %}{{ tag | getRevision }}{% endif %}{% endfor %}</span></li>
-      {%- endif -%}
+      {%- endif -%} #}
       {% if showTags %}
         <li class="page-info__entry page-info__entry--tags">
           <span class="page-info__entry__key">Tags</span>
