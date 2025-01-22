@@ -10,9 +10,10 @@ body:has(> .page--album) {
   flex-direction: column;
   align-items: center;
   gap: calc(var(--col) / 3);
-  scroll-snap-type: y mandatory;
+  scroll-snap-type: y proximity;
   -webkit-overflow-scrolling: touch;
   overflow-y: scroll;
+  overflow-x: hidden;
   padding: var(--col);
   height: 100vh;
 }
@@ -20,7 +21,9 @@ body:has(> .page--album) {
 .page--album .page-header__container {
   & {
     display: grid;
-    border-top: var(--col) solid transparent;
+    $gap: calc(2 * var(--col));
+    border-top: $gap solid transparent;
+    margin-bottom: $gap;
     grid-template-columns: auto minmax(auto, tokens.$width);
     grid-template-rows: auto;
     justify-content: center;
