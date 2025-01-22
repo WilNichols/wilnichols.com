@@ -10,7 +10,7 @@ body:has(> .page--album) {
   flex-direction: column;
   align-items: center;
   gap: calc(var(--col) / 3);
-  // scroll-snap-type: y mandatory;
+  scroll-snap-type: y mandatory;
   -webkit-overflow-scrolling: touch;
   overflow-y: scroll;
   padding: var(--col);
@@ -31,7 +31,7 @@ body:has(> .page--album) {
   @media (width <= tokens.$breakpoint) { 
     grid-template-columns: 100%;
   }
-  // scroll-snap-align: start;
+  scroll-snap-align: start;
   // necessary for preserving padding with scroll snapping
 }
 
@@ -94,7 +94,7 @@ body:has(> .page--album) {
   & {
     display: flex;
     place-content: center;
-    // scroll-snap-align: center; 
+    scroll-snap-align: center; 
   }
   picture {
     display: block;
