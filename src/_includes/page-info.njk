@@ -2,7 +2,7 @@
   <script>
     let previousPage;
     if (document.referrer.includes(location.host) && (document.referrer != location.href)) {
-      previousPage = "#";
+      previousPage = "";
       document.getElementById("back-button").addEventListener("click", (e) => {
         e.preventDefault();
         history.back();
