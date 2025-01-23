@@ -3,7 +3,6 @@ date: 2024-09-18T21:16
 updated: 2024-09-19T01:08
 author: Wil Nichols
 tags:
-  - Type/Note
   - Topic/Industry
   - Topic/Interviews
   - Topic/Management

@@ -3,7 +3,6 @@ date: 2024-10-10T12:00
 updated: 2024-10-10T23:06
 author: Wil Nichols
 tags:
-  - Type/Note
   - Topic/Feminism
 altTitle: "~~Pas~~ tous les hommes"
 subtitle: "Or _the fabric of our lives_"

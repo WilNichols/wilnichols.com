@@ -2,7 +2,6 @@
 date: 2025-01-13T00:00
 author: Wil Nichols
 tags:
-  - Type/Note
   - Topic/Life
 summary: "I got married. Here’s what that means to me,."
 ---
