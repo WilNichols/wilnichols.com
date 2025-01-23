@@ -3,7 +3,6 @@ date: 2024-02-01T22:55
 updated: 2024-02-16T21:54
 author: Wil Nichols
 tags: 
-  - Type/Note
   - Evergreen/v1
   - Status/Active
   - Topic/Social Media

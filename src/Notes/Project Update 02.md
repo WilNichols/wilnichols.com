@@ -3,7 +3,6 @@ date: 2025-01-22T10:36
 author: Wil Nichols
 tags:
   - Type/Update
-  - Type/Note
   - Status/Complete
   - Topic/Building
 url: 

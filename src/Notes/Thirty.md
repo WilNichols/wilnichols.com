@@ -2,7 +2,6 @@
 date: 2024-09-19T23:10
 author: Wil Nichols
 tags:
-  - Type/Note
   - Calendar/Birthday
   - Topic/Life
 url: 

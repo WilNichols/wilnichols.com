@@ -2,7 +2,6 @@
 date: 2024-08-11T12:42
 author: Wil Nichols
 tags:
-  - Type/Note
 url: 
 ---
 

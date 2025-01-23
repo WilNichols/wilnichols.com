@@ -1,3 +1,3 @@
 {% macro footer() -%}
-  <span class="copyright__glyph">©</span><span class="copyright__text">2008 - {% year %} {{ meta.name }}. | I love you. Don’t steal. | <a href="/feed.xml">RSS</a> | <a href="mailto:{{ meta.contact.email }}">Email</a>.</span>
+  <span class="copyright__glyph">©</span><span class="copyright__text">2008 - {% year %} {{ meta.name }}. | I love you. Don’t steal. <span class="footer__separator">|</span> <a href="/feed.xml">RSS</a> <span class="footer__separator">|</span> <a href="mailto:{{ meta.contact.email }}">Email</a> <span class="footer__separator">|</span> <a href="https://people.pledge.party" target="blank">The People Pledge</a>.</span>
 {%- endmacro %}

@@ -2,7 +2,6 @@
 date: 2024-12-03T23:08
 author: Wil Nichols
 tags:
-  - Type/Note
 url: /personal-agency/
 summary: "We mistake agency for impact."
 ---
