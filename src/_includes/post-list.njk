@@ -70,6 +70,6 @@
       {% set currentMonth = postMonth %}
       {% set currentYear = postYear %}
     {% endfor %}
-    {% if renderFooter %}<li class="posts-list__copyright">{{ footer() }}</li>{% endif %}
+    {% if renderFooter %}{{ footer(el="li", classModifier="grid") }}{% endif %}
 </ol>
 {%- endmacro %}

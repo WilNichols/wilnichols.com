@@ -13,6 +13,7 @@
     @include light-dark(--contentPrimaryInvertedColor, var(--c100), var(--cK5));
     @include light-dark(--contentSecondaryColor, var(--cK50), var(--cK60));
     @include light-dark(--contentTertiaryColor, var(--cK70), var(--cK40));
+    @include light-dark(--contentQuaternaryColor, var(--cK80), var(--cK20));
     @include light-dark(--linkColor, var(--cB30), var(--cB50));
     @include light-dark(--linkVisitedColor, var(--cP30), var(--cP50));
     @include light-dark(--linkUnderlineColor, var(--cK90a), var(--cK40d));

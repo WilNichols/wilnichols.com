@@ -109,25 +109,3 @@ $previewBreakpoint: (tokens.$breakpoint * 2) * 1.33;
     }
   }
 }
-
-
-.album-groups-list__copyright {
-  & {
-    display: flex;
-    gap: 5px;
-  }
-  .copyright__glyph {
-    color: var(--contentTertiaryColor);
-    text-align: right;
-  }
-  .copyright__text {
-    color: var(--contentSecondaryColor);
-  }
-  .copyright__glyph, .copyright__text {
-    font-size: var(--type--2);
-  }
-  a {
-    text-decoration-thickness: unset;
-    text-underline-offset: unset;
-  }
-}
