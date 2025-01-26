@@ -9,10 +9,5 @@ eleventyImport:
 
 <div class="page page--albums">
   {{ header() }}
-  {% if content -%}
-  <div class="about-me">
-    {{ content | safe }}
-  </div>
-  {%- endif %}
   {% include "../_includes/album-list.njk" %}
   </div>

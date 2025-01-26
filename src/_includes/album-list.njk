@@ -10,19 +10,19 @@
         {% asyncEach album in collections[albumGroup] | reverse %}
           
           {% if album.data.permalink and (album.data.thumbnail !== '') %} 
-              {% set previewSrc %}{{ remote.gallery.base }}/{{ remote.gallery.photos }}/{{ album.data.key }}/{{ album.data.thumbnail }}{% endset %}
-              {% set imageProps = previewSrc | imageInfo %}
-              <li class="album-group__album">
-                <a class="album-group__album__link" href="{{ album.data.permalink }}" data-preview="{{ previewSrc }}">{{ album.data.shortTitle if album.data.shortTitle else album.data.title | replace(albumGroup.data.title, '') }}</a>{% if not loop.last %}, {% endif %}
-                <div class="album-preview">
-                  {{  Picture(
-                      fileName = album.data.thumbnail,
-                      src = previewSrc,
-                      loading = "eager",
-                      imageProps = imageProps
-                  ) }}
-                </div>
-              </li>
+            {% set previewSrc %}{{ remote.gallery.base }}/{{ remote.gallery.photos }}/{{ album.data.key }}/{{ album.data.thumbnail }}{% endset %}
+            {% set imageProps = previewSrc | imageInfo %}
+            <li class="album-group__album">
+              <a class="album-group__album__link" href="{{ album.data.permalink }}" data-preview="{{ previewSrc }}">{{ album.data.shortTitle if album.data.shortTitle else album.data.title | replace(albumGroup.data.title, '') }}</a>{% if not loop.last %}, {% endif %}
+              <div class="album-preview">
+                {{  Picture(
+                    fileName = album.data.thumbnail,
+                    src = previewSrc,
+                    loading = "eager",
+                    imageProps = imageProps
+                ) }}
+              </div>
+            </li>
           {% endif %}
         {% endeach %}
       </ol>

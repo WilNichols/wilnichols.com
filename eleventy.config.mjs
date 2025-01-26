@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import { DateTime } from 'luxon';
 import { EleventyRenderPlugin, EleventyHtmlBasePlugin } from '@11ty/eleventy';
+import Fetch from '@11ty/eleventy-fetch';
 import markdownIt from 'markdown-it';
 import markdownItAnchor from 'markdown-it-anchor';
 import markdownItAttrs from 'markdown-it-attrs';
@@ -206,18 +207,36 @@ export default async function(eleventyConfig) {
     }
   });
   
-  eleventyConfig.addAsyncFilter('imageInfo', async function(src) {
-    const path = src.replace(process.env.KXCDN, '_offline/thumbs').replace('.jpg', '.webp').replace('.png', '.webp');
-    const width = sizeOf(path).width;
-    const height = sizeOf(path).height;
+  eleventyConfig.addAsyncFilter('imageInfo', async function(url) {
+    // console.log('imageInfo:' + url);
+    let cachePath;
+    if (process.env.ELEVENTY_ENV == 'prod') {
+     cachePath = '/opt/build/cache/assets/images'
+    } else if (process.env.ELEVENTY_ENV == 'dev') {
+      cachePath = '.cache'
+    };
+    const image = await Fetch (url, {
+      duration: '*',
+      type: 'buffer',
+      directory: cachePath,
+      fetchOptions: {
+        headers: {
+          "user-agent":
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36",
+        },
+      },
+    });
+    const width = sizeOf(image).width;
+    const height = sizeOf(image).height;
     let orientation = (width == height) ? 'square' : (( width > height ) ? 'landscape' : 'portrait');
     async function getColor() {
-      return getAverageColor(path).then(color => {
+      return getAverageColor(image).then(color => {
           return color.hex;
       });
     };
     const color = await getColor();
-    const obj = {path: path, height: height, width: width, ratio: width/height, orientation: orientation, color: color};
+    const obj = {path: url, height: height, width: width, ratio: width/height, orientation: orientation, color: color};
+    console.log(obj);
     return obj;
   });
   

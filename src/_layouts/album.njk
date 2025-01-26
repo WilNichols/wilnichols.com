@@ -24,7 +24,8 @@ eleventyImport:
       {% set src %}{{ remote.gallery.base }}/{{ remote.gallery.photos }}/{{ key }}/{{ photo }}{% endset %}
       {% set fileName %}{{ photo | slugify }}{% endset %}
       {% if photo !== ''%}
-        {% set imageProps = src | imageInfo %}
+        {% set previewSRC %}{{ src }}?width=12px&format=webp{% endset %}
+        {% set imageProps = previewSRC | imageInfo %}
         <li class="album__album-photos__photo" id="{{ fileName | replace('-jpg', '') | replace('dscf', '') }}">
           {{  Picture(
               fileName = fileName,

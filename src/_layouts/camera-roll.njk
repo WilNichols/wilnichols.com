@@ -1,0 +1,27 @@
+---
+layout: page.njk
+---
+{% from "../_includes/header.njk" import header with context %}
+{% from "../_includes/picture.njk" import Picture with context %}
+{% from "../_includes/footer.njk" import footer with context %}
+
+<div class="page page--albums">
+  {{ header() }}
+  <ul class="album__album-photos">
+    {# {{ cameraRoll | log }} #}
+    {% for photo in cameraRoll %}
+      {% if loop.index < 3 %}{% set loading = 'eager' %}{% else %}{% set loading = 'lazy' %}{% endif %}
+      {% set src = photo.src %}
+      {% set photoID %}photo-{{ loop.index }}{% endset %}
+      {% set imageProps = src | imageInfo %}
+      <li class="album__album-photos__photo" id="{{ photoID }}">
+        {{  Picture(
+            fileName = photoID,
+            src = src,
+            loading = loading,
+            imageProps = imageProps
+        ) }}
+      </li>
+    {% endfor %}
+  </ul>
+  </div>
