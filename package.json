@@ -42,6 +42,7 @@
     "aws-sdk": "^2.1550.0",
     "cssnano": "^7.0.6",
     "dotenv": "^16.4.1",
+    "exifreader": "^4.26.1",
     "fast-average-color-node": "^3.0.0",
     "html-minifier": "^4.0.0",
     "image-size": "^1.1.1",

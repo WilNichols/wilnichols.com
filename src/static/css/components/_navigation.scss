@@ -5,13 +5,12 @@
 
 .navigation {
   & {
-    position: sticky;
     top: var(--col);
   }
   @media (width <= tokens.$breakpoint) {
     position: static;
     &::before, &::after {
-      content: '';
+      // content: '';
       position: absolute;
       z-index: 10;
       width: var(--col);
@@ -82,5 +81,6 @@
   span {
     z-index: 10;
     position: relative;
+    white-space: nowrap;
   }
 }
