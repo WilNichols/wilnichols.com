@@ -4,7 +4,7 @@ author: Wil Nichols
 tags:
   - Topic/Work
 url: 
-summary: "My thoguhts on Design and how they apply at Zello."
+summary: "My thoughts on Design and how they apply at Zello."
 ---
 
 I wrote this for our internal design wiki to colorfully answer “what does Design do?” when we’re sharing opinions on shipping work. Reprinting here, both for larger discussion and potentially for upcoming hires. 
