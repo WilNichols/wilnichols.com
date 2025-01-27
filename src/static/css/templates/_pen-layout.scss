@@ -41,4 +41,14 @@
       grid-row: 4 / 5;
     }
   }
+  .page__footer {
+    & {
+      grid-column: 2 / 3;
+      grid-row: 3 / 4;
+    }
+    @media (width <= tokens.$breakpoint) { 
+      grid-column: 1 / -1;
+      grid-row: 5 / 6;
+    }
+  }
 }

@@ -14,7 +14,7 @@
   </script>
 {% endmacro %}
 
-{% macro AlbumInfo(el="aside") -%}
+{% macro AlbumInfo(previousPost, nextPost, el="aside") -%}
   <{{ el }} class="page-info">
     {% set date %}{{ date | readableDateISO }}{% endset %}
     {% set updated %}{{ updated | readableDateISO }}{% endset %}
@@ -23,7 +23,7 @@
       <li class="page-info__entry page-info__entry--date"><span class="page-info__entry__key">{% include "../static/img/published--12.svg" %}</span><span class="page-info__entry__value">{{ date }}</span></li>
       {%- set tagName = "" -%}
       {%- for tag in tags -%}
-        {%- if (not "AlbumGroup" in tag) and (not "Albums" in tag) -%}
+        {%- if (not "AlbumGroup" in tag) and (not "Albums" in tag) and (not "Hackathon" in tag) -%}
           {%- set parsedTag = tag.split('/') -%}
           {%- set thisTagName = parsedTag[0] -%}
           {%- set thisTagIcon -%}
@@ -31,6 +31,7 @@
             {% elif thisTagName == "Camera" %}{% include "../static/img/camera--12.svg" %}
             {% elif thisTagName == "Location" %}{% include "../static/img/location--12.svg" %}
             {% elif thisTagName == "Period" %}{% include "../static/img/period--12.svg" %}
+            {% elif thisTagName == "Musician" %}{% include "../static/img/musician--12.svg" %}
             {% endif %}
           {%- endset -%}
           {%- set thisTagValue = parsedTag[1] -%}
@@ -43,22 +44,24 @@
         {%- set tagName = thisTagName -%}
         {%- if loop.last -%}</span></li>{%- endif -%}
       {%- endfor -%}
-      {% if backlinks.length > 0 %}
-        <li class="page-info__entry page-info__entry--tags">
-          <span class="page-info__entry__key">Backlinks</span>
-          <span class="page-info__entry__value">
-            {%- for link in backlinks -%}
-              <a href="{{ link.url }}">{{ link.data.title }}</a>{{ ", " if not loop.last }}
-            {%- endfor -%}
-          </span>
-        </li>
+      {% if previousPost %}
+        <li class="page-info__entry page-info__entry">
+          <span class="page-info__entry__key">{% include "../static/img/previous--12.svg" %}</span>
+          <span class="page-info__entry__value"><a href="{{ previousPost.url }}">{{ previousPost.data.title }}</a>
+        </li> 
+      {% endif %}
+      {% if nextPost %}
+        <li class="page-info__entry page-info__entry">
+          <span class="page-info__entry__key">{% include "../static/img/next--12.svg" %}</span>
+          <span class="page-info__entry__value"><a href="{{ nextPost.url }}">{{ nextPost.data.title }}</a>
+        </li> 
       {% endif %}
     </ul>
   </{{ el }}>
   {{ _backButtonScript() }}
 {%- endmacro %}
 
-{% macro EditorialInfo(backlinks) %}
+{% macro EditorialInfo(previousPost, nextPost, backlinks) %}
   {% set date %}{{ date | readableDateISO }}{% endset %}
   {% set updatedString %}{{ updated | readableDateISO }}{% endset %}
   {% set isEvergreen %}{% for tag in tags %}{{ true if ("Evergreen/" in tag) }}{% endfor %}{% endset %}
@@ -96,6 +99,18 @@
             {%- endfor -%}
           </span>
         </li>
+      {% endif %}
+      {% if previousPost %}
+        <li class="page-info__entry page-info__entry">
+          <span class="page-info__entry__key">{% include "../static/img/previous--12.svg" %}</span>
+          <span class="page-info__entry__value"><a href="{{ previousPost.url }}">{{ previousPost.data.title }}</a>
+        </li> 
+      {% endif %}
+      {% if nextPost %}
+        <li class="page-info__entry page-info__entry">
+          <span class="page-info__entry__key">{% include "../static/img/next--12.svg" %}</span>
+          <span class="page-info__entry__value"><a href="{{ nextPost.url }}">{{ nextPost.data.title }}</a>
+        </li> 
       {% endif %}
     </ul>
   </aside>

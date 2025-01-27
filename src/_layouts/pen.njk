@@ -3,13 +3,17 @@ layout: page.njk
 ---
 {%- from 'title-and-date.njk' import PageTitle with context -%}
 {%- from 'page-info.njk' import EditorialInfo with context -%}
+{%- from "../_includes/footer.njk" import footer with context -%}
+
+{% set previousPost = collections.Pens | getPreviousCollectionItem %}
+{% set nextPost = collections.Pens | getNextCollectionItem %}
 
 {% for asset, src in assets | penAssets %}
   <a class="pen-tabs__state" id="{{ asset }}" data-tab-index="tab-{{ loop.index }}">{{ asset }}</a>
 {% endfor %}
 <article class="page page--pen">
   {% set backlinks = collections.all | links_to(page.url) %}
-  {{ EditorialInfo(backlinks) }}
+  {{ EditorialInfo(previousPost, nextPost, backlinks) }}
   {{ PageTitle() }}
   <main class="pen__body">
     <div class="pen__demo">
@@ -35,4 +39,5 @@ layout: page.njk
       </ul>
     </div>
   </main>
+  {{ footer() }}
 </article>
