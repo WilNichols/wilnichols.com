@@ -22,6 +22,13 @@ dotenv.config();
 
 export default async function(eleventyConfig) {
   eleventyConfig.setQuietMode(true);
+  let cachePath;
+  if (process.env.ELEVENTY_ENV == 'prod') {
+   cachePath = '/opt/build/cache/assets/images'
+  } else if (process.env.ELEVENTY_ENV == 'dev') {
+    cachePath = '.cache'
+  };
+  
   const markdownItOptions = {
       html: true,
       breaks: false,
@@ -209,13 +216,7 @@ export default async function(eleventyConfig) {
   
   eleventyConfig.addAsyncFilter('imageInfo', async function(url) {
     // console.log('imageInfo:' + url);
-    let cachePath;
-    if (process.env.ELEVENTY_ENV == 'prod') {
-     cachePath = '/opt/build/cache/assets/images'
-    } else if (process.env.ELEVENTY_ENV == 'dev') {
-      cachePath = '.cache'
-    };
-    const image = await Fetch (url, {
+    const image = await Fetch(url, {
       duration: '*',
       type: 'buffer',
       directory: cachePath,

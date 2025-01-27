@@ -4,26 +4,43 @@
   fileName = '',
   alt = '',
   imageProps,
-  loading = 'lazy'
+  loading = 'lazy',
+  isWNCDN = false,
+  glassSrcSet
 ) %}
+  {%- set sizes -%}
+    {% if isWNCDN %}
+      (max-width: 640px) 640px, 
+      (max-width: 960px) 960px, 
+      (max-width: 1200px) 1200px, 
+      (min-width: 1201px) 1800px
+    {% else %}
+      (max-width: 1024px) 1024px, 
+      (max-width: 2048px) 2048px, 
+      (max-width: 2049px) 3072px
+    {% endif %}
+  {%- endset -%}
+  {%- set srcset -%}
+    {% if isWNCDN %}
+      {{ src }}?width=2400px&format=webp, 
+      {{ src }}?width=1100px&format=webp 960w, 
+      {{ src }}?width=1400px&format=webp 1200w, 
+      {{ src }}?width=2000px&format=webp 1800w
+    {% else %}
+      {{ glassSrcSet | safe }}
+    {% endif %}
+  {%- endset -%}
+  {%- set src -%}
+    {% if isWNCDN %}{{ src }}?width=1400&format=webp{% else %}{{ src | safe }}{% endif %}
+  {%- endset -%}
   <picture class="picture--{{ imageProps.orientation }}" style="--ratio: {{ imageProps.ratio }}; --color: {{ imageProps. color }}">
     <source
-      sizes="
-        (max-width: 640px) 640px, 
-        (max-width: 960px) 960px, 
-        (max-width: 1200px) 1200px, 
-        (min-width: 1201px) 1800px
-      "
-      srcset="
-        {{ src }}?width=2400px&format=webp, 
-        {{ src }}?width=1100px&format=webp 960w, 
-        {{ src }}?width=1400px&format=webp 1200w, 
-        {{ src }}?width=2000px&format=webp 1800w
-      "
+      sizes="{{ sizes }}"
+      srcset="{{ srcset }}"
     >
     <img 
       class="progressiveImg"
-      src="{{ src }}?width=1400&format=webp" 
+      src="{{ src | replace(" ") }}" 
       width="{{ imageProps.width }}" 
       height="{{ imageProps.height }}"
       alt="{% if title %}{{ title }}{% else %}{{ fileName }}{% endif %}"

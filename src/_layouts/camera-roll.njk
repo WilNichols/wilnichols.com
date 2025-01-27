@@ -5,13 +5,13 @@ layout: page.njk
 {% from "../_includes/picture.njk" import Picture with context %}
 {% from "../_includes/footer.njk" import footer with context %}
 
-<div class="page page--albums">
-  {{ header() }}
+<div class="page page--camera-roll page--album">
+  {{ header("page--camera-roll__header") }}
   <ul class="album__album-photos">
     {# {{ cameraRoll | log }} #}
     {% for photo in cameraRoll %}
       {% if loop.index < 3 %}{% set loading = 'eager' %}{% else %}{% set loading = 'lazy' %}{% endif %}
-      {% set src = photo.src %}
+      {% set src = photo.img.src %}
       {% set photoID %}photo-{{ loop.index }}{% endset %}
       {% set imageProps = src | imageInfo %}
       <li class="album__album-photos__photo" id="{{ photoID }}">
@@ -19,9 +19,10 @@ layout: page.njk
             fileName = photoID,
             src = src,
             loading = loading,
-            imageProps = imageProps
+            imageProps = imageProps,
+            glassSrcSet = photo.img.srcset
         ) }}
       </li>
     {% endfor %}
   </ul>
-  </div>
+</div>

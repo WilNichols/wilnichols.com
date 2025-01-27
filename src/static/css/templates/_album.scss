@@ -14,24 +14,32 @@ body:has(> .page--album) {
   -webkit-overflow-scrolling: touch;
   overflow-y: scroll;
   overflow-x: hidden;
-  padding: var(--col);
+  padding: 0 var(--col) var(--col) var(--col);
   height: 100vh;
 }
 
-.page--album .page-header__container {
+%snapHeaderFix {
+  $gap: var(--col);
+  border-top: $gap solid transparent;
+  margin-bottom: $gap;
+  scroll-snap-align: start;
+  // necessary for preserving padding with scroll snapping
+}
+
+.page--camera-roll__header {
+  @extend %snapHeaderFix;
+}
+
+.page--album .page-header__container,  {
   & {
     display: grid;
-    $gap: calc(2 * var(--col));
-    border-top: $gap solid transparent;
-    margin-bottom: $gap;
     grid-template-columns: minmax(auto, calc(tokens.$width / 4)) minmax(auto, tokens.$width);
     grid-template-rows: auto;
     justify-content: center;
     column-gap: 2.4em;
     row-gap: 1.2em;
     width: auto;
-    scroll-snap-align: start;
-    // necessary for preserving padding with scroll snapping
+    @extend %snapHeaderFix;
   }
   @media (width <= tokens.$breakpoint) { 
     grid-template-columns: 100%;

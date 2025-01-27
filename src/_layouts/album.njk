@@ -19,7 +19,6 @@ eleventyImport:
   {% set albumLength %}{{ photos | length }}{% endset %}
   <ul class="album__album-photos">
     {% for photo in photos | reverse %}
-    
       {% if loop.index < 3 %}{% set loading = 'eager' %}{% else %}{% set loading = 'lazy' %}{% endif %}
       {% set src %}{{ remote.gallery.base }}/{{ remote.gallery.photos }}/{{ key }}/{{ photo }}{% endset %}
       {% set fileName %}{{ photo | slugify }}{% endset %}
@@ -31,7 +30,8 @@ eleventyImport:
               fileName = fileName,
               src = src,
               loading = loading,
-              imageProps = imageProps
+              imageProps = imageProps,
+              isWNCDN = true
           ) }}
         </li>
       {% endif %}
