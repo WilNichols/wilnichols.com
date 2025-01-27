@@ -6,6 +6,7 @@ eleventyImport:
 {%- from 'picture.njk' import Picture with context -%}
 {%- from 'title-and-date.njk' import PageTitle with context -%}
 {%- from 'page-info.njk' import AlbumInfo with context -%}
+{% from "../_includes/footer.njk" import footer with context %}
 
 <div class="page page--album">
   <header class="page-header__container">
@@ -36,5 +37,6 @@ eleventyImport:
         </li>
       {% endif %}
     {% endfor %}
+    {{ footer(el="li") }}
   </ul>
 </div>
