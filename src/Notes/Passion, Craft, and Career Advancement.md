@@ -2,7 +2,7 @@
 date: 2024-08-31T15:28
 author: Wil Nichols
 tags:
-  - Topic/Industry
+  - Topic/Work
   - Topic/Management
 permalink: /passion-and-craft/
 summary: 
