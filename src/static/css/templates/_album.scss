@@ -1,7 +1,7 @@
 @use '../tokens';
 
 body:has(> .page--album) {
-  background-color: var(--photoBackgroundMaterialColor);
+  --materialPrimaryColor: var(--photoBackgroundMaterialColor);
   padding: 0;
 }
 
@@ -96,6 +96,8 @@ body:has(> .page--album) {
     display: flex;
     place-content: center;
     scroll-snap-align: center; 
+    flex-direction: column;
+    align-items: center;
   }
   picture {
     display: block;
@@ -128,4 +130,23 @@ body:has(> .page--album) {
       backdrop-filter: blur(0) saturate(1);
     } 
   } 
+}
+
+.album__album-photos__photo__metadata {
+  & {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 1rem;
+    flex-direction: row;
+    list-style: none;
+    color: var(--contentSecondaryColor);
+    font-size: var(--type--2);
+    width: 100%;
+    justify-content: space-between;
+    padding: var(--type--2) 0;
+  }
+  li {
+    text-align: center;
+    white-space: nowrap;
+  }
 }

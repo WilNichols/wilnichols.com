@@ -31,7 +31,7 @@
     {% endif %}
   {%- endset -%}
   {%- set src -%}
-    {% if isWNCDN %}{{ src }}?width=1400&format=webp{% else %}{{ src | safe }}{% endif %}
+    {% if isWNCDN %}{{ src | replace(" ", "") }}?width=1400&format=webp{% else %}{{ src | safe }}{% endif %}
   {%- endset -%}
   <picture class="picture--{{ imageProps.orientation }}" style="--ratio: {{ imageProps.ratio }}; --color: {{ imageProps. color }}">
     <source
@@ -40,7 +40,7 @@
     >
     <img 
       class="progressiveImg"
-      src="{{ src | replace(" ") }}" 
+      src="{{ src | replace(" ", "") }}" 
       width="{{ imageProps.width }}" 
       height="{{ imageProps.height }}"
       alt="{% if title %}{{ title }}{% else %}{{ fileName }}{% endif %}"

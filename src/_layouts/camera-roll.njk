@@ -8,20 +8,28 @@ layout: page.njk
 <div class="page page--camera-roll page--album">
   {{ header("page--camera-roll__header") }}
   <ul class="album__album-photos">
-    {# {{ cameraRoll | log }} #}
     {% for photo in cameraRoll %}
       {% if loop.index < 3 %}{% set loading = 'eager' %}{% else %}{% set loading = 'lazy' %}{% endif %}
       {% set src = photo.img.src %}
       {% set photoID %}photo-{{ loop.index }}{% endset %}
       {% set imageProps = src | imageInfo %}
       <li class="album__album-photos__photo" id="{{ photoID }}">
-        {{  Picture(
-            fileName = photoID,
-            src = src,
-            loading = loading,
-            imageProps = imageProps,
-            glassSrcSet = photo.img.srcset
-        ) }}
+        <a href="{{ photo.url }}" target="blank">
+          {{  Picture(
+              fileName = photoID,
+              src = src,
+              loading = loading,
+              imageProps = imageProps,
+              glassSrcSet = photo.img.srcset
+          ) }}
+        </a>
+        <ul class="album__album-photos__photo__metadata">
+          <li>{{ photo.dateTaken }}</li>
+          <li>{{ photo.cameraLens | replace("Fujifilm ", "") | replace("mF", "m F") }}</li>
+          <li>{{ photo.settings.aperture | replace("/", "") }}</li>
+          <li>{{ photo.settings.shutter }}</li>
+          <li>{{ photo.settings.iso }}</li>
+        </ul>
       </li>
     {% endfor %}
   </ul>
