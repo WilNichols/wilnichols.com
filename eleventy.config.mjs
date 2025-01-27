@@ -137,7 +137,7 @@ export default async function(eleventyConfig) {
   
   eleventyConfig.addFilter("readableDateJS", (dateObj) => {
     return dateObj;
-    // return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat("LLL d, yyyy");
+    return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat("LLL d, yyyy");
   });
   
   eleventyConfig.addFilter("readableDateISO", (dateObj) => {
