@@ -33,7 +33,6 @@ export default async function () {
     cameraRollEntry.camera = {};
     cameraRollEntry.camera.body = parsedGlassPage.querySelectorAll('a[href^="/explore/cameras"]')[0].textContent.trimEnd();
     cameraRollEntry.camera.lens = parsedGlassPage.querySelectorAll('a[href^="/explore/lenses"]')[0].textContent;
-    
     const cameraSettings = parsedGlassPage.querySelector('.fa-loader').parentNode.nextSibling.textContent.split(",");
     cameraRollEntry.settings = {};
     cameraRollEntry.settings.lens = cameraSettings[0].trimStart();
@@ -42,7 +41,8 @@ export default async function () {
     cameraRollEntry.settings.iso = cameraSettings[3].trimStart();
     cameraRollEntry.date = {};
     cameraRollEntry.date.raw = parsedGlassPage.querySelector('.fa-calendar').parentNode.nextSibling.getAttribute('title');
-    cameraRollEntry.date.formatted = DateTime.fromFormat(cameraRollEntry.date.raw, 'FF').toISO();
+    cameraRollEntry.date.ISO = DateTime.fromFormat(cameraRollEntry.date.raw, 'FF').toISO();
+    cameraRollEntry.date.formatted = DateTime.fromISO(cameraRollEntry.date.ISO, 'FF');
     console.log(cameraRollEntry.date);
     const img = await Fetch(cameraRollEntry.img.src, {
       duration: '*',
@@ -53,7 +53,7 @@ export default async function () {
     cameraRollArray.push(cameraRollEntry);
   };
   const sortedCameraRoll = cameraRollArray.sort(function(a, b) {
-    return (a.date.formatted < b.date.formatted) ? -1 : ((a.date.formatted > b.date.formatted) ? 1 : 0);
+    return (a.date.ISO < b.date.ISO) ? -1 : ((a.date.ISO > b.date.ISO) ? 1 : 0);
   });
   return sortedCameraRoll;
 };
