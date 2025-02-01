@@ -215,7 +215,6 @@ export default async function(eleventyConfig) {
   });
   
   eleventyConfig.addAsyncFilter('imageInfo', async function(url) {
-    // console.log('imageInfo:' + url);
     const image = await Fetch(url, {
       duration: '*',
       type: 'buffer',
@@ -237,7 +236,6 @@ export default async function(eleventyConfig) {
     };
     const color = await getColor();
     const obj = {path: url, height: height, width: width, ratio: width/height, orientation: orientation, color: color};
-    // console.log(obj);
     return obj;
   });
   

@@ -24,7 +24,7 @@ layout: page.njk
           ) }}
         </a>
         <ul class="album__album-photos__photo__metadata">
-          <li>{{ photo.date | readableDateISO }}</li>
+          <li>{{ photo.date.formatted | readableDateISO }}</li>
           <li>{{ photo.camera.lens | replace("Fujifilm ", "") | replace("mF", "m F") }}</li>
           <li>{{ photo.settings.aperture | replace("/", "") }}</li>
           <li>{{ photo.settings.shutter }}</li>
