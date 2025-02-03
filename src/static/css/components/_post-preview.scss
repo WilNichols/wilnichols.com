@@ -133,13 +133,10 @@
   &:hover {
     @extend %listItemBackgroundHover;
     .post__summary {
-      &__text {
+      &__text, &::before {
+        filter: blur(0);
         opacity: 1;
-      }
-      &::before {
-        // filter: blur(0);
-        opacity: 1;
-        transition: tokens.$x opacity ease-out;
+        transition: tokens.$x opacity ease-out, tokens.$x filter ease-out;
       }
     }
     $d: .25ex;
@@ -152,6 +149,7 @@
   }
   &:active {
     @extend %listItemBackgroundActive;
+    z-index: 100;
   }
 }
 
@@ -267,7 +265,8 @@
     opacity: 0;
     font-size: var(--type--1);
     transform: translateX(0);
-    transition: tokens.$x transform ease-out, tokens.$x opacity ease-out;
+    filter: blur(.3em);
+    transition: tokens.$x transform ease-out, tokens.$x opacity ease-out, tokens.$x filter ease-out;
   }
   
   &::before {
@@ -275,10 +274,11 @@
     display: block;
     border-radius: 0 0 .6em .6em;
     background-color: var(--materialPrimaryHoverColor);
-    // filter: blur(.3em);
+    filter: blur(.3em);
     will-change: opacity;
-    transition: tokens.$x4 opacity ease-out;
-    inset: 0 -8px -6px -8px;
+    transition: tokens.$x4 opacity ease-out, tokens.$x4 filter ease-out;
+    // negative top inset prevents a visible gap during the blur animation
+    inset: -1px -8px -6px -8px;
     position: absolute;
     opacity: 0;
   }

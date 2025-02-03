@@ -8,13 +8,15 @@
   inset: -6px -8px;
   border-radius: .6em;
   opacity: 0;
+  filter: blur(.3em);
   will-change: opacity;
   background-color: var(--materialPrimaryHoverColor);
-  transition: tokens.$x4 opacity ease-out;
+  transition: tokens.$x4 opacity ease-out, tokens.$x4 filter ease-out;
 }
 
 %listItemBackgroundHover::before {
   opacity: 1;
+  filter: blur(0);
   transition-duration: tokens.$x;
 }
 
