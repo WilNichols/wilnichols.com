@@ -38,10 +38,12 @@
     {% endif %}
     <span class="post__day">{{ postPrefix }}</span>
     <span class="post__title">{{ printedTitle | markdownify | replace("<p>", "") | replace("</p>", "") | safe }}</span>
-    <ul class="post__accessories">
-      {% for tag in post.data.tags %}{% if ("Type/" in tag) %}<li>{{ tagButton(tag) }}</li>{% endif %}{% endfor %}
-    </ul>
-    <div class="post__direction">{% include "../static/img/arrow-right--16.svg" %}</div>
+    {% if not ("Type/Pen" in post.data.tags) %}
+      <ul class="post__accessories">
+        {% for tag in post.data.tags %}{% if ("Type/" in tag) %}<li>{{ tagButton(tag) }}</li>{% endif %}{% endfor %}
+      </ul>
+      <div class="post__direction">{% include "../static/img/arrow-right--16.svg" %}</div>
+    {% endif %}
     {% if post.data.summary %}<div class="post__summary"><span class="post__day">{{ postPrefix }}</span><span class="post__summary__text">{{ post.data.summary }}</span></div>{% endif %}
   </a>
 {%- endmacro %}

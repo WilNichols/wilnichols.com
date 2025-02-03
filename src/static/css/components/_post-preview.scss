@@ -133,6 +133,9 @@
   .post__day, .post__title {
     grid-row: 1 / 2;
   }
+  .post__preview ~ .post__day, .post__preview ~ .post__title {
+    grid-row: 2 / 3;
+  }
   .post__day, .post__title, .post__accessories, .post__summary__text  {
     transition: tokens.$x transform ease-out;
   }
