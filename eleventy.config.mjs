@@ -123,6 +123,13 @@ export default async function(eleventyConfig) {
       return tagsList;
   });
   
+  eleventyConfig.addCollection("Feed", function (collectionsApi) {
+      return [
+        ...collectionsApi.getFilteredByTag("Type/Note"),
+        ...collectionsApi.getFilteredByTag("Type/Link")
+      ];
+  });
+  
   eleventyConfig.addFilter("markdownify", string => {
       return md.render(string)
   });

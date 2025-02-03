@@ -3,7 +3,7 @@ date: 2025-01-13T00:00
 author: Wil Nichols
 tags:
   - Topic/Life
-summary: "I got married. Here’s what that means to me,."
+summary: "I got married. Here’s what that means to me."
 ---
 
 > Because it is the nature of love to create, a marriage itself is something which has to be created, so that, together, we become a new creature. <br /><br />

@@ -5,13 +5,11 @@
 @include tokens.textStyles;
 @include tokens.headingStyles;
 
-
 .post__month {
   white-space-collapse: break-spaces;
 }
 
 .post__month, .post__year {
-  // @extend %heading--6;
   font-size: var(--type--1);
   @extend %font--display-medium;
 }
@@ -24,9 +22,10 @@
   color: var(--contentSecondaryColor);
 }
 
-.post__Accessories {
+.post__accessories {
   display: flex;
   flex-direction: row-reverse;
+  justify-content: end;
   gap: 5px;
   min-height: 1.2em;
   line-height: 1.2em;
@@ -79,51 +78,96 @@
   // necessary for subgrid
   display: contents;
 }
-
-.post__link {
-  grid-column: 1 / -1;
-}
-
 .post__link {
   & {
     display: grid;
+    grid-column: 1 / -1;
     grid-template-columns: subgrid;
     text-decoration: none;
     align-items: flex-start;
     color: var(--contentPrimaryColor);
     position: relative;
     row-gap: 2px; // this is a const because it looks better
+    opacity: 1;
+    transition: opacity tokens.$x ease-out;
     @extend %listItemBackground;
+    // Platter overrides
+    &::before {
+      inset: -6px -8px;
+      z-index: -1;
+    }
+    &:has(> .post__summary) {
+      &::before {
+        inset: -6px -8px 0 -8px;
+        border-radius: .6em .6em 0 0;
+      }
+    }
   }
   // give more space for title if no accessories
   .post__title {
     grid-column: 2 / 4;
-  }  
-  &--with-accessories .post__title {
+  }
+  .post__title:has(~ .post__accessories) {
     grid-column: 2 / 3;
   }
-  // prevents flickering with animated pseudo element
+  .post__direction {
+    z-index: 100;
+    grid-column: 4 / 5;
+    color: var(--contentSecondaryColor);
+    opacity: 0;
+    filter: blur(.3em);
+    transition: tokens.$x transform ease-out, tokens.$x opacity ease-out, tokens.$x filter ease-out;
+    display: grid;
+    place-content: center;
+    margin: auto 0;
+  }
+  .post__accessories {
+    grid-column: 3 / 4;
+    display: flex;
+    gap: 4px;
+    margin: auto 0;
+    > li {
+      display: contents;
+    }
+  }
   .post__day, .post__title {
-    z-index: 1;
+    grid-row: 1 / 2;
   }
-  .post__day, .post__title, .post__Accessories  {
-    transition: tokens.$x transform ease-out, tokens.$x background-color ease-out;
+  .post__preview ~ .post__day, .post__preview ~ .post__title {
+    grid-row: 2 / 3;
   }
-  &:hover {
+  .post__day, .post__title, .post__accessories, .post__summary__text  {
+    transition: tokens.$x transform ease-out;
+  }
+  .post__summary__text {
+    opacity: 0;
+  }
+  &:hover, &.hover-debug {
     @extend %listItemBackgroundHover;
+    .post__summary {
+      &__text, &::before {
+        filter: blur(0);
+        opacity: 1;
+        transition: tokens.$x opacity ease-out, tokens.$x filter ease-out;
+      }
+    }
     $d: .25ex;
-    .post__day, .post__title {
+    .post__day, .post__title, .post__summary__text {
       transform: translateX($d);
     }
-    .post__Accessories {
+    .post__accessories {
       transform: translateX(-$d);
     }
-    .post__day, .post__title, .post__Accessories {
-      transition-duration: math.div(tokens.$x, 4); 
+    .post__direction {
+      transform: translateX(-$d);
+      opacity: 1;
+      filter: blur(0);
+      transition: tokens.$x transform ease-out, tokens.$x opacity ease-out, tokens.$x filter ease-out;
     }
   }
   &:active {
     @extend %listItemBackgroundActive;
+    z-index: 100;
   }
 }
 
@@ -164,7 +208,6 @@
         0px 1.8px 3.6px 1px rgba(0, 0, 0, calc(0.03 * var(--shadowMultiplier, 1))), 
         0px 0.76px 1.52px 1px rgba(0, 0, 0, calc(0.025 * var(--shadowMultiplier, 1))), 
         0px 0.28px 0.56px 1px rgba(0, 0, 0, calc(0.017 * var(--shadowMultiplier, 1)));
-      transition-duration: math.div(tokens.$x, 4);
     }
     &::before {
       transition-duration: inherit;
@@ -214,3 +257,64 @@
 .post__title {
   padding: 0 tokens.$note-title-gap 0 0;
 }
+
+.post__summary {
+  display: grid;
+  font-size: var(--type-0);
+  text-wrap: pretty;
+  color: var(--contentSecondaryColor);
+  position: absolute;
+  grid-column: 1 / -1;
+  grid-row: 2 / 3;
+  grid-template-columns: min-content auto;
+  z-index: 100;
+  width: 100%;
+  column-gap: .25em;
+  pointer-events: none;
+  .post__day {
+    grid-column: 1 / 2;
+    opacity: 0;
+    font-size: var(--type-0);
+  }
+  .post__summary__text {
+    z-index: 1;
+    grid-column: 2 / 3;
+    opacity: 0;
+    font-size: var(--type--1);
+    transform: translateX(0);
+    filter: blur(.3em);
+    transition: tokens.$x transform ease-out, tokens.$x opacity ease-out, tokens.$x filter ease-out;
+  }
+  &::before {
+    content: '';
+    display: block;
+    border-radius: 0 0 .6em .6em;
+    background-color: var(--materialPrimaryHoverColor);
+    filter: blur(.3em);
+    will-change: opacity;
+    transition: tokens.$x4 opacity ease-out, tokens.$x4 filter ease-out;
+    // negative top inset prevents a visible gap during the blur animation
+    inset: -1px -8px -6px -8px;
+    position: absolute;
+    opacity: 0;
+  }
+}
+
+// goofy, maybe too much
+// 
+// .posts-month {
+//   opacity: 1;
+//   transition: opacity tokens.$x ease-out;
+// }
+// .note:has(.post__link:hover) ~ .note > .post__link, 
+// .posts-month:has(.post__link:hover) ~ .posts-month,
+// .posts-month:has(~ .posts-month .post__link:hover)  {
+//   opacity: 0.5;
+//   transition: opacity tokens.$x ease-out;
+// }
+// 
+// 
+// .note:has(~ .note > .post__link:hover) .post__link {
+//   opacity: 0.75;
+//   transition: opacity tokens.$x ease-out;
+// }
