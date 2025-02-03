@@ -3,7 +3,9 @@
 
 {% macro postListItem(post, postPrefix, showAccessories) -%}
 {% set printedTitle %}{{ post.data.altTitle if post.data.altTitle else post.data.title }}{% endset %}
-  <a href="{{ post.url }}" class="post__link">
+  {% if (post.data.dest) and not (post.content) %}{% set isSimpleLink = true %}{% endif %}
+  {% set url %}{% if isSimpleLink %}{{ post.data.dest }}{% else %}{{ post.url }}{% endif %}{% endset %}
+  <a href="{{ url }}" class="post__link"{{ ' target="blank"' if isSimpleLink }}>
     {% if post.data.preview %}
       <div class="post__preview">
         {% if post.data.preview.type == 'vid' %}
@@ -42,7 +44,7 @@
       <ul class="post__accessories">
         {% for tag in post.data.tags %}{% if ("Type/" in tag) %}<li>{{ tagButton(tag) }}</li>{% endif %}{% endfor %}
       </ul>
-      <div class="post__direction">{% include "../static/img/arrow-right--16.svg" %}</div>
+      <div class="post__direction">{% if post.content %}{% include "../static/img/arrow-right--16.svg" %}{% else %}{% include "../static/img/arrow-up-right--16.svg" %}{% endif %}</div>
     {% endif %}
     {% if post.data.summary %}<div class="post__summary"><span class="post__day">{{ postPrefix }}</span><span class="post__summary__text">{{ post.data.summary }}</span></div>{% endif %}
   </a>
