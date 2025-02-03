@@ -38,6 +38,7 @@
     {% endif %}
     <span class="post__day">{{ postPrefix }}</span>
     <span class="post__title">{{ printedTitle | markdownify | replace("<p>", "") | replace("</p>", "") | safe }}</span>
+    {% if post.data.summary %}<div class="post__summary"><span class="post__day">{{ postPrefix }}</span><span class="post__summary__text">{{ post.data.summary }}</span></div>{% endif %}
     {# {% if showAccessories %}
       <ul class="post__Accessories">
         {% for tag in post.data.tags %}{% if ("Type/" in tag) %}  <li>{{ tagButton(tag) }}</li>{% endif %}{% endfor %}

@@ -5,7 +5,6 @@
 @include tokens.textStyles;
 @include tokens.headingStyles;
 
-
 .post__month {
   white-space-collapse: break-spaces;
 }
@@ -79,14 +78,10 @@
   // necessary for subgrid
   display: contents;
 }
-
-.post__link {
-  grid-column: 1 / -1;
-}
-
 .post__link {
   & {
     display: grid;
+    grid-column: 1 / -1;
     grid-template-columns: subgrid;
     text-decoration: none;
     align-items: flex-start;
@@ -94,6 +89,17 @@
     position: relative;
     row-gap: 2px; // this is a const because it looks better
     @extend %listItemBackground;
+    // Platter overrides
+    &::before {
+      inset: -6px -8px;
+      z-index: -1;
+    }
+    &:has(> .post__summary) {
+      &::before {
+        inset: -6px -8px 0 -8px;
+        border-radius: .6em .6em 0 0;
+      }
+    }
   }
   // give more space for title if no accessories
   .post__title {
@@ -102,24 +108,46 @@
   &--with-accessories .post__title {
     grid-column: 2 / 3;
   }
-  // prevents flickering with animated pseudo element
   .post__day, .post__title {
-    z-index: 1;
+    grid-row: 1 / 2;
   }
-  .post__day, .post__title, .post__Accessories  {
-    transition: tokens.$x transform ease-out, tokens.$x background-color ease-out;
+  .post__day, .post__title, .post__Accessories, .post__summary__text  {
+    transition: tokens.$x transform ease-out;
   }
+  .post__summary__text {
+    opacity: 0;
+    transition: tokens.$x opacity ease-out;
+  }
+  // &::after {
+  //   content: '';
+  //   transition: tokens.$x opacity ease-out;
+  //   background-color: var(--materialPrimaryColor);
+  //   pointer-events: none;
+  //   position: fixed;
+  //   inset: 0;
+  //   opacity: 0;
+  //   width: 100dvw;
+  //   height: 100dvh;
+  // }
+  
   &:hover {
     @extend %listItemBackgroundHover;
+    .post__summary {
+      &__text {
+        opacity: 1;
+      }
+      &::before {
+        // filter: blur(0);
+        opacity: 1;
+        transition: tokens.$x opacity ease-out;
+      }
+    }
     $d: .25ex;
-    .post__day, .post__title {
+    .post__day, .post__title, .post__summary__text {
       transform: translateX($d);
     }
     .post__Accessories {
       transform: translateX(-$d);
-    }
-    .post__day, .post__title, .post__Accessories {
-      transition-duration: math.div(tokens.$x, 4); 
     }
   }
   &:active {
@@ -164,7 +192,7 @@
         0px 1.8px 3.6px 1px rgba(0, 0, 0, calc(0.03 * var(--shadowMultiplier, 1))), 
         0px 0.76px 1.52px 1px rgba(0, 0, 0, calc(0.025 * var(--shadowMultiplier, 1))), 
         0px 0.28px 0.56px 1px rgba(0, 0, 0, calc(0.017 * var(--shadowMultiplier, 1)));
-      transition-duration: math.div(tokens.$x, 4);
+      // transition-duration: math.div(tokens.$x, 4);
     }
     &::before {
       transition-duration: inherit;
@@ -213,4 +241,46 @@
 
 .post__title {
   padding: 0 tokens.$note-title-gap 0 0;
+}
+
+.post__summary {
+  display: grid;
+  font-size: var(--type-0);
+  text-wrap: pretty;
+  color: var(--contentSecondaryColor);
+  position: absolute;
+  grid-column: 1 / 4;
+  grid-row: 2 / 3;
+  grid-template-columns: min-content auto;
+  z-index: 100;
+  width: 100%;
+  column-gap: .25em;
+  pointer-events: none;
+  .post__day {
+    grid-column: 1 / 2;
+    opacity: 0;
+    font-size: var(--type-0);
+  }
+  .post__summary__text {
+    z-index: 1;
+    grid-column: 2 / 3;
+    opacity: 0;
+    font-size: var(--type--1);
+    transform: translateX(0);
+    transition: tokens.$x transform ease-out, tokens.$x opacity ease-out;
+  }
+  
+  &::before {
+    content: '';
+    display: block;
+    border-radius: 0 0 .6em .6em;
+    background-color: var(--materialPrimaryHoverColor);
+    // filter: blur(.3em);
+    will-change: opacity;
+    transition: tokens.$x4 opacity ease-out;
+    inset: 0 -8px -6px -8px;
+    position: absolute;
+    opacity: 0;
+  }
+
 }

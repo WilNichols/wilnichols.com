@@ -17,7 +17,6 @@ export default async function () {
   
   for (const entry of feed.entries) {
     const cameraRollEntry = {};
-    if (process.env.ELEVENTY_ENV == 'dev') {console.log(entry.link)};
     const glassPage = await Fetch(entry.link, {
       duration: '*',
       type: 'xml',
@@ -43,13 +42,11 @@ export default async function () {
     cameraRollEntry.date.raw = parsedGlassPage.querySelector('.fa-calendar').parentNode.nextSibling.getAttribute('title');
     cameraRollEntry.date.ISO = DateTime.fromFormat(cameraRollEntry.date.raw, 'FF').toISO();
     cameraRollEntry.date.formatted = DateTime.fromISO(cameraRollEntry.date.ISO, 'FF');
-    console.log(cameraRollEntry.date);
     const img = await Fetch(cameraRollEntry.img.src, {
       duration: '*',
       type: 'buffer',
       directory: cachePath,
     });
-    if (process.env.ELEVENTY_ENV == 'dev') {console.log(cameraRollEntry.img.src)};
     cameraRollArray.push(cameraRollEntry);
   };
   const sortedCameraRoll = cameraRollArray.sort(function(a, b) {
