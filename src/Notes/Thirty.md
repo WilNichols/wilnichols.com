@@ -3,7 +3,7 @@ date: 2024-09-19T23:10
 author: Wil Nichols
 tags:
   - Calendar/Birthday
-  - Topic/Life
+  - Topic/Me
 url: 
 summary: 
     I turned thirty today. These are some passing thoughts.
