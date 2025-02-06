@@ -17,7 +17,6 @@ import beautify from 'js-beautify';
 import syntaxHighlight from '@11ty/eleventy-plugin-syntaxhighlight';
 import { JSDOM } from 'jsdom';
 
-
 dotenv.config();
 
 export default async function(eleventyConfig) {

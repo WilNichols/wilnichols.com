@@ -42,7 +42,7 @@
     <span class="post__title">{{ printedTitle | markdownify | replace("<p>", "") | replace("</p>", "") | safe }}</span>
     {% if not ("Type/Pen" in post.data.tags) %}
       <ul class="post__accessories">
-        {% for tag in post.data.tags %}{% if ("Type/" in tag) %}<li>{{ tagButton(tag) }}</li>{% endif %}{% endfor %}
+        {% for tag in post.data.tags %}{% if ("Type/" in tag) and not ("Type/Note" in tag) %}<li>{{ tagButton(tag) }}</li>{% endif %}{% endfor %}
       </ul>
       <div class="post__direction">{% if post.content %}{% include "../static/img/arrow-right--16.svg" %}{% else %}{% include "../static/img/arrow-up-right--16.svg" %}{% endif %}</div>
     {% endif %}
