@@ -2,7 +2,7 @@
 date: 2024-07-19T17:58
 author: Wil Nichols
 tags:
-  - Topic/Industry
+  - Topic/Work
   - Topic/AI
 url: 
 ---

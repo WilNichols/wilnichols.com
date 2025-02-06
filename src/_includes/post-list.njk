@@ -3,7 +3,9 @@
 
 {% macro postListItem(post, postPrefix, showAccessories) -%}
 {% set printedTitle %}{{ post.data.altTitle if post.data.altTitle else post.data.title }}{% endset %}
-  <a href="{{ post.url }}" class="post__link{{ ' post__link--with-accessories' if showAccessories }}">
+  {% if (post.data.dest) and not (post.content) %}{% set isSimpleLink = true %}{% endif %}
+  {% set url %}{% if isSimpleLink %}{{ post.data.dest }}{% else %}{{ post.url }}{% endif %}{% endset %}
+  <a href="{{ url }}" class="post__link"{{ ' target="blank"' if isSimpleLink }}>
     {% if post.data.preview %}
       <div class="post__preview">
         {% if post.data.preview.type == 'vid' %}
@@ -38,11 +40,13 @@
     {% endif %}
     <span class="post__day">{{ postPrefix }}</span>
     <span class="post__title">{{ printedTitle | markdownify | replace("<p>", "") | replace("</p>", "") | safe }}</span>
-    {# {% if showAccessories %}
-      <ul class="post__Accessories">
-        {% for tag in post.data.tags %}{% if ("Type/" in tag) %}  <li>{{ tagButton(tag) }}</li>{% endif %}{% endfor %}
+    {% if not ("Type/Pen" in post.data.tags) %}
+      <ul class="post__accessories">
+        {% for tag in post.data.tags %}{% if ("Type/" in tag) and not ("Type/Note" in tag) %}<li>{{ tagButton(tag) }}</li>{% endif %}{% endfor %}
       </ul>
-    {% endif %} #}
+      <div class="post__direction">{% if post.content %}{% include "../static/img/arrow-right--16.svg" %}{% else %}{% include "../static/img/arrow-up-right--16.svg" %}{% endif %}</div>
+    {% endif %}
+    {% if post.data.summary %}<div class="post__summary"><span class="post__day">{{ postPrefix }}</span><span class="post__summary__text">{{ post.data.summary }}</span></div>{% endif %}
   </a>
 {%- endmacro %}
 
@@ -56,7 +60,6 @@
       {% set postMonth = post.data.month %}
       {% set postYear = post.data.year %}
       {% set postPrefix %}{% if (currentDay == postDay) and (currentMonth == postMonth) %}↳{% else %}{{ postDay }}{% endif %}{% endset %}
-      {% set showAccessories %}{% for tag in post.data.tags %}{{ true if ("Type/" in tag) and not ("Type/Note" in tag)}}{% endfor %}{% endset %}
       {% if currentMonth != postMonth %}
         {% if loop.index > 1 %}</ol></li>{% endif %}
         <li class="posts-month">

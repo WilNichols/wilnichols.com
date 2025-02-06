@@ -2,9 +2,8 @@
 date: 2025-01-22T10:36
 author: Wil Nichols
 tags:
-  - Type/Update
   - Status/Complete
-  - Topic/Building
+  - Topic/Projects
 url: 
 ---
 

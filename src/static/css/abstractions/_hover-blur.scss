@@ -7,10 +7,10 @@
   position: absolute;
   inset: -6px -8px;
   border-radius: .6em;
-  background-color: var(--materialPrimaryHoverColor);
   opacity: 0;
-  will-change: opacity;
   filter: blur(.3em);
+  will-change: opacity;
+  background-color: var(--materialPrimaryHoverColor);
   transition: tokens.$x4 opacity ease-out, tokens.$x4 filter ease-out;
 }
 

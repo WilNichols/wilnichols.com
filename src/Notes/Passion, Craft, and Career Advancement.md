@@ -6,8 +6,7 @@ tags:
   - Topic/Management
 permalink: /passion-and-craft/
 summary: 
-  Can designers succeed without passion for craft, and does that passion predicate career success? Is this a challenge for the young designer, or for leaders to recognize and cultivate passion’s different shapes? 
-  
+  Can designers succeed without passion for craft, and does that passion predicate career success?
 ---
 
 I’ve managed my small team at Zello for a smidge over two and a half years. I entered the position with two reports who I’d helped interview, added three in my time as manager, and am now backfilling one. Depending on the week and the work at hand, anywhere between a fourth to a half of my time is still spent on IC work.

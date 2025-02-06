@@ -46,13 +46,13 @@
       {%- endfor -%}
       {% if previousPost %}
         <li class="page-info__entry page-info__entry">
-          <span class="page-info__entry__key">{% include "../static/img/previous--12.svg" %}</span>
+          <span class="page-info__entry__key">{% include "../static/img/arrow-left--12.svg" %}</span>
           <span class="page-info__entry__value"><a href="{{ previousPost.url }}">{{ previousPost.data.title }}</a>
         </li> 
       {% endif %}
       {% if nextPost %}
         <li class="page-info__entry page-info__entry">
-          <span class="page-info__entry__key">{% include "../static/img/next--12.svg" %}</span>
+          <span class="page-info__entry__key">{% include "../static/img/arrow-right--12.svg" %}</span>
           <span class="page-info__entry__value"><a href="{{ nextPost.url }}">{{ nextPost.data.title }}</a>
         </li> 
       {% endif %}
@@ -102,13 +102,13 @@
       {% endif %}
       {% if previousPost %}
         <li class="page-info__entry page-info__entry">
-          <span class="page-info__entry__key">{% include "../static/img/previous--12.svg" %}</span>
+          <span class="page-info__entry__key">{% include "../static/img/arrow-left--12.svg" %}</span>
           <span class="page-info__entry__value"><a href="{{ previousPost.url }}">{{ previousPost.data.title }}</a>
         </li> 
       {% endif %}
       {% if nextPost %}
         <li class="page-info__entry page-info__entry">
-          <span class="page-info__entry__key">{% include "../static/img/next--12.svg" %}</span>
+          <span class="page-info__entry__key">{% include "../static/img/arrow-right--12.svg" %}</span>
           <span class="page-info__entry__value"><a href="{{ nextPost.url }}">{{ nextPost.data.title }}</a>
         </li> 
       {% endif %}
