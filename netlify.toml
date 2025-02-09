@@ -13,3 +13,6 @@
 [context.branch-deploy]
   command = "npm run netlify-build-dev"
   publish = "_site/"
+
+[functions]
+  node_bundler = "esbuild"
