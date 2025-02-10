@@ -51,7 +51,7 @@ ingredients:
     isWNCDN = true
 ) }}
 
-I made those! 👆🏻
+I made those! Actually, 53. This recipe fortunately yields a practical six instead.
 
 Since first enjoying Liège waffles on my [first visit](/albums/leuven-1/) to Leuven in 2017, I’ve wanted to find a version I could recreate at home. It wasn’t until moving to Pittsburgh five years later that I finally took the time to do so.[^1]
 
@@ -64,13 +64,13 @@ The following recipe contains only slight modifications to his, based significan
 ## Directions {.heading--5}
 1. In your stand mixer, dissolve yeast in warm[^3] water, allowing it to rest for a few minutes. Add a third of your flour and half of your eggs. Mix until consistent.
 2. Cover the mixture with the remainder of your flour, without stirring. Let it stand for one hour, covered airtight with plastic wrap. You’ll return to the wet batter bubbling up through the flour.
-3. Add the remaining 1/2 of your eggs, light brown sugar, vanilla extract, and honey.
+3. Add the remaining half of your eggs, light brown sugar, vanilla extract, and honey.
 4. With your mixer’s paddle attachment, mix on the lowest speed. Scrape down the bowl regularly to ensure no unmixed flour. After 15-20 minutes the dough should form into a ball around the paddle.
 5. Add the butter in tablespoon increments over the course of 10 minutes. You should see them fully incorporate, and not rush.
 6. Continue scraping, waiting for the dough to ball again. This should take under 5 minutes.
 7. Scrape the dough into a large bowl covered airtight with plastic wrap, and allow it to rise at room temperature for four hours.[^4] 
 8. Punch down to relieve some (but not all) air from the dough. Then, allow it to rest in your refrigerator overnight. 
-9. The next day, take the dough from the fridge. Portion each into 6 balls weighing 114g apiece. If not cooking immediately, wrap these tightly in plastic wrap and freeze. When cooking from the freezer, make sure to move them from to the refrigerator the night before to gently defrost.[^5]
+9. The next day, take the dough from the fridge. Portion each into six balls weighing 114g apiece. If not cooking immediately, wrap these tightly in plastic wrap and freeze. When cooking from the freezer, make sure to move them from to the refrigerator the night before to gently defrost.[^5]
 10. Then add 1/6 of your pearl sugar to each ball, both on the surface and within the dough. 
 11. Shape each into an oval, allowing a 90 minute rise loosely under a warm, damp cloth.
 12. Cook in your waffle iron to the desired doneness.

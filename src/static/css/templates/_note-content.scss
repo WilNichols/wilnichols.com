@@ -27,6 +27,7 @@
     }
     &::marker {
       color: var(--contentTertiaryColor);
+      font-size: var(--type--1);
     }
   }
 
@@ -45,6 +46,7 @@
 }
 
 .note__body > picture img {
+  width: 100%;
   max-width: tokens.$width;
   height: auto;
 }
