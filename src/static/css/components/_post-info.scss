@@ -104,3 +104,29 @@ $tableGap: 10px;
     width: auto;
   }
 }
+
+.recipe__ingredient-list-container {
+  margin: var(--type-0) 0 0 0;
+  padding: .375em 0 0 0;
+  position: sticky;
+  top: 0;
+  @media (width <= tokens.$breakpoint) {
+    position: static;
+  }
+}
+
+.page-ingredient__list {
+  & {
+    grid-template-columns: auto;  
+  }
+  @media (width <= tokens.$breakpoint) {
+    margin-top: 1em;
+    flex-direction: column;
+    flex-wrap: nowrap
+  }
+}
+
+.page-ingredient__list .page-info__entry__key {
+  height: auto;
+  justify-content: start;
+}

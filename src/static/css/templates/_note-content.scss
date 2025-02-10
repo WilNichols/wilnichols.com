@@ -1,3 +1,4 @@
+@use '../tokens' as tokens;
 .page-header__title {
   & {
     display: inline-flex;
@@ -26,16 +27,13 @@
     }
     &::marker {
       color: var(--contentTertiaryColor);
+      font-size: var(--type--1);
     }
   }
 
   &:has(+ p) {
     margin: 0 auto 1em auto;
   }
-}
-
-.note__body + .backlinks {
-  margin-top: 1em;
 }
 
 .note__body > p, .pen__body > p {
@@ -45,4 +43,10 @@
   &:not(:last-of-type) {
     margin: 0 auto 1em auto;
   }
+}
+
+.note__body > picture img {
+  width: 100%;
+  max-width: tokens.$width;
+  height: auto;
 }

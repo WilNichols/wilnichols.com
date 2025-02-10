@@ -61,58 +61,71 @@
   {{ _backButtonScript() }}
 {%- endmacro %}
 
-{% macro EditorialInfo(previousPost, nextPost, backlinks) %}
+{% macro EditorialInfo(previousPost, nextPost, backlinks, ingredients) %}
   {% set date %}{{ date | readableDateISO }}{% endset %}
   {% set updatedString %}{{ updated | readableDateISO }}{% endset %}
   {% set isEvergreen %}{% for tag in tags %}{{ true if ("Evergreen/" in tag) }}{% endfor %}{% endset %}
   {% set showTags %}{% for tag in tags %}{{ true if ("Topic/" in tag) }}{% endfor %}{% endset %}
   <aside class="page-info">
     <a id="back-button" href="../" class="page-info__entry--back-link"><span class="page-info__entry__key">{% include "../static/img/back--12.svg" %}</span><span class="page-info__entry__value">Back</span></a>
-    <ul class="page-info__list">
-      <li class="page-info__entry page-info__entry--date"><span class="page-info__entry__key">{% include "../static/img/published--12.svg" %}</span><span class="page-info__entry__value">{{ date }}</span></li>
-      {%- if updated and (date != updated) -%}
-        <li class="page-info__entry">
-          <span class="page-info__entry__key">{% include "../static/img/updated--12.svg" %}</span><span class="page-info__entry__value">{{ updatedString }}</span></li>
-      {%- endif -%}
-      {# {%- if isEvergreen -%}
-        <li class="page-info__entry"><span class="page-info__entry__key">Revision</span><span class="page-info__entry__value">{% for tag in tags %}{% if "Evergreen" in tag %}{{ tag | getRevision }}{% endif %}{% endfor %}</span></li>
-      {%- endif -%} #}
-      {% if showTags %}
-        <li class="page-info__entry page-info__entry--tags">
-          <span class="page-info__entry__key">{% include "../static/img/tags--12.svg" %}</span>
-          <span class="page-info__entry__value">
-            {%- for tag in tags -%}
-              {%- if 'Topic/' in tag -%}
-                {%- set label -%}{{- tag | replace('Topic/', '') -}}{%- endset -%}
-                {{- label -}}{{- ", " if not loop.last -}}
-              {%- endif -%}
-            {%- endfor -%}
-          </span>
-        </li>
+    <div class="page-info__list-container">
+      <ul class="page-info__list">
+        <li class="page-info__entry page-info__entry--date"><span class="page-info__entry__key">{% include "../static/img/published--12.svg" %}</span><span class="page-info__entry__value">{{ date }}</span></li>
+        {%- if updated and (date != updated) -%}
+          <li class="page-info__entry">
+            <span class="page-info__entry__key">{% include "../static/img/updated--12.svg" %}</span><span class="page-info__entry__value">{{ updatedString }}</span></li>
+        {%- endif -%}
+        {# {%- if isEvergreen -%}
+          <li class="page-info__entry"><span class="page-info__entry__key">Revision</span><span class="page-info__entry__value">{% for tag in tags %}{% if "Evergreen" in tag %}{{ tag | getRevision }}{% endif %}{% endfor %}</span></li>
+        {%- endif -%} #}
+        {% if showTags %}
+          <li class="page-info__entry page-info__entry--tags">
+            <span class="page-info__entry__key">{% include "../static/img/tags--12.svg" %}</span>
+            <span class="page-info__entry__value">
+              {%- for tag in tags -%}
+                {%- if 'Topic/' in tag -%}
+                  {%- set label -%}{{- tag | replace('Topic/', '') -}}{%- endset -%}
+                  {{- label -}}{{- ", " if not loop.last -}}
+                {%- endif -%}
+              {%- endfor -%}
+            </span>
+          </li>
+        {% endif %}
+        {% if backlinks.length > 0 %}
+          <li class="page-info__entry page-info__entry--tags">
+            <span class="page-info__entry__key">{% include "../static/img/links--12.svg" %}</span>
+            <span class="page-info__entry__value">
+              {%- for link in backlinks -%}
+                <a href="{{ link.url }}">{{ link.data.title }}</a>{{ ", " if not loop.last }}
+              {%- endfor -%}
+            </span>
+          </li>
+        {% endif %}
+        {% if previousPost %}
+          <li class="page-info__entry page-info__entry">
+            <span class="page-info__entry__key">{% include "../static/img/arrow-left--12.svg" %}</span>
+            <span class="page-info__entry__value"><a href="{{ previousPost.url }}">{{ previousPost.data.title }}</a>
+          </li> 
+        {% endif %}
+        {% if nextPost %}
+          <li class="page-info__entry page-info__entry">
+            <span class="page-info__entry__key">{% include "../static/img/arrow-right--12.svg" %}</span>
+            <span class="page-info__entry__value"><a href="{{ nextPost.url }}">{{ nextPost.data.title }}</a>
+          </li> 
+        {% endif %}
+      </ul>
+      {% if ingredients %}
+      <div class="recipe__ingredient-list-container">
+        <h3 class="heading--6">Ingredients</h3>
+        <ul class="page-info__list page-ingredient__list">
+          {% for ingredient in ingredients %}
+            <li class="page-info__entry page-info__entry--date"><span class="page-info__entry__key">{{ ingredient.name }}</span><span class="page-info__entry__value">{{ ingredient.metric }} 
+            | {{ ingredient.imperial }}</span></li>
+          {% endfor %}
+        </ul>
+      </div>
       {% endif %}
-      {% if backlinks.length > 0 %}
-        <li class="page-info__entry page-info__entry--tags">
-          <span class="page-info__entry__key">{% include "../static/img/links--12.svg" %}</span>
-          <span class="page-info__entry__value">
-            {%- for link in backlinks -%}
-              <a href="{{ link.url }}">{{ link.data.title }}</a>{{ ", " if not loop.last }}
-            {%- endfor -%}
-          </span>
-        </li>
-      {% endif %}
-      {% if previousPost %}
-        <li class="page-info__entry page-info__entry">
-          <span class="page-info__entry__key">{% include "../static/img/arrow-left--12.svg" %}</span>
-          <span class="page-info__entry__value"><a href="{{ previousPost.url }}">{{ previousPost.data.title }}</a>
-        </li> 
-      {% endif %}
-      {% if nextPost %}
-        <li class="page-info__entry page-info__entry">
-          <span class="page-info__entry__key">{% include "../static/img/arrow-right--12.svg" %}</span>
-          <span class="page-info__entry__value"><a href="{{ nextPost.url }}">{{ nextPost.data.title }}</a>
-        </li> 
-      {% endif %}
-    </ul>
+    </div>
   </aside>
   {{ _backButtonScript() }}
 {% endmacro %}

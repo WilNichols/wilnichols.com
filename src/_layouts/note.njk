@@ -11,7 +11,7 @@ layout: page.njk
 
 <article class="page page--note">
   {% set backlinks = collections.all | links_to(page.url) %}
-  {{ EditorialInfo(previousPost, nextPost, backlinks) }}
+  {{ EditorialInfo(previousPost, nextPost, backlinks, ingredients) }}
   {{ PageTitle() }}
   <main class="note__body">
     {{ content | safe }}

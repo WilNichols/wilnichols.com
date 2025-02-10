@@ -100,16 +100,6 @@ $body-gap: 1em;
       @extend %heading--#{$i};
       line-height: 1.5em;
       position: relative;
-      @if ($i > 1) {
-        &::before {
-          content: '';
-          position: absolute;
-          inset: .5em auto .5em -1ex;
-          background-color: var(--contentTertiaryColor);
-          width: .25rem;
-          border-radius: .125rem;
-        }
-      }
     }
   }
 
