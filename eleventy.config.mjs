@@ -125,7 +125,8 @@ export default async function(eleventyConfig) {
   eleventyConfig.addCollection("Feed", function (collectionsApi) {
       return [
         ...collectionsApi.getFilteredByTag("Type/Note"),
-        ...collectionsApi.getFilteredByTag("Type/Link")
+        ...collectionsApi.getFilteredByTag("Type/Link"),
+        ...collectionsApi.getFilteredByTag("Type/Recipe"),
       ];
   });
   
@@ -299,6 +300,7 @@ export default async function(eleventyConfig) {
       input: "src",
       output: "_site",
       layouts: "_layouts"
-    }
+    },
+    markdownTemplateEngine: "njk"
   }
 };
