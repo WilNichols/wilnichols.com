@@ -123,15 +123,19 @@ export default async function(eleventyConfig) {
   });
   
   eleventyConfig.addCollection("Feed", function (collectionsApi) {
-      return [
-        ...collectionsApi.getFilteredByTag("Type/Note"),
-        ...collectionsApi.getFilteredByTag("Type/Link"),
-        ...collectionsApi.getFilteredByTag("Type/Recipe"),
-      ];
+    const feed = [
+      ...collectionsApi.getFilteredByTag("Type/Note"),
+      ...collectionsApi.getFilteredByTag("Type/Link"),
+      ...collectionsApi.getFilteredByTag("Type/Recipe")
+    ];
+    const sortedFeed = feed.sort(function(a, b) {
+      return (a.date < b.date) ? -1 : ((a.date > b.date) ? 1 : 0);
+    });
+    return sortedFeed;
   });
   
   eleventyConfig.addFilter("markdownify", string => {
-      return md.render(string)
+    return md.render(string)
   });
   
   // simple cache busting method from https://rob.cogit8.org/posts/2020-10-28-simple-11ty-cache-busting/
