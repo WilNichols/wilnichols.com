@@ -38,7 +38,6 @@ export default async function () {
     // this is _incredibly_ brittle, but it looks like they strip a ton of exif data
     cameraRollEntry.url = entry.link;
     cameraRollEntry.img = {};
-    console.log(entry.enclosure);
     cameraRollEntry.img.src = entry.enclosure.url;
     cameraRollEntry.camera = {};
     cameraRollEntry.camera.body = parsedGlassPage.querySelectorAll('a[href^="/explore/cameras"]')[0].textContent.trimEnd();
