@@ -15,13 +15,17 @@
 }
 
 %listItemBackgroundHover::before {
-  opacity: 1;
-  filter: blur(0);
-  transition-duration: tokens.$x;
+  @media(pointer: fine) {
+    opacity: 1;
+    filter: blur(0);
+    transition-duration: tokens.$x;
+  }
 }
 
 %listItemBackgroundActive {
-  scale: .99;
+  @media(pointer: fine) {
+    scale: .99;
+  }
 }
   
 %linkBackground {
