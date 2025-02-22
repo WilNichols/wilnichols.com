@@ -31,10 +31,15 @@ $gap: 1.2em;
 }
 
 .posts {
-  display: grid;
-  grid-template-columns: min-content auto min-content min-content;
-  row-gap: .6em;
-  column-gap: tokens.$note-title-gap;
+  & {
+    display: grid;
+    grid-template-columns: min-content auto min-content min-content;
+    row-gap: 1.2em;
+    column-gap: tokens.$note-title-gap;
+  }
+  @media(pointer: fine) {
+    row-gap: .6em;
+  }
 }
 
 .page__footer.page__footer--grid {

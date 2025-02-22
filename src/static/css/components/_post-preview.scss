@@ -113,13 +113,18 @@
   .post__direction {
     z-index: 100;
     grid-column: 4 / 5;
-    color: var(--contentSecondaryColor);
-    opacity: 0;
-    filter: blur(.3em);
-    transition: tokens.$x transform ease-out, tokens.$x opacity ease-out, tokens.$x filter ease-out;
     display: grid;
+    color: var(--contentTertiaryColor);
     place-content: center;
     margin: auto 0;
+    padding: 0 0 0 .25rem;
+    @media(pointer: fine) {
+      margin: auto 0;
+      color: var(--contentSecondaryColor);
+      opacity: 0;
+      filter: blur(.3em);
+      transition: tokens.$x transform ease-out, tokens.$x opacity ease-out, tokens.$x filter ease-out;
+    }
   }
   .post__accessories {
     grid-column: 3 / 4;
@@ -141,33 +146,38 @@
   }
   .post__summary__text {
     opacity: 0;
+    @media(pointer: coarse) {
+      opacity: 1;
+    }
   }
-  &:hover, &.hover-debug {
-    @extend %listItemBackgroundHover;
-    .post__summary {
-      &__text, &::before {
-        filter: blur(0);
-        opacity: 1;
-        transition: tokens.$x opacity ease-out, tokens.$x filter ease-out;
+    &:hover, &.hover-debug {
+      @extend %listItemBackgroundHover;
+      @media(pointer: fine) {
+        .post__summary {
+          &__text, &::before {
+            filter: blur(0);
+            opacity: 1;
+            transition: tokens.$x opacity ease-out, tokens.$x filter ease-out;
+          }
+        }
+        $d: .25ex;
+        .post__day, .post__title, .post__summary__text {
+          transform: translateX($d);
+        }
+        .post__accessories {
+          transform: translateX(-$d);
+        }
+        .post__direction {
+          transform: translateX(-$d);
+          opacity: 1;
+          filter: blur(0);
+          transition: tokens.$x transform ease-out, tokens.$x opacity ease-out, tokens.$x filter ease-out;
+        }
       }
     }
-    $d: .25ex;
-    .post__day, .post__title, .post__summary__text {
-      transform: translateX($d);
-    }
-    .post__accessories {
-      transform: translateX(-$d);
-    }
-    .post__direction {
-      transform: translateX(-$d);
-      opacity: 1;
-      filter: blur(0);
-      transition: tokens.$x transform ease-out, tokens.$x opacity ease-out, tokens.$x filter ease-out;
-    }
-  }
-  &:active {
-    @extend %listItemBackgroundActive;
-    z-index: 100;
+    &:active {
+      @extend %listItemBackgroundActive;
+      z-index: 100;
   }
 }
 
@@ -263,14 +273,19 @@
   font-size: var(--type-0);
   text-wrap: pretty;
   color: var(--contentSecondaryColor);
-  position: absolute;
   grid-column: 1 / -1;
   grid-row: 2 / 3;
-  grid-template-columns: min-content auto;
+  // subgrid doesn't work for columns bc of the absolute positioning?
+  // 20px is magic. 16px icon + 4px margin
+  grid-template-columns: min-content auto 20px;
   z-index: 100;
   width: 100%;
   column-gap: .25em;
-  pointer-events: none;
+  @media(pointer: fine) {
+    pointer-events: none;
+    position: absolute;
+  }
+    
   .post__day {
     grid-column: 1 / 2;
     opacity: 0;
@@ -279,11 +294,13 @@
   .post__summary__text {
     z-index: 1;
     grid-column: 2 / 3;
-    opacity: 0;
     font-size: var(--type--1);
     transform: translateX(0);
-    filter: blur(.3em);
-    transition: tokens.$x transform ease-out, tokens.$x opacity ease-out, tokens.$x filter ease-out;
+    @media(pointer: fine) {
+      opacity: 0;
+      filter: blur(.3em);
+      transition: tokens.$x transform ease-out, tokens.$x opacity ease-out, tokens.$x filter ease-out;
+    }
   }
   &::before {
     content: '';
