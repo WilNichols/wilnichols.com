@@ -6,7 +6,7 @@
   imageProps,
   loading = 'lazy',
   isWNCDN = false,
-  glassSrcSet
+  customSRCSet
 ) %}
   {%- set sizes -%}
     {%- if isWNCDN -%}
@@ -27,7 +27,7 @@
       {{ src }}?width=1400px&format=webp 1200w, 
       {{ src }}?width=2000px&format=webp 1800w
     {%- else -%}
-      {{ glassSrcSet | safe }}
+      {{ customSRCSet | safe }}
     {%- endif -%}
   {%- endset -%}
   {%- set src -%}

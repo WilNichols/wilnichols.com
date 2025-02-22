@@ -3,10 +3,21 @@ import { extract } from '@extractus/feed-extractor'
 import Fetch from '@11ty/eleventy-fetch';
 import { parse } from 'node-html-parser';
 
-// it's lame that Glass's rss feed doesn't contain photos, but this works as long as they keep an identifiable main image on the page.
+
 export default async function () {
   let url = 'https://glass.photo/wilnichols/rss';
-  const feed = await extract(url)
+  const feed = await extract(url, {
+    getExtraEntryFields: (feedEntry) => {
+      const {
+        enclosure
+      } = feedEntry
+      return {
+        enclosure: {
+          url: enclosure['@_url']
+        }
+      }
+    }
+  })
   const cameraRollArray = [];
   let cachePath;
   if (process.env.ELEVENTY_ENV == 'prod') {
@@ -27,8 +38,8 @@ export default async function () {
     // this is _incredibly_ brittle, but it looks like they strip a ton of exif data
     cameraRollEntry.url = entry.link;
     cameraRollEntry.img = {};
-    cameraRollEntry.img.src = parsedGlassPage.querySelector(photo).getAttribute('src');
-    cameraRollEntry.img.srcset = parsedGlassPage.querySelector(photo).getAttribute('data-srcset');
+    console.log(entry.enclosure);
+    cameraRollEntry.img.src = entry.enclosure.url;
     cameraRollEntry.camera = {};
     cameraRollEntry.camera.body = parsedGlassPage.querySelectorAll('a[href^="/explore/cameras"]')[0].textContent.trimEnd();
     cameraRollEntry.camera.lens = parsedGlassPage.querySelectorAll('a[href^="/explore/lenses"]')[0].textContent;
