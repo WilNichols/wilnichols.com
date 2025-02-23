@@ -1,10 +1,26 @@
 ---
 date: 2025-01-13T00:00
+updated: 2025-02-22T18:51
 author: Wil Nichols
 tags:
   - Topic/Life
 summary: "I got married. Here’s what that means to me."
+changelog:
+- date: 02-22-2025
+  content: Added the photo! 
 ---
+{% from "../_includes/picture.njk" import Picture with context %}
+
+{% set src = "https://cdn.wilnichols.com/wedding/7CJ00431.jpg" %}
+{% set imageProps = src | imageInfo %}
+{{  Picture(
+    fileName = '7CJ00431-jpg',
+    src = src,
+    loading = 'eager',
+    imageProps = imageProps,
+    isWNCDN = true
+) }}
+Here’s a photo. View our talented photographers’ portfolio, and consider hiring them, at jyangphoto.com
 
 > Because it is the nature of love to create, a marriage itself is something which has to be created, so that, together, we become a new creature. <br /><br />
 > To marry is the biggest risk in human relations that a person can take… If we commit ourselves to one person for life this is not, as many people think, a rejection of freedom; rather, it demands the courage to move into all the risks of freedom, and the risk of love which is permanent; into that love which is not possession but participation… It takes a lifetime to learn another person… When love is not possession, but participation, then it is part of that co-creation which is our human calling, and which implies such risk that it is often rejected.
