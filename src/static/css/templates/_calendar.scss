@@ -1,0 +1,35 @@
+@use 'sass:math';
+@use '../tokens';
+
+.calendar-text {
+  font-size: var(--type--1);
+  max-width: tokens.$breakpoint;
+}
+.calendar-container {
+  $xOffset: 40px;
+  $r: .6em;
+  @media (prefers-color-scheme: dark) {
+    // adds a border to offset the different background color.
+    &::before {
+      content: '';
+      z-index: 100;
+      position: absolute;
+      inset: 0;
+      border-radius: $r;
+      pointer-events: none;
+      user-select: none;
+      box-shadow: 
+        inset 0 0 0 var(--px) var(--edgeColor),
+        0 0 0 var(--px) var(--edgeColor);
+    }
+  }
+  & {
+    position: relative;
+    border-radius: $r;
+    overflow: hidden;
+    max-width: calc(tokens.$breakpoint + $xOffset);
+    width: calc(100% + $xOffset); 
+    height: 100%;
+    margin: 0 math.div($xOffset, -2);
+  }
+}
