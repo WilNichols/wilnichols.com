@@ -1,16 +1,15 @@
 ---
 date: 2024-10-10T12:00
-updated: 2025-02-22T18:51
 author: Wil Nichols
 tags:
   - Topic/Life
 altTitle: "~~Pas~~ tous les hommes"
 subtitle: "Or _the fabric of our lives_"
 summary: "Gisèle Pelicot’s rapists’ defense predicates on their entitlement to the charity and empathy of both their fellow men and larger community. Give them none."
-changelog: 
-- date: 02-15-2025
+revisions: 
+- date: 2025-02-15T18:51
   content: I forgot to include Brock Allen Turner, now going by Allen Turner. 
-- date: 02-22-2025
+- date: 2025-02-22T18:51
   content: And Brett Kavanaugh.
 ---
 

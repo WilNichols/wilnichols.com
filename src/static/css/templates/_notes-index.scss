@@ -3,8 +3,6 @@
 
 @include tokens.textStyles;
 
-$gap: 1.2em;
-
 .posts-list, .about-me, .header {
   max-width: tokens.$categoryWidth;
   width: 100%;
@@ -14,7 +12,7 @@ $gap: 1.2em;
   & {
     display: flex;
     flex-direction: column;
-    gap: $gap;
+    gap:tokens.$gapSmall;
     width: 100%;
   }
   @media (width <= tokens.$breakpoint) {
@@ -27,14 +25,14 @@ $gap: 1.2em;
 .posts-month {
   display: flex;
   flex-direction: column;
-  gap: math.div($gap, 2);
+  gap: math.div(tokens.$gapSmall, 2);
 }
 
 .posts {
   & {
     display: grid;
     grid-template-columns: min-content auto min-content min-content;
-    row-gap: 1.2em;
+    row-gap: tokens.$gapSmall;
     column-gap: tokens.$note-title-gap;
   }
   @media(pointer: fine) {
@@ -48,7 +46,7 @@ $gap: 1.2em;
     grid-template-columns: subgrid;
     grid-column: 1 / -1;
     gap: 5px;
-    margin-top: math.div($gap, 2);
+    margin-top: math.div(tokens.$gapSmall, 2);
   }
   .copyright__text {
     grid-column: 2 / 4;

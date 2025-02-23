@@ -1,12 +1,12 @@
 ---
 layout: page.njk
 ---
-{% from "../_includes/header.njk" import header with context %}
+{% from "../_includes/header.njk" import Header with context %}
 {% from "../_includes/picture.njk" import Picture with context %}
-{% from "../_includes/footer.njk" import footer with context %}
+{% from "../_includes/footer.njk" import Footer with context %}
 
 <div class="page page--camera-roll page--album">
-  {{ header("page--camera-roll__header") }}
+  {{ Header("page--camera-roll__header") }}
   <ul class="album__album-photos">
     {% for photo in cameraRoll | reverse %}
       {% if loop.index < 3 %}{% set loading = 'eager' %}{% else %}{% set loading = 'lazy' %}{% endif %}
@@ -31,6 +31,6 @@ layout: page.njk
         </ul>
       </li>
     {% endfor %}
-    {{ footer(el="li") }}
+    {{ Footer(el="li") }}
   </ul>
 </div>

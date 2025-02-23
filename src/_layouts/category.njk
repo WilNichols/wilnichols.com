@@ -2,11 +2,11 @@
 layout: page.njk
 ---
 
-{% from "../_includes/header.njk" import header with context %}
+{% from "../_includes/header.njk" import Header with context %}
 {% from "../_includes/post-list.njk" import postList with context %}
 
 <div class="page page--category">
-  {{ header() }}
+  {{ Header() }}
   {% if content -%}
   <div class="about-me">
     {{ content | safe }}

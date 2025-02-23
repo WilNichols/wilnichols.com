@@ -1,5 +1,5 @@
 {% from "../_includes/picture.njk" import Picture with context %}
-{% from "../_includes/footer.njk" import footer with context %}
+{% from "../_includes/footer.njk" import Footer with context %}
 
 <ol class="album-groups-list" reversed>
   {% asyncEach albumGroup in collections.AlbumGroups | reverse %}
@@ -29,5 +29,5 @@
       </ol>
     </li>
   {% endeach %}
-  {{ footer(el="li") }}
+  {{ Footer(el="li") }}
 </ol>

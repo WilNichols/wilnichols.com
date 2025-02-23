@@ -7,7 +7,7 @@ $logoWidth: 21px;
 .header {
   display: flex;
   flex-direction: column;
-  gap: 1.2em;
+  gap: tokens.$gapSmall;
 }
 
 .header__logo {
@@ -40,13 +40,13 @@ $logoWidth: 21px;
 .header__name {
   @extend %font--display-medium;
   // font-size: var(--type--1);
-  line-height: 1.2em;
+  line-height: tokens.$gapSmall;
   color: var(--contentPrimaryColor);
 }
 
 .header__title {
   @extend %font--display-regular;
   font-size: var(--type--1);
-  line-height: 1.2em;
+  line-height: tokens.$gapSmall;
   color: var(--contentSecondaryColor);
 }

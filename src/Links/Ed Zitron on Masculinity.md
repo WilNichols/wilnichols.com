@@ -1,6 +1,5 @@
 ---
 date: 2025-02-11T23:41
-updated: 2025-02-11T23:41
 author: Wil Nichols
 source: Ed Zitron, Better Offline
 tags:

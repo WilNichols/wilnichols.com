@@ -27,8 +27,8 @@
   flex-direction: row-reverse;
   justify-content: end;
   gap: 5px;
-  min-height: 1.2em;
-  line-height: 1.2em;
+  min-height: tokens.$gapSmall;
+  line-height: tokens.$gapSmall;
   align-items: center;
   > li {
     display: contents;

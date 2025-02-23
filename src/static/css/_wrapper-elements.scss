@@ -4,7 +4,7 @@
 
 body {
   font-size: var(--type-0);
-  line-height: 1.2em;
+  line-height: tokens.$gapSmall;
   @extend %font--text-regular;
   // display: grid;
   // justify-content: center;
@@ -19,8 +19,8 @@ body {
   display: grid;
   width: auto;
   // min-height: 100dvh;
-  row-gap: 1.2em;
-  column-gap: 2.4em;
+  row-gap: tokens.$gapSmall;
+  column-gap: tokens.$gapMedium;
   @media (width <= tokens.$breakpoint) {
     align-content: start;
   }

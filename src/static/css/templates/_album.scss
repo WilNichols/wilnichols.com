@@ -36,8 +36,8 @@ body:has(> .page--album) {
     grid-template-columns: minmax(auto, calc(tokens.$width / 4)) minmax(auto, tokens.$width);
     grid-template-rows: auto;
     justify-content: center;
-    column-gap: 2.4em;
-    row-gap: 1.2em;
+    column-gap: tokens.$gapMedium;
+    row-gap: tokens.$gapSmall;
     width: auto;
     @extend %snapHeaderFix;
   }

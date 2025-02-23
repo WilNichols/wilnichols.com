@@ -1,12 +1,11 @@
 ---
 date: 2025-01-13T00:00
-updated: 2025-02-22T18:51
 author: Wil Nichols
 tags:
   - Topic/Life
 summary: "I got married. Here’s what that means to me."
-changelog:
-- date: 02-22-2025
+revisions:
+- date: 2025-02-22T18:51
   content: Added the photo! 
 ---
 {% from "../_includes/picture.njk" import Picture with context %}

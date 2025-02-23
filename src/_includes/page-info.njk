@@ -17,7 +17,7 @@
 {% macro AlbumInfo(previousPost, nextPost, el="aside") -%}
   <{{ el }} class="page-info">
     {% set date %}{{ date | readableDateISO }}{% endset %}
-    {% set updated %}{{ updated | readableDateISO }}{% endset %}
+    {% if revisions %}{% set updated %}{{ revisions[revisions | length - 1].date | readableDateISO }}{% endset %}{% endif %}
     <a id="back-button" href="../" class="page-info__entry--back-link"><span class="page-info__entry__key">{% include "../static/img/back--12.svg" %}</span><span class="page-info__entry__value">Back</span></a>
     <ul class="page-info__list">
       <li class="page-info__entry page-info__entry--date"><span class="page-info__entry__key">{% include "../static/img/published--12.svg" %}</span><span class="page-info__entry__value">{{ date }}</span></li>
@@ -63,7 +63,7 @@
 
 {% macro EditorialInfo(previousPost, nextPost, backlinks, ingredients) %}
   {% set date %}{{ date | readableDateISO }}{% endset %}
-  {% set updatedString %}{{ updated | readableDateISO }}{% endset %}
+  {% if revisions %}{% set updatedString %}{{ revisions[revisions | length - 1].date | readableDateISO }}{% endset %}{% endif %}
   {% set isEvergreen %}{% for tag in tags %}{{ true if ("Evergreen/" in tag) }}{% endfor %}{% endset %}
   {% set showTags %}{% for tag in tags %}{{ true if ("Topic/" in tag) }}{% endfor %}{% endset %}
   <aside class="page-info">
@@ -71,9 +71,9 @@
     <div class="page-info__list-container">
       <ul class="page-info__list">
         <li class="page-info__entry page-info__entry--date"><span class="page-info__entry__key">{% include "../static/img/published--12.svg" %}</span><span class="page-info__entry__value">{{ date }}</span></li>
-        {%- if updated and (date != updated) -%}
+        {%- if revisions -%}
           <li class="page-info__entry">
-            <span class="page-info__entry__key">{% include "../static/img/updated--12.svg" %}</span><span class="page-info__entry__value">{{ updatedString }}</span></li>
+            <span class="page-info__entry__key">{% include "../static/img/updated--12.svg" %}</span><span class="page-info__entry__value"><a href="#revisions">{{ updatedString }}</a></span></li>
         {%- endif -%}
         {# {%- if isEvergreen -%}
           <li class="page-info__entry"><span class="page-info__entry__key">Revision</span><span class="page-info__entry__value">{% for tag in tags %}{% if "Evergreen" in tag %}{{ tag | getRevision }}{% endif %}{% endfor %}</span></li>
