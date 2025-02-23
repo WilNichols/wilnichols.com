@@ -1,4 +1,4 @@
-{% from "footer.njk" import footer with context %}
+{% from "footer.njk" import Footer with context %}
 {% from "tag.njk" import tag as tagButton %}
 
 {% macro postListItem(post, postPrefix, showAccessories) -%}
@@ -73,6 +73,6 @@
       {% set currentMonth = postMonth %}
       {% set currentYear = postYear %}
     {% endfor %}
-    {% if renderFooter %}{{ footer(el="li", classModifier="grid") }}{% endif %}
+    {% if renderFooter %}{{ Footer(el="li", classModifier="grid") }}{% endif %}
 </ol>
 {%- endmacro %}

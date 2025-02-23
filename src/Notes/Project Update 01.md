@@ -1,10 +1,12 @@
 ---
 date: 2024-06-02T00:51
-updated: 2025-01-22T10:36
 author: Wil Nichols
 tags:
   - Status/Complete
   - Topic/Projects
+revisions: 
+  - date: 2025-01-22T10:36
+    content: Updated photography link.
 url: 
 ---
 

@@ -1,7 +1,5 @@
 @use '../tokens';
 
-$gap: 1.2em;
-
 .footnote-ref {
   font-size: var(--type--2);
   line-height: 0;
@@ -21,20 +19,45 @@ sub.footnote-ref {
   font-size: var(--type--2);
   border-top: 1px solid var(--edgeColor);
   margin-top: 2rem;
-  padding-top: $gap;
+  padding-top: tokens.$gapSmall;
 }
 
 .footnotes-list {
-  list-style: numbered;
-  display: flex;
+  display: grid;
+  grid-template-columns: min-content auto;
   flex-direction: column;
-  gap: $gap;
+  row-gap: tokens.$gapSmall;
+  column-gap: tokens.$gapSmall;
+  counter-reset: footnote;
+  list-style: none;
+  list-style-type: none;
+}
+
+.footnote-item {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / -1;
+}
+
+.footnote-item p, .footnote-item::before {
+  line-height: calc(1.2 * var(--type-0));
+}
+
+.footnote-item p {
+  vertical-align: middle;
+  text-align: left;
+  margin: 0;
+
 }
 
 .footnote-item a {
   text-decoration-thickness: 1px;
 }
 
-.footnote-item::marker {
+.footnote-item::before {
   color: var(--contentSecondaryColor);
+  counter-increment: footnote;
+  content: counter(footnote) ". ";
+  text-align: right;
+  
 }

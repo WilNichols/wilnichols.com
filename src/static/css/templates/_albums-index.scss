@@ -5,7 +5,6 @@
 @include tokens.headingStyles;
 @include tokens.placeholders;
 
-// $gap: 1.2em;
 
 .page--albums {
   display: flex;
@@ -26,7 +25,7 @@
 .album-group__title {
   @extend %heading--5;
   display: inline-block;
-  line-height: 1.2em;
+  line-height: tokens.$gapSmall;
 }
 
 .album-group__albums-list {

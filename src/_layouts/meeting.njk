@@ -2,11 +2,11 @@
 layout: page.njk
 ---
 
-{% from "../_includes/header.njk" import header with context %}
-{% from "../_includes/footer.njk" import footer with context %}
+{% from "../_includes/header.njk" import Header with context %}
+{% from "../_includes/footer.njk" import Footer with context %}
 
 <div class="page page--category">
-  {{ header() }}
+  {{ Header() }}
   <div class="calendar-text">{{ content | safe }}</div>
   <div class="calendar-container">
     <div id="my-cal-inline" style="width: 100%;"></div>

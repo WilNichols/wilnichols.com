@@ -1,12 +1,16 @@
 ---
 date: 2024-10-10T12:00
-updated: 2024-10-10T23:06
 author: Wil Nichols
 tags:
   - Topic/Life
 altTitle: "~~Pas~~ tous les hommes"
 subtitle: "Or _the fabric of our lives_"
 summary: "Gisèle Pelicot’s rapists’ defense predicates on their entitlement to the charity and empathy of both their fellow men and larger community. Give them none."
+revisions: 
+- date: 2025-02-15T18:51
+  content: I forgot to include Brock Allen Turner, now going by Allen Turner. 
+- date: 2025-02-22T18:51
+  content: And Brett Kavanaugh.
 ---
 
 > You want to organize men. You don’t have to search for issues. The issues are part of the fabric of your everyday lives.
@@ -72,3 +76,4 @@ Yes, all men are guilty—guilty of being the kind of men who support the worst 
 [^7]: I paraphrase. Picture something more like: _with a side-eye and raised eyebrow, “I guess we know what we need to do with teenage boys.”
 [^8]: As of [September 28](https://www.lemonde.fr/en/france/article/2024/09/28/french-mass-rape-trial-defendants-claim-they-didn-t-intend-to-rape-gisele-pelicot_6727587_7.html)
 [^9]: Like anything, make it such if desired, but it ain’t inherently.
+
