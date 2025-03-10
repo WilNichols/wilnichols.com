@@ -20,15 +20,23 @@ case-study:
     - '[Zach Fisher](https://zachfisher.com)'
 ---
 
+{%- from 'case-study-samples.njk' import DiligenceWindow %}
+{%- from 'case-study-samples.njk' import DiligenceDetailWindow %}
+{%- from 'case-study-samples.njk' import DiligenceAppIcon %}
+{%- from 'case-study-samples.njk' import DiligencePreferenceIcons %}
+
+{{ DiligenceWindow() }}
+
 In mid 2011, GTD apps were a booming space for indie developers. Between [Things](https://web.archive.org/web/20110323094949/http://culturedcode.com/things/){target=blank}, [The Hit List](https://www.macstories.net/news/potion-factorys-the-hit-list-1-0-now-available/){target=blank}, [Wunderlist](https://www.macstories.net/reviews/wunderlist-review-untethered-task-management-freedom/){target=blank} and infinite others, we saw a small opportunity for a low-real-estate to-do list with projects, sections, and individual tasks.[^1]
 
 Zach and I began by appraising our ideal GTD solution. We wanted novelty, but without monopolizing the user’s focus. At a time when desktop and mobile UIs were increasingly visually rich and illustrative, we took plenty of liberty in visual design. But, its core was a simple task list. It didn’t need to occupy the user’s screen and demand larger-scale management. It didn’t need to scale from simple list items to complex multidimensional and interdependent tasks. 
 
-// #annotated-main-window + detail-window
+{{ DiligenceDetailWindow() }}
 
 It needed a main view with tasks, groups of tasks, and mutually-exclusive groups of groups. Furthermore, we planned a detail view allowing for a task description, start and end dates, attached files, and further information. 
 
-// App Icon + interface icons
+{{ DiligenceAppIcon() }}
+{{ DiligencePreferenceIcons() }}
 
 I designed an app icon and interface icons for the Preferences window.
 

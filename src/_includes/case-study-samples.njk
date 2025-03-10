@@ -111,15 +111,13 @@
   {% endif %}
 {% endmacro %}
 
-{% macro DiligenceWindow() %}
-  {% set diligenceWindow %}https://cdn.wilnichols.com/case-studies/diligence/screenshots/main--independent{% endset %}
-  {{  img(
-        src = diligenceWindow,
-        class = 'window'
-  ) }}
+{% macro DiligenceWindow() %}  
   <div class="proportionate-scale--surrogate--container">
     <div class="proportionate-scale--surrogate">
-      {{ diligenceWindow() }}
+      {{  img(
+            src = 'https://cdn.wilnichols.com/case-studies/diligence/screenshots/main--independent',
+            class = 'window'
+      ) }}
       {% set deviceScreen %}
         <div class="screen">
           {% set windowPath %}{{ commonPath }}osx/{% endset %}
