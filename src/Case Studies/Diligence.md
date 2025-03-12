@@ -6,8 +6,11 @@ tags:
   - Case-Studies/Groups/Freelance
   - Case-Studies/Platforms/Desktop
   - Case-Studies/Tools/Photoshop
+  - Topic/Nostalgia
+  - Topic/Skeuomorphism
+  - Topic/Work
 summary: Way back when everyone and their dog were designing GTD apps, a friend and I explored our own functionally minimally and visually rich task list.
-case-study:
+project:
   outcome: High fidelity UI comps
   client: Zach Fisher and myself
   skills:
@@ -15,9 +18,11 @@ case-study:
   - UI Design
   tools:
   - Photoshop
-  period: Summer 2011 and Spring 2013
+  period: 
+  - Summer 2011 
+  - Spring 2013
   collaborators: 
-    - '[Zach Fisher](https://zachfisher.com)'
+  - '[Zach Fisher](https://zachfisher.com)'
 ---
 
 {%- from 'case-study-samples.njk' import DiligenceWindow %}

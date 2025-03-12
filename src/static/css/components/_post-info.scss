@@ -95,6 +95,10 @@ $tableGap: 10px;
   }
 }
 
+.page-info__entry__value p {
+  display: inline;
+}
+
 .sub-list__item {
   & {
     width: min-content;
@@ -105,7 +109,7 @@ $tableGap: 10px;
   }
 }
 
-.recipe__ingredient-list-container {
+.post-specific-info--container {
   margin: var(--type-0) 0 0 0;
   padding: .375em 0 0 0;
   position: sticky;

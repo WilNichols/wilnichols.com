@@ -115,15 +115,126 @@
         {% endif %}
       </ul>
       {% if ingredients %}
-      <div class="recipe__ingredient-list-container">
+      <div class="post-specific-info--container">
         <h3 class="heading--6">Ingredients</h3>
         <ul class="page-info__list page-ingredient__list">
           {% for ingredient in ingredients %}
-            <li class="page-info__entry page-info__entry--date"><span class="page-info__entry__key">{{ ingredient.name }}</span><span class="page-info__entry__value">{{ ingredient.metric }} 
+            <li class="page-info__entry"><span class="page-info__entry__key">{{ ingredient.name }}</span><span class="page-info__entry__value">{{ ingredient.metric }} 
             | {{ ingredient.imperial }}</span></li>
           {% endfor %}
         </ul>
       </div>
+      {% endif %}
+    </div>
+  </aside>
+  {{ _backButtonScript() }}
+{% endmacro %}
+
+
+{% macro CaseStudyInfo(previousPost, nextPost, backlinks, ingredients) %}
+  {% set date %}{{ date | readableDateISO }}{% endset %}
+  {% if revisions %}{% set updatedString %}{{ revisions[revisions | length - 1].date | readableDateISO }}{% endset %}{% endif %}
+  {% set isEvergreen %}{% for tag in tags %}{{ true if ("Evergreen/" in tag) }}{% endfor %}{% endset %}
+  {% set showTags %}{% for tag in tags %}{{ true if ("Topic/" in tag) }}{% endfor %}{% endset %}
+  <aside class="page-info">
+    <a id="back-button" href="../" class="page-info__entry--back-link"><span class="page-info__entry__key">{% include "../static/img/back--12.svg" %}</span><span class="page-info__entry__value">Back</span></a>
+    <div class="page-info__list-container">
+      <ul class="page-info__list">
+        <li class="page-info__entry"><span class="page-info__entry__key">{% include "../static/img/published--12.svg" %}</span><span class="page-info__entry__value">{{ date }}</span></li>
+        {%- if revisions -%}
+          <li class="page-info__entry">
+            <span class="page-info__entry__key">{% include "../static/img/updated--12.svg" %}</span><span class="page-info__entry__value"><a href="#revisions">{{ updatedString }}</a></span></li>
+        {%- endif -%}
+        {% if showTags %}
+          <li class="page-info__entry page-info__entry--tags">
+            <span class="page-info__entry__key">{% include "../static/img/tags--12.svg" %}</span>
+            <span class="page-info__entry__value">
+              {%- for tag in tags -%}
+                {%- if 'Topic/' in tag -%}
+                  {%- set label -%}{{- tag | replace('Topic/', '') -}}{%- endset -%}
+                  {{- label -}}{{- ", " if not loop.last -}}
+                {%- endif -%}
+              {%- endfor -%}
+            </span>
+          </li>
+        {% endif %}
+        {# Backlinks #}
+        {% if backlinks.length > 0 %}
+          <li class="page-info__entry page-info__entry--tags">
+            <span class="page-info__entry__key">{% include "../static/img/links--12.svg" %}</span>
+            <span class="page-info__entry__value">
+              {%- for link in backlinks -%}
+                <a href="{{ link.url }}">{{ link.data.title }}</a>{{ ", " if not loop.last }}
+              {%- endfor -%}
+            </span>
+          </li>
+        {% endif %}
+        {% if previousPost %}
+          <li class="page-info__entry page-info__entry">
+            <span class="page-info__entry__key">{% include "../static/img/arrow-left--12.svg" %}</span>
+            <span class="page-info__entry__value"><a href="{{ previousPost.url }}">{{ previousPost.data.title }}</a>
+          </li> 
+        {% endif %}
+        {% if nextPost %}
+          <li class="page-info__entry page-info__entry">
+            <span class="page-info__entry__key">{% include "../static/img/arrow-right--12.svg" %}</span>
+            <span class="page-info__entry__value"><a href="{{ nextPost.url }}">{{ nextPost.data.title }}</a>
+          </li> 
+        {% endif %}
+      </ul>
+      {% if project %}
+        <div class="post-specific-info--container">
+          <ul class="page-info__list page-ingredient__list">
+            {# Project Outcome #}
+            <li class="page-info__entry">
+              <span class="page-info__entry__key">Outcome</span>
+              <span class="page-info__entry__value">{{ project.outcome | markdownify | safe }}</span>
+            </li>
+            {# Project Client #}
+            <li class="page-info__entry">
+              <span class="page-info__entry__key">Client</span>
+              <span class="page-info__entry__value">{{ project.client | markdownify | safe }}</span>
+            </li>
+            {# Project Skills #}
+            <li class="page-info__entry">
+              <span class="page-info__entry__key">Skills</span>
+              <span class="page-info__entry__value">
+                {%- for skill in project.skills -%}
+                  {% set content %}{{- skill -}}{{- ", " if not loop.last -}}{% endset %}
+                  {{ content | markdownify | safe }}
+                {%- endfor -%}
+              </span>
+            </li>
+            {# Project Tools #}
+            <li class="page-info__entry">
+              <span class="page-info__entry__key">Tools</span>
+              <span class="page-info__entry__value">
+                {%- for tool in project.tools -%}
+                  {{- tool | markdownify | safe -}}{{- ", " if not loop.last -}}
+                {%- endfor -%}
+              </span>
+            </li>
+            {# Project Period #}
+            <li class="page-info__entry">
+              <span class="page-info__entry__key">Period</span>
+              <span class="page-info__entry__value">
+                {%- for period in project.period -%}
+                  {% set content %}{{- period -}}{{- ", " if not loop.last -}}{% endset %}
+                  {{ content | markdownify | safe }}
+                {%- endfor -%}
+              </span>
+            </li>
+            {# Project Collaborators #}
+            <li class="page-info__entry">
+              <span class="page-info__entry__key">Collaborators</span>
+              <span class="page-info__entry__value">
+                {%- for collaborator in project.collaborators -%}
+                    {{- collaborator | markdownify | safe -}}{{- ", " if not loop.last -}}
+                {%- endfor -%}
+              </span>
+            </li>
+          </ul>
+        </div>
       {% endif %}
     </div>
   </aside>
