@@ -38,7 +38,7 @@ Zach and I began by appraising our ideal GTD solution. We wanted novelty, but wi
 
 {{ DiligenceDetailWindow() }}
 
-It needed a main view with tasks, groups of tasks, and mutually-exclusive groups of groups. Furthermore, we planned a detail view allowing for a task description, start and end dates, attached files, and further information. 
+It needed a main view with tasks, groups of tasks, and mutually-exclusive groups of groups. Furthermore, we planned a detail view allowing for a task description, start and end dates, attached files, and further information.
 
 {{ DiligenceAppIcon() }}
 {{ DiligencePreferenceIcons() }}

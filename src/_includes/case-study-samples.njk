@@ -8,31 +8,30 @@
   )
 #}
 
-{% macro macOSGrid(
+{%- macro macOSGrid(
   path = '',
   class = ''
-) %}
+) -%}
   {% set sizes = ['512@2x', '512', '256', '128', '32', '16'] %}
-  
   <div class="icon-grid--macOS">
-    {% for size in sizes %}
-      {% if loop.first %}
+    {%- for size in sizes -%}
+      {%- if loop.first -%}
         {# We return the 512@2x separately so that it shows on 1x, and hide it at higher densities. #}
-        {{  img(
+        {{-  img(
               src = path + size,
               class = 'icon icon--' + size | replace("@", "--"),
               densities = [1]
-        ) }}
-      {% elif not loop.first %}
+        ) -}}
+      {%- elif not loop.first -%}
         {# Returns 512 - 16 #}
-        {{  img(
+        {{-  img(
               src = path + size,
               class = 'icon icon--' + size
-        ) }}
-      {% endif %}
-    {% endfor %}
+        ) -}}
+      {%- endif -%}
+    {%- endfor -%}
   </div>  
-{% endmacro %}
+{%- endmacro -%}
 
 {# 
   iOSGrid (
@@ -155,11 +154,9 @@
   </div>
 {% endmacro %}
 
-{% macro DiligenceAppIcon() %}
-  {{ macOSGrid (
+{% macro DiligenceAppIcon() %}{{ macOSGrid (
     path = 'https://cdn.wilnichols.com/case-studies/diligence/icon/'
-  ) }}
-{% endmacro %}
+  ) }}{% endmacro %}
 
 {% macro DiligencePreferenceIcons() %}
   {% set path = 'https://cdn.wilnichols.com/case-studies/diligence/small-icons/' %}

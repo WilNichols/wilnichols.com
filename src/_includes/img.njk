@@ -8,16 +8,15 @@
   )
 #}
 
-{% macro img(
+{%- macro img(
   src = '', 
   ext = 'png',
   densities = [1, 2],
   class = '',
   alt = '',
   suffix = ''
-) %}
-  
-{% if densities[0] != 1 %}{% set minDensity = '@' + densities[0] + 'x' %}{% endif %}
+) -%}
+  {% if densities[0] != 1 %}{% set minDensity = '@' + densities[0] + 'x' %}{% endif %}
   <img
     {% if class %}class="{{ class }}"{% endif %}
     src="{{ src }}{{ minDensity | replace(' ', '')}}.{{ ext }}" 
@@ -27,4 +26,4 @@
       {%- endfor -%}"
     alt="{{ alt }}" 
   />
-{% endmacro %}
+{%- endmacro -%}
