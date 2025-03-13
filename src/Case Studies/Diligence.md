@@ -25,12 +25,9 @@ project:
   - '[Zach Fisher](https://zachfisher.com)'
 ---
 
-{%- from 'case-study-samples.njk' import DiligenceWindow %}
 {%- from 'case-study-samples.njk' import DiligenceDetailWindow %}
 {%- from 'case-study-samples.njk' import DiligenceAppIcon %}
 {%- from 'case-study-samples.njk' import DiligencePreferenceIcons %}
-
-{{ DiligenceWindow() }}
 
 In mid 2011, GTD apps were a booming space for indie developers. Between [Things](https://web.archive.org/web/20110323094949/http://culturedcode.com/things/){target=blank}, [The Hit List](https://www.macstories.net/news/potion-factorys-the-hit-list-1-0-now-available/){target=blank}, [Wunderlist](https://www.macstories.net/reviews/wunderlist-review-untethered-task-management-freedom/){target=blank} and infinite others, we saw a small opportunity for a low-real-estate to-do list with projects, sections, and individual tasks.[^1]
 

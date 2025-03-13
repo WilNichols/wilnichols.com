@@ -10,8 +10,10 @@ layout: page.njk
 {% set previousPost = collections.Notes | getPreviousCollectionItem %}
 {% set nextPost = collections.Notes | getNextCollectionItem %}
 
+{% include 'heroes/' + page.fileSlug + '.njk' %}
 <article class="page page--note">
   {% set backlinks = collections.all | links_to(page.url) %}
+  {{ page.title }}
   {{ CaseStudyInfo(previousPost, nextPost, backlinks, ingredients) }}
   {{ PageTitle() }}
   <main class="note__body">

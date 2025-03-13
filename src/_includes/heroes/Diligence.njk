@@ -1,0 +1,23 @@
+{%- from 'img.njk' import img -%}
+{% set commonPath = 'https://cdn.wilnichols.com/case-studies/diligence/' %}
+{% set windows = ['calendar', 'contacts', 'game-center', 'notes', 'reminders'] %}
+
+<div class="case-study-hero case-study-hero--diligence">
+  <div class="proportionate-scale--surrogate--container">
+    <div class="proportionate-scale--surrogate">
+      {{  img(
+            src = commonPath + 'screenshots/main--independent',
+            class = 'window'
+      ) }}
+      <div class="screen">
+        {% set windowPath %}{{ commonPath }}osx/{% endset %}
+        {% for window in windows %}
+          {{  img(
+                src = windowPath + window,
+                class = 'window screen-window--' + window
+          ) }}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
