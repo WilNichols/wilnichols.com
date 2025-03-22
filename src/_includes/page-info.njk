@@ -1,49 +1,8 @@
-{% macro _backButtonScript() %}
-  <script>
-    let previousPage;
-    if (document.referrer.includes(location.host) && (document.referrer != location.href)) {
-      previousPage = "";
-      document.getElementById("back-button").addEventListener("click", (e) => {
-        e.preventDefault();
-        history.back();
-      });
-    } else {
-      previousPage = "../";
-    };
-    document.getElementById("back-button").href = previousPage;
-  </script>
-{% endmacro %}
-
 {% macro AlbumInfo(previousPost, nextPost, el="aside") -%}
   <{{ el }} class="page-info">
     {% set date %}{{ date | readableDateISO }}{% endset %}
     {% if revisions %}{% set updated %}{{ revisions[revisions | length - 1].date | readableDateISO }}{% endset %}{% endif %}
-    <a id="back-button" href="../" class="page-info__entry--back-link"><span class="page-info__entry__key">{% include "../static/img/back--12.svg" %}</span><span class="page-info__entry__value">Back</span></a>
     <ul class="page-info__list">
-      <li class="page-info__entry page-info__entry--date"><span class="page-info__entry__key">{% include "../static/img/published--12.svg" %}</span><span class="page-info__entry__value">{{ date }}</span></li>
-      {%- set tagName = "" -%}
-      {%- for tag in tags -%}
-        {%- if (not "AlbumGroup" in tag) and (not "Albums" in tag) and (not "Hackathon" in tag) -%}
-          {%- set parsedTag = tag.split('/') -%}
-          {%- set thisTagName = parsedTag[0] -%}
-          {%- set thisTagIcon -%}
-            {% if thisTagName == "Group" %}{% include "../static/img/group--12.svg" %}
-            {% elif thisTagName == "Camera" %}{% include "../static/img/camera--12.svg" %}
-            {% elif thisTagName == "Location" %}{% include "../static/img/location--12.svg" %}
-            {% elif thisTagName == "Period" %}{% include "../static/img/period--12.svg" %}
-            {% elif thisTagName == "Musician" %}{% include "../static/img/musician--12.svg" %}
-            {% endif %}
-          {%- endset -%}
-          {%- set thisTagValue = parsedTag[1] -%}
-          {%- if ((loop.index > 2) and (tagName != thisTagName)) -%}</span></li>{%- endif -%}
-          {%- if tagName != thisTagName -%}
-            <li class="page-info__entry page-info__entry--{{ thisTagName }}">
-              <span class="page-info__entry__key">{{- thisTagIcon | safe -}}</span>
-              <span class="page-info__entry__value">{{- thisTagValue -}}{%- elif tagName == thisTagName -%}, {{ thisTagValue -}}{% endif %}
-        {%- endif -%}
-        {%- set tagName = thisTagName -%}
-        {%- if loop.last -%}</span></li>{%- endif -%}
-      {%- endfor -%}
       {% if previousPost %}
         <li class="page-info__entry page-info__entry">
           <span class="page-info__entry__key">{% include "../static/img/arrow-left--12.svg" %}</span>
@@ -58,7 +17,6 @@
       {% endif %}
     </ul>
   </{{ el }}>
-  {{ _backButtonScript() }}
 {%- endmacro %}
 
 {% macro EditorialInfo(previousPost, nextPost, backlinks, ingredients) %}
@@ -67,30 +25,8 @@
   {% set isEvergreen %}{% for tag in tags %}{{ true if ("Evergreen/" in tag) }}{% endfor %}{% endset %}
   {% set showTags %}{% for tag in tags %}{{ true if ("Topic/" in tag) }}{% endfor %}{% endset %}
   <aside class="page-info">
-    <a id="back-button" href="../" class="page-info__entry--back-link"><span class="page-info__entry__key">{% include "../static/img/back--12.svg" %}</span><span class="page-info__entry__value">Back</span></a>
     <div class="page-info__list-container">
       <ul class="page-info__list">
-        <li class="page-info__entry page-info__entry--date"><span class="page-info__entry__key">{% include "../static/img/published--12.svg" %}</span><span class="page-info__entry__value">{{ date }}</span></li>
-        {%- if revisions -%}
-          <li class="page-info__entry">
-            <span class="page-info__entry__key">{% include "../static/img/updated--12.svg" %}</span><span class="page-info__entry__value"><a href="#revisions">{{ updatedString }}</a></span></li>
-        {%- endif -%}
-        {# {%- if isEvergreen -%}
-          <li class="page-info__entry"><span class="page-info__entry__key">Revision</span><span class="page-info__entry__value">{% for tag in tags %}{% if "Evergreen" in tag %}{{ tag | getRevision }}{% endif %}{% endfor %}</span></li>
-        {%- endif -%} #}
-        {% if showTags %}
-          <li class="page-info__entry page-info__entry--tags">
-            <span class="page-info__entry__key">{% include "../static/img/tags--12.svg" %}</span>
-            <span class="page-info__entry__value">
-              {%- for tag in tags -%}
-                {%- if 'Topic/' in tag -%}
-                  {%- set label -%}{{- tag | replace('Topic/', '') -}}{%- endset -%}
-                  {{- label -}}{{- ", " if not loop.last -}}
-                {%- endif -%}
-              {%- endfor -%}
-            </span>
-          </li>
-        {% endif %}
         {% if backlinks.length > 0 %}
           <li class="page-info__entry page-info__entry--tags">
             <span class="page-info__entry__key">{% include "../static/img/links--12.svg" %}</span>
@@ -127,37 +63,14 @@
       {% endif %}
     </div>
   </aside>
-  {{ _backButtonScript() }}
 {% endmacro %}
 
 
 {% macro CaseStudyInfo(previousPost, nextPost, backlinks, ingredients) %}
-  {% set date %}{{ date | readableDateISO }}{% endset %}
-  {% if revisions %}{% set updatedString %}{{ revisions[revisions | length - 1].date | readableDateISO }}{% endset %}{% endif %}
   {% set isEvergreen %}{% for tag in tags %}{{ true if ("Evergreen/" in tag) }}{% endfor %}{% endset %}
-  {% set showTags %}{% for tag in tags %}{{ true if ("Topic/" in tag) }}{% endfor %}{% endset %}
   <aside class="page-info">
-    <a id="back-button" href="../" class="page-info__entry--back-link"><span class="page-info__entry__key">{% include "../static/img/back--12.svg" %}</span><span class="page-info__entry__value">Back</span></a>
     <div class="page-info__list-container">
       <ul class="page-info__list">
-        <li class="page-info__entry"><span class="page-info__entry__key">{% include "../static/img/published--12.svg" %}</span><span class="page-info__entry__value">{{ date }}</span></li>
-        {%- if revisions -%}
-          <li class="page-info__entry">
-            <span class="page-info__entry__key">{% include "../static/img/updated--12.svg" %}</span><span class="page-info__entry__value"><a href="#revisions">{{ updatedString }}</a></span></li>
-        {%- endif -%}
-        {% if showTags %}
-          <li class="page-info__entry page-info__entry--tags">
-            <span class="page-info__entry__key">{% include "../static/img/tags--12.svg" %}</span>
-            <span class="page-info__entry__value">
-              {%- for tag in tags -%}
-                {%- if 'Topic/' in tag -%}
-                  {%- set label -%}{{- tag | replace('Topic/', '') -}}{%- endset -%}
-                  {{- label -}}{{- ", " if not loop.last -}}
-                {%- endif -%}
-              {%- endfor -%}
-            </span>
-          </li>
-        {% endif %}
         {# Backlinks #}
         {% if backlinks.length > 0 %}
           <li class="page-info__entry page-info__entry--tags">
@@ -238,5 +151,4 @@
       {% endif %}
     </div>
   </aside>
-  {{ _backButtonScript() }}
 {% endmacro %}

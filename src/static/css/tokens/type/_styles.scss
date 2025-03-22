@@ -32,10 +32,6 @@ $body-gap: 1em;
     }
   }
 
-  h1, h2, h3, h4, h5, h6, .note-title, p {  
-    max-width: tokens.$width;
-  }
-
   h1, h2, h3, h4, h5, h6, .note-title {  
     text-wrap: balance;
   }

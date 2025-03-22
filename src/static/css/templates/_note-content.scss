@@ -1,8 +1,11 @@
 @use '../tokens' as tokens;
 .page-header__title {
   & {
-    display: inline-flex;
+    display: flex;
     flex-direction: column;
+    max-width: tokens.$width;
+    width: 100%;
+    margin: 0 auto 1em auto;
   }
   h1 {
     margin: 0;
@@ -36,12 +39,12 @@
   }
 }
 
-.note__body > p, .pen__body > p {
-  & {
-    line-height: 1.5em;
-  }
-  &:not(:last-of-type) {
-    margin: 0 auto 1em auto;
+.note__body, .pen__body {
+  line-height: 1.5em;
+  margin: 0 auto;
+  max-width: tokens.$width;
+  > p:not(:last-of-type) {
+    margin: 0 0 1em 0;
   }
 }
 

@@ -33,7 +33,13 @@ $tableGap: 10px;
 
 .page-info__list {
   & {
-    @extend %page-info__grid;
+    // @extend %page-info__grid;
+    display: flex;
+    flex-direction: row;
+    column-gap: $tableGap;
+    font-size: var(--type-0);
+    row-gap: .5em;
+    flex-wrap: true;
   }
   @media (width <= tokens.$breakpoint) { 
     display: flex;
@@ -50,8 +56,12 @@ $tableGap: 10px;
     justify-content: flex-end;
     height: var(--type-0);
     // width: var(--type-0);
-    color: var(--contentSecondaryColor);
+    color: var(--contentTertiaryColor);
   }
+}
+
+.page-info__entry__value {
+  color: var(--contentSecondaryColor);
 }
 
 %page-info__entry-style {
@@ -82,16 +92,9 @@ $tableGap: 10px;
 }
 .page-info__entry {
   & {
-    grid-template-columns: subgrid;
-    display: grid;
-    grid-column: 1 / -1;
-    @extend %page-info__entry-style;
-  }
-  @media (width <= tokens.$breakpoint) {
-    & { 
-      display: inline-flex;
+    display: inline-flex;
       gap: $tableGap;
-    }
+    @extend %page-info__entry-style;
   }
 }
 

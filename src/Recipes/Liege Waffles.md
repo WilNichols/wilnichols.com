@@ -61,7 +61,7 @@ I eventually found Adam Wayda’s [recipe](https://liegewaffle.wordpress.com/lie
 
 The following recipe contains only slight modifications to his, based significantly more on convenience than improvement. This is modified now for my current Texan kitchen, which often runs warmer and more humid than other parts of the country, so some times are modified. I’m reprinting it here in admiration and to preserve it as online platforms progressively deteriorate.
 
-## Directions {.heading--5}
+## Directions {.heading--6}
 1. In your stand mixer, dissolve yeast in warm[^3] water, allowing it to rest for a few minutes. Add a third of your flour and half of your eggs. Mix until consistent.
 2. Cover the mixture with the remainder of your flour, without stirring. Let it stand for one hour, covered airtight with plastic wrap. You’ll return to the wet batter bubbling up through the flour.
 3. Add the remaining half of your eggs, light brown sugar, vanilla extract, and honey.
