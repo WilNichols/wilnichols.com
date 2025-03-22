@@ -23,8 +23,8 @@ Here’s a photo. View our talented photographers’ portfolio, and consider hir
 
 > Because it is the nature of love to create, a marriage itself is something which has to be created, so that, together, we become a new creature. <br /><br />
 > To marry is the biggest risk in human relations that a person can take… If we commit ourselves to one person for life this is not, as many people think, a rejection of freedom; rather, it demands the courage to move into all the risks of freedom, and the risk of love which is permanent; into that love which is not possession but participation… It takes a lifetime to learn another person… When love is not possession, but participation, then it is part of that co-creation which is our human calling, and which implies such risk that it is often rejected.
->
-> <cite>Madeleine L’Engle, [The Irrational Season](https://www.goodreads.com/work/quotes/467683)</cite>
+
+<cite>Madeleine L’Engle, [The Irrational Season](https://www.goodreads.com/work/quotes/467683)</cite>
  
 Darien and I were married on Saturday. I started writing a version of this three days before, thought “what the hell am I doing?” and went back to preparation including completing my vows and statement. As a child, the first church where I _belonged_ had members write their own vows. This made sense. As a chronic skeptic, I wanted to write my own vows. Were something not in my own words, I don’t know that I’ve truly internalized it. 
 
