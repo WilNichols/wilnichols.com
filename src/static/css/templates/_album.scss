@@ -32,14 +32,7 @@ body:has(> .page--album) {
 
 .page--album .page-header__container,  {
   & {
-    display: flex;
-    flex-direction: column;
-    width: auto;
-    max-width: tokens.$width;
     @extend %snapHeaderFix;
-  }
-  @media (width <= tokens.$breakpoint) { 
-    grid-template-columns: 100%;
   }
 }
 

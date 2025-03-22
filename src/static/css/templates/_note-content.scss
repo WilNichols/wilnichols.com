@@ -1,12 +1,12 @@
 @use '../tokens' as tokens;
-.page-header__title {
+.page-header__container  {
   & {
     display: flex;
     flex-direction: column;
-    max-width: tokens.$width;
     width: 100%;
+    max-width: tokens.$width;
     margin: 0 auto 1em auto;
-  }
+}
   h1 {
     margin: 0;
   }

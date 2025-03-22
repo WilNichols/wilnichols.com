@@ -14,7 +14,7 @@
   </script>
 {% endmacro %}
 
-{% macro PageTitle(el="header") %}
+{% macro PageTitle(el="div") %}
   {% set title %}{{ altTitle if altTitle }}{{ page.fileSlug if not altTitle }}{% endset %}
   {% set date %}{{ date | readableDateISO }}{% endset %}
   {% if revisions %}{% set updatedString %}{{ revisions[revisions | length - 1].date | readableDateISO }}{% endset %}{% endif %}

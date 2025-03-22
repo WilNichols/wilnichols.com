@@ -2,7 +2,7 @@
 layout: page.njk
 ---
 {%- from 'title-and-date.njk' import PageTitle with context -%}
-{%- from 'page-info.njk' import EditorialInfo with context -%}
+{%- from 'page-info.njk' import PostInfo with context -%}
 {%- from "../_includes/footer.njk" import Footer with context -%}
 {%- from "../_includes/revisions.njk" import RevisionList with context -%}
 
@@ -14,8 +14,10 @@ layout: page.njk
 {% endfor %}
 <article class="page page--pen">
   {% set backlinks = collections.all | links_to(page.url) %}
-  {{ EditorialInfo(previousPost, nextPost, backlinks) }}
-  {{ PageTitle() }}
+  <header class="page-header__container">
+    {{ PostInfo(previousPost, nextPost, backlinks) }}
+    {{ PageTitle() }}
+  </header>
   <main class="pen__body">
     <div class="pen__demo">
       {% if assets.demo %}

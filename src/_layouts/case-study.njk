@@ -13,9 +13,10 @@ layout: page.njk
 {% include 'heroes/' + page.fileSlug + '.njk' %}
 <article class="page page--note">
   {% set backlinks = collections.all | links_to(page.url) %}
-  {{ page.title }}
-  {{ CaseStudyInfo(previousPost, nextPost, backlinks, ingredients) }}
-  {{ PageTitle() }}
+  <header class="page-header__container">
+    {{ CaseStudyInfo(previousPost, nextPost, backlinks, ingredients) }}
+    {{ PageTitle() }}
+  </header>
   <main class="note__body">
     {{ content | safe }}
     {{ RevisionList(

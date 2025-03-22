@@ -19,7 +19,7 @@
   </{{ el }}>
 {%- endmacro %}
 
-{% macro EditorialInfo(previousPost, nextPost, backlinks, ingredients) %}
+{% macro PostInfo(previousPost, nextPost, backlinks = false, ingredients = false) %}
   {% set date %}{{ date | readableDateISO }}{% endset %}
   {% if revisions %}{% set updatedString %}{{ revisions[revisions | length - 1].date | readableDateISO }}{% endset %}{% endif %}
   {% set isEvergreen %}{% for tag in tags %}{{ true if ("Evergreen/" in tag) }}{% endfor %}{% endset %}

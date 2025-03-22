@@ -16,7 +16,7 @@ eleventyImport:
 <div class="page page--album">
   <header class="page-header__container">
     {{ AlbumInfo(previousPost, nextPost) }}
-    {{ PageTitle(el="div") }}
+    {{ PageTitle() }}
     <div class="album-intro">
       {{ content | safe }}
     </div>

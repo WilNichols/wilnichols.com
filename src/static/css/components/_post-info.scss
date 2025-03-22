@@ -16,14 +16,11 @@ $tableGap: 10px;
 }
 
 %page-info__grid {
-  display: grid;
-  column-gap: $tableGap; // it's like two spaces
+  display: inline-flex;
+  gap: $tableGap; // it's like two spaces
   // set font size here despite never using as font-size to avoid extensive calc statements, and instead  em
   font-size: var(--type-0);
   padding: .375em 0; // aligns the first baseline
-  row-gap: .5em;
-  grid-template-columns: min-content auto;
-  grid-auto-rows: min-content;
   @media (width <= tokens.$breakpoint) {
     & { 
       padding: 0;
@@ -36,7 +33,7 @@ $tableGap: 10px;
     // @extend %page-info__grid;
     display: flex;
     flex-direction: row;
-    column-gap: $tableGap;
+    column-gap: $tableGap * 2;
     font-size: var(--type-0);
     row-gap: .5em;
     flex-wrap: true;
@@ -67,7 +64,6 @@ $tableGap: 10px;
 %page-info__entry-style {
   & {
     padding: 0;
-    margin: 0;
     font-size: var(--type--2);
     line-height: var(--type-0);
     min-height: var(--type-0);
@@ -83,8 +79,12 @@ $tableGap: 10px;
   @extend %page-info__grid;
   @extend %page-info__entry-style;
   & {
+    margin-bottom: 1rem;
     text-decoration-color: var(--linkColor) !important;
-    align-self: end;
+    margin-right: auto;
+    overflow: visible;
+    // 12px icon + 10px gap
+    transform: translateX(-12px - $tableGap);
   }
   & > * {
     color: var(--linkColor) !important;
@@ -100,6 +100,10 @@ $tableGap: 10px;
 
 .page-info__entry__value p {
   display: inline;
+}
+
+.page-info__entry__value a {
+  color: inherit;
 }
 
 .sub-list__item {
