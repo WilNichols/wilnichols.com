@@ -4,10 +4,10 @@ shortTitle: Vulcan
 key: VulcanGasCompany
 thumbnail: DSCF3945.jpg
 tags:
-  - Camera/X-T1
-  - Location/Austin
-  - Location/Texas
-  - Period/Undergraduate
+  - AlbumInfo/Camera/X-T1
+  - AlbumInfo/Location/Austin
+  - AlbumInfo/Location/Texas
+  - AlbumInfo/Period/Undergraduate
   - AlbumGroup/Austin
 date: 2016-12-06T00:00
 ---

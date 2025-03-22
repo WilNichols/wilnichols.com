@@ -4,12 +4,12 @@ shortTitle: Six
 key: Auvergne6
 thumbnail: DSCF3036.jpg
 tags:
-  - Camera/X-T4
-  - Location/Auzon
-  - Location/Brioude
-  - Location/Auvergne
-  - Location/France
-  - Period/COVID
+  - AlbumInfo/Camera/X-T4
+  - AlbumInfo/Location/Auzon
+  - AlbumInfo/Location/Brioude
+  - AlbumInfo/Location/Auvergne
+  - AlbumInfo/Location/France
+  - AlbumInfo/Period/COVID
   - AlbumGroup/Auvergne
 date: 2022-03-26T00:00
 ---

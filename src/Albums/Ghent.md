@@ -3,10 +3,10 @@ title: Ghent
 key: Ghent
 thumbnail: DSCF5972.jpg
 tags:
-  - Camera/X-T2
-  - Location/Ghent
-  - Location/Belgium
-  - Period/KULeuven
+  - AlbumInfo/Camera/X-T2
+  - AlbumInfo/Location/Ghent
+  - AlbumInfo/Location/Belgium
+  - AlbumInfo/Period/KULeuven
   - AlbumGroup/The-E.U.
 date: 2019-04-26T00:00
 ---

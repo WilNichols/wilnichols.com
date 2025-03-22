@@ -4,10 +4,10 @@ shortTitle: Two
 key: Bruges2
 thumbnail: DSCF7429.jpg
 tags:
-  - Camera/X-T2
-  - Location/Bruges
-  - Location/Belgium
-  - Period/KULeuven
+  - AlbumInfo/Camera/X-T2
+  - AlbumInfo/Location/Bruges
+  - AlbumInfo/Location/Belgium
+  - AlbumInfo/Period/KULeuven
   - AlbumGroup/Bruges
 date: 2018-09-14T00:00
 ---

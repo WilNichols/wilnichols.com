@@ -3,10 +3,10 @@ title: Florence
 key: Florence
 thumbnail: DSCF9650.jpg
 tags:
-  - Camera/X-T2
-  - Location/Florence
-  - Location/Italy
-  - Period/KULeuven
+  - AlbumInfo/Camera/X-T2
+  - AlbumInfo/Location/Florence
+  - AlbumInfo/Location/Italy
+  - AlbumInfo/Period/KULeuven
   - AlbumGroup/The-E.U.
 date: 2019-06-10T00:00
 ---

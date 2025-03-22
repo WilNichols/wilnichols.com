@@ -4,11 +4,9 @@ shortTitle: Three
 key: Roe3
 thumbnail: DSCF5408.jpg
 tags:
-  - Group/Demonstration
-  - Group/Roe-V-Wade
-  - Camera/X-T4
-  - Location/Austin
-  - Location/Texas
+  - AlbumInfo/Camera/X-T4
+  - AlbumInfo/Location/Austin
+  - AlbumInfo/Location/Texas
   - AlbumGroup/Roe
 date: 2022-07-26T00:00
 ---

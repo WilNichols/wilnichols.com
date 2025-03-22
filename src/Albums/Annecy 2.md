@@ -4,11 +4,11 @@ shortTitle: Two
 key: Annecy2
 thumbnail: DSCF5909.jpg
 tags:
-  - Camera/X-T2
-  - Location/France
-  - Location/Annecy
-  - Location/Rhône-Alpes
-  - Period/KULeuven
+  - AlbumInfo/Camera/X-T2
+  - AlbumInfo/Location/France
+  - AlbumInfo/Location/Annecy
+  - AlbumInfo/Location/Rhône-Alpes
+  - AlbumInfo/Period/KULeuven
   - AlbumGroup/Annecy
 date: 2018-07-22T00:00
 ---

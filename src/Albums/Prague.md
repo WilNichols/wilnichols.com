@@ -3,10 +3,10 @@ title: Prague
 key: Prague
 thumbnail: DSCF8818.jpg
 tags:
-  - Camera/X-T2
-  - Location/Prague
-  - Location/Czech-Republic
-  - Period/KULeuven
+  - AlbumInfo/Camera/X-T2
+  - AlbumInfo/Location/Prague
+  - AlbumInfo/Location/Czech-Republic
+  - AlbumInfo/Period/KULeuven
   - AlbumGroup/The-E.U.
 date: 2018-10-19T00:00
 ---

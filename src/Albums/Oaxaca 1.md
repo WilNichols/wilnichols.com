@@ -4,10 +4,10 @@ shortTitle: One
 key: Oaxaca1
 thumbnail: DSCF5786.jpg
 tags:
-  - Camera/X-T2
-  - Location/Oaxaca
-  - Location/Mexico
-  - Period/Pre-COVID
+  - AlbumInfo/Camera/X-T2
+  - AlbumInfo/Location/Oaxaca
+  - AlbumInfo/Location/Mexico
+  - AlbumInfo/Period/Pre-COVID
   - AlbumGroup/Oaxaca
 date: 2020-03-07T00:00
 ---

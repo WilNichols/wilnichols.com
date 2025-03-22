@@ -4,10 +4,10 @@ shortTitle: Three
 key: Brussels3
 thumbnail: DSCF8011.jpg
 tags:
-  - Camera/X-T2
-  - Location/Brussels
-  - Location/Belgium
-  - Period/KULeuven
+  - AlbumInfo/Camera/X-T2
+  - AlbumInfo/Location/Brussels
+  - AlbumInfo/Location/Belgium
+  - AlbumInfo/Period/KULeuven
   - AlbumGroup/Brussels
 date: 2018-10-05T00:00
 ---

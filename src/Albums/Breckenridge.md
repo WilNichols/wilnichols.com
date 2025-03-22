@@ -3,11 +3,11 @@ title: Breckenridge
 key: Breckenridge
 thumbnail: DSCF6443.jpg
 tags:
-  - Camera/X-T2
-  - Hackathon
-  - Location/Breckenridge
-  - Location/Colorado
-  - Period/Undergraduate
+  - AlbumInfo/Camera/X-T2
+  - Topic/Hackathon
+  - AlbumInfo/Location/Breckenridge
+  - AlbumInfo/Location/Colorado
+  - AlbumInfo/Period/Undergraduate
   - AlbumGroup/The-U.S.
 date: 2017-12-02T00:00
 ---

@@ -2,7 +2,7 @@
 layout: page.njk
 ---
 
-{%- from 'asides.njk' import CaseStudyInfo with context -%}
+{%- from 'asides.njk' import IngredientsList with context -%}
 {%- from 'title-and-date.njk' import PageHeader with context -%}
 {%- from 'page-info.njk' import PageInfo with context -%}
 {%- from "../_includes/footer.njk" import Footer with context -%}
@@ -11,15 +11,13 @@ layout: page.njk
 {% set previousPost = collections.Notes | getPreviousCollectionItem %}
 {% set nextPost = collections.Notes | getNextCollectionItem %}
 
-{% include 'heroes/' + page.fileSlug + '.njk' %}
-{% set backlinks = collections.all | links_to(page.url) %}
-
 <article class="page page--note">
+  {% set backlinks = collections.all | links_to(page.url) %}
   <header class="page-header__container">
-    {{ PageInfo(previousPost, nextPost) }}
+    {{ PageInfo(previousPost, nextPost, backlinks) }}
     {{ PageHeader() }}
+    {{ IngredientsList(ingredients)}}
   </header>
-  {{ CaseStudyInfo(project) }}
   <main class="note__body">
     {{ content | safe }}
     {{ RevisionList(

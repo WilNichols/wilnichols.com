@@ -4,11 +4,11 @@ shortTitle: Two
 key: Clermont2
 thumbnail: DSCF4506.jpg
 tags:
-  - Camera/X-T2
-  - Location/Clermont-Ferrand
-  - Location/Auvergne
-  - Location/France
-  - Period/KULeuven
+  - AlbumInfo/Camera/X-T2
+  - AlbumInfo/Location/Clermont-Ferrand
+  - AlbumInfo/Location/Auvergne
+  - AlbumInfo/Location/France
+  - AlbumInfo/Period/KULeuven
   - AlbumGroup/Clermont-Ferrand
 date: 2018-06-11T00:00
 ---

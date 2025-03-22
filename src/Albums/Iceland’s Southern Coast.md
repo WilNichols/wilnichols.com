@@ -4,9 +4,9 @@ shortTitle: 2015
 key: Iceland2015SouthernCoast
 thumbnail: DSCF8208.jpg
 tags:
-  - Camera/X-T1
-  - Location/Iceland
-  - Period/Study-Abroad
+  - AlbumInfo/Camera/X-T1
+  - AlbumInfo/Location/Iceland
+  - AlbumInfo/Period/Study-Abroad
   - AlbumGroup/Iceland
 date: 2016-06-09T00:00
 ---

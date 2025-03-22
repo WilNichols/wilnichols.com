@@ -3,12 +3,12 @@ title: Manchester & Belfast
 key: ManchesterAndBelfast
 thumbnail: DSCF0415.jpg
 tags:
-  - Camera/X-T1
-  - Location/Manchester
-  - Location/Belfast
-  - Location/Ireland
-  - Location/United-Kingdom
-  - Period/Study-Abroad
+  - AlbumInfo/Camera/X-T1
+  - AlbumInfo/Location/Manchester
+  - AlbumInfo/Location/Belfast
+  - AlbumInfo/Location/Ireland
+  - AlbumInfo/Location/United-Kingdom
+  - AlbumInfo/Period/Study-Abroad
   - AlbumGroup/UK
 date: 2016-02-22T00:00
 ---

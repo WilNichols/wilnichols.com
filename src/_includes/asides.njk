@@ -1,0 +1,66 @@
+{% macro IngredientsList(ingredients) %}
+  <div class="post-specific-info--container">
+    <h3 class="heading--6">Ingredients</h3>
+    <ul class="page-info__list page-ingredient__list">
+      {% for ingredient in ingredients %}
+        <li class="page-info__entry"><span class="page-info__entry__key">{{ ingredient.name }}</span><span class="page-info__entry__value">{{ ingredient.metric }} 
+        | {{ ingredient.imperial }}</span></li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endmacro %}
+
+{% macro CaseStudyInfo(project) %}
+  <div class="post-specific-info--container">
+    <ul class="page-info__list page-ingredient__list">
+      {# Project Outcome #}
+      <li class="page-info__entry">
+        <span class="page-info__entry__key">Outcome</span>
+        <span class="page-info__entry__value">{{ project.outcome | markdownify | safe }}</span>
+      </li>
+      {# Project Client #}
+      <li class="page-info__entry">
+        <span class="page-info__entry__key">Client</span>
+        <span class="page-info__entry__value">{{ project.client | markdownify | safe }}</span>
+      </li>
+      {# Project Skills #}
+      <li class="page-info__entry">
+        <span class="page-info__entry__key">Skills</span>
+        <span class="page-info__entry__value">
+          {%- for skill in project.skills -%}
+            {% set content %}{{- skill -}}{{- ", " if not loop.last -}}{% endset %}
+            {{ content | markdownify | safe }}
+          {%- endfor -%}
+        </span>
+      </li>
+      {# Project Tools #}
+      <li class="page-info__entry">
+        <span class="page-info__entry__key">Tools</span>
+        <span class="page-info__entry__value">
+          {%- for tool in project.tools -%}
+            {{- tool | markdownify | safe -}}{{- ", " if not loop.last -}}
+          {%- endfor -%}
+        </span>
+      </li>
+      {# Project Period #}
+      <li class="page-info__entry">
+        <span class="page-info__entry__key">Period</span>
+        <span class="page-info__entry__value">
+          {%- for period in project.period -%}
+            {% set content %}{{- period -}}{{- ", " if not loop.last -}}{% endset %}
+            {{ content | markdownify | safe }}
+          {%- endfor -%}
+        </span>
+      </li>
+      {# Project Collaborators #}
+      <li class="page-info__entry">
+        <span class="page-info__entry__key">Collaborators</span>
+        <span class="page-info__entry__value">
+          {%- for collaborator in project.collaborators -%}
+              {{- collaborator | markdownify | safe -}}{{- ", " if not loop.last -}}
+          {%- endfor -%}
+        </span>
+      </li>
+    </ul>
+  </div>
+{% endmacro %}

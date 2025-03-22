@@ -4,11 +4,11 @@ shortTitle: Seven
 key: Austin7
 thumbnail: DSCF0713.jpg
 tags:
-  - Camera/X-T2
-  - Camera/X-T4
-  - Location/Austin
-  - Location/Texas
-  - Period/COVID
+  - AlbumInfo/Camera/X-T2
+  - AlbumInfo/Camera/X-T4
+  - AlbumInfo/Location/Austin
+  - AlbumInfo/Location/Texas
+  - AlbumInfo/Period/COVID
   - AlbumGroup/Austin
 date: 2021-01-23T00:00
 ---

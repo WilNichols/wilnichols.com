@@ -4,9 +4,9 @@ shortTitle: Devon Kay & The Solutions
 key: DevonKayandTheSolutions
 thumbnail: DSCF5757.jpg
 tags:
-  - Camera/X-T4
-  - Location/Pittsburgh
-  - Location/Pennsylvania
+  - AlbumInfo/Camera/X-T4
+  - AlbumInfo/Location/Pittsburgh
+  - AlbumInfo/Location/Pennsylvania
   - AlbumGroup/Pittsburgh
 date: 2023-04-21T00:00
 ---

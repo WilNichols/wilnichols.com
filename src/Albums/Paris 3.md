@@ -4,10 +4,10 @@ shortTitle: Three
 key: Paris3
 thumbnail: DSCF5192.jpg
 tags:
-  - Camera/X-T2
-  - Location/Paris
-  - Location/France
-  - Period/KULeuven
+  - AlbumInfo/Camera/X-T2
+  - AlbumInfo/Location/Paris
+  - AlbumInfo/Location/France
+  - AlbumInfo/Period/KULeuven
   - AlbumGroup/Paris
 date: 2018-07-10T00:00
 ---

@@ -4,10 +4,10 @@ shortTitle: Six
 key: Austin6
 thumbnail: DSCF6201.jpg
 tags:
-  - Camera/X-T2
-  - Location/Austin
-  - Location/Texas
-  - Period/COVID
+  - AlbumInfo/Camera/X-T2
+  - AlbumInfo/Location/Austin
+  - AlbumInfo/Location/Texas
+  - AlbumInfo/Period/COVID
   - AlbumGroup/Austin
 date: 2020-01-13T00:00
 ---
