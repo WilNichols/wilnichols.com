@@ -42,16 +42,18 @@ In Saturday’s ceremony, Jim had us read our own statements of intent to each o
 
 > Darien,  I know we’ve seen many different examples of love and partnership.  Marriage as a commitment can be either limiting or enriching, controlling or freeing, possessive or widening. Marriage as an institution can be either stifling or secure. We’ve seen Love be self-justifying and excusatory, whereas it can instead call us to a higher mutual standard. <br /> <br />
 > Because of you, I know that love is not just emotion, but an invitation to become more. I intend for us a love that leaves a better world. Ours will be a love that calls us to responsibility and accountability, built upon our word and mutual respect. Ours be a love that opens, and continues the rest of our lives.
-{.blockquote--no-cite}
 
 My mother read the opening L’Engle quote, and then we spoke vows to each other as a mutual covenant. Jim proposed these vows to us following conversation with us both, and they couldn’t have been closer to what we both needed from each other.
 
-> Darien, I take you as my partner in life. <br /> <br />
-> I promise to grow with you and learn from you in all the years ahead. <br /> <br />
-> I promise our home will always be safe for you physically and emotionally.  <br /> <br />
-> I will work with you to make this a kinder and wiser world.  <br /> <br />
+> Darien, I take you as my partner in life.
+>
+> I promise to grow with you and learn from you in all the years ahead.
+>
+> I promise our home will always be safe for you physically and emotionally. 
+>
+> I will work with you to make this a kinder and wiser world. 
+>
 > I promise to love you for the rest of my life.
-{.blockquote--no-cite}
 
 Now I need to go change my name. “Nichols-Higgins” has an exciting ring.
 

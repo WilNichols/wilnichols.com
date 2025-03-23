@@ -14,10 +14,18 @@
 
 .note__body ol {
   list-style: decimal;
+  // this layout approach isn't great, but ::marker doesn't work in grid, and I can't use ::before. The superscript for footnotes doesn't respect grid areas :shrug: 
+  // padding for markers 0-9, optically adjusted
+  padding: 0 0 0 2ex;
+  &:has(> :nth-child(10)) { 
+    // padding enough for two-digit markers
+    padding: 0 0 0 3ex;
+  }
 }
 
 .note__body ul {
   list-style: circle;
+  padding: 0  0 0 2.5rem;
 }
 
 .note__body ul, .note__body ol:not(.footnotes-list) {
