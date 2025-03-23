@@ -15,11 +15,19 @@ sub.footnote-ref {
   bottom: -0.75em;
 }
 
+%topBorder {
+  padding-top: tokens.$gapSmall;
+  border-top: 1px solid var(--edgeColor);
+}
+
 .footnotes {
   font-size: var(--type--2);
-  border-top: 1px solid var(--edgeColor);
   margin-top: 2rem;
-  padding-top: tokens.$gapSmall;
+  @extend %topBorder;
+}
+
+:has(> .footnotes) + .page__footer {
+  @extend %topBorder;
 }
 
 .footnotes-list {
@@ -42,6 +50,7 @@ sub.footnote-ref {
 .footnote-item p, .footnote-item::before {
   line-height: calc(1.2 * var(--type-0));
 }
+
 
 .footnote-item p {
   vertical-align: middle;

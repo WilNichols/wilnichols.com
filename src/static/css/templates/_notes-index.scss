@@ -46,6 +46,8 @@
     grid-template-columns: subgrid;
     grid-column: 1 / -1;
     gap: 5px;
+    margin: unset;
+    max-width: unset;
     margin-top: math.div(tokens.$gapSmall, 2);
   }
   .copyright__text {
