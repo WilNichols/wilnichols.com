@@ -68,5 +68,4 @@ sub.footnote-ref {
   counter-increment: footnote;
   content: counter(footnote) ". ";
   text-align: right;
-  
 }

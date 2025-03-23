@@ -25,7 +25,8 @@
 
 .note__body ul {
   list-style: circle;
-  padding: 0  0 0 2.5rem;
+  // optically adjusted for leading edge alignment
+  padding: 0  0 0 1.75ex;
 }
 
 .note__body ul, .note__body ol:not(.footnotes-list) {
