@@ -80,7 +80,7 @@
 {% endmacro %}
 
 {% macro PageHeader(el="div") %}
-  {% set title %}{{ altTitle if altTitle }}{{ page.fileSlug if not altTitle }}{% endset %}
+  {% include "title-string.njk" %}
   {% set date %}{{ date | readableDateISO }}{% endset %}
   <{{ el }} class="page-header__title">
     {{ backButton() }}
