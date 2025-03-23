@@ -39,50 +39,43 @@
 {% macro pageInfo(title, date, revisions, tags) %}
 {% if revisions %}{% set updatedString %}{{ revisions[revisions | length - 1].date | readableDateISO }}{% endset %}{% endif %}
   <ul class="page-info__list">
-    {# Published Date #}
+    {# Render Published Date #}
     {{ pageInfoEntry("published", date) }}
-    {# Revised Date #}
+    {# Render Last Modified Date #}
     {%- if revisions -%}
       {% set revisionLink %}<a href="#revisions">{{ updatedString }}</a>{% endset %}
       {{ pageInfoEntry("updated", revisionLink) }}
     {%- endif -%}
-    {# scopedTags and albumTags #}
+    {# Sort scopedTags and albumTags #}
     {% set scopedTags = [] %}
     {% set albumTags = [] %}
+    {% set isAlbum = false %}
+    {% set tagObj = {key: 'no'} %}
     {%- for tag in tags -%}
       {%- if 'Topic/' in tag -%}
         {%- set label -%}{{- tag | replace('Topic/', '') -}}{%- endset -%}
         {% set scopedTags = (scopedTags.push(label), scopedTags) %}
       {%- elif 'AlbumInfo/' in tag -%}
-        {%- set parsedTag = tag.replace('AlbumInfo/', '').split('/') -%}
-        {% set albumTags = (albumTags.push(parsedTag), albumTags) %}
+        {% set isAlbum = true %}
+        {% set trimmedTag = tag.replace('AlbumInfo/', '') %}
+        {% set parsedTag = trimmedTag.split('/') %}
+        {% set parsedTagKey = parsedTag[0] %}
+        {% set parsedTagValue = parsedTag[1] %}
+        {% set tagObj = {
+          key: parsedTagKey,
+          value: parsedTagValue
+        } %}
+        {% set albumTags = (albumTags.push(tagObj), albumTags) | createAlbumTags %}
       {%- endif -%}
     {%- endfor -%}
-    {{ albumTags | log }}
-    
+    {# Render scopedTags #}
     {{ pageInfoEntry("tags", scopedTags.join(", ")) }}
-    {# Album Info #}
-    
-    {# {%- set tagName = "" -%}
-    {%- for tag in tags -%}
-        {%- set thisTagIcon -%}
-          {% if thisTagName == "Group" %}{% include "../static/img/group--12.svg" %}
-          {% elif thisTagName == "Camera" %}{% include "../static/img/camera--12.svg" %}
-          {% elif thisTagName == "Location" %}{% include "../static/img/location--12.svg" %}
-          {% elif thisTagName == "Period" %}{% include "../static/img/period--12.svg" %}
-          {% elif thisTagName == "Musician" %}{% include "../static/img/musician--12.svg" %}
-          {% endif %}
-        {%- endset -%}
-        {%- set thisTagValue = parsedTag[1] -%}
-        {%- if ((loop.index > 2) and (tagName != thisTagName)) -%}</span></li>{%- endif -%}
-        {%- if tagName != thisTagName -%}
-          <li class="page-info__entry page-info__entry--{{ thisTagName }}">
-            <span class="page-info__entry__key">{{- thisTagIcon | safe -}}</span>
-            <span class="page-info__entry__value">{{- thisTagValue -}}{%- elif tagName == thisTagName -%}, {{ thisTagValue -}}{% endif %}
-      {%- endif -%}
-      {%- set tagName = thisTagName -%}
-      {%- if loop.last -%}</span></li>{%- endif -%}
-    {%- endfor -%} #}
+    {# Render albumInfo #}
+    {% if isAlbum %}
+      {% for albumTag in albumTags %}
+        {{ pageInfoEntry(albumTag.key | lower, albumTag.value) }}
+      {% endfor %}
+    {% endif %}
   </ul>
 {% endmacro %}
 
