@@ -2,7 +2,6 @@
 layout: page.njk
 ---
 
-{%- from 'asides.njk' import IngredientsList with context -%}
 {%- from 'page-header.njk' import PageHeader with context -%}
 {%- from 'page-info.njk' import PageInfo with context -%}
 {%- from "../_includes/footer.njk" import Footer with context -%}
@@ -16,7 +15,6 @@ layout: page.njk
   <header class="page-header__container">
     {{ PageInfo(previousPost, nextPost, backlinks) }}
     {{ PageHeader() }}
-    {{ IngredientsList(ingredients)}}
   </header>
   <main class="note__body">
     {{ content | safe }}

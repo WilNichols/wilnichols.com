@@ -1,5 +1,8 @@
 @use '../tokens' as tokens;
-.page-header__container  {
+
+@include tokens.textStyles;
+
+.page-header__container {
   & {
     display: flex;
     flex-direction: column;
@@ -14,19 +17,16 @@
 
 .note__body ol {
   list-style: decimal;
-  // this layout approach isn't great, but ::marker doesn't work in grid, and I can't use ::before. The superscript for footnotes doesn't respect grid areas :shrug: 
-  // padding for markers 0-9, optically adjusted
-  padding: 0 0 0 2ex;
-  &:has(> :nth-child(10)) { 
-    // padding enough for two-digit markers
-    padding: 0 0 0 3ex;
-  }
 }
 
 .note__body ul {
-  list-style: circle;
-  // optically adjusted for leading edge alignment
-  padding: 0  0 0 1.75ex;
+  list-style: disc;
+}
+
+.note__body ol, .note__body ul {
+  // this layout approach isn't great, but ::marker doesn't work in grid, and I can't use ::before. The superscript for footnotes doesn't respect grid areas :shrug: 
+  // padding for markers of 2 characters, optically adjusted
+  padding: 0 0 0 2.5rem;
 }
 
 .note__body ul, .note__body ol:not(.footnotes-list) {
@@ -39,7 +39,6 @@
     }
     &::marker {
       color: var(--contentTertiaryColor);
-      font-size: var(--type--1);
     }
   }
 
@@ -52,11 +51,17 @@
   line-height: 1.5em;
   margin: 0 auto;
   max-width: tokens.$width;
-  > p:not(:last-of-type) {
+  > p:not(:last-of-type), > h2, > h3, > h4, > h5, > h6, > ol, > ul {
     margin: 0 0 1em 0;
   }
 }
 
+.note__body > picture {
+  display: flex;
+  &:not(:last-child) {
+    margin-bottom: 1em;
+  }
+}
 .note__body > picture img {
   width: 100%;
   max-width: tokens.$width;

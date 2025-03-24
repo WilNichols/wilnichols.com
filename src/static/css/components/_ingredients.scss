@@ -1,0 +1,48 @@
+@use '../tokens';
+@use '../components/footnotes';
+
+$listInset: 2.5rem;
+
+@include tokens.textStyles;
+
+.ingredients-list {
+  display: grid;
+  grid-template-columns: 2.5rem 2fr 1fr 1fr;
+  margin: 1.5em 0 1.5em 0;
+  column-gap: tokens.$note-title-gap;
+  row-gap: .6em;
+  @extend %topBorder;
+  @extend %bottomBorder;
+}
+
+.ingredients-list__cell {
+  height: calc(var(--type-0) * 1.5em);
+  font-size: var(--type--1);
+}
+
+.ingredient-list__cell--top {
+  color: var(--contentSecondaryColor);
+  // .6em row-gap + .4em margin creates existing paragraph spacing
+  margin-bottom: .4em
+}
+
+.ingredients-list__cell--first.ingredient-list__cell--top {
+  @extend %font--display-medium;
+  color: var(--contentPrimaryColor) !important;
+  grid-column: 1 / 3;
+}
+
+.ingredients-list__cell--first:not(.ingredient-list__cell--top) {
+  display: list-item;
+  list-style: disc;
+  list-style-position: outside;
+  &::marker {
+    color: var(--contentTertiaryColor);
+  }
+}
+
+.ingredients-list__cell--first {
+  grid-column: 2 / 3;
+  overflow: visible;
+  font-size: var(--type-0) !important;
+}

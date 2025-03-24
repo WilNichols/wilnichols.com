@@ -5,9 +5,9 @@ altTitle: "Liège Waffles"
 tags:
   - Topic/Cooking
 permalink: /recipes/liege-waffles/
-summary: 
-  I took part of Belgium with me.
-ingredients: 
+summary: I took part of Belgium with me.
+ingredientsContainer:
+  ingredients: 
   - name: "Instant yeast"
     imperial: "3/4 tsp"
     metric: "2.3g"
@@ -39,17 +39,18 @@ ingredients:
     imperial: "3/4 c"
     metric: "135g"
 ---
-{% from "../_includes/picture.njk" import Picture with context %}
-
-{% set src = "https://cdn.wilnichols.com/recipes/liege-waffles/DSCF5623.jpg" %}
-{% set imageProps = src | imageInfo %}
-{{  Picture(
-    fileName = 'dscf5623-jpg',
-    src = src,
-    loading = 'eager',
-    imageProps = imageProps,
-    isWNCDN = true
-) }}
+{% renderTemplate "njk", data %}
+  {% from "../_includes/picture.njk" import Picture with context %}
+  {% set src = "https://cdn.wilnichols.com/recipes/liege-waffles/DSCF5623.jpg" %}
+  {% set imageProps = src | imageInfo %}
+  {{  Picture(
+      fileName = 'dscf5623-jpg',
+      src = src,
+      loading = 'eager',
+      imageProps = imageProps,
+      isWNCDN = true
+  ) }}
+{% endrenderTemplate %}
 
 I made those! Actually, 53. This recipe fortunately yields a practical six instead.
 
@@ -60,6 +61,11 @@ Googling, I found a couple dozen recipes that all looked picturesque, but I had 
 I eventually found Adam Wayda’s [recipe](https://liegewaffle.wordpress.com/liege-waffle-recipe-liege-gaufre-recette/), his [advanced recipe](https://web.archive.org/web/20160325024251/http://www.waffle-recipes.com/liege-waffle-recipe-gaufres-de-liege/), and his [experiments](https://web.archive.org/web/20160322013947/http://www.waffle-recipes.com/) in which he regularly [milled his own flour](https://web.archive.org/web/20160314235719/http://www.waffle-recipes.com/2016/01/22/milling-my-own-flour/). This goes too hard for me, but one’s got to respect the hustle.
 
 The following recipe contains only slight modifications to his, based significantly more on convenience than improvement. This is modified now for my current Texan kitchen, which often runs warmer and more humid than other parts of the country, so some times are modified. I’m reprinting it here in admiration and to preserve it as online platforms progressively deteriorate.
+
+{% renderTemplate "njk", ingredientsContainer %}
+  {% from "../_includes/ingredients.njk" import ingredientsList with context %}
+  {{ ingredientsList(ingredients) }}
+{% endrenderTemplate %}
 
 ## Directions {.heading--6}
 1. In your stand mixer, dissolve yeast in warm[^3] water, allowing it to rest for a few minutes. Add a third of your flour and half of your eggs. Mix until consistent.

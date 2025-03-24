@@ -312,6 +312,7 @@ export default async function(eleventyConfig) {
   eleventyConfig.addPlugin(pluginRss);
   eleventyConfig.addPlugin(syntaxHighlight);
   eleventyConfig.addPlugin(EleventyHtmlBasePlugin);
+  eleventyConfig.addPlugin(EleventyRenderPlugin);
 
   // WatchTargets
   eleventyConfig.addWatchTarget("src/static/css/");
