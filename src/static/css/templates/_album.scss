@@ -6,16 +6,12 @@ body:has(> .page--album) {
 }
 
 .page--album {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: calc(var(--col) / 3);
   scroll-snap-type: y proximity;
   -webkit-overflow-scrolling: touch;
   overflow-y: scroll;
   overflow-x: hidden;
   padding: 0 var(--col) var(--col) var(--col);
-  height: 100vh;
+  height: 100dvh;
 }
 
 $gap: var(--col);
@@ -23,11 +19,8 @@ $gap: var(--col);
 .page--camera-roll__header,
 .page--album .page-header__container {
   scroll-snap-align: start;
-  border-top: $gap solid transparent;
-}
-
-.page--album .related-posts {
-  margin-bottom: 0;
+  padding-top: var(--col);
+  scroll-snap-stop: always;
 }
 
 .page--album .page-info__column {
@@ -40,12 +33,20 @@ $gap: var(--col);
   }
 }
 
-.page--album .note__body {
-  margin-top: calc(var(--col)/-3);
+.album__album-photos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--col) / 3);
 }
 
-.album__album-photos {
-  display: contents;
+.page--album .page__footer {
+  scroll-margin-bottom: var(--col);
+  scroll-snap-stop: always;
+}
+
+.page--album .related-posts {
+  margin-bottom: var(--col);
 }
 
 .album__album-photos__photo {

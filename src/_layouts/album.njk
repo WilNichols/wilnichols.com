@@ -39,9 +39,11 @@ eleventyImport:
               imageProps = imageProps,
               isWNCDN = true
           ) }}
+          {% if loop.index == (albumLength - 1) %}
+            {{ Footer() }}
+          {% endif %}
         </li>
       {% endif %}
     {% endfor %}
-    {{ Footer(el="li") }}
   </ul>
 </div>
