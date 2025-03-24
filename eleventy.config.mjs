@@ -124,7 +124,6 @@ export default async function(eleventyConfig) {
   
   eleventyConfig.addCollection("Feed", function (collectionsApi) {
     const feed = [
-      ...collectionsApi.getFilteredByTag("Type/Case Study"),
       ...collectionsApi.getFilteredByTag("Type/Note"),
       ...collectionsApi.getFilteredByTag("Type/Link"),
       ...collectionsApi.getFilteredByTag("Type/Recipe")
