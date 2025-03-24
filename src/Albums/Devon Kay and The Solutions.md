@@ -1,6 +1,7 @@
 ---
-title: Devon Kay & The Solutions
+title: Devon Kay and The Solutions
 shortTitle: Devon Kay & The Solutions
+altTitle: wtf
 key: DevonKayandTheSolutions
 thumbnail: DSCF5757.jpg
 tags:
@@ -10,4 +11,4 @@ tags:
   - AlbumGroup/Pittsburgh
 date: 2023-04-21T00:00
 ---
-I’m no concert photography, but it’s fun.
+I’m no concert photographer, but it’s fun.

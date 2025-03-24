@@ -1,6 +1,6 @@
 ---
 title: France, Summer 2019
-shortTitle: Summer 2009
+shortTitle: Summer 2019
 key: FranceSummer2019
 thumbnail: DSCF0117.jpg
 tags:

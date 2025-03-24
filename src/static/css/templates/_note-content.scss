@@ -51,6 +51,7 @@
   line-height: 1.5em;
   margin: 0 auto;
   max-width: tokens.$width;
+  width: 100%;
   > p:not(:last-of-type), > h2, > h3, > h4, > h5, > h6, > ol, > ul {
     margin: 0 0 1em 0;
   }

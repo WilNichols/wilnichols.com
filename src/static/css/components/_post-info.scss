@@ -56,8 +56,7 @@ $tableGap: 10px;
     font-size: var(--type--2);
     column-gap: $tableGap * 2;
     font-size: var(--type-0);
-    row-gap: .5em;
-    flex-wrap: true;
+    flex-wrap: wrap;
   }
   @media (width <= tokens.$breakpoint) { 
     display: flex;
