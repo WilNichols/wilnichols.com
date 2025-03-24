@@ -1,0 +1,28 @@
+{%- from 'page-header.njk' import pageInfoEntry with context -%}
+
+{% macro RelatedPosts(previousPost, nextPost, backlinks = false, altString = "Reading") %}
+  {% set backlinksLength = backlinks | length %}
+  {% if previousPost or nextPost or (backlinksLength > 0) %}
+    <aside class="related-posts">
+      <span class="related-posts__title">Further {{ altString }}</span>
+      <ul class="page-info__column">
+        {% if nextPost %}
+          {% set nextLink %}<a href="{{ nextPost.url }}">{{ nextPost.data.title }}</a>{% endset %}
+          {{ pageInfoEntry("arrow-up", nextLink) }}
+        {% endif %}
+        {% if previousPost %}
+          {% set previousLink %}<a href="{{ previousPost.url }}">{{ previousPost.data.title }}</a>{% endset %}
+          {{ pageInfoEntry("arrow-down", previousLink) }}
+        {% endif %}
+        {% if backlinks.length > 0 %}
+          {% set backlinksContent -%}
+            {%- for link in backlinks -%}
+              <a href="{{ link.url }}">{{ link.data.title }}</a>{{ ", " if not loop.last }}
+            {%- endfor -%}
+          {%- endset %}
+          {{ pageInfoEntry("links", backlinksContent) }}
+        {% endif %}
+      </ul>
+    </aside>
+  {% endif %}
+{% endmacro %}

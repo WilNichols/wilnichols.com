@@ -4,11 +4,9 @@ shortTitle: One
 key: Roe1
 thumbnail: DSCF1061.jpg
 tags:
-  - Group/Demonstration
-  - Group/Roe-V-Wade
-  - Camera/X-T2
-  - Location/Austin
-  - Location/Texas
+  - AlbumInfo/Camera/X-T2
+  - AlbumInfo/Location/Austin
+  - AlbumInfo/Location/Texas
   - AlbumGroup/Roe
 date: 2021-10-02T00:00
 ---

@@ -13,6 +13,7 @@
   row-gap: tokens.$gapSmall;
   column-gap: tokens.$gapSmall;
   margin: 0;
+  line-height: calc(1.2 * var(--type-0));
 }
 
 .revision__date, .revision__message {

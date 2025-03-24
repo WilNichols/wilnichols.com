@@ -3,10 +3,10 @@ title: Porto
 key: Porto
 thumbnail: DSCF2825.jpg
 tags:
-  - Camera/X-T2
-  - Location/Porto
-  - Location/Portugal
-  - Period/KULeuven
+  - AlbumInfo/Camera/X-T2
+  - AlbumInfo/Location/Porto
+  - AlbumInfo/Location/Portugal
+  - AlbumInfo/Period/KULeuven
   - AlbumGroup/The-E.U.
 date: 2019-01-28T00:00
 ---

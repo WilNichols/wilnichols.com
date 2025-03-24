@@ -1,0 +1,14 @@
+{%- macro listItem(item, class) -%}
+  {%- for string in item -%}
+    <div class="ingredients-list__cell {{ 'ingredients-list__cell--first' if loop.first }} {{ class }}">{{ string }}</div>
+  {%- endfor -%}
+{%- endmacro %}
+
+{%- macro ingredientsList(ingredients) -%}
+  <div class="ingredients-list" id="ingredients">
+    {{ listItem(['Ingredients', 'Imperial', 'Metric'], 'ingredient-list__cell--top') }}
+    {%- for ingredient in ingredients -%}
+      {{ listItem([ingredient.name, ingredient.imperial,  ingredient.metric]) }}
+    {%- endfor -%}
+  </div>
+{%- endmacro -%}

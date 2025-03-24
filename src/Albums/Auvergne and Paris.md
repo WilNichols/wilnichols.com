@@ -4,12 +4,12 @@ shortTitle: "& Paris"
 key: AuvergneAndParis
 thumbnail: DSCF5287.jpg
 tags:
-  - Camera/X-T2
-  - Location/Auzon
-  - Location/Auvergne
-  - Location/Paris
-  - Location/France
-  - Period/KULeuven
+  - AlbumInfo/Camera/X-T2
+  - AlbumInfo/Location/Auzon
+  - AlbumInfo/Location/Auvergne
+  - AlbumInfo/Location/Paris
+  - AlbumInfo/Location/France
+  - AlbumInfo/Period/KULeuven
   - AlbumGroup/Auvergne
 date: 2019-03-29T00:00
 ---

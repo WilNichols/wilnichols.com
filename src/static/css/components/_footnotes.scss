@@ -15,49 +15,50 @@ sub.footnote-ref {
   bottom: -0.75em;
 }
 
+%topBorder {
+  padding-top: 2rem;
+  border-top: 1px solid var(--edgeColor);
+}
+
+%bottomBorder {
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--edgeColor);
+}
+
 .footnotes {
   font-size: var(--type--2);
-  border-top: 1px solid var(--edgeColor);
   margin-top: 2rem;
-  padding-top: tokens.$gapSmall;
+  @extend %topBorder;
+}
+
+:has(> .footnotes) + .page__footer {
+  @extend %topBorder;
 }
 
 .footnotes-list {
-  display: grid;
-  grid-template-columns: min-content auto;
+  display: flex;
   flex-direction: column;
-  row-gap: tokens.$gapSmall;
-  column-gap: tokens.$gapSmall;
-  counter-reset: footnote;
-  list-style: none;
-  list-style-type: none;
+  gap: tokens.$gapSmall;
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
-.footnote-item {
-  display: grid;
-  grid-template-columns: subgrid;
-  grid-column: 1 / -1;
-}
-
-.footnote-item p, .footnote-item::before {
+.footnote-item p, .footnote-item {
   line-height: calc(1.2 * var(--type-0));
 }
+
 
 .footnote-item p {
   vertical-align: middle;
   text-align: left;
   margin: 0;
-
 }
 
 .footnote-item a {
   text-decoration-thickness: 1px;
 }
 
-.footnote-item::before {
-  color: var(--contentSecondaryColor);
-  counter-increment: footnote;
-  content: counter(footnote) ". ";
-  text-align: right;
-  
+.footnote-item::marker {
+  color: var(--contentTertiaryColor);
 }

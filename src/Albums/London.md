@@ -3,10 +3,10 @@ title: London
 key: London
 thumbnail: DSCF6435.jpg
 tags:
-  - Camera/X-T1
-  - Location/London
-  - Location/United-Kingdom
-  - Period/Study-Abroad
+  - AlbumInfo/Camera/X-T1
+  - AlbumInfo/Location/London
+  - AlbumInfo/Location/United-Kingdom
+  - AlbumInfo/Period/Study-Abroad
   - AlbumGroup/UK
 date: 2016-07-26T00:00
 ---

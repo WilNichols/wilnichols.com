@@ -1,29 +1,29 @@
 @use '../tokens';
+@use '../components/footnotes';
+@use '../components/ingredients';
 
 $tableGap: 10px;
 
-.page-info {
-  & {
-    display: grid;
-    grid-template-rows: subgrid;
-    flex-direction: column;
-    color: var(--colorContentSecondary);
-  }
-  @media (width <= tokens.$breakpoint) {
-    position: static;
-    flex-direction: row;
-  }
+@include tokens.headingStyles;
+
+.related-posts {
+  max-width: tokens.$width;
+  margin: 1.5em auto 1.5em auto;
+  @extend %topBorder;
+  @extend %bottomBorder;
+}
+
+.related-posts__title {
+  @extend %heading--6;
+  display: block;
 }
 
 %page-info__grid {
-  display: grid;
-  column-gap: $tableGap; // it's like two spaces
+  display: inline-flex;
+  gap: $tableGap; // it's like two spaces
   // set font size here despite never using as font-size to avoid extensive calc statements, and instead  em
   font-size: var(--type-0);
   padding: .375em 0; // aligns the first baseline
-  row-gap: .5em;
-  grid-template-columns: min-content auto;
-  grid-auto-rows: min-content;
   @media (width <= tokens.$breakpoint) {
     & { 
       padding: 0;
@@ -31,9 +31,32 @@ $tableGap: 10px;
   }
 }
 
+.page-info__column {
+  display: flex;
+  flex-direction: column;
+  font-size: var(--type--2);
+  gap: 1.2em;
+  margin-top: 1.2em;
+  .page-info__entry {
+    // 10px gap
+    margin-left: -10px;    
+  }
+  .page-info__entry__key {
+    display: flex;
+    justify-content: end;
+    width: tokens.$gapMediumFixed;
+  }
+}
+
 .page-info__list {
   & {
-    @extend %page-info__grid;
+    // @extend %page-info__grid;
+    display: flex;
+    flex-direction: row;
+    font-size: var(--type--2);
+    column-gap: $tableGap * 2;
+    font-size: var(--type-0);
+    flex-wrap: wrap;
   }
   @media (width <= tokens.$breakpoint) { 
     display: flex;
@@ -50,14 +73,18 @@ $tableGap: 10px;
     justify-content: flex-end;
     height: var(--type-0);
     // width: var(--type-0);
-    color: var(--contentSecondaryColor);
+    color: var(--contentTertiaryColor);
   }
+}
+
+.page-info__entry__value {
+  color: var(--contentSecondaryColor);
 }
 
 %page-info__entry-style {
   & {
     padding: 0;
-    margin: 0;
+    font-size: inherit;
     font-size: var(--type--2);
     line-height: var(--type-0);
     min-height: var(--type-0);
@@ -73,8 +100,12 @@ $tableGap: 10px;
   @extend %page-info__grid;
   @extend %page-info__entry-style;
   & {
+    margin-bottom: 1rem;
     text-decoration-color: var(--linkColor) !important;
-    align-self: end;
+    margin-right: auto;
+    overflow: visible;
+    // 12px icon + 10px gap
+    transform: translateX(-12px - $tableGap);
   }
   & > * {
     color: var(--linkColor) !important;
@@ -82,17 +113,18 @@ $tableGap: 10px;
 }
 .page-info__entry {
   & {
-    grid-template-columns: subgrid;
-    display: grid;
-    grid-column: 1 / -1;
+    display: inline-flex;
+    gap: $tableGap;
     @extend %page-info__entry-style;
   }
-  @media (width <= tokens.$breakpoint) {
-    & { 
-      display: inline-flex;
-      gap: $tableGap;
-    }
-  }
+}
+
+.page-info__entry__value p {
+  display: inline;
+}
+
+.page-info__entry__value a {
+  color: inherit;
 }
 
 .sub-list__item {
@@ -103,30 +135,4 @@ $tableGap: 10px;
     display: inline;
     width: auto;
   }
-}
-
-.recipe__ingredient-list-container {
-  margin: var(--type-0) 0 0 0;
-  padding: .375em 0 0 0;
-  position: sticky;
-  top: 0;
-  @media (width <= tokens.$breakpoint) {
-    position: static;
-  }
-}
-
-.page-ingredient__list {
-  & {
-    grid-template-columns: auto;  
-  }
-  @media (width <= tokens.$breakpoint) {
-    margin-top: 1em;
-    flex-direction: column;
-    flex-wrap: nowrap
-  }
-}
-
-.page-ingredient__list .page-info__entry__key {
-  height: auto;
-  justify-content: start;
 }

@@ -4,11 +4,11 @@ shortTitle: Two
 key: Auvergne2
 thumbnail: DSCF7093.jpg
 tags:
-  - Camera/X-T1
-  - Location/Auzon
-  - Location/Auvergne
-  - Location/France
-  - Period/Study-Abroad
+  - AlbumInfo/Camera/X-T1
+  - AlbumInfo/Location/Auzon
+  - AlbumInfo/Location/Auvergne
+  - AlbumInfo/Location/France
+  - AlbumInfo/Period/Study-Abroad
   - AlbumGroup/Auvergne
 date: 2016-03-15T00:00
 ---

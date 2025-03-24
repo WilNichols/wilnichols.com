@@ -4,11 +4,11 @@ shortTitle: Four
 key: Auvergne4
 thumbnail: DSCF7310.jpg
 tags:
-  - Camera/X-T2
-  - Location/Auzon
-  - Location/Auvergne
-  - Location/France
-  - Period/Undergraduate
+  - AlbumInfo/Camera/X-T2
+  - AlbumInfo/Location/Auzon
+  - AlbumInfo/Location/Auvergne
+  - AlbumInfo/Location/France
+  - AlbumInfo/Period/Undergraduate
   - AlbumGroup/Auvergne
 date: 2017-12-23T00:00
 ---

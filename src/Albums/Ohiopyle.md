@@ -4,9 +4,9 @@ shortTitle: Ohiopyle
 key: Ohiopyle
 thumbnail: DSCF2712.jpg
 tags:
-  - Camera/X-T4
-  - Location/Pittsburgh
-  - Location/Pennsylvania
+  - AlbumInfo/Camera/X-T4
+  - AlbumInfo/Location/Pittsburgh
+  - AlbumInfo/Location/Pennsylvania
   - AlbumGroup/Pittsburgh
 date: 2022-12-30T00:00
 ---

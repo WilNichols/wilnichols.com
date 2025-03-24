@@ -4,11 +4,11 @@ shortTitle: One
 key: Auvergne1
 thumbnail: DSCF5959.jpg
 tags:
-  - Camera/X-T1
-  - Location/Auzon
-  - Location/Auvergne
-  - Location/France
-  - Period/Undergraduate
+  - AlbumInfo/Camera/X-T1
+  - AlbumInfo/Location/Auzon
+  - AlbumInfo/Location/Auvergne
+  - AlbumInfo/Location/France
+  - AlbumInfo/Period/Undergraduate
   - AlbumGroup/Auvergne
 date: 2014-12-18T00:00
 ---

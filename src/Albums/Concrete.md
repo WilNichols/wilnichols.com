@@ -3,10 +3,10 @@ title: Concrete
 key: Concrete
 thumbnail: DSCF9212.jpg
 tags:
-  - Camera/X-T1
-  - Location/Austin
-  - Location/Texas
-  - Period/Undergraduate
+  - AlbumInfo/Camera/X-T1
+  - AlbumInfo/Location/Austin
+  - AlbumInfo/Location/Texas
+  - AlbumInfo/Period/Undergraduate
   - AlbumGroup/Austin
 date: 2015-06-26T00:00
 ---

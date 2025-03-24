@@ -3,10 +3,10 @@ title: Terlingua
 key: Terlingua
 thumbnail: DSCF3348.jpg
 tags:
-  - Camera/X-T1
-  - Location/Terlinguia
-  - Location/Texas
-  - Period/Pre-COVID
+  - AlbumInfo/Camera/X-T1
+  - AlbumInfo/Location/Terlinguia
+  - AlbumInfo/Location/Texas
+  - AlbumInfo/Period/Pre-COVID
   - AlbumGroup/The-U.S.
 date: 2019-12-29T00:00
 ---

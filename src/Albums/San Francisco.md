@@ -4,11 +4,11 @@ shortTitle: One
 key: SanFrancisco
 thumbnail: DSCF9734.jpg
 tags:
-  - Camera/X-T2
-  - Location/San-Francisco
-  - Location/The-Bay
-  - Location/California
-  - Period/COVID
+  - AlbumInfo/Camera/X-T2
+  - AlbumInfo/Location/San-Francisco
+  - AlbumInfo/Location/The-Bay
+  - AlbumInfo/Location/California
+  - AlbumInfo/Period/COVID
   - AlbumGroup/San-Francisco
 date: 2021-07-26T00:00
 ---

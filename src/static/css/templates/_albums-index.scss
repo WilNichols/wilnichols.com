@@ -23,7 +23,7 @@
 }
 
 .album-group__title {
-  @extend %heading--5;
+  @extend %heading--6;
   display: inline-block;
   line-height: tokens.$gapSmall;
 }

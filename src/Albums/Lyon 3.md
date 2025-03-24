@@ -4,10 +4,10 @@ shortTitle: Three
 key: Lyon3
 thumbnail: DSCF5756.jpg
 tags:
-  - Camera/X-T2
-  - Location/Lyon
-  - Location/Rhône-Alpes
-  - Period/KULeuven
+  - AlbumInfo/Camera/X-T2
+  - AlbumInfo/Location/Lyon
+  - AlbumInfo/Location/Rhône-Alpes
+  - AlbumInfo/Period/KULeuven
   - AlbumGroup/Lyon
 date: 2018-06-21T00:00
 ---

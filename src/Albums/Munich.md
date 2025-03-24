@@ -3,10 +3,10 @@ title: Munich
 key: Munich
 thumbnail: DSCF8803.jpg
 tags:
-  - Camera/X-T2
-  - Location/Munich
-  - Location/Germany
-  - Period/KULeuven
+  - AlbumInfo/Camera/X-T2
+  - AlbumInfo/Location/Munich
+  - AlbumInfo/Location/Germany
+  - AlbumInfo/Period/KULeuven
   - AlbumGroup/Munich
 date: 2019-07-06T00:00
 ---

@@ -1,0 +1,28 @@
+@use 'sass:map';
+
+// Public
+$consts: (
+  '2xl': 1201px,
+  'xl': 1200px,
+  'lg': 992px,
+  'md': 768px,
+  'sm': 576px,
+  'xs': 440px,
+  'min-width': 320px
+);
+
+@function min($breakpoint) {
+  $width: map.get($consts, $breakpoint) + 1;
+  @return '(min-width: #{$width})';
+}
+
+@function between($breakpoint-min, $breakpoint-max) {
+  $width1: map.get($consts, $breakpoint-min) + 1;
+  $width2: map.get($consts, $breakpoint-max);
+  @return '(min-width: #{$width1}) and (max-width: #{$width2})';
+}
+
+@function max($breakpoint) {
+  $width: map.get($consts, $breakpoint);
+  @return '(max-width: #{$width})';
+}

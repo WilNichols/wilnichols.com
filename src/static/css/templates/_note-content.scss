@@ -1,9 +1,15 @@
 @use '../tokens' as tokens;
-.page-header__title {
+
+@include tokens.textStyles;
+
+.page-header__container {
   & {
-    display: inline-flex;
+    display: flex;
     flex-direction: column;
-  }
+    width: 100%;
+    max-width: tokens.$width;
+    margin: 0 auto 1em auto;
+}
   h1 {
     margin: 0;
   }
@@ -14,7 +20,13 @@
 }
 
 .note__body ul {
-  list-style: circle;
+  list-style: disc;
+}
+
+.note__body ol, .note__body ul {
+  // this layout approach isn't great, but ::marker doesn't work in grid, and I can't use ::before. The superscript for footnotes doesn't respect grid areas :shrug: 
+  // padding for markers of 2 characters, optically adjusted
+  padding: 0 0 0 tokens.$gapMediumFixed;
 }
 
 .note__body ul, .note__body ol:not(.footnotes-list) {
@@ -27,7 +39,6 @@
     }
     &::marker {
       color: var(--contentTertiaryColor);
-      font-size: var(--type--1);
     }
   }
 
@@ -36,15 +47,22 @@
   }
 }
 
-.note__body > p, .pen__body > p {
-  & {
-    line-height: 1.5em;
-  }
-  &:not(:last-of-type) {
-    margin: 0 auto 1em auto;
+.note__body, .pen__body {
+  line-height: 1.5em;
+  margin: 0 auto;
+  max-width: tokens.$width;
+  width: 100%;
+  > p:not(:last-of-type), > h2, > h3, > h4, > h5, > h6, > ol, > ul {
+    margin: 0 0 1em 0;
   }
 }
 
+.note__body > picture {
+  display: flex;
+  &:not(:last-child) {
+    margin-bottom: 1em;
+  }
+}
 .note__body > picture img {
   width: 100%;
   max-width: tokens.$width;

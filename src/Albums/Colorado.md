@@ -3,9 +3,9 @@ title: Colorado
 key: Colorado
 thumbnail: DSCF6219.jpg
 tags:
-  - Camera/X-T1
-  - Location/Colorado
-  - Period/Undergraduate
+  - AlbumInfo/Camera/X-T1
+  - AlbumInfo/Location/Colorado
+  - AlbumInfo/Period/Undergraduate
   - AlbumGroup/The-U.S.
 date: 2017-03-13T00:00
 ---

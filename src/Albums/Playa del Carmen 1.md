@@ -4,11 +4,11 @@ shortTitle: One
 key: PlayaDelCarmen1
 thumbnail: DSCF2945.jpg
 tags:
-  - Camera/X-T2
-  - Location/Playa-del-Carman
-  - Location/Mexico
-  - Hackathon
-  - Period/Pre-COVID
+  - AlbumInfo/Camera/X-T2
+  - AlbumInfo/Location/Playa-del-Carman
+  - AlbumInfo/Location/Mexico
+  - Topic/Hackathon
+  - AlbumInfo/Period/Pre-COVID
   - AlbumGroup/Playa
 date: 2019-12-08T00:00
 ---

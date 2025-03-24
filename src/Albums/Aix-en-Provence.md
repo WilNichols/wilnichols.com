@@ -4,11 +4,11 @@ shortTitle: Aix
 key: Aix
 thumbnail: DSCF2975.jpg
 tags:
-  - Camera/X-T1
-  - Location/France
-  - Location/Aix-en-Provence
-  - Location/Provence
-  - Period/Study-Abroad
+  - AlbumInfo/Camera/X-T1
+  - AlbumInfo/Location/France
+  - AlbumInfo/Location/Aix-en-Provence
+  - AlbumInfo/Location/Provence
+  - AlbumInfo/Period/Study-Abroad
   - AlbumGroup/France
 date: 2016-03-27T00:00
 ---

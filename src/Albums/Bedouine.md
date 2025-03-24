@@ -3,11 +3,11 @@ title: Bedouine
 key: Bedouine
 thumbnail: DSCF4231.jpg
 tags:
-  - Camera/X-T2
-  - Musician/Bedouine
-  - Location/Austin
-  - Location/Texas
-  - Period/COVID
+  - AlbumInfo/Camera/X-T2
+  - AlbumInfo/Musician/Bedouine
+  - AlbumInfo/Location/Austin
+  - AlbumInfo/Location/Texas
+  - AlbumInfo/Period/COVID
   - AlbumGroup/Austin
 date: 2020-01-29T00:00
 ---

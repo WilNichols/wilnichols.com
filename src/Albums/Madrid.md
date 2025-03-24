@@ -3,10 +3,10 @@ title: Madrid
 key: Madrid
 thumbnail: DSCF4451.jpg
 tags:
-  - Camera/X-T1
-  - Location/Madrid
-  - Location/Spain
-  - Period/Study-Abroad
+  - AlbumInfo/Camera/X-T1
+  - AlbumInfo/Location/Madrid
+  - AlbumInfo/Location/Spain
+  - AlbumInfo/Period/Study-Abroad
   - AlbumGroup/The-E.U.
 date: 2016-04-18T00:00
 ---

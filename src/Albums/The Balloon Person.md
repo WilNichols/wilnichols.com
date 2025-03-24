@@ -4,11 +4,11 @@ shortTitle: Balloons
 key: TheBalloonPerson
 thumbnail: DSCF6918.jpg
 tags:
-  - Camera/X-T1
-  - Location/Lyon
-  - Location/Rhône-Alpes
-  - Location/France
-  - Period/Study-Abroad
+  - AlbumInfo/Camera/X-T1
+  - AlbumInfo/Location/Lyon
+  - AlbumInfo/Location/Rhône-Alpes
+  - AlbumInfo/Location/France
+  - AlbumInfo/Period/Study-Abroad
   - AlbumGroup/Lyon
 date: 2016-05-15T00:00
 ---

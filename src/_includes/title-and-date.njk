@@ -1,9 +1,0 @@
-{% macro PageTitle(el="header") %}
-  {% set title %}{{ altTitle if altTitle }}{{ page.fileSlug if not altTitle }}{% endset %}
-  {% set date %}{{ date | readableDateISO }}{% endset %}
-  {% set updated %}{{ updated | readableDateISO }}{% endset %}
-  <{{ el }} class="page-header__title">
-    <h1 class="page__title">{{ title | markdownify | replace("<p>", "") | replace("</p>", "") | safe }}</h1>
-    {% if subtitle %}<span class="page__subtitle">{{ subtitle | markdownify | replace("<p>", "") | replace("</p>", "") | safe }}</span>{% endif %}
-  </{{ el }}>
-{% endmacro %}
