@@ -5,7 +5,7 @@ eleventyImport:
 ---
 {%- from 'picture.njk' import Picture with context -%}
 {%- from 'page-header.njk' import PageHeader with context -%}
-{%- from 'page-info.njk' import PageInfo with context -%}
+{%- from 'related-posts.njk' import RelatedPosts with context -%}
 {%- from "../_includes/footer.njk" import Footer with context -%}
 
 {# this works because each album has exactly one aAlbumGroup tag #}
@@ -15,11 +15,11 @@ eleventyImport:
 
 <div class="page page--album">
   <header class="page-header__container">
-    {{ PageInfo(previousPost, nextPost) }}
     {{ PageHeader() }}
   </header>
   <div class="note__body">
     {{ content | safe }}
+    {{ RelatedPosts(previousPost, nextPost, altString = "Viewing") }}
   </div>
   {% set photos = key | getPhotos %}
   {% set albumLength %}{{ photos | length }}{% endset %}

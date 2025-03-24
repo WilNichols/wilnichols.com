@@ -26,7 +26,7 @@
 .note__body ol, .note__body ul {
   // this layout approach isn't great, but ::marker doesn't work in grid, and I can't use ::before. The superscript for footnotes doesn't respect grid areas :shrug: 
   // padding for markers of 2 characters, optically adjusted
-  padding: 0 0 0 2.5rem;
+  padding: 0 0 0 tokens.$gapMediumFixed;
 }
 
 .note__body ul, .note__body ol:not(.footnotes-list) {

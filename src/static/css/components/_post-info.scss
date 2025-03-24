@@ -1,18 +1,21 @@
 @use '../tokens';
+@use '../components/footnotes';
+@use '../components/ingredients';
 
 $tableGap: 10px;
 
-.page-info {
-  & {
-    display: grid;
-    grid-template-rows: subgrid;
-    flex-direction: column;
-    color: var(--colorContentSecondary);
-  }
-  @media (width <= tokens.$breakpoint) {
-    position: static;
-    flex-direction: row;
-  }
+@include tokens.headingStyles;
+
+.related-posts {
+  max-width: tokens.$width;
+  margin: 1.5em auto 1.5em auto;
+  @extend %topBorder;
+  @extend %bottomBorder;
+}
+
+.related-posts__title {
+  @extend %heading--6;
+  display: block;
 }
 
 %page-info__grid {
@@ -28,11 +31,29 @@ $tableGap: 10px;
   }
 }
 
+.page-info__column {
+  display: flex;
+  flex-direction: column;
+  font-size: var(--type--2);
+  gap: 1.2em;
+  margin-top: 1.2em;
+  .page-info__entry {
+    // 10px gap
+    margin-left: -10px;    
+  }
+  .page-info__entry__key {
+    display: flex;
+    justify-content: end;
+    width: tokens.$gapMediumFixed;
+  }
+}
+
 .page-info__list {
   & {
     // @extend %page-info__grid;
     display: flex;
     flex-direction: row;
+    font-size: var(--type--2);
     column-gap: $tableGap * 2;
     font-size: var(--type-0);
     row-gap: .5em;
@@ -64,6 +85,7 @@ $tableGap: 10px;
 %page-info__entry-style {
   & {
     padding: 0;
+    font-size: inherit;
     font-size: var(--type--2);
     line-height: var(--type-0);
     min-height: var(--type-0);
@@ -93,7 +115,7 @@ $tableGap: 10px;
 .page-info__entry {
   & {
     display: inline-flex;
-      gap: $tableGap;
+    gap: $tableGap;
     @extend %page-info__entry-style;
   }
 }
@@ -114,30 +136,4 @@ $tableGap: 10px;
     display: inline;
     width: auto;
   }
-}
-
-.post-specific-info--container {
-  margin: var(--type-0) 0 0 0;
-  padding: .375em 0 0 0;
-  position: sticky;
-  top: 0;
-  @media (width <= tokens.$breakpoint) {
-    position: static;
-  }
-}
-
-.page-ingredient__list {
-  & {
-    grid-template-columns: auto;  
-  }
-  @media (width <= tokens.$breakpoint) {
-    margin-top: 1em;
-    flex-direction: column;
-    flex-wrap: nowrap
-  }
-}
-
-.page-ingredient__list .page-info__entry__key {
-  height: auto;
-  justify-content: start;
 }

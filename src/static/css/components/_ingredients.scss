@@ -1,13 +1,12 @@
 @use '../tokens';
 @use '../components/footnotes';
 
-$listInset: 2.5rem;
 
 @include tokens.textStyles;
 
 .ingredients-list {
   display: grid;
-  grid-template-columns: 2.5rem 2fr 1fr 1fr;
+  grid-template-columns: tokens.$gapMediumFixed 2fr 1fr 1fr;
   margin: 1.5em 0 1.5em 0;
   column-gap: tokens.$note-title-gap;
   row-gap: .6em;

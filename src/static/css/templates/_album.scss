@@ -26,6 +26,20 @@ $gap: var(--col);
   border-top: $gap solid transparent;
 }
 
+.page--album .related-posts {
+  margin-bottom: 0;
+}
+
+.page--album .page-info__column {
+  padding: 0;
+  .page-info__entry {
+    margin: 0;
+  }
+  .page-info__entry__key {
+    width: auto;
+  }
+}
+
 .page--album .note__body {
   margin-top: calc(var(--col)/-3);
 }

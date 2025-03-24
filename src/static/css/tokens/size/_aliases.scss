@@ -2,9 +2,11 @@ $width: calc(30 * var(--type-0));
 $breakpoint: 640px;
 $note-title-gap: .25em; // the size of a monospaced space character in Neue Haas Grotesk
 $categoryWidth: 480px;
-$lineHeight: 2px;
+$lineHeight: 1px;
 $gapSmall: 1.2em;
 $gapMedium: 2.4em;
+$gapMediumFixed: calc(var(--type-0) * 2.4);
+
 
 @mixin sizeAliases {
   & {
