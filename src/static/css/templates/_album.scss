@@ -16,6 +16,10 @@ body:has(> .page--album) {
 
 $gap: var(--col);
 
+.page--camera-roll__header {
+  margin: 0 auto calc(var(--col)/3) auto;
+}
+
 .page--camera-roll__header,
 .page--album .page-header__container {
   scroll-snap-align: start;
