@@ -18,22 +18,16 @@ body:has(> .page--album) {
   height: 100vh;
 }
 
-%snapHeaderFix {
-  $gap: var(--col);
-  border-top: $gap solid transparent;
-  margin-bottom: $gap;
+$gap: var(--col);
+
+.page--camera-roll__header,
+.page--album .page-header__container {
   scroll-snap-align: start;
-  // necessary for preserving padding with scroll snapping
+  border-top: $gap solid transparent;
 }
 
-.page--camera-roll__header {
-  @extend %snapHeaderFix;
-}
-
-.page--album .page-header__container,  {
-  & {
-    @extend %snapHeaderFix;
-  }
+.page--album .note__body {
+  margin-top: calc(var(--col)/-3);
 }
 
 .album__album-photos {
