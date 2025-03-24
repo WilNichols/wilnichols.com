@@ -4,11 +4,11 @@ shortTitle: One
 key: Annecy1
 thumbnail: DSCF8007.jpg
 tags:
-  - Camera/X-T1
-  - Location/France
-  - Location/Annecy
-  - Location/Rhône-Alpes
-  - Period/Study-Abroad
+  - AlbumInfo/Camera/X-T1
+  - AlbumInfo/Location/France
+  - AlbumInfo/Location/Annecy
+  - AlbumInfo/Location/Rhône-Alpes
+  - AlbumInfo/Period/Study-Abroad
   - AlbumGroup/Annecy
 date: 2016-01-23T00:00
 ---

@@ -3,11 +3,10 @@ title: The Election
 key: TheElection
 thumbnail: DSCF3584.jpg
 tags:
-  - Group/Demonstration
-  - Camera/X-T1
-  - Location/Austin
-  - Location/Texas
-  - Period/Undergraduate
+  - AlbumInfo/Camera/X-T1
+  - AlbumInfo/Location/Austin
+  - AlbumInfo/Location/Texas
+  - AlbumInfo/Period/Undergraduate
   - AlbumGroup/Austin
 date: 2016-11-10T00:00
 ---

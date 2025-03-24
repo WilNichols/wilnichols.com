@@ -1,0 +1,31 @@
+---
+layout: page.njk
+---
+
+{%- from 'asides.njk' import CaseStudyInfo with context -%}
+{%- from 'page-header.njk' import PageHeader with context -%}
+{%- from 'related-posts.njk' import RelatedPosts with context -%}
+{%- from "../_includes/footer.njk" import Footer with context -%}
+{%- from "../_includes/revisions.njk" import RevisionList with context -%}
+
+{% set previousPost = collections.Notes | getPreviousCollectionItem %}
+{% set nextPost = collections.Notes | getNextCollectionItem %}
+
+{% include 'heroes/' + page.fileSlug + '.njk' %}
+{% set backlinks = collections.all | links_to(page.url) %}
+
+<div class="page page--note">
+  <header class="page-header__container">
+    {{ PageHeader() }}
+  </header>
+  {{ CaseStudyInfo(project) }}
+  <main class="note__body">
+    {{ content | safe }}
+    {{ RevisionList(
+      el='section',
+      revisions
+    )}}
+  </main>
+  {{ RelatedPosts(previousPost, nextPost) }}
+  {{ Footer() }}
+</div>

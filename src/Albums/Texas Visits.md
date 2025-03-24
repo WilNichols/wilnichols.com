@@ -4,10 +4,10 @@ shortTitle: Visits
 key: TexasVisits
 thumbnail: DSCF6023.jpg
 tags:
-  - Camera/X-T4
-  - Location/Georgetown
-  - Location/Austin
-  - Location/Texas
+  - AlbumInfo/Camera/X-T4
+  - AlbumInfo/Location/Georgetown
+  - AlbumInfo/Location/Austin
+  - AlbumInfo/Location/Texas
   - AlbumGroup/Austin
 date: 2023-04-30T00:00
 ---

@@ -4,10 +4,10 @@ shortTitle: Two
 key: Brussels2
 thumbnail: DSCF3252.jpg
 tags:
-  - Camera/X-T2
-  - Location/Brussels
-  - Location/Belgium
-  - Period/KULeuven
+  - AlbumInfo/Camera/X-T2
+  - AlbumInfo/Location/Brussels
+  - AlbumInfo/Location/Belgium
+  - AlbumInfo/Period/KULeuven
   - AlbumGroup/Brussels
 date: 2018-04-20T00:00
 ---

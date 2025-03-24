@@ -4,10 +4,10 @@ shortTitle: Two
 key: PlayaDelCarmen2
 thumbnail: DSCF3036.jpg
 tags:
-  - Camera/X-T4
-  - Location/Playa-del-Carman
-  - Location/Mexico
-  - Hackathon
+  - AlbumInfo/Camera/X-T4
+  - AlbumInfo/Location/Playa-del-Carman
+  - AlbumInfo/Location/Mexico
+  - Topic/Hackathon
   - AlbumGroup/Playa
 date: 2023-01-29T00:00
 ---

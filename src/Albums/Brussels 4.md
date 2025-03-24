@@ -4,10 +4,10 @@ shortTitle: Four
 key: Brussels4
 thumbnail: DSCF0556.jpg
 tags:
-  - Camera/X-T2
-  - Location/Brussels
-  - Location/Belgium
-  - Period/KULeuven
+  - AlbumInfo/Camera/X-T2
+  - AlbumInfo/Location/Brussels
+  - AlbumInfo/Location/Belgium
+  - AlbumInfo/Period/KULeuven
   - AlbumGroup/Brussels
 date: 2018-12-09T00:00
 ---

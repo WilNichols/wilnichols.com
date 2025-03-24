@@ -4,11 +4,11 @@ shortTitle: Three
 key: Auvergne3
 thumbnail: DSCF0762.jpg
 tags:
-  - Camera/X-T2
-  - Location/Auzon
-  - Location/Auvergne
-  - Location/France
-  - Period/Undergraduate
+  - AlbumInfo/Camera/X-T2
+  - AlbumInfo/Location/Auzon
+  - AlbumInfo/Location/Auvergne
+  - AlbumInfo/Location/France
+  - AlbumInfo/Period/Undergraduate
   - AlbumGroup/Auvergne
 date: 2017-06-03T00:00
 ---

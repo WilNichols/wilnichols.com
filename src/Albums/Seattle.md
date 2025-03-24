@@ -4,10 +4,10 @@ shortTitle: Seattle
 key: Seattle
 thumbnail: DSCF0375.jpg
 tags:
-  - Camera/X-T4
-  - Location/Seattle
-  - Location/Washington
-  - Period/Sabbatical
+  - AlbumInfo/Camera/X-T4
+  - AlbumInfo/Location/Seattle
+  - AlbumInfo/Location/Washington
+  - AlbumInfo/Period/Sabbatical
   - AlbumGroup/The-U.S.
 date: 2022-09-22T00:00
 ---

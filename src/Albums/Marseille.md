@@ -3,11 +3,11 @@ title: Marseille
 key: Marseille
 thumbnail: DSCF8702.jpg
 tags:
-  - Camera/X-T1
-  - Location/Marseille
-  - Location/Provence
-  - Location/France
-  - Period/Study-Abroad
+  - AlbumInfo/Camera/X-T1
+  - AlbumInfo/Location/Marseille
+  - AlbumInfo/Location/Provence
+  - AlbumInfo/Location/France
+  - AlbumInfo/Period/Study-Abroad
   - AlbumGroup/France
 date: 2016-03-15T00:00
 ---

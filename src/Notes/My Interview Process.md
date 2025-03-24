@@ -17,19 +17,19 @@ Amy decided to pursue further opportunities at Signal when Zello decided to shif
 
 Since then, I’ve hired two product designers, hired a design engineer, onboarded a junior PD from our Product Advocates, inherited a ridiculously talented visual designer, and manage the team. While the stages and broad strokes from the following process apply to diverse design roles, these specific exercises and competencies specifically pertain to product designers.
  
-## Today’s process {.heading--4}
+## Today’s process {.heading--6}
 While the interview process has changed significantly over time, the exercises have only been further practiced, and we’ve deepened our sense of signal. In 2017 I couldn’t have told you what a “competency” was beyond work assessments and highly subjective assessments of soft skills, whereas nowadays... I’m working on it. Then and now I prefer to judge a designer by the intersection of their portfolio and self-description, but can tailor my takeaways for those who prefer the descriptive or others preferring the deductive.
 
 I’ve always used this same stable of exercises to assess applicants, an while the order and occasionally instructions have changed, the exercises are more or less unchanged.[^2]
 
 This process ideally takes under three weeks with up to a week to review the initial application, scheduling two screening calls the next week, and scheduling an onsite the following week.
 
-### The application and portfolio {.heading--5}
+### The application and portfolio {.heading--6}
 Depending on a role’s seniority, we have a hard check against years’ experience. We may also limit applications to those authorized to work in the US, and those willing to work in a hybrid or in-house position in Austin. I then review applications and advance those who meet our design standards, taking specific note of balance between aesthetic sense, platform knowledge,[^3] pattern knowledge, research, prototyping, and influences. I also keep an eye out for how a candidate describes themselves, to later get a feel for their polished and prepared tone as opposed to their live presentation. 
 
 This is a candidate’s opportunity to present their best work in a controlled scenario, and so I look for candidates who put their best foot forward. Lastly, many portfolios focus on process over outcomes. While process matters, process is not the deliverable—outcomes are. Hook me, show me what you affected, tell me why it matters and why it’s _good_, and then show how you arrived there. Show me the paths you could’ve taken and why instead you landed on this outcome. When discussing your work— in your portfolio and later—describe your team and influences, and send a strong signal on the importance of collaboration and knowledge-sharing.[^4] 
 
-### Screenings {.heading--5}
+### Screenings {.heading--6}
 When a portfolio checks out, a recruiter and I separately interview a candidate. There’s a high-enough rate of misalignment between application and reality that we’ve occasionally has a nontrivial drop-off rate following the recruiter interview. Then, I like having an opportunity to get to know a candidate myself before reaching formal exercises.
 
 #### Recruiter interview {.heading--6}
@@ -40,7 +40,7 @@ We discuss a candidate’s path to design, and the different types of projects t
 
 I aim to learn what drives a candidate, what it’s like to work with them, what value and deliverables they bring to the table without coaching, and their aptitude for flexibility and learning new processes. 
 
-### Onsite exercises {.heading--5}
+### Onsite exercises {.heading--6}
 Following successful screens, our recruiter schedules an onsite interview and arranges candidate travel. We also email the candidate detailed descriptions of the day’s sessions. I brought three of these five to the table back when first writing our process in 2017, and they continue to highlight talent now.
 
 #### Panel portfolio critique {.heading--6}
@@ -60,10 +60,10 @@ We try to keep the previous three exercises in order, but may fit this cross fun
 #### Executive interview {.heading--6}
 Nowadays, candidates meet with our COO for further conversation. Bruce is ridiculously discerning, and I’ve found his insights on candidate motivations and growth to be remarkable. I personally have a difficult time pulling myself out of the weeds of a candidate’s work, and this session helps me to align at a high level.
 
-### What’s next? {.heading--4}
+### What’s next? {.heading--6}
 Following the onsite, we make our decision, and move forward. 
 
-## Reflections {.heading--3}
+## Reflections {.heading--6}
 I’ve kept my three exercises through different iterations of our recruiting team. With their feedback, I’ve had to further figure out which parts of the process matter most to me. Some recruiters want to avoid lengthier sessions whereas others prefer longer days if fewer. I’ve seen other roles come and go that push for a unified recruiting process across jobs and to the exclusion of specialty-specific exercises, but we’ve stuck it out—like engineers benefit from pair programming sessions and code challenges, designers need skill evaluations. 
 
 And if any of this describes you, I’m [hiring](https://zello.com/careers/job?jid=31f6cd33-42eb-4563-b213-1784385c0448).

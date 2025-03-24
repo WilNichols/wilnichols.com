@@ -4,11 +4,11 @@ shortTitle: Four & Brussels
 key: Leuven4AndBrussels
 thumbnail: DSCF6189.jpg
 tags:
-  - Camera/X-T2
-  - Location/Leuven
-  - Location/Brussels
-  - Location/Belgium
-  - Period/KULeuven
+  - AlbumInfo/Camera/X-T2
+  - AlbumInfo/Location/Leuven
+  - AlbumInfo/Location/Brussels
+  - AlbumInfo/Location/Belgium
+  - AlbumInfo/Period/KULeuven
   - AlbumGroup/Leuven
 date: 2019-01-07T00:00
 ---

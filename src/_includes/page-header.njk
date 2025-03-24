@@ -1,0 +1,91 @@
+{% macro _backButtonScript() %}
+  <script>
+    let previousPage;
+    if (document.referrer.includes(location.host) && (document.referrer != location.href)) {
+      previousPage = "";
+      document.getElementById("back-button").addEventListener("click", (e) => {
+        e.preventDefault();
+        history.back();
+      });
+    } else {
+      previousPage = "../";
+    };
+    document.getElementById("back-button").href = previousPage;
+  </script>
+{% endmacro %}
+
+{% macro backButton() %}
+  <a id="back-button" href="../" class="page-info__entry--back-link">
+    <span class="page-info__entry__key">
+      {% include "../static/img/back--12.svg" %}
+    </span>
+    <span class="page-info__entry__value">
+      Back
+    </span>
+  </a>
+{% endmacro %}
+
+{% macro pageTitle(title) %}
+  <h1 class="page__title">{{ title | markdownify | replace("<p>", "") | replace("</p>", "") | safe }}</h1>
+{% endmacro %}
+
+{% macro pageInfoEntry(icon, content, el = "li") %}
+  <{{ el }} class="page-info__entry">
+    <span class="page-info__entry__key">{% include "../static/img/" + icon + "--12.svg" %}</span>
+    <span class="page-info__entry__value">{{ content | safe }}</span>
+  </{{ el }}>
+{% endmacro %}
+    
+{% macro pageInfo(title, date, revisions, tags) %}
+{% if revisions %}{% set updatedString %}{{ revisions[revisions | length - 1].date | readableDateISO }}{% endset %}{% endif %}
+  <ul class="page-info__list">
+    {# Render Published Date #}
+    {{ pageInfoEntry("published", date) }}
+    {# Render Last Modified Date #}
+    {%- if revisions -%}
+      {% set revisionLink %}<a href="#revisions">{{ updatedString }}</a>{% endset %}
+      {{ pageInfoEntry("updated", revisionLink) }}
+    {%- endif -%}
+    {# Sort scopedTags and albumTags #}
+    {% set scopedTags = [] %}
+    {% set albumTags = [] %}
+    {% set isAlbum = false %}
+    {% set tagObj = {key: 'no'} %}
+    {%- for tag in tags -%}
+      {%- if 'Topic/' in tag -%}
+        {%- set label -%}{{- tag | replace('Topic/', '') -}}{%- endset -%}
+        {% set scopedTags = (scopedTags.push(label), scopedTags) %}
+      {%- elif 'AlbumInfo/' in tag -%}
+        {% set isAlbum = true %}
+        {% set trimmedTag = tag.replace('AlbumInfo/', '') %}
+        {% set parsedTag = trimmedTag.split('/') %}
+        {% set parsedTagKey = parsedTag[0] %}
+        {% set parsedTagValue = parsedTag[1] %}
+        {% set tagObj = {
+          key: parsedTagKey,
+          value: parsedTagValue
+        } %}
+        {% set albumTags = (albumTags.push(tagObj), albumTags) | createAlbumTags %}
+      {%- endif -%}
+    {%- endfor -%}
+    {# Render scopedTags #}
+    {{ pageInfoEntry("tags", scopedTags.join(", ")) }}
+    {# Render albumInfo #}
+    {% if isAlbum %}
+      {% for albumTag in albumTags %}
+        {{ pageInfoEntry(albumTag.key | lower, albumTag.value) }}
+      {% endfor %}
+    {% endif %}
+  </ul>
+{% endmacro %}
+
+{% macro PageHeader(el="div") %}
+  {% include "title-string.njk" %}
+  {% set date %}{{ date | readableDateISO }}{% endset %}
+  <{{ el }} class="page-header__title">
+    {{ backButton() }}
+    {{ pageTitle(title) }}
+    {{ pageInfo(title, date, revisions, tags) }}
+  </{{ el }}>
+  {{ _backButtonScript() }}
+{% endmacro %}

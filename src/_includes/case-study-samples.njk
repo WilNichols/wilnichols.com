@@ -1,0 +1,175 @@
+{# {%- from 'components/device.njk' import Device -%} #}
+{%- from 'img.njk' import img -%}
+
+{# 
+  macOSGrid(
+    path = '' // path to the app icons
+    class = '' // if you need to pass a className attr
+  )
+#}
+
+{%- macro macOSGrid(
+  path = '',
+  class = ''
+) -%}
+  {% set sizes = ['512@2x', '512', '256', '128', '32', '16'] %}
+  <div class="icon-grid--macOS">
+    {%- for size in sizes -%}
+      {%- if loop.first -%}
+        {# We return the 512@2x separately so that it shows on 1x, and hide it at higher densities. #}
+        {{-  img(
+              src = path + size,
+              class = 'icon icon--' + size | replace("@", "--"),
+              densities = [1]
+        ) -}}
+      {%- elif not loop.first -%}
+        {# Returns 512 - 16 #}
+        {{-  img(
+              src = path + size,
+              class = 'icon icon--' + size
+        ) -}}
+      {%- endif -%}
+    {%- endfor -%}
+  </div>  
+{%- endmacro -%}
+
+{# 
+  iOSGrid (
+    path = '' // path to the app icons
+    class = '' // if you need to pass a className attr
+    isOldVersion = false // uses pre-iOS 7 metrics
+  )
+#}
+
+{% macro iOSGrid(
+  path = '',
+  exclude = [],
+  class = '',
+  isOldVersion = false
+) %}
+  {% if not isOldVersion %}
+    {% set sizes = ['512', '60', '40', '29'] %}
+    <div class="icon-grid--iPhone--modern">
+      <h6 class="overline caption caption--app-icon">Springboard</h6>
+      <h6 class="overline caption caption--spotlight">Spotlight</h6>
+      <h6 class="overline caption caption--settings">Settings</h6>
+      {% for size in sizes %}
+        {% if loop.first %}
+        <div class="icon--512--container">
+          <h6 class="overline caption caption--app-store">App Store</h6>
+          {{  img(
+                src = path + size,
+                class = 'icon icon--' + size,
+                densities = [1, 2]
+          ) }}
+        </div>
+        {% elif not loop.first %}
+          {{  img(
+                src = path + size,
+                class = 'icon icon--' + size + ' ' + 'icon--' + '3x',
+                densities = [3]
+          ) }}
+          {{  img(
+                src = path + size,
+                class = 'icon icon--' + size + ' ' + 'icon--' + '2x',
+                densities = [2]
+          ) }}
+        {% endif %}
+      {% endfor %}
+    </div>  
+  {% elif isOldVersion %}
+    {% set sizes = ['512', '72', '57', '29'] %}
+    <div class="icon-grid--iOS--old">
+      <h6 class="overline caption caption--iPad-app">iPad app</h6>
+      <h6 class="overline caption caption--iPhone-app">iPhone app</h6>
+      <h6 class="overline caption caption--settings">Settings</h6>
+      {% for size in sizes %}
+        {% if loop.first %}
+        <div class="icon--512--container">
+          <h6 class="overline caption caption--app-store">App Store</h6>
+          {{  img(
+                src = path + size,
+                class = 'icon icon--' + size,
+                densities = [1, 2]
+          ) }}
+        </div>
+        {% elif not loop.first %}
+          {{  img(
+                src = path + size,
+                class = 'icon icon--' + size + ' ' + 'icon--' + '2x',
+                densities = [2]
+          ) }}
+          {{  img(
+                src = path + size,
+                class = 'icon icon--' + size + ' ' + 'icon--' + '1x',
+                densities = [1]
+          ) }}
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endmacro %}
+
+{% macro DiligenceWindow() %}  
+  <div class="proportionate-scale--surrogate--container">
+    <div class="proportionate-scale--surrogate">
+      {{  img(
+            src = 'https://cdn.wilnichols.com/case-studies/diligence/screenshots/main--independent',
+            class = 'window'
+      ) }}
+      {% set deviceScreen %}
+        <div class="screen">
+          {% set windowPath %}{{ commonPath }}osx/{% endset %}
+          {% for window in windows %}
+            {{  img(
+                  src = windowPath + window,
+                  class = 'window screen-window--' + window
+            ) }}
+          {% endfor %}
+        </div>
+      {% endset %}
+      {# {{  Device( 
+            type = 'macbookPro2016',
+            contentType = 'rich',
+            content = deviceScreen
+      ) }} #}
+    </div>
+  </div>
+{% endmacro %}
+
+{% macro DiligenceDetailWindow() %}
+  {% set path = 'https://cdn.wilnichols.com/case-studies/diligence/screenshots/' %}
+  {% set screens = [
+    'detail--inactive', 
+    'detail--calendar',
+    'detail--inactive--attachments'
+  ] %}
+  <div class="diligence-detail-windows">
+    {% for screen in screens %}
+      {{  img(
+            src = path + screen,
+            class = 'window'
+      ) }}
+    {% endfor %}
+  </div>
+{% endmacro %}
+
+{% macro DiligenceAppIcon() %}{{ macOSGrid (
+    path = 'https://cdn.wilnichols.com/case-studies/diligence/icon/'
+  ) }}{% endmacro %}
+
+{% macro DiligencePreferenceIcons() %}
+  {% set path = 'https://cdn.wilnichols.com/case-studies/diligence/small-icons/' %}
+  {% set icons = [
+    'settings__general', 
+    'settings__categories',
+    'settings__appearance'
+  ] %}
+  {% for icon in icons %}
+    {{  img(
+          src = path + icon,
+          class = 'icon--32',
+          suffix= '?format=webp'
+    ) }}
+  {% endfor %}
+{% endmacro %}

@@ -6,9 +6,6 @@ body {
   font-size: var(--type-0);
   line-height: tokens.$gapSmall;
   @extend %font--text-regular;
-  // display: grid;
-  // justify-content: center;
-  // align-content: start;
   --rounding-interval: 1px;
   padding: var(--col);
   background-color: var(--materialPrimaryColor);
@@ -16,9 +13,8 @@ body {
 }
 
 .page {
-  display: grid;
+  // display: grid;
   width: auto;
-  // min-height: 100dvh;
   row-gap: tokens.$gapSmall;
   column-gap: tokens.$gapMedium;
   @media (width <= tokens.$breakpoint) {

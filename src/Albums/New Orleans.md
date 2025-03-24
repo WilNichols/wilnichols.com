@@ -4,10 +4,10 @@ shortTitle: NOLA
 key: NewOrleans
 thumbnail: DSCF1503.jpg
 tags:
-  - Camera/X-T2
-  - Location/New-Orleans
-  - Location/Louisiana
-  - Period/COVID
+  - AlbumInfo/Camera/X-T2
+  - AlbumInfo/Location/New-Orleans
+  - AlbumInfo/Location/Louisiana
+  - AlbumInfo/Period/COVID
   - AlbumGroup/The-U.S.
 date: 2022-03-12T00:00
 ---

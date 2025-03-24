@@ -3,9 +3,9 @@ title: Giant’s Causeway
 key: Causeway
 thumbnail: DSCF0946.jpg
 tags:
-  - Camera/X-T2
-  - Location/Northern-Ireland
-  - Period/Study-Abroad
+  - AlbumInfo/Camera/X-T2
+  - AlbumInfo/Location/Northern-Ireland
+  - AlbumInfo/Period/Study-Abroad
   - AlbumGroup/UK
 date: 2016-02-25T00:00
 ---

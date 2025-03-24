@@ -4,11 +4,11 @@ shortTitle: Antone’s
 key: SanFermin2017
 thumbnail: DSCF8635.jpg
 tags:
-  - Camera/X-T1
-  - Location/Austin
-  - Location/Texas
-  - Musician/San-Fermin
-  - Period/Undergraduate
+  - AlbumInfo/Camera/X-T1
+  - AlbumInfo/Location/Austin
+  - AlbumInfo/Location/Texas
+  - AlbumInfo/Musician/San-Fermin
+  - AlbumInfo/Period/Undergraduate
   - AlbumGroup/San-Fermin
 date: 2017-05-03T00:00
 ---

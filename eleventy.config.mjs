@@ -184,6 +184,7 @@ export default async function(eleventyConfig) {
     }
     return dt.toISO();
   });
+  
   // https://stevenwoodson.com/blog/a-step-by-step-guide-to-sorting-eleventy-global-data-files-by-date/
   eleventyConfig.addFilter("sortDataByCreationDate", (obj) => {
     const sorted = {};
@@ -193,6 +194,22 @@ export default async function(eleventyConfig) {
       })
       .forEach((name) => (sorted[name] = obj[name]));
     return sorted;
+  });
+  
+  
+  eleventyConfig.addFilter("createAlbumTags", function (arr) {
+    if (!Array.isArray(arr)) return [];
+    const grouped = Object.values(
+      arr.reduce((acc, { key, value }) => {
+        if (!acc[key]) {
+          acc[key] = { key, value };
+        } else {
+          acc[key].value += `, ${value}`;
+        }
+        return acc;
+      }, {})
+    );
+    return grouped;
   });
   
   eleventyConfig.addAsyncFilter("getPhotos",  async function(dir) {
@@ -294,6 +311,7 @@ export default async function(eleventyConfig) {
   eleventyConfig.addPlugin(pluginRss);
   eleventyConfig.addPlugin(syntaxHighlight);
   eleventyConfig.addPlugin(EleventyHtmlBasePlugin);
+  eleventyConfig.addPlugin(EleventyRenderPlugin);
 
   // WatchTargets
   eleventyConfig.addWatchTarget("src/static/css/");

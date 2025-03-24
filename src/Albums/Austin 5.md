@@ -4,10 +4,10 @@ shortTitle: Five
 key: Austin5
 thumbnail: DSCF0994.jpg
 tags:
-  - Camera/X-T2
-  - Location/Austin
-  - Location/Texas
-  - Period/COVID
+  - AlbumInfo/Camera/X-T2
+  - AlbumInfo/Location/Austin
+  - AlbumInfo/Location/Texas
+  - AlbumInfo/Period/COVID
   - AlbumGroup/Austin
 date: 2019-08-08T00:00
 ---

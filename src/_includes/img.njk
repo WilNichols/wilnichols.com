@@ -1,0 +1,29 @@
+{# 
+  img(
+    src = '' (path to image, ommitting extension
+    ext = '' (png x) | other ext
+    densities = [1, 2] (array of densities to include
+    class = '' (classname to pass to img tag
+    alt = ''
+  )
+#}
+
+{%- macro img(
+  src = '', 
+  ext = 'png',
+  densities = [1, 2],
+  class = '',
+  alt = '',
+  suffix = ''
+) -%}
+  {% if densities[0] != 1 %}{% set minDensity = '@' + densities[0] + 'x' %}{% endif %}
+  <img
+    {% if class %}class="{{ class }}"{% endif %}
+    src="{{ src }}{{ minDensity | replace(' ', '')}}.{{ ext }}" 
+    srcset="
+      {%- for i in densities -%}
+        {{ src }}{{ minDensity if loop.first }}{{ '@' + i + 'x' if not loop.first }}.{{ ext }} {{ loop.index }}x{{ suffix }}{{ ', ' if not loop.last }}
+      {%- endfor -%}"
+    alt="{{ alt }}" 
+  />
+{%- endmacro -%}

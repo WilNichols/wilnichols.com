@@ -4,9 +4,9 @@ shortTitle: 2022 Landscapes
 key: Iceland2022Landscapes
 thumbnail: DSCF7658.jpg
 tags:
-  - Camera/X-T4
-  - Location/Iceland
-  - Period/Sabbatical
+  - AlbumInfo/Camera/X-T4
+  - AlbumInfo/Location/Iceland
+  - AlbumInfo/Period/Sabbatical
   - AlbumGroup/Iceland
 date: 2022-09-04T00:00
 ---

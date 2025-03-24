@@ -14,8 +14,8 @@ revisions:
 ---
 
 > You want to organize men. You don’t have to search for issues. The issues are part of the fabric of your everyday lives.
->
-> <cite>From Andrea Dworkin’s speech at the Midwest Regional Conference of the National Organization for Changing Men, 1983 in St Paul, Minnesota, printed in <u>Letters from a War Zone</u>, titled “I want a Twenty-Four-Hour Truce During Which There Is No Rape”</cite>
+
+<cite>From Andrea Dworkin’s speech at the Midwest Regional Conference of the National Organization for Changing Men, 1983 in St Paul, Minnesota, printed in <u>Letters from a War Zone</u>, titled “I want a Twenty-Four-Hour Truce During Which There Is No Rape”</cite>
 
 Nothing here is groundbreaking, but [[Opening the Garage | working with the door open]] invites us to think aloud. My experience isn’t unique, but sharing it hopefully invites introspection, sharing, and self-correction on the parts of my fellow men.
 

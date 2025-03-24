@@ -4,10 +4,10 @@ shortTitle: Two
 key: Oaxaca2
 thumbnail: DSCF1250.jpg
 tags:
-  - Camera/X-T2
-  - Location/Oaxaca
-  - Location/Mexico
-  - Period/Sabbatical
+  - AlbumInfo/Camera/X-T2
+  - AlbumInfo/Location/Oaxaca
+  - AlbumInfo/Location/Mexico
+  - AlbumInfo/Period/Sabbatical
   - AlbumGroup/Oaxaca
 date: 2022-09-25T00:00
 ---

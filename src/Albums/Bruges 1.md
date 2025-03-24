@@ -4,10 +4,10 @@ shortTitle: One
 key: Bruges1
 thumbnail: DSCF5557.jpg
 tags:
-  - Camera/X-T2
-  - Location/Bruges
-  - Location/Belgium
-  - Period/KULeuven
+  - AlbumInfo/Camera/X-T2
+  - AlbumInfo/Location/Bruges
+  - AlbumInfo/Location/Belgium
+  - AlbumInfo/Period/KULeuven
   - AlbumGroup/Bruges
 date: 2017-11-04T00:00
 ---

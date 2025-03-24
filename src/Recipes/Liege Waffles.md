@@ -5,9 +5,9 @@ altTitle: "Liège Waffles"
 tags:
   - Topic/Cooking
 permalink: /recipes/liege-waffles/
-summary: 
-  I took part of Belgium with me.
-ingredients: 
+summary: I took part of Belgium with me.
+ingredientsContainer:
+  ingredients: 
   - name: "Instant yeast"
     imperial: "3/4 tsp"
     metric: "2.3g"
@@ -39,17 +39,18 @@ ingredients:
     imperial: "3/4 c"
     metric: "135g"
 ---
-{% from "../_includes/picture.njk" import Picture with context %}
-
-{% set src = "https://cdn.wilnichols.com/recipes/liege-waffles/DSCF5623.jpg" %}
-{% set imageProps = src | imageInfo %}
-{{  Picture(
-    fileName = 'dscf5623-jpg',
-    src = src,
-    loading = 'eager',
-    imageProps = imageProps,
-    isWNCDN = true
-) }}
+{% renderTemplate "njk", data %}
+  {% from "../_includes/picture.njk" import Picture with context %}
+  {% set src = "https://cdn.wilnichols.com/recipes/liege-waffles/DSCF5623.jpg" %}
+  {% set imageProps = src | imageInfo %}
+  {{  Picture(
+      fileName = 'dscf5623-jpg',
+      src = src,
+      loading = 'eager',
+      imageProps = imageProps,
+      isWNCDN = true
+  ) }}
+{% endrenderTemplate %}
 
 I made those! Actually, 53. This recipe fortunately yields a practical six instead.
 
@@ -61,7 +62,12 @@ I eventually found Adam Wayda’s [recipe](https://liegewaffle.wordpress.com/lie
 
 The following recipe contains only slight modifications to his, based significantly more on convenience than improvement. This is modified now for my current Texan kitchen, which often runs warmer and more humid than other parts of the country, so some times are modified. I’m reprinting it here in admiration and to preserve it as online platforms progressively deteriorate.
 
-## Directions {.heading--5}
+{% renderTemplate "njk", ingredientsContainer %}
+  {% from "../_includes/ingredients.njk" import ingredientsList with context %}
+  {{ ingredientsList(ingredients) }}
+{% endrenderTemplate %}
+
+## Directions {.heading--6}
 1. In your stand mixer, dissolve yeast in warm[^3] water, allowing it to rest for a few minutes. Add a third of your flour and half of your eggs. Mix until consistent.
 2. Cover the mixture with the remainder of your flour, without stirring. Let it stand for one hour, covered airtight with plastic wrap. You’ll return to the wet batter bubbling up through the flour.
 3. Add the remaining half of your eggs, light brown sugar, vanilla extract, and honey.

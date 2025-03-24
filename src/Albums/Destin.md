@@ -3,11 +3,11 @@ title: Destin
 key: Hackathon2018
 thumbnail: DSCF2843.jpg
 tags:
-  - Camera/X-T2
-  - Hackathon
-  - Location/Destin
-  - Location/Florida
-  - Period/KULeuven
+  - AlbumInfo/Camera/X-T2
+  - Topic/Hackathon
+  - AlbumInfo/Location/Destin
+  - AlbumInfo/Location/Florida
+  - AlbumInfo/Period/KULeuven
   - AlbumGroup/The-U.S.
 date: 2018-04-07T00:00
 ---

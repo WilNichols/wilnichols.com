@@ -4,10 +4,10 @@ shortTitle: Two
 key: Lisbon2
 thumbnail: DSCF2513.jpg
 tags:
-  - Camera/X-T2
-  - Location/Lisbon
-  - Location/Portugal
-  - Period/KULeuven
+  - AlbumInfo/Camera/X-T2
+  - AlbumInfo/Location/Lisbon
+  - AlbumInfo/Location/Portugal
+  - AlbumInfo/Period/KULeuven
   - AlbumGroup/Lisbon
 date: 2019-01-25T00:00
 ---

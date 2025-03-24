@@ -9,12 +9,12 @@ summary: "We misattribute instigation when observing healthy boundaries."
 
 > We raise generations of Barbie dolls to believe they are lionesses, when so many of us are still being shaped into lambs ready for the Jeffrey Epstein slaughter. Only if we make it through can we renegotiate the ending. <br /><br />
 > A society that takes on the logic of a predator, that defends, even glorifies, the chaser, has set a foundational rot. A world that loves its men not just far more than it loves its women, but more even than it loves its children, its girls, can never be just.
->
-> <cite>Rose Hackman, [published](https://www.theguardian.com/society/2024/mar/21/what-is-grooming-relationship-abuse?/?src=longreads) in The Guardian</cite>
+
+<cite>Rose Hackman, [published](https://www.theguardian.com/society/2024/mar/21/what-is-grooming-relationship-abuse?/?src=longreads) in The Guardian</cite>
 
 > Very often, the healthiest person has to leave.
->
-> <cite>[Jim Rigby](http://jimrigby.org), in conversation on December 20, 2024</cite>
+
+<cite>[Jim Rigby](http://jimrigby.org), in conversation on December 20, 2024</cite>
 
 I’m deliberating how to weave these threads together without alienating you, my reader,[^1] by oversharing. 
 

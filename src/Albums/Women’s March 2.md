@@ -4,12 +4,10 @@ shortTitle: Two
 key: WomensMarch2
 thumbnail: DSCF5271.jpg
 tags:
-  - Group/Womens-March
-  - Group/Demonstration
-  - Camera/X-T1
-  - Location/Austin
-  - Location/Texas
-  - Period/Undergraduate
+  - AlbumInfo/Camera/X-T1
+  - AlbumInfo/Location/Austin
+  - AlbumInfo/Location/Texas
+  - AlbumInfo/Period/Undergraduate
   - AlbumGroup/WomensMarch
 date: 2017-01-22T00:00
 ---
