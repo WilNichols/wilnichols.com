@@ -53,16 +53,9 @@ $tableGap: 10px;
     // @extend %page-info__grid;
     display: flex;
     flex-direction: row;
-    font-size: var(--type--2);
     column-gap: $tableGap * 2;
     font-size: var(--type-0);
     flex-wrap: wrap;
-  }
-  @media (width <= tokens.$breakpoint) { 
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 1rem;
   }
 }
 
@@ -84,9 +77,8 @@ $tableGap: 10px;
 %page-info__entry-style {
   & {
     padding: 0;
-    font-size: inherit;
     font-size: var(--type--2);
-    line-height: var(--type-0);
+    line-height: max(18px, var(--type-0));
     min-height: var(--type-0);
     overflow: hidden;
   }
