@@ -1,4 +1,5 @@
 @use '../tokens';
+$margin: max(calc(var(--type-0) * 2), calc(var(--col)/2));
 
 .page--case-study main {
   overflow: visible;
@@ -6,16 +7,17 @@
 .case-study-image {
   & {
     position: relative;
-    margin: 0 auto 1em auto;
+    margin: $margin auto;
     aspect-ratio: 16/9;
     border-radius: .6rem;
     overflow: hidden;
     display: grid;
     place-content: center;
+    
   }
    
   &--2x {
-    width: 200%;
+    width: 150%;
     max-width: calc(100dvw - 2 * var(--col));
     position: relative;
     left: 50%;
@@ -57,4 +59,27 @@
   background-image: url('../img/DSCF2387.jpg');
   opacity: 0.5;
   background-repeat: no-repeat;
+}
+
+.page--case-study .page-header__container {
+  margin-bottom: max(calc(var(--type-0) * 2), calc(var(--col)/2));
+}
+
+.post-specific-info--container {
+  .page-info__list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 20px;
+  }
+  .page-info__entry {
+    flex-direction: column;
+    align-items: start;
+    row-gap: 0;
+  }
+  .page-info__entry__key {
+    color: var(--contentSecondaryColor);
+  }
+  .page-info__entry__value {
+    color: var(--contentPrimaryColor);
+  }
 }

@@ -1,5 +1,6 @@
 @use '../tokens';
 
+
 .proportionate-scale--surrogate {
   display: grid;
   place-content: center;
@@ -7,7 +8,6 @@
 
 .case-study-hero {
   position: relative;
-  margin: 1em auto calc(var(--col)/2) auto;
   aspect-ratio: 16/9;
   border-radius: .6rem;
   overflow: hidden;
