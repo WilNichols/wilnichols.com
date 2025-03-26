@@ -4,11 +4,10 @@
   display: grid;
   place-content: center;
 }
+
 .case-study-hero {
   position: relative;
-  width: 100%;
-  max-width: 900px;
-  margin: 0 auto calc(var(--col)/2) auto;
+  margin: 1em auto calc(var(--col)/2) auto;
   aspect-ratio: 16/9;
   border-radius: .6rem;
   overflow: hidden;
@@ -17,10 +16,6 @@
 }
 
 .case-study-hero--diligence {
-  background-image: url('../img/DSCF2387.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
   
   .window {
     margin: auto;
@@ -42,6 +37,8 @@
     z-index: 0;
     // TODO: replace w/ CDN asset
     background-image: url('../img/DSCF2387.jpg');
+    opacity: 0.5;
+    background-repeat: no-repeat;
   }
   .screen-window {
     grid-area: 1 / 1;

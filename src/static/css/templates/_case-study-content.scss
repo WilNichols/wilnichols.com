@@ -1,0 +1,11 @@
+@use '../tokens';
+
+.case-study-image {
+  &--2x {
+    width: 200%;
+    max-width: calc(100dvw - 2 * var(--col));
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

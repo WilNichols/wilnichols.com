@@ -11,14 +11,14 @@ layout: page.njk
 {% set previousPost = collections.Notes | getPreviousCollectionItem %}
 {% set nextPost = collections.Notes | getNextCollectionItem %}
 
-{% include 'heroes/' + page.fileSlug + '.njk' %}
 {% set backlinks = collections.all | links_to(page.url) %}
 
 <div class="page page--note">
   <header class="page-header__container">
     {{ PageHeader() }}
+    {% include 'heroes/' + page.fileSlug + '.njk' %}
+    {{ CaseStudyInfo(project) }}
   </header>
-  {{ CaseStudyInfo(project) }}
   <main class="note__body">
     {{ content | safe }}
     {{ RevisionList(

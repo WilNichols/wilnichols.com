@@ -57,6 +57,7 @@
     overflow: clip;
     user-select: none;
     -webkit-user-select: none;
+    white-space: nowrap;
   }
   &--evergreen {
     background-color: var(--evergreenBackgroundColor);
