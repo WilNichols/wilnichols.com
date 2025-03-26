@@ -2,14 +2,14 @@
 {% set commonPath = 'https://cdn.wilnichols.com/case-studies/diligence/' %}
 {% set windows = ['calendar', 'contacts', 'game-center', 'notes', 'reminders'] %}
 
-<div class="case-study-hero case-study-hero--diligence case-study-image--2x">
+<div class="case-study-image case-study-hero case-study-hero--diligence case-study-image--2x">
   <div class="proportionate-scale--surrogate--container">
     <div class="proportionate-scale--surrogate">
       {{  img(
             src = commonPath + 'screenshots/main--independent',
             class = 'window'
       ) }}
-      <div class="screen">
+      <div class="diligence-screen">
         {% set windowPath %}{{ commonPath }}osx/{% endset %}
         {% for window in windows %}
           {{  img(

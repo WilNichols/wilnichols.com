@@ -13,7 +13,7 @@ layout: page.njk
 
 {% set backlinks = collections.all | links_to(page.url) %}
 
-<div class="page page--note">
+<div class="page page--note page--case-study">
   <header class="page-header__container">
     {{ PageHeader() }}
     {% include 'heroes/' + page.fileSlug + '.njk' %}

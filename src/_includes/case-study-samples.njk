@@ -111,6 +111,7 @@
 {% endmacro %}
 
 {% macro DiligenceWindow() %}  
+<div class="case-study-image case-study-image--2x diligence-detail-windows">
   <div class="proportionate-scale--surrogate--container">
     <div class="proportionate-scale--surrogate">
       {{  img(
@@ -135,24 +136,32 @@
       ) }} #}
     </div>
   </div>
+</div>
 {% endmacro %}
 
-{% macro DiligenceDetailWindow() %}
+{%- macro DiligenceDetailWindow() -%}
   {% set path = 'https://cdn.wilnichols.com/case-studies/diligence/screenshots/' %}
   {% set screens = [
     'detail--inactive', 
     'detail--calendar',
     'detail--inactive--attachments'
   ] %}
-  <div class="diligence-detail-windows">
-    {% for screen in screens %}
-      {{  img(
-            src = path + screen,
-            class = 'window'
-      ) }}
-    {% endfor %}
+  <div class="diligence-detail-window case-study-image case-study-image--2x">
+    <div class="diligence-screen">
+      <div class="proportionate-scale--surrogate--container">
+        <div class="proportionate-scale--surrogate">
+          {%- for screen in screens -%}
+            {{  img(
+                  src = path + screen,
+                  class = 'window'
+            ) }}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
   </div>
-{% endmacro %}
+{%- endmacro -%}
+
 
 {% macro DiligenceAppIcon() %}{{ macOSGrid (
     path = 'https://cdn.wilnichols.com/case-studies/diligence/icon/'

@@ -22,23 +22,9 @@
     position: relative;
     z-index: 1;
   }
-  .screen,
+  .diligence-screen,
   .window {
     grid-area: 1 / 1;
-  }
-  .screen {
-    position: relative;
-    overflow: hidden;
-    display: grid;
-    place-content: center;
-    height: 800px;
-    width: 1280px;
-    background-size: cover;
-    z-index: 0;
-    // TODO: replace w/ CDN asset
-    background-image: url('../img/DSCF2387.jpg');
-    opacity: 0.5;
-    background-repeat: no-repeat;
   }
   .screen-window {
     grid-area: 1 / 1;

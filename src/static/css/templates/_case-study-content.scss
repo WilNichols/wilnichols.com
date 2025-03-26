@@ -1,6 +1,19 @@
 @use '../tokens';
 
+.page--case-study main {
+  overflow: visible;
+}
 .case-study-image {
+  & {
+    position: relative;
+    margin: 0 auto 1em auto;
+    aspect-ratio: 16/9;
+    border-radius: .6rem;
+    overflow: hidden;
+    display: grid;
+    place-content: center;
+  }
+   
   &--2x {
     width: 200%;
     max-width: calc(100dvw - 2 * var(--col));
@@ -8,4 +21,40 @@
     left: 50%;
     transform: translateX(-50%);
   }
+}
+
+.diligence-detail-window {
+  .diligence-screen {
+    opacity: 1;
+    position: relative;
+    > * {
+      z-index: 10;
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background-color: var(--materialPrimaryColor);
+      opacity: 0.5;
+    }
+  }
+  .proportionate-scale--surrogate {
+    display: flex;
+  }
+}
+
+.diligence-screen {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  place-content: center;
+  height: 800px;
+  width: 1280px;
+  background-size: cover;
+  z-index: 0;
+  // TODO: replace w/ CDN asset
+  background-image: url('../img/DSCF2387.jpg');
+  opacity: 0.5;
+  background-repeat: no-repeat;
 }
