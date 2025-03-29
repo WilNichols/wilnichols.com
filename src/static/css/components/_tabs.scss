@@ -2,7 +2,7 @@
 
 @include tokens.textStyles;
 
-.pen-tabs__state {
+.tabs__state {
   display: none;
 }
 
@@ -23,11 +23,11 @@
   $tab: "[data-tab-index='tab-#{$i}']";
   #{$tab}:target {
     // selected tab in toolbar
-    ~ * .pen-tabs__tab#{$tab} {
+    ~ * .tabs__tab#{$tab} {
       @extend %selectedTab;
     }
     // selected tab pane
-    ~ * .pen-tabs__panes__content#{$tab} {
+    ~ * .tabs__panes__content#{$tab} {
       @extend %selectedPanel;
     }
   }
@@ -38,20 +38,20 @@ $default-tab: "[data-tab-index='tab-1']";
 
 // for the default tab without a following :target item
 #{$default-tab}:not(:has(~ *:target)) {
-  ~ * .pen-tabs__tab#{$default-tab} {
+  ~ * .tabs__tab#{$default-tab} {
     @extend %selectedTab;
   }
   // selected tab pane
-  ~ * .pen-tabs__panes__content#{$default-tab} {
+  ~ * .tabs__panes__content#{$default-tab} {
     @extend %selectedPanel;
   }
 }
  
-.pen-tabs__panes__content {
+.tabs__panes__content {
   display: none;
 }
   
-.pen-tabs-container {
+.tabs-container {
   $r: 4px;
   & {
     border-radius: $r;
@@ -76,13 +76,13 @@ $default-tab: "[data-tab-index='tab-1']";
 }
 
 .content-body {
-  .pen-tabs__panes {
+  .tabs__panes {
     grid-row: 2;
     overflow: auto;
     padding: 0;
   }
   
-  .pen-tabs__toolbar {
+  .tabs__toolbar {
     display: flex;
     grid-row: 1;
     box-shadow: 0 0 0 var(--px) var(--edgeColor);
@@ -90,7 +90,7 @@ $default-tab: "[data-tab-index='tab-1']";
     padding: 0;
   }
   
-  .pen-tabs__tab {
+  .tabs__tab {
     & {
       font-size: 10pt;
       padding: 0 8px;
@@ -103,7 +103,7 @@ $default-tab: "[data-tab-index='tab-1']";
     }
   }
   
-  .pen-tabs__panes__content {
+  .tabs__panes__content {
     & {
       overflow: hidden;
       max-width: tokens.$width;
