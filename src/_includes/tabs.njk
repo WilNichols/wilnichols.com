@@ -4,9 +4,9 @@
   {%- endfor -%}
 {%- endmacro -%}
 
-{%- macro tabs(tabs) -%}
+{%- macro tabs(tabs, tabContents) -%}
 <div class="tabs-wrapper">
-  {{ _anchors(codeTabs) }}
+  {{ _anchors(tabs) }}
   <div class="tabs-container">
     <ul class="tabs__toolbar">
       {% for tab in tabs %}
@@ -16,8 +16,7 @@
     <ul class="tabs__panes">
       {% for tab in tabs -%}
         <li class="tabs__panes__content" data-tab-index="tab-{{ loop.index }}">
-          {% set code %}{% include tab.src %}{% endset %}
-          {% if tab.lang == "html" %}{% highlight "html" %}{{ code | penHTML | safe }}{% endhighlight %}{% elif tab.lang == "scss" %}{% highlight "scss" %}{{ code | penSCSS | safe }}{% endhighlight %}{% else %}{% highlight "html" %}{{ code | safe }}{% endhighlight %}{% endif %}
+          {{ tabContents[loop.index - 1] | safe }}
         </li>
       {%- endfor %}
     </ul>

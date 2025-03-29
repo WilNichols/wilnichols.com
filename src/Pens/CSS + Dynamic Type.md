@@ -19,9 +19,11 @@ renderTemplate:
   codeTabs: 
     - type: 'code'
       title: 'HTML'
+      lang: 'html'
       src: '../static/embeds/dynamic-type/index.html'
     - type: 'code'
       title: 'SCSS'
+      lang: 'scss'
       src: '../static/css/pens/dynamic-type.scss'
 ---
 This must be viewed in Safari on macOS or iOS to make much sense—they allow one to use iOS and macOS system fonts directly on web. More importantly, they allow one to take advantage of [Dynamic Type](https://developer.apple.com/design/human-interface-guidelines/typography). Of course, use a fallback for non-Apple clients.
@@ -36,5 +38,11 @@ One can also override `font-face`, but naturally neither `font-size` nor `line-h
 
 {% renderTemplate "njk", renderTemplate %}
   {%- from '../_includes/tabs.njk' import tabs with context -%}
-  {{ tabs(codeTabs) }}
+  {%- from '../_includes/highlight.njk' import highlight with context -%}
+  {% set tabContents = [] %}
+  {% for tab in codeTabs -%}
+      {% set content %}{{ highlight(tab) }}{% endset %}
+      {% set tabContents = (tabContents.push(content), tabContents) %}
+  {% endfor %}
+  {{- tabs(codeTabs, tabContents) -}}
 {% endrenderTemplate %}

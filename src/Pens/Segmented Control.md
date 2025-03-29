@@ -54,5 +54,12 @@ View the source below.
 
 {% renderTemplate "njk", renderTemplate %}
   {%- from '../_includes/tabs.njk' import tabs with context -%}
-  {{- tabs(codeTabs) -}}
+  {%- from '../_includes/highlight.njk' import highlight with context -%}
+  {% set tabContents = [] %}
+  {% for tab in codeTabs -%}
+      {% set content %}{{ highlight(tab) }}{% endset %}
+      {% set tabContents = (tabContents.push(content), tabContents) %}
+  {% endfor %}
+  
+  {{- tabs(codeTabs, tabContents) -}}
 {% endrenderTemplate %}
