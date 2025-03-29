@@ -1,21 +1,8 @@
 .iframe-hero {
-  $r: 4px;
   & {
-    border-radius: $r;
-    position: relative;
-    aspect-ratio: 16/9;
-    overflow: clip;
+    display: block;
     margin: 0 auto 1em;
-  }
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: $r;
-    $s: 0 0 0 var(--px) var(--edgeColor);
-    box-shadow: inset $s, $s;
-    user-select: none;
-    pointer-events: none;
+    box-shadow: inset 0 0 0 var(--px) var(--edgeColor);
   }
   iframe {
     border: 0;

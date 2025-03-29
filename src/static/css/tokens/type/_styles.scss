@@ -19,7 +19,7 @@ $body-gap: 1em;
 @mixin textElementStyles {
 
   @include textStyles;
-  
+
   a {
     color: var(--contentPrimaryColor);
     text-decoration-thickness: tokens.$lineHeight;

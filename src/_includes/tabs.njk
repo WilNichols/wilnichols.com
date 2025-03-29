@@ -1,0 +1,26 @@
+{%- macro _anchors(tabs) -%}
+  {%- for tab in tabs -%}
+    <a class="pen-tabs__state" id="{{ tab.title }}" data-tab-index="tab-{{ loop.index }}">{{ tab.title }}</a>
+  {%- endfor -%}
+{%- endmacro -%}
+
+{%- macro tabs(tabs) -%}
+<div class="pen-tabs-wrapper">
+  {{ _anchors(codeTabs) }}
+  <div class="pen-tabs-container">
+    <ul class="pen-tabs__toolbar">
+      {% for tab in tabs %}
+        <li class="pen-tabs__tab" data-tab-index="tab-{{ loop.index }}"><a href="#{{ tab.title }}">{{ tab.title }}</a></li>
+      {% endfor %}
+    </ul>
+    <ul class="pen-tabs__panes">
+      {% for tab in tabs -%}
+        <li class="pen-tabs__panes__content" data-tab-index="tab-{{ loop.index }}">
+          {% set code %}{% include tab.src %}{% endset %}
+          {% if tab.lang == "html" %}{% highlight "html" %}{{ code | penHTML | safe }}{% endhighlight %}{% elif tab.lang == "scss" %}{% highlight "scss" %}{{ code | penSCSS | safe }}{% endhighlight %}{% else %}{% highlight "html" %}{{ code | safe }}{% endhighlight %}{% endif %}
+        </li>
+      {%- endfor %}
+    </ul>
+  </div>
+</div>
+{%- endmacro -%}

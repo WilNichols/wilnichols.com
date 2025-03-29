@@ -10,7 +10,6 @@ layout: page.njk
 
 {% set previousPost = collections.Notes | getPreviousCollectionItem %}
 {% set nextPost = collections.Notes | getNextCollectionItem %}
-
 {% set backlinks = collections.all | links_to(page.url) %}
 
 <div class="page page--note page--case-study">

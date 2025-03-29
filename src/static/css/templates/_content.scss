@@ -67,8 +67,14 @@
     margin-bottom: 1em;
   }
 }
+
 .content-body > picture img {
   width: 100%;
   max-width: tokens.$width;
   height: auto;
+}
+
+.proportionate-scale--surrogate {
+  display: grid;
+  place-content: center;
 }

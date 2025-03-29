@@ -146,7 +146,7 @@
     'detail--calendar',
     'detail--inactive--attachments'
   ] %}
-  <div class="diligence-detail-window case-study-image case-study-image--2x">
+  <div class="diligence-detail-window case-study-image case-study-image--16x9 case-study-image--2x">
     <div class="diligence-screen">
       <div class="proportionate-scale--surrogate--container">
         <div class="proportionate-scale--surrogate">
@@ -162,23 +162,24 @@
   </div>
 {%- endmacro -%}
 
-
 {% macro DiligenceAppIcon() %}{{ macOSGrid (
     path = 'https://cdn.wilnichols.com/case-studies/diligence/icon/'
-  ) }}{% endmacro %}
+  ) }}
+{% endmacro %}
 
-{% macro DiligencePreferenceIcons() %}
+{%- macro DiligencePreferenceIcons() -%}
   {% set path = 'https://cdn.wilnichols.com/case-studies/diligence/small-icons/' %}
   {% set icons = [
     'settings__general', 
     'settings__categories',
     'settings__appearance'
   ] %}
-  {% for icon in icons %}
-    {{  img(
-          src = path + icon,
-          class = 'icon--32',
-          suffix= '?format=webp'
-    ) }}
-  {% endfor %}
-{% endmacro %}
+  <div class="case-study-image case-study-image--400x300 case-study-image--icons">
+    {%- for icon in icons -%}<div class="case-study-image--icons__icon">{{  img(
+            src = path + icon,
+            class = 'icon--32',
+            suffix= '?format=webp',
+            densities = [1, 2]
+          ) }}</div>{%- endfor -%}
+  </div>
+{%- endmacro -%}

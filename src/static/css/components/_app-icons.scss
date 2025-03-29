@@ -51,7 +51,7 @@
   }
 }
 
-$gap: var(--u-32);
+$gap: var(--u32);
 
 // common 
 %grid-init {
@@ -60,22 +60,6 @@ $gap: var(--u-32);
   grid-template-columns: var(--template-columns, auto);
   grid-template-rows: var(--template-rows, auto);
   gap: $gap;
-  --u-0: 0;
-  --u-1: 1px;
-  --u-2: 2px;
-  --u-4: 4px;
-  --u-6: 6px;
-  --u-8: 8px;
-  --u-12: 12px;
-  --u-16: 16px;
-  --u-20: 20px;
-  --u-24: 24px;
-  --u-32: 32px;
-  --u-48: 48px;
-  --u-64: 64px;
-  --u-96: 96px;
-  --u-128: 128px;
-  --u-256: 256px;
 }
 
 .icon {
@@ -88,7 +72,7 @@ $gap: var(--u-32);
 
 .icon-iterations-grid {
   display: grid;
-  gap: var(--u-24);
+  gap: var(--u24);
   grid-template-columns: repeat(4, 1fr);
   place-items: center;
 }
@@ -209,7 +193,7 @@ $gap: var(--u-32);
     }
     // smaller gap between 3x and 2x icons
     &--2x { 
-      margin-left: calc(-1 * var(--u-16));
+      margin-left: calc(-1 * var(--u16));
     }
     // force 1x scale
     @include x1 {
@@ -273,10 +257,10 @@ $gap: var(--u-32);
         #{(list.nth($icons, 4) * 2) - 16}px
         1fr;
     .caption--app-store {
-      margin-bottom: var(--u-16);
+      margin-bottom: var(--u16);
     }
     .caption--app-icon, .caption--spotlight, .caption--settings {
-      margin-bottom: calc(-1 * var(--u-16));
+      margin-bottom: calc(-1 * var(--u16));
     }
     .caption--app-icon {
       grid-column: 2 / 4;
@@ -377,7 +361,7 @@ $gap: var(--u-32);
     }
     // smaller gap between 3x and 2x icons
     &--1x { 
-      margin-left: calc(-1 * var(--u-16));
+      margin-left: calc(-1 * var(--u16));
     }
     // force 1x scale
     @include x1 {
@@ -446,10 +430,10 @@ $gap: var(--u-32);
         #{list.nth($icons, 4) - 16}px
         1fr;
     .caption--app-store {
-      margin-bottom: var(--u-16);
+      margin-bottom: var(--u16);
     }
     .caption--iPad-app, .caption--iPhone-app, .caption--settings {
-      margin-bottom: calc(-1 * var(--u-16));
+      margin-bottom: calc(-1 * var(--u16));
     }
     .caption--iPad-app {
       grid-column: 2 / 4;
@@ -536,7 +520,7 @@ $gap: var(--u-32);
 // pre-iOS-7 grid
 .icon-grid--old {
   @extend %grid-init;
-  gap: var(--u-20);
+  gap: var(--u20);
   overflow: visible;
   // these are _specifically_ made for the pixel density of the viewing device.
   --gridTemplCol: 
@@ -562,8 +546,8 @@ $gap: var(--u-32);
   --appIcon1024-2x: 512px;
   --appIcon1024-3x: calc(1024px/3);
   @media (-webkit-min-device-pixel-ratio: 1), (min-resolution: (91dpi)) { 
-    --appStore2xIconSize: min(calc(100vw - var(--u-48)*2), var(--appIcon512));
-    --appStoreIconSize: min(calc(100vw - var(--u-48)*2), var(--appIcon512));
+    --appStore2xIconSize: min(calc(100vw - var(--u48)*2), var(--appIcon512));
+    --appStoreIconSize: min(calc(100vw - var(--u48)*2), var(--appIcon512));
     --iPadIconSize: var(--appIcon72);
     --iPhoneIconSize: var(--appIcon57);
     --SettingsIconSize: var(--appIcon29);
@@ -619,7 +603,7 @@ $gap: var(--u-32);
     --gridRow: 4 / 5;
   } 
   h6 {
-    margin-bottom: var(--u-4);
+    margin-bottom: var(--u4);
   }
 }
 
@@ -705,7 +689,7 @@ $gap: var(--u-32);
     }
   }
   &.icon--512 {
-    --dimension: min(calc(100vw - var(--u-48)*2), var(--dimensionMax));
+    --dimension: min(calc(100vw - var(--u48)*2), var(--dimensionMax));
     width: var(--dimension);
     @media (-webkit-min-device-pixel-ratio: 1), (min-resolution: (91dpi)) { 
       --dimensionMax: 512px;
@@ -718,7 +702,7 @@ $gap: var(--u-32);
     }
   }
   &.icon--1024 {
-    --dimension: min(calc(100vw - var(--u-48)*2), var(--dimensionMax));
+    --dimension: min(calc(100vw - var(--u48)*2), var(--dimensionMax));
     width: var(--dimension);
     @media (-webkit-min-device-pixel-ratio: 1), (min-resolution: (91dpi)) { 
       --dimensionMax: 1024px;
@@ -743,9 +727,9 @@ $gap: var(--u-32);
 
 .icon-grid--nested {
   display: grid;
-  grid-template-rows: var(--u-24) auto;
+  grid-template-rows: var(--u24) auto;
   grid-template-columns: auto;
-  column-gap: var(--u-20);
+  column-gap: var(--u20);
   // prevents child cols from stretching
   margin-right: auto;
   .overline {
@@ -765,5 +749,5 @@ $gap: var(--u-32);
 .toolbar-icons {
   display: flex;
   flex-direction: row;
-  gap: var(--u-16);
+  gap: var(--u16);
 }
