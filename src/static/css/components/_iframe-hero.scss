@@ -1,0 +1,25 @@
+.iframe-hero {
+  $r: 4px;
+  & {
+    border-radius: $r;
+    position: relative;
+    aspect-ratio: 16/9;
+    overflow: clip;
+    margin: 0 auto 1em;
+  }
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: $r;
+    $s: 0 0 0 var(--px) var(--edgeColor);
+    box-shadow: inset $s, $s;
+    user-select: none;
+    pointer-events: none;
+  }
+  iframe {
+    border: 0;
+    width: 100%;
+    height: 100%;
+  }
+}

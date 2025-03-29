@@ -19,7 +19,7 @@ layout: page.njk
     {% include 'heroes/' + page.fileSlug + '.njk' %}
     {{ CaseStudyInfo(project) }}
   </header>
-  <main class="note__body">
+  <main class="content-body">
     {{ content | safe }}
     {{ RevisionList(
       el='section',

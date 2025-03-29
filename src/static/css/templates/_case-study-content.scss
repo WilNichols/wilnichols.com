@@ -1,9 +1,15 @@
 @use '../tokens';
 $margin: max(calc(var(--type-0) * 2), calc(var(--col)/2));
 
+.proportionate-scale--surrogate {
+  display: grid;
+  place-content: center;
+}
+
 .page--case-study main {
   overflow: visible;
 }
+z
 .case-study-image {
   & {
     position: relative;

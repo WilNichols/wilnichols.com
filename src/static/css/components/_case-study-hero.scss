@@ -1,22 +1,6 @@
 @use '../tokens';
 
-
-.proportionate-scale--surrogate {
-  display: grid;
-  place-content: center;
-}
-
-.case-study-hero {
-  position: relative;
-  aspect-ratio: 16/9;
-  border-radius: .6rem;
-  overflow: hidden;
-  display: grid;
-  place-content: center;
-}
-
-.case-study-hero--diligence {
-  
+.case-study-hero--diligence {  
   .window {
     margin: auto;
     position: relative;

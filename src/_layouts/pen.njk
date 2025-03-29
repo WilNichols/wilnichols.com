@@ -12,13 +12,14 @@ layout: page.njk
 {% for asset, src in assets | penAssets %}
   <a class="pen-tabs__state" id="{{ asset }}" data-tab-index="tab-{{ loop.index }}">{{ asset }}</a>
 {% endfor %}
-<article class="page page--pen">
+
+<div class="page page--pen">
   {% set backlinks = collections.all | links_to(page.url) %}
   <header class="page-header__container">
     {{ PageHeader() }}
   </header>
-  <main class="pen__body">
-    <div class="pen__demo">
+  <main class="content-body">
+    <div class="iframe-hero">
       {% if assets.demo %}
         <iframe class="demo__iframe "src="{{ assets.demo }}" frameborder="0"></iframe>
       {% endif %}
@@ -47,4 +48,4 @@ layout: page.njk
   </main>
   {{ RelatedPosts(previousPost, nextPost, backlinks) }}
   {{ Footer() }}
-</article>
+</div>

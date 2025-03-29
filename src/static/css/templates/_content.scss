@@ -15,21 +15,22 @@
   }
 }
 
-.note__body ol {
+.content-body ol {
   list-style: decimal;
 }
 
-.note__body ul {
+.content-body ul {
   list-style: disc;
 }
 
-.note__body ol, .note__body ul {
+.content-body ol, 
+.content-body ul {
   // this layout approach isn't great, but ::marker doesn't work in grid, and I can't use ::before. The superscript for footnotes doesn't respect grid areas :shrug: 
   // padding for markers of 2 characters, optically adjusted
   padding: 0 0 0 tokens.$gapMediumFixed;
 }
 
-.note__body ul, .note__body ol:not(.footnotes-list) {
+.content-body ul, .content-body ol:not(.footnotes-list) {
   li {
     & {
       width: 100%;
@@ -47,23 +48,26 @@
   }
 }
 
-.note__body, .pen__body {
+.content-body {
   line-height: 1.5em;
   margin: 0 auto;
   max-width: tokens.$width;
   width: 100%;
-  > p:not(:last-of-type), > h2, > h3, > h4, > h5, > h6, > ol, > ul {
+  > h2, > h3, > h4, > h5, > h6 {
+    margin: 2em 0 1em 0;
+  }
+  > p:not(:last-of-type), > ol, > ul {
     margin: 0 0 1em 0;
   }
 }
 
-.note__body > picture {
+.content-body > picture {
   display: flex;
   &:not(:last-child) {
     margin-bottom: 1em;
   }
 }
-.note__body > picture img {
+.content-body > picture img {
   width: 100%;
   max-width: tokens.$width;
   height: auto;

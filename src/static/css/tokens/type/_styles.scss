@@ -24,7 +24,7 @@ $body-gap: 1em;
     color: var(--contentPrimaryColor);
     text-decoration-thickness: tokens.$lineHeight;
     text-underline-offset: tokens.$lineHeight;
-    p &, .page-info &, .related-posts &, .note__body & {
+    p &, .page-info &, .related-posts &, .content-body & {
       color: var(--linkColor);
       &:visited {
         color: var(--linkVisitedColor);

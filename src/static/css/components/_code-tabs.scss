@@ -18,6 +18,7 @@
   display: block;
   background-color: var(--materialPrimaryColor);
 }
+
 @for $i from 1 through 5 {
   $tab: "[data-tab-index='tab-#{$i}']";
   #{$tab}:target {
@@ -31,6 +32,7 @@
     }
   }
 }
+
 // Default selected tab
 $default-tab: "[data-tab-index='tab-1']";
 
@@ -47,32 +49,6 @@ $default-tab: "[data-tab-index='tab-1']";
  
 .pen-tabs__panes__content {
   display: none;
-}
-
-.pen__demo {
-  $r: 4px;
-  & {
-    border-radius: $r;
-    position: relative;
-    aspect-ratio: 16/9;
-    overflow: clip;
-    margin: 0 auto 1em;
-  }
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: $r;
-    $s: 0 0 0 var(--px) var(--edgeColor);
-    box-shadow: inset $s, $s;
-    user-select: none;
-    pointer-events: none;
-  }
-  iframe {
-    border: 0;
-    width: 100%;
-    height: 100%;
-  }
 }
   
 .pen-tabs-container {
@@ -99,34 +75,42 @@ $default-tab: "[data-tab-index='tab-1']";
   }
 }
 
-.pen-tabs__panes {
-  grid-row: 2;
-  overflow: auto;
-}
-
-.pen-tabs__toolbar {
-  display: flex;
-  grid-row: 1;
-  box-shadow: 0 0 0 var(--px) var(--edgeColor);
-}
-
-.pen-tabs__tab {
-  & {
-    font-size: 10pt;
-    padding: 0 8px;
+.content-body {
+  .pen-tabs__panes {
+    grid-row: 2;
+    overflow: auto;
+    padding: 0;
   }
-  a {
-    text-decoration: none;
-    @extend %font--display-medium;
+  
+  .pen-tabs__toolbar {
+    display: flex;
+    grid-row: 1;
+    box-shadow: 0 0 0 var(--px) var(--edgeColor);
+    list-style: none;
+    padding: 0;
   }
-}
-
-.pen-tabs__panes__content {
-  & {
-    overflow: hidden;
-    max-width: tokens.$width;
+  
+  .pen-tabs__tab {
+    & {
+      font-size: 10pt;
+      padding: 0 8px;
+      margin: 0 !important;
+    }
+    a {
+      text-decoration: none;
+      @extend %font--display-medium;
+      color: var(--contentPrimaryColor) !important;
+    }
   }
-  pre, code {
-    max-width: tokens.$width;
+  
+  .pen-tabs__panes__content {
+    & {
+      overflow: hidden;
+      max-width: tokens.$width;
+      margin: 0 !important;
+    }
+    pre, code {
+      max-width: tokens.$width;
+    }
   }
 }

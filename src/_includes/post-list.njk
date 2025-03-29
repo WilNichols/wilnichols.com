@@ -51,7 +51,6 @@
       <div class="post__summary">
         <span class="post__day">{{ postPrefix }}</span>
         {% set firstChar = post.data.summary.slice(0, 1) %}
-        {{ firstChar | warn }}
         <span class="post__summary__text {{ " post__summary__text--blockquote" if (firstChar == "“") }}">{{ post.data.summary }}</span>
       </div>
     {%- endif -%}
