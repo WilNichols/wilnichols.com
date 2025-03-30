@@ -9,7 +9,7 @@
   & {
     position: relative;
     margin: 2em auto;
-    border-radius: .6rem;
+    border-radius: tokens.$cornerXLarge;
     overflow: hidden;
     display: grid;
     place-content: center;

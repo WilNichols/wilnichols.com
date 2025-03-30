@@ -36,7 +36,6 @@
 }
 
 .post__type {
-  $r: 4px;
   $p: 3px 5px;
   & {
     position: relative;
@@ -44,7 +43,7 @@
     justify-self: flex-end;
     // height: 16px;
     line-height: 100%;
-    border-radius: $r;
+    border-radius: tokens.$cornerSmall;
     background-color: var(--tagBackgroundColor);
     color: var(--tagContentColor);
     box-shadow: inset 0 0 0 var(--px) var(--tagBorderColor);
@@ -70,7 +69,7 @@
       background-color: var(--evergreenVersionBackgroundColor);
       color: var(--evergreenVersionContentColor);
       box-shadow: inset 0 0 0 var(--px) var(--evergreenVersionBorderColor);
-      border-radius: 0 $r $r 0;
+      border-radius: 0 tokens.$cornerSmall tokens.$cornerSmall 0;
     }
   }
 }

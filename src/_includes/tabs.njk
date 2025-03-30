@@ -5,13 +5,18 @@
 {%- endmacro -%}
 
 {%- macro tabs(id, tabs, tabContents) -%}
-<div class="tabs-wrapper" id="">
+<div class="tabs-wrapper" id="{{ id }}">
   {{ _anchors(tabs) }}
-  <div class="tabs-container">
-    <ul class="tabs__toolbar">
-      {% for tab in tabs %}
+  <div class="tabs-container" style="--tabCount: {{ tabs | length }}">
+    <ul class="tabs-selection">
+      {% for tab in tabs -%}
         <li class="tabs__tab" data-tab-index="tab-{{ loop.index }}"><a href="#{{ tab.title }}">{{ tab.title }}</a></li>
-      {% endfor %}
+      {%- endfor %}
+    </ul>
+    <ul class="tabs">
+      {% for tab in tabs -%}
+        <li class="tabs__tab" data-tab-index="tab-{{ loop.index }}"><a href="#{{ tab.title }}">{{ tab.title }}</a></li>
+      {%- endfor %}
     </ul>
     <ul class="tabs__panes">
       {% for tab in tabs -%}

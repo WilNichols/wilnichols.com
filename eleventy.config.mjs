@@ -136,7 +136,7 @@ export default async function(eleventyConfig) {
   });
   
   eleventyConfig.addFilter("markdownify", string => {
-    return md.render(string)
+    return md.renderInline(string)
   });
   
   // simple cache busting method from https://rob.cogit8.org/posts/2020-10-28-simple-11ty-cache-busting/
