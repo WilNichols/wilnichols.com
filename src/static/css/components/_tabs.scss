@@ -8,15 +8,9 @@
 
 %selectedTab {
   display: block;
-  background-color: var(--materialPrimaryColor);
-  box-shadow: 
-    var(--px) 0 0 var(--edgeColor), 
-    calc(-1 * var(--px)) 0 0 var(--edgeColor),
-    0 var(--px) 0 var(--materialPrimaryColor);
 }
 %selectedPanel {
   display: block;
-  background-color: var(--materialPrimaryColor);
 }
 
 @for $i from 1 through 5 {
@@ -52,27 +46,12 @@ $default-tab: "[data-tab-index='tab-1']";
 }
   
 .tabs-container {
-  $r: 4px;
-  & {
-    border-radius: $r;
-    display: grid;
-    row-gap: var(--px);
-    background-clip: border-box;  
-    position: relative;
-    background-color: var(--materialSecondaryColor);
-    overflow: hidden;
-    margin: 1em auto 0;
-  }
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: $r;
-    $s: 0 0 0 var(--px) var(--edgeColor);
-    box-shadow: inset $s, $s;
-    user-select: none;
-    pointer-events: none;
-  }
+  border-radius: .6rem;
+  position: relative;
+  overflow: hidden;
+  margin: 1em auto 0;
+  box-shadow: inset 0 0 0 var(--px) var(--edgeColor);
+  background-color: var(--materialPrimaryHoverColor);
 }
 
 .content-body {
@@ -80,14 +59,19 @@ $default-tab: "[data-tab-index='tab-1']";
     grid-row: 2;
     overflow: auto;
     padding: 0;
+    margin: 0;
   }
   
   .tabs__toolbar {
-    display: flex;
+    display: inline-flex;
+    position: absolute;
     grid-row: 1;
-    box-shadow: 0 0 0 var(--px) var(--edgeColor);
+    box-shadow: 0 1px 2px black;
     list-style: none;
     padding: 0;
+    inset: .2rem .2rem auto auto;
+    border-radius: .4rem;
+    background-color: var(--materialElevatedPrimaryColor);
   }
   
   .tabs__tab {
