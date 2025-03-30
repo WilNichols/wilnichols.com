@@ -4,8 +4,8 @@
   {%- endfor -%}
 {%- endmacro -%}
 
-{%- macro tabs(tabs, tabContents) -%}
-<div class="tabs-wrapper">
+{%- macro tabs(id, tabs, tabContents) -%}
+<div class="tabs-wrapper" id="">
   {{ _anchors(tabs) }}
   <div class="tabs-container">
     <ul class="tabs__toolbar">

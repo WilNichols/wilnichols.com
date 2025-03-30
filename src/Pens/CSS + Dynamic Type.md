@@ -44,5 +44,5 @@ One can also override `font-face`, but naturally neither `font-size` nor `line-h
       {% set content %}{{ highlight(tab) }}{% endset %}
       {% set tabContents = (tabContents.push(content), tabContents) %}
   {% endfor %}
-  {{- tabs(codeTabs, tabContents) -}}
+  {{- tabs("markup", codeTabs, tabContents) -}}
 {% endrenderTemplate %}
