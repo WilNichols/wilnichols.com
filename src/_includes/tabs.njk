@@ -21,8 +21,7 @@
     <ul class="tabs__panes">
       {% for tab in tabs -%}
         <li class="tabs__panes__content" data-tab-index="tab-{{ loop.index }}">
-          {{ tabContents[loop.index - 1] | safe }}
-        </li>
+          {{ tabContents[loop.index - 1] | safe }}</li>
       {%- endfor %}
     </ul>
   </div>
