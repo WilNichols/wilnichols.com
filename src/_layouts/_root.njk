@@ -19,6 +19,12 @@
   </head>
   <body>
     {{ content | safe }}
-    <script src="/assets/js/scripts.js"></script>
+    {% js "defer" %}
+      let body = document.getElementsByTagName('body')[0];
+      body.classList.add('page-loaded');
+    {% endjs %}
+    <script>
+    {% getBundle "js", "defer" %}
+    </script>
   </body>
 </html>
