@@ -3,7 +3,6 @@ date: 2024-06-03T17:58
 author: Wil Nichols
 tags:
   - Topic/Work
-url: 
 ---
 
 I used to think—and sometimes still do—that there exists an inverse correlation between professional experience and time expenditure. It’s lazy and understandable to implicitly accept that the more you do something, the easier it becomes. The easier it is, the faster it’s done. Practice makes perfect. In a professional setting, perfection becomes speed. Brevity’s not just the soul of wit, but evidence of mastery.

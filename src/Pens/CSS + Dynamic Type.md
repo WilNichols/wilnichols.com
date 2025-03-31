@@ -14,7 +14,6 @@ preview:
   assets: 
     - /assets/embeds/dynamic-type/preview.svg
 hero: /assets/embeds/dynamic-type/
-url: 
 renderTemplate:
   codeTabs: 
     - type: 'code'

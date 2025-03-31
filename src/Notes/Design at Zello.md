@@ -3,7 +3,6 @@ date: 2025-01-27T00:49
 author: Wil Nichols
 tags:
   - Topic/Work
-url: 
 summary: "My thoughts on Design and how they apply at Zello."
 ---
 

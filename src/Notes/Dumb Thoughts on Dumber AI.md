@@ -4,7 +4,6 @@ author: Wil Nichols
 tags:
   - Topic/Work
   - Topic/AI
-url: 
 ---
 
 Generative AI is a stain on creative industries, and an indictment of those who would otherwise employ creatives to do the work they can’t. 

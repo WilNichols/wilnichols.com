@@ -32,7 +32,6 @@ preview:
       poster: segmented-control-pen-poster--light.png
       source: segmented-control-pen--light.mp4
 hero: /assets/embeds/segmented-control/
-url: 
 renderTemplate:
   codeTabs: 
     - type: 'code'

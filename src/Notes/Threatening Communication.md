@@ -3,7 +3,6 @@ date: 2024-08-11T12:42
 author: Wil Nichols
 tags:
   - Topic/Life
-url: 
 ---
 
 I remember the last time that a parent raised their voice to—shouted at—me. I was around six old, and my dad was frustrated for a now-forgotten reason. My room was probably a mess, with Lego pieces strewn around my bed from the container underneath, and he probably stepped on one. Picture: a shared cultural moment.

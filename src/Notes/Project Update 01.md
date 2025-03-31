@@ -7,7 +7,6 @@ tags:
 revisions: 
   - date: 2025-01-22T10:36
     content: Updated photography link.
-url: 
 ---
 
 Before this last weekend, my last commits were around February 16 where I fixed a small edge case, and a week prior where I’d spent four days confirming I could still get photo album data from AWS. I knew that to start posting, I needed to update the project to show an index of notes as opposed to only the latest note, relying on internal links to others.
