@@ -1,3 +1,22 @@
+<script>
+{% macro _progLoadImg() %}
+  // fades images in and blur out onload 
+  const progressiveImages = document.getElementsByClassName('progressiveImg');
+  if (progressiveImages) {
+    for (const img of progressiveImages) {
+      if (img.complete) {
+        img.classList.add('imgLoaded');
+      } else {
+        img.addEventListener('load', function() {
+          img.classList.add('imgLoaded');
+        });
+      }
+    }
+  }
+{% endmacro %}
+</script>
+{# script tags are for syntax val #}
+
 {% macro Picture(
   class,
   src = '',
@@ -8,6 +27,9 @@
   isWNCDN = false,
   customSRCSet
 ) %}
+  {% js "defer" %}
+    {{ _progLoadImg() }}
+  {% endjs %}
   {%- set sizes -%}
     {%- if isWNCDN -%}
       (max-width: 640px) 640px, 
