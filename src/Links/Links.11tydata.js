@@ -5,7 +5,7 @@ export default function () {
     tags: ["Links", "Type/Link"],
     layout: 'note.njk',
     eleventyComputed: {
-      permalink: data => data.dest ? false : '/links/' + slugify(data.page.fileSlug).replace('-s', 's') + '/'
+      permalink: data => (data.page.rawInput) ? '/links/' + slugify(data.page.fileSlug).replace('-s', 's') + '/' : false
     }
   }
 }
