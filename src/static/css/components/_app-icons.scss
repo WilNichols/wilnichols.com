@@ -77,6 +77,14 @@ $gap: var(--u32);
   place-items: center;
 }
 
+$macIcons2x: 512, 256, 128, 32, 16;
+$macIcons1x: 1024, 512, 256, 128, 32, 16;
+
+@each $macIcon in $macIcons1x {
+  .icon--mac.icon--#{$macIcon} {
+    width: #{$macIcon + px};
+  }
+}
 // macOS Grid
 .icon-grid--macOS {
   /*  There are separate grid for 1x and 2x+. Instead of defining them on a per-item basis, they're more verbosely defined as separate grids for readability. */
