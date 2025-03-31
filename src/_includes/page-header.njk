@@ -1,18 +1,19 @@
+<script>
 {% macro _backButtonScript() %}
-  <script>
-    let previousPage;
-    if (document.referrer.includes(location.host) && (document.referrer != location.href)) {
-      previousPage = "";
-      document.getElementById("back-button").addEventListener("click", (e) => {
-        e.preventDefault();
-        history.back();
-      });
-    } else {
-      previousPage = "../";
-    };
-    document.getElementById("back-button").href = previousPage;
-  </script>
+  let previousPage;
+  if (document.referrer.includes(location.host) && (document.referrer != location.href)) {
+    previousPage = "";
+    document.getElementById("back-button").addEventListener("click", (e) => {
+      e.preventDefault();
+      history.back();
+    });
+  } else {
+    previousPage = "../";
+  };
+  document.getElementById("back-button").href = previousPage;
 {% endmacro %}
+</script>
+{# script tags are ignored by njk and don't output. Use the b/c Nova won't syntax-highlight this as js otherwise. #}
 
 {% macro backButton() %}
   <a id="back-button" href="../" class="page-info__entry--back-link">
@@ -87,5 +88,7 @@
     {{ pageTitle(title) }}
     {{ pageInfo(title, date, revisions, tags) }}
   </{{ el }}>
-  {{ _backButtonScript() }}
-{% endmacro %}
+  {% js "defer" %}
+    {{ _backButtonScript() }}
+  {% endjs %}
+{% endmacro %}<script>
