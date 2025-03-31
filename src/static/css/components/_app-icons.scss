@@ -85,6 +85,34 @@ $macIcons1x: 1024, 512, 256, 128, 32, 16;
     width: #{$macIcon + px};
   }
 }
+
+.icon-container--high-res {
+  display: grid;
+  place-content: center;
+}
+
+.icon-container--macOS--smaller {
+  display: grid;
+  grid-template-rows: 256px 32px auto;
+  grid-template-columns: 128px auto;
+  gap: 16px;
+  justify-content: center;
+  .icon--256 {
+    grid-row: 1 / 2;
+    grid-column: 1 / -1;
+  }
+  .icon--128 {
+    grid-row: 2 / 4;
+  }
+  .icon--32 {
+    grid-row: 2 / 3;
+    grid-column: 2 / 3;
+  }
+  .icon--16 {
+    grid-row: 3 / 4;
+    grid-column: 2 / 3;
+  }
+}
 // macOS Grid
 .icon-grid--macOS {
   /*  There are separate grid for 1x and 2x+. Instead of defining them on a per-item basis, they're more verbosely defined as separate grids for readability. */

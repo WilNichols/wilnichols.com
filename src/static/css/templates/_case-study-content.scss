@@ -13,6 +13,7 @@
     overflow: hidden;
     display: grid;
     place-content: center;
+    background-color: var(--materialPrimaryHoverColor);
   }
 
   &--16x9 {

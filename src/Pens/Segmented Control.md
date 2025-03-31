@@ -59,6 +59,5 @@ View the source below.
       {% set content %}{{ highlight(tab) }}{% endset %}
       {% set tabContents = (tabContents.push(content), tabContents) %}
   {% endfor %}
-  
   {{- tabs("markup", codeTabs, tabContents) -}}
 {% endrenderTemplate %}

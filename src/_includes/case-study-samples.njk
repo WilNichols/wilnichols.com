@@ -162,21 +162,24 @@
   {% set path = 'https://cdn.wilnichols.com/case-studies/diligence/icon/' %}
   {% set tabContents = [] %}
   {% set iconTabs = [
-    { title: "512@2x" },
-    { title: "..." }
+    { title: "High-res" },
+    { title: "Smaller" }
   ] %}
   
   {% set tab512@2x -%}
+  <div class="icon-container--high-res">
     {{-  img(
           src = path + '512@2x',
           class = 'icon--mac icon--512',
           suffix= '?format=webp',
           densities = [1]
     ) -}}
+  </div>
   {%- endset %}
   
   {% set tabContents = (tabContents.push(tab512@2x), tabContents) %}
   {% set tabMore -%}
+  <div class="icon-container--macOS--smaller">
     {{-  img(
           src = path + '256@2x',
           class = 'icon--mac icon--256',
@@ -201,10 +204,11 @@
           suffix= '?format=webp',
           densities = [1]
     ) -}}
+  </div>
   {%- endset %}
   {% set tabContents = (tabContents.push(tabMore), tabContents) %}
   
-  {{- tabs("app-icon", iconTabs, tabContents) -}}
+{{- tabs("app-icon", iconTabs, tabContents, "square") -}}
   
 {%- endmacro %}
 
