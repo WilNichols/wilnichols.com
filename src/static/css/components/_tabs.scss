@@ -1,0 +1,170 @@
+@use '../tokens';
+
+@include tokens.textStyles;
+
+.tabs__state {
+  display: none;
+}
+
+%selectedPanel {
+  display: block;
+}
+
+@for $i from 1 through 5 {
+  $tab: "[data-tab-index='tab-#{$i}']";
+  #{$tab}:target {
+    // selected tab in toolbar
+    ~ * .tabs-selection {
+      --tabSelection: #{$i};
+    }
+    // selected tab pane
+    ~ * .tabs__panes__content#{$tab} {
+      @extend %selectedPanel;
+    }
+  }
+}
+
+// Default selected tab
+$default-tab: "[data-tab-index='tab-1']";
+
+// for the default tab without a following :target item
+#{$default-tab}:not(:has(~ *:target)) {
+  ~ * .tabs-selection {
+    --tabSelection: 1;
+  }
+  // selected tab pane
+  ~ * .tabs__panes__content#{$default-tab} {
+    @extend %selectedPanel;
+  }
+}
+ 
+.tabs__panes__content {
+  display: none;
+}
+  
+.tabs-container {
+  border-radius: tokens.$cornerXLarge;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 var(--px) var(--edgeColor);
+  background-color: var(--materialPrimaryHoverColor);
+  &--square {
+    aspect-ratio: 1;
+  }
+}
+
+.content-body {
+  .tabs__panes {
+    grid-row: 2;
+    overflow: auto;
+    padding: 0;
+    margin: 0;
+    min-height: 100%;
+  }
+  %tabsCommon {
+    display: inline-grid;
+    grid-auto-columns: 1fr;
+    position: absolute;
+    grid-row: 1;
+    height: var(--u24);
+    list-style: none;
+    padding: tokens.$cornerOffset;
+    gap: tokens.$cornerOffset;
+    $inset: calc(tokens.$cornerOffset * 2);
+    inset: $inset $inset auto auto;
+    border-radius: tokens.$cornerMedium;
+  }
+  %tabCommon {
+    & {
+      font-size: 10pt;
+      margin: 0 !important;
+      height: var(--u20);
+      line-height: var(--u20);
+      grid-row: 1 / 2;
+      z-index: 1;
+    }
+    a {
+      display: block;
+      width: 100%;
+      text-align: center;
+      text-decoration: none;
+      @extend %font--display-medium;
+      padding: 0 var(--u6);
+      
+    }
+  }
+  .tabs-selection {
+    z-index: 100;
+    @extend %tabsCommon;
+    background-color: var(--linkColor);
+    // --tabs-count is an inline var set in the tabs.njk template
+    --negativeSpace: calc(100% / var(--tabs-count));
+    transition: clip-path 0.2s ease-out;
+    --right: calc(
+        100% 
+          - ((var(--tabSelection) - 1) * (#{tokens.$cornerOffset} + (100% / var(--tabCount))) 
+          + (100% / var(--tabCount))));
+    --left: calc(
+        (var(--tabSelection) - 1) * (#{tokens.$cornerOffset} + (100% / var(--tabCount))));
+    clip-path: inset(
+        tokens.$cornerOffset 
+        max(tokens.$cornerOffset, var(--right))
+        tokens.$cornerOffset 
+        max(tokens.$cornerOffset, var(--left))
+        round tokens.$cornerSmall);
+    .tabs__tab {
+      @extend %tabCommon;
+      a {
+        color: var(--c100) !important;
+      }
+    }
+  }
+  .tabs {
+    z-index: 10;
+    @extend %tabsCommon;
+    background-color: var(--materialElevatedPrimaryColor);
+    box-shadow:
+      0 3px 6px 0 rgba(0,0,0,.2),
+      0 0.9px 1.8px 0 rgba(0,0,0,.13),
+      0 .375px 0.75px 0 rgba(0,0,0,.1),
+      0 .135px .27px 0 rgba(0,0,0,.07);
+    .tabs__tab {
+      @extend %tabCommon;
+      position: relative;
+      a {
+        text-decoration: none;
+        @extend %font--display-medium;
+        color: var(--linkColor) !important;
+        position: relative;
+      }
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: tokens.$cornerSmall;
+        z-index: -1;
+      }
+      &:hover::after {
+        background-color: var(--materialElevatedPrimaryHoverColor);
+      }
+      &:active::after {
+        background-color: var(--materialElevatedPrimaryActiveColor);
+      }
+    }
+  }
+
+  .tabs__panes__content {
+    & {
+      overflow: hidden;
+      place-content: center;
+      max-width: tokens.$width;
+      margin: 0 !important;
+      min-height: 100%;
+    }
+    pre, code {
+      max-width: tokens.$width;
+    }
+  }
+}

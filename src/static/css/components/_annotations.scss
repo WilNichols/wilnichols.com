@@ -1,0 +1,112 @@
+@use 'sass:list';
+@use 'sass:math';
+@use '../tokens';
+
+$diligenceWindowWidth: 222px;
+
+.annotation-container {
+  position: relative;
+  .screen {
+    opacity: 0.5;
+  }
+}
+
+.annotation {
+  display: block;
+  position: absolute;
+  outline: 2px solid var(--c100);
+  box-shadow:
+    0 3px 6px 0 rgba(0,0,0,.4),
+    0 0.9px 1.8px 0 rgba(0,0,0,.26),
+    0 .375px 0.75px 0 rgba(0,0,0,.2),
+    0 .135px .27px 0 rgba(0,0,0,.014);
+  inset: var(--inset);
+  width: var(--width);
+  height: var(--height);
+  border-radius: var(--corners);
+  .screen-container {
+    position: absolute;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--corners);
+  }
+  img {
+    position: absolute;
+    inset: var(--opposingInset, 0 0 0);
+    opacity: 1 !important;
+  }
+}
+
+.annotation-trigger {
+  display: block;
+  height: var(--u8);
+  width: var(--u8);
+  border-radius: var(--u4);
+  background-color: var(--linkColor);
+  position: absolute;
+  inset: var(--trigger, 0 0 0 0);
+  &::after {
+    content: '';
+    display: block;
+    content: attr[data-content];
+  }
+}
+
+
+// Diligence annotations
+
+// positioning
+.annotation--toolbar {
+  --width: 224px;
+  --height: 47px;
+  --inset: 40px auto auto 40px;
+  --opposingInset: -40px auto auto -40px;
+  --trigger: 0 0 0 0;
+  --corners: 7px 7px 4px 4px;
+}
+
+.annotation--new-task {
+  --width: 26px;
+  --height: 26px;
+  --inset: 52px auto auto 226px;
+  --opposingInset: -52px auto auto -226px;
+  --trigger: 0 0 0 0;
+  --corners: 3px;
+}
+
+.annotation--undock {
+  --width: 26px;
+  --height: 26px;
+  --inset: 52px auto auto 52px;
+  --opposingInset: -52px auto auto -52px;
+  --trigger: 0 0 0 0;
+  --corners: 3px;
+}
+
+.annotation--search {
+  --width: 194px;
+  --height: 24px;
+  --inset: 94px auto auto 55px;
+  --opposingInset: -94px auto auto -55px;
+  --trigger: 0 0 0 0;
+  --corners: 12px;
+}
+
+.annotation--categories {
+  --width: 48px;
+  --height: 11px;
+  --inset: 125px auto auto 128px;
+  --opposingInset: -125px auto auto -128px;
+  --trigger: 0 0 0 0;
+  --corners: 3px;
+}
+
+.annotation--tasks {
+ --width: 224px;
+ --height: 311px;
+ --inset: 143px auto auto 40px;
+ --opposingInset: -143px auto auto -40px;
+ --trigger: 0 0 0 0;
+ --corners: 4px 4px 7px 7px;
+}

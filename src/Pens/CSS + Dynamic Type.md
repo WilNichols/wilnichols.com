@@ -13,11 +13,17 @@ preview:
   dir: dynamic-type
   assets: 
     - /assets/embeds/dynamic-type/preview.svg
-assets: 
-  demo: /assets/embeds/dynamic-type/
-  html: ../static/embeds/dynamic-type/index.html
-  scss: ../static/css/pens/dynamic-type.scss
-url: 
+hero: /assets/embeds/dynamic-type/
+renderTemplate:
+  codeTabs: 
+    - type: 'code'
+      title: 'HTML'
+      lang: 'html'
+      src: '../static/embeds/dynamic-type/index.html'
+    - type: 'code'
+      title: 'SCSS'
+      lang: 'scss'
+      src: '../static/css/pens/dynamic-type.scss'
 ---
 This must be viewed in Safari on macOS or iOS to make much sense—they allow one to use iOS and macOS system fonts directly on web. More importantly, they allow one to take advantage of [Dynamic Type](https://developer.apple.com/design/human-interface-guidelines/typography). Of course, use a fallback for non-Apple clients.
 
@@ -28,3 +34,14 @@ This 2015 [post](https://webkit.org/blog/3709/using-the-system-font-in-web-conte
 Related—`title0` is a regular-weight version of `largeTitle`, and I’m unsure which system font style `title4` matches. That said, you can adjust `title0`’s font-weight and get `largeTitle` in no time.
 
 One can also override `font-face`, but naturally neither `font-size` nor `line-height`. If that’s desirable, use a `scale` transform and wrap the text in a containing element to control block-size. You can’t modify line-height this way, but there should be layout trickery around this. 
+
+{% renderTemplate "njk", renderTemplate %}
+  {%- from '../_includes/tabs.njk' import tabs with context -%}
+  {%- from '../_includes/highlight.njk' import highlight with context -%}
+  {% set tabContents = [] %}
+  {% for tab in codeTabs -%}
+      {% set content %}{{ highlight(tab) }}{% endset %}
+      {% set tabContents = (tabContents.push(content), tabContents) %}
+  {% endfor %}
+  {{- tabs("markup", codeTabs, tabContents) -}}
+{% endrenderTemplate %}

@@ -4,7 +4,6 @@ author: Wil Nichols
 tags:
   - Calendar/Birthday
   - Topic/Me
-url: 
 summary: 
     I turned thirty today. These are some passing thoughts.
 ---

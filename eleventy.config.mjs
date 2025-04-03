@@ -124,6 +124,7 @@ export default async function(eleventyConfig) {
   
   eleventyConfig.addCollection("Feed", function (collectionsApi) {
     const feed = [
+      ...collectionsApi.getFilteredByTag("Type/Case Study"),
       ...collectionsApi.getFilteredByTag("Type/Note"),
       ...collectionsApi.getFilteredByTag("Type/Link"),
       ...collectionsApi.getFilteredByTag("Type/Recipe")
@@ -135,7 +136,7 @@ export default async function(eleventyConfig) {
   });
   
   eleventyConfig.addFilter("markdownify", string => {
-    return md.render(string)
+    return md.renderInline(string)
   });
   
   // simple cache busting method from https://rob.cogit8.org/posts/2020-10-28-simple-11ty-cache-busting/
@@ -312,6 +313,9 @@ export default async function(eleventyConfig) {
   eleventyConfig.addPlugin(syntaxHighlight);
   eleventyConfig.addPlugin(EleventyHtmlBasePlugin);
   eleventyConfig.addPlugin(EleventyRenderPlugin);
+  
+  // Bundles
+  eleventyConfig.addBundle("js");
 
   // WatchTargets
   eleventyConfig.addWatchTarget("src/static/css/");
