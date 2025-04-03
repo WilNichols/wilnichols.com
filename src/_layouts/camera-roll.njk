@@ -1,0 +1,36 @@
+---
+layout: page.njk
+---
+{% from "../_includes/header.njk" import Header with context %}
+{% from "../_includes/picture.njk" import Picture with context %}
+{% from "../_includes/footer.njk" import Footer with context %}
+
+<div class="page page--camera-roll page--album">
+  {{ Header("page--camera-roll__header") }}
+  <ul class="album__album-photos">
+    {% for photo in cameraRoll | reverse %}
+      {% if loop.index < 3 %}{% set loading = 'eager' %}{% else %}{% set loading = 'lazy' %}{% endif %}
+      {% set src = photo.img.src %}
+      {% set photoID %}photo-{{ loop.index }}{% endset %}
+      {% set imageProps = src | imageInfo %}
+      <li class="album__album-photos__photo" id="{{ photoID }}">
+        <a href="{{ photo.url }}" target="blank">
+          {{  Picture(
+              fileName = photoID,
+              src = src,
+              loading = loading,
+              imageProps = imageProps
+          ) }}
+        </a>
+        <ul class="album__album-photos__photo__metadata">
+          <li>{{ photo.date.formatted | readableDateISO }}</li>
+          <li>{{ photo.camera.lens | replace("Fujifilm ", "") | replace("mF", "m F") }}</li>
+          <li>{{ photo.settings.aperture | replace("/", "") }}</li>
+          <li>{{ photo.settings.shutter }}</li>
+          <li>{{ photo.settings.iso }}</li>
+        </ul>
+      </li>
+    {% endfor %}
+    {{ Footer(el="li") }}
+  </ul>
+</div>
