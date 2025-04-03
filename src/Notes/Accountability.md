@@ -3,7 +3,6 @@ date: 2025-01-23T00:52
 author: Wil Nichols
 tags:
   - Topic/Life
-url: 
 summary: How to address Manton Reeces, and what I believe on related topics.
 ---
 

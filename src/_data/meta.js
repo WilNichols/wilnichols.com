@@ -1,6 +1,6 @@
 export default function () {
   const me = {
-    name: 'Wil Nichols',
+    name: 'Wil Nichols-Higgins',
     jobTitle: 'Director of Design at <a href="https://www.zello.com" target="blank">Zello</a>',
     email: 'hi@wilnichols.design'
   }

@@ -1,18 +1,6 @@
-{% macro IngredientsList(ingredients) %}
-  <div class="post-specific-info--container">
-    <h3 class="heading--6">Ingredients</h3>
-    <ul class="page-info__list page-ingredient__list">
-      {% for ingredient in ingredients %}
-        <li class="page-info__entry"><span class="page-info__entry__key">{{ ingredient.name }}</span><span class="page-info__entry__value">{{ ingredient.metric }} 
-        | {{ ingredient.imperial }}</span></li>
-      {% endfor %}
-    </ul>
-  </div>
-{% endmacro %}
-
 {% macro CaseStudyInfo(project) %}
   <div class="post-specific-info--container">
-    <ul class="page-info__list page-ingredient__list">
+    <ul class="page-info__list">
       {# Project Outcome #}
       <li class="page-info__entry">
         <span class="page-info__entry__key">Outcome</span>

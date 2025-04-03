@@ -3,7 +3,6 @@ date: 2024-02-01T22:55
 author: Wil Nichols
 tags: 
   - Topic/Life
-url: 
 ---
 
 Part of my hangup in completing a portfolio stems from the hopefully misplaced idea that exterior presentation demands the highest degree of polish. Designers know that Dribbble posts are well beyond a realistic pale, but that doesn't prevent a tweaking, twinging intrusion — “oh, it could be better.” Despite knowing that pale skews on multiple axi — not only is the public persona unrealistically polished, it’s simply unbelievable. 

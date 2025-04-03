@@ -1,47 +1,14 @@
 @use '../tokens';
 
-.proportionate-scale--surrogate {
-  display: grid;
-  place-content: center;
-}
-.case-study-hero {
-  position: relative;
-  width: 100%;
-  max-width: 900px;
-  margin: 0 auto calc(var(--col)/2) auto;
-  aspect-ratio: 16/9;
-  border-radius: .6rem;
-  overflow: hidden;
-  display: grid;
-  place-content: center;
-}
-
-.case-study-hero--diligence {
-  background-image: url('../img/DSCF2387.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  
+.case-study-hero--diligence {  
   .window {
     margin: auto;
     position: relative;
     z-index: 1;
   }
-  .screen,
+  .diligence-screen,
   .window {
     grid-area: 1 / 1;
-  }
-  .screen {
-    position: relative;
-    overflow: hidden;
-    display: grid;
-    place-content: center;
-    height: 800px;
-    width: 1280px;
-    background-size: cover;
-    z-index: 0;
-    // TODO: replace w/ CDN asset
-    background-image: url('../img/DSCF2387.jpg');
   }
   .screen-window {
     grid-area: 1 / 1;

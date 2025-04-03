@@ -46,7 +46,14 @@
       </ul>
       <div class="post__direction">{% if post.content %}{% include "../static/img/arrow-right--16.svg" %}{% else %}{% include "../static/img/arrow-up-right--16.svg" %}{% endif %}</div>
     {% endif %}
-    {% if post.data.summary %}<div class="post__summary"><span class="post__day">{{ postPrefix }}</span><span class="post__summary__text">{{ post.data.summary }}</span></div>{% endif %}
+    
+    {%- if post.data.summary -%}
+      <div class="post__summary">
+        <span class="post__day">{{ postPrefix }}</span>
+        {% set firstChar = post.data.summary.slice(0, 1) %}
+        <span class="post__summary__text {{ " post__summary__text--blockquote" if (firstChar == "“") }}">{{ post.data.summary }}</span>
+      </div>
+    {%- endif -%}
   </a>
 {%- endmacro %}
 

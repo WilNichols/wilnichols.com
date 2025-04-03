@@ -1,116 +1,9 @@
 {# {%- from 'components/device.njk' import Device -%} #}
+{%- from '../_includes/tabs.njk' import tabs with context -%}
 {%- from 'img.njk' import img -%}
 
-{# 
-  macOSGrid(
-    path = '' // path to the app icons
-    class = '' // if you need to pass a className attr
-  )
-#}
-
-{%- macro macOSGrid(
-  path = '',
-  class = ''
-) -%}
-  {% set sizes = ['512@2x', '512', '256', '128', '32', '16'] %}
-  <div class="icon-grid--macOS">
-    {%- for size in sizes -%}
-      {%- if loop.first -%}
-        {# We return the 512@2x separately so that it shows on 1x, and hide it at higher densities. #}
-        {{-  img(
-              src = path + size,
-              class = 'icon icon--' + size | replace("@", "--"),
-              densities = [1]
-        ) -}}
-      {%- elif not loop.first -%}
-        {# Returns 512 - 16 #}
-        {{-  img(
-              src = path + size,
-              class = 'icon icon--' + size
-        ) -}}
-      {%- endif -%}
-    {%- endfor -%}
-  </div>  
-{%- endmacro -%}
-
-{# 
-  iOSGrid (
-    path = '' // path to the app icons
-    class = '' // if you need to pass a className attr
-    isOldVersion = false // uses pre-iOS 7 metrics
-  )
-#}
-
-{% macro iOSGrid(
-  path = '',
-  exclude = [],
-  class = '',
-  isOldVersion = false
-) %}
-  {% if not isOldVersion %}
-    {% set sizes = ['512', '60', '40', '29'] %}
-    <div class="icon-grid--iPhone--modern">
-      <h6 class="overline caption caption--app-icon">Springboard</h6>
-      <h6 class="overline caption caption--spotlight">Spotlight</h6>
-      <h6 class="overline caption caption--settings">Settings</h6>
-      {% for size in sizes %}
-        {% if loop.first %}
-        <div class="icon--512--container">
-          <h6 class="overline caption caption--app-store">App Store</h6>
-          {{  img(
-                src = path + size,
-                class = 'icon icon--' + size,
-                densities = [1, 2]
-          ) }}
-        </div>
-        {% elif not loop.first %}
-          {{  img(
-                src = path + size,
-                class = 'icon icon--' + size + ' ' + 'icon--' + '3x',
-                densities = [3]
-          ) }}
-          {{  img(
-                src = path + size,
-                class = 'icon icon--' + size + ' ' + 'icon--' + '2x',
-                densities = [2]
-          ) }}
-        {% endif %}
-      {% endfor %}
-    </div>  
-  {% elif isOldVersion %}
-    {% set sizes = ['512', '72', '57', '29'] %}
-    <div class="icon-grid--iOS--old">
-      <h6 class="overline caption caption--iPad-app">iPad app</h6>
-      <h6 class="overline caption caption--iPhone-app">iPhone app</h6>
-      <h6 class="overline caption caption--settings">Settings</h6>
-      {% for size in sizes %}
-        {% if loop.first %}
-        <div class="icon--512--container">
-          <h6 class="overline caption caption--app-store">App Store</h6>
-          {{  img(
-                src = path + size,
-                class = 'icon icon--' + size,
-                densities = [1, 2]
-          ) }}
-        </div>
-        {% elif not loop.first %}
-          {{  img(
-                src = path + size,
-                class = 'icon icon--' + size + ' ' + 'icon--' + '2x',
-                densities = [2]
-          ) }}
-          {{  img(
-                src = path + size,
-                class = 'icon icon--' + size + ' ' + 'icon--' + '1x',
-                densities = [1]
-          ) }}
-        {% endif %}
-      {% endfor %}
-    </div>
-  {% endif %}
-{% endmacro %}
-
-{% macro DiligenceWindow() %}  
+{% macro DiligenceWindow() -%}  
+<div class="case-study-image case-study-image--2x diligence-detail-windows">
   <div class="proportionate-scale--surrogate--container">
     <div class="proportionate-scale--surrogate">
       {{  img(
@@ -128,48 +21,140 @@
           {% endfor %}
         </div>
       {% endset %}
-      {# {{  Device( 
-            type = 'macbookPro2016',
-            contentType = 'rich',
-            content = deviceScreen
-      ) }} #}
     </div>
   </div>
-{% endmacro %}
+</div>
+{%- endmacro %}
 
-{% macro DiligenceDetailWindow() %}
+{% macro DiligenceAnnotatedWindow() -%}  
+<div class="case-study-image case-study-image--2x diligence-annotated-window">
+  {% set screen %}https://cdn.wilnichols.com/case-studies/diligence/screenshots/menubar--attached{% endset %}
+  
+  {% set annotations = [
+    { text: 'Create a new task.',
+      class: 'new-task' },
+    { text: 'Primary affordance to undock from the menubar. Secondarily. drag the toolbar.',
+      class: 'undock' },
+    { text: 'Search across categories, groups, details.',
+      class: 'search' },
+    { text: 'Categories. By default, “Incomplete”, and “Complete”. Tap the trailing icon to add a category.',
+      class: 'categories'}
+  ] %}
+  
+  <div class="proportionate-scale--surrogate--container">
+    <div class="proportionate-scale--surrogate">
+      <div class="annotation-container">
+        {{-  img(
+              src = screen,
+              class = 'screen'
+        ) -}}
+        {% for annotation in annotations -%}
+          <div class="annotation annotation--{{ annotation.class }}">
+            <div class="annotation--trigger" data-content="{{ annotation.text }}"></div>
+            <div class="screen-container">
+              {{-  img(
+                    src = screen
+              ) -}}
+            </div>
+          </div>
+        {%- endfor %}
+      </div>
+    </div>
+  </div>
+  <p class="case-study-image__caption util__device--pointer">Hover over a highlighted part of the interface to learn more.</p>
+</div>
+{%- endmacro %}
+
+{%- macro DiligenceDetailWindow() -%}
   {% set path = 'https://cdn.wilnichols.com/case-studies/diligence/screenshots/' %}
   {% set screens = [
     'detail--inactive', 
     'detail--calendar',
     'detail--inactive--attachments'
   ] %}
-  <div class="diligence-detail-windows">
-    {% for screen in screens %}
-      {{  img(
-            src = path + screen,
-            class = 'window'
-      ) }}
-    {% endfor %}
+  <div class="diligence-detail-window case-study-image case-study-image--16x9 case-study-image--2x">
+    <div class="diligence-screen">
+      <div class="proportionate-scale--surrogate--container">
+        <div class="proportionate-scale--surrogate">
+          {%- for screen in screens -%}
+            {{  img(
+                  src = path + screen,
+                  class = 'window'
+            ) }}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
   </div>
-{% endmacro %}
+{%- endmacro -%}
 
-{% macro DiligenceAppIcon() %}{{ macOSGrid (
-    path = 'https://cdn.wilnichols.com/case-studies/diligence/icon/'
-  ) }}{% endmacro %}
+{% macro DiligenceAppIcon() -%}
+  {% set path = 'https://cdn.wilnichols.com/case-studies/diligence/icon/' %}
+  {% set tabContents = [] %}
+  {% set iconTabs = [
+    { title: "High-res" },
+    { title: "Smaller" }
+  ] %}
+  
+  {% set tab512@2x -%}
+  <div class="icon-container--high-res">
+    {{-  img(
+          src = path + '512@2x',
+          class = 'icon--mac icon--512',
+          suffix= '?format=webp',
+          densities = [1]
+    ) -}}
+  </div>
+  {%- endset %}
+  {% set tabContents = (tabContents.push(tab512@2x), tabContents) %}
+  
+  {% set tabMore -%}
+  <div class="icon-container--macOS--smaller">
+    {{-  img(
+          src = path + '256@2x',
+          class = 'icon--mac icon--256',
+          suffix= '?format=webp',
+          densities = [1]
+    ) -}}
+    {{-  img(
+          src = path + '128@2x',
+          class = 'icon--mac icon--128',
+          suffix= '?format=webp',
+          densities = [1]
+    ) -}}
+    {{-  img(
+          src = path + '32@2x',
+          class = 'icon--mac icon--32',
+          suffix= '?format=webp',
+          densities = [1]
+    ) -}}
+    {{-  img(
+          src = path + '16@2x',
+          class = 'icon--mac icon--16',
+          suffix= '?format=webp',
+          densities = [1]
+    ) -}}
+  </div>
+  {%- endset %}
+  {% set tabContents = (tabContents.push(tabMore), tabContents) %}
+  
+{{- tabs("app-icon", iconTabs, tabContents, "square") -}}
+  
+{%- endmacro %}
 
-{% macro DiligencePreferenceIcons() %}
+{%- macro DiligencePreferenceIcons() -%}
   {% set path = 'https://cdn.wilnichols.com/case-studies/diligence/small-icons/' %}
   {% set icons = [
     'settings__general', 
     'settings__categories',
     'settings__appearance'
   ] %}
-  {% for icon in icons %}
-    {{  img(
-          src = path + icon,
-          class = 'icon--32',
-          suffix= '?format=webp'
-    ) }}
-  {% endfor %}
-{% endmacro %}
+  <div class="case-study-image case-study-image--400x300 case-study-image--icons">
+    {%- for icon in icons -%}<div class="case-study-image--icons__icon">{{  img(
+            src = path + icon,
+            class = 'icon--32',
+            suffix= '?format=webp',
+            densities = [1, 2]
+          ) }}</div>{%- endfor -%}
+  </div>
+{%- endmacro -%}

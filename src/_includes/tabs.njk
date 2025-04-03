@@ -1,0 +1,29 @@
+{%- macro _anchors(tabs) -%}
+  {%- for tab in tabs -%}
+    <a class="tabs__state" id="{{ tab.title }}" data-tab-index="tab-{{ loop.index }}">{{ tab.title }}</a>
+  {%- endfor -%}
+{%- endmacro -%}
+
+{%- macro tabs(id, tabs, tabContents, modifier) -%}
+<div class="tabs-wrapper" id="{{ id }}">
+  {{ _anchors(tabs) }}
+  <div class="tabs-container{{ ' tabs-container--' + modifier if modifier }}" style="--tabCount: {{ tabs | length }}">
+    <ul class="tabs-selection">
+      {% for tab in tabs -%}
+        <li class="tabs__tab" data-tab-index="tab-{{ loop.index }}"><a href="#{{ tab.title }}">{{ tab.title }}</a></li>
+      {%- endfor %}
+    </ul>
+    <ul class="tabs">
+      {% for tab in tabs -%}
+        <li class="tabs__tab" data-tab-index="tab-{{ loop.index }}"><a href="#{{ tab.title }}">{{ tab.title }}</a></li>
+      {%- endfor %}
+    </ul>
+    <ul class="tabs__panes">
+      {% for tab in tabs -%}
+        <li class="tabs__panes__content" data-tab-index="tab-{{ loop.index }}">
+          {{ tabContents[loop.index - 1] | safe }}</li>
+      {%- endfor %}
+    </ul>
+  </div>
+</div>
+{%- endmacro -%}

@@ -1,0 +1,85 @@
+@use '../tokens' as tokens;
+
+@include tokens.textStyles;
+
+.page-header__container {
+  & {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: tokens.$width;
+    margin: 0 auto 1em auto;
+}
+  h1 {
+    margin: 0;
+  }
+}
+
+.content-body ol {
+  list-style: decimal;
+}
+
+.content-body ul {
+  list-style: disc;
+}
+
+.content-body ol, 
+.content-body ul {
+  // this layout approach isn't great, but ::marker doesn't work in grid, and I can't use ::before. The superscript for footnotes doesn't respect grid areas :shrug: 
+  // padding for markers of 2 characters, optically adjusted
+  padding: 0 0 0 tokens.$gapMediumFixed;
+}
+
+.content-body ul, .content-body ol:not(.footnotes-list) {
+  li {
+    & {
+      width: 100%;
+    }
+    &:not(:last-child) { 
+      margin: 0 auto 1em auto;
+    }
+    &::marker {
+      color: var(--contentTertiaryColor);
+    }
+  }
+
+  &:has(+ p) {
+    margin: 0 auto 1em auto;
+  }
+}
+
+.content-body {
+  line-height: 1.5em;
+  margin: 0 auto;
+  max-width: tokens.$width;
+  width: 100%;
+  > h2, > h3, > h4, > h5, > h6 {
+    margin: 2em 0 1em 0;
+  }
+  > p:not(:last-of-type), > ol, > ul, > .tabs-wrapper {
+    margin: 0 0 1em 0;
+  }
+}
+
+.page--case-study .content-body > .tabs-wrapper {
+  margin: 2em auto;
+}
+
+
+.content-body > picture {
+  display: flex;
+  &:not(:last-child) {
+    margin-bottom: 1em;
+  }
+}
+
+.content-body > picture img {
+  width: 100%;
+  max-width: tokens.$width;
+  height: auto;
+}
+
+.proportionate-scale--surrogate {
+  display: grid;
+  place-content: center;
+}

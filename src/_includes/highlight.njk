@@ -1,0 +1,4 @@
+{%- macro highlight(obj) -%}
+  {% set code %}{% include obj.src %}{% endset %}
+  {% if obj.lang == "html" %}{% highlight "html" %}{{ code | penHTML | safe }}{% endhighlight %}{% elif obj.lang == "scss" %}{% highlight "scss" %}{{ code | penSCSS | safe }}{% endhighlight %}{% else %}{% highlight "html" %}{{ code | safe }}{% endhighlight %}{% endif %}
+{%- endmacro -%}

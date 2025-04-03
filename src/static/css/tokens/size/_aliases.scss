@@ -6,6 +6,11 @@ $lineHeight: 1px;
 $gapSmall: 1.2em;
 $gapMedium: 2.4em;
 $gapMediumFixed: calc(var(--type-0) * 2.4);
+$cornerOffset: var(--u2);
+$cornerXLarge: 10px;
+$cornerLarge: var(--u8);
+$cornerMedium: var(--u6);
+$cornerSmall: var(--u4);
 
 
 @mixin sizeAliases {
@@ -24,6 +29,23 @@ $gapMediumFixed: calc(var(--type-0) * 2.4);
     --density: 1;
     --px: calc(1px / var(--density));
     --col: calc(100dvw/12);
+    // consts
+    --u0: 0;
+    --u1: 1px;
+    --u2: 2px;
+    --u4: 4px;
+    --u6: 6px;
+    --u8: 8px;
+    --u12: 12px;
+    --u16: 16px;
+    --u20: 20px;
+    --u24: 24px;
+    --u32: 32px;
+    --u48: 48px;
+    --u64: 64px;
+    --u96: 96px;
+    --u128: 128px;
+    --u256: 256px;
   }
   @media (-webkit-min-device-pixel-ratio: 2) {
     --density: 2;

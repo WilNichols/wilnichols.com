@@ -3,7 +3,7 @@ date: 2024-12-25T10:28
 author: Wil Nichols
 tags:
   - Topic/Work
-url: /nearsighted-solutions/
+permalink: /nearsighted-solutions/
 summary: "We misattribute instigation when observing healthy boundaries."
 ---
 
