@@ -18,8 +18,7 @@
 ) -%}
   {% if densities[0] != 1 %}{% set minDensity = '@' + densities[0] + 'x' %}{% endif %}
   <img
-    {% if class %}class="{{ class }}"{% endif %}
-    src="{{ src }}{{ minDensity | replace(' ', '')}}.{{ ext }}{{ suffix }}" 
+    {% if class %}class="{{ class }}"{% endif %} src="{{ src }}{{ minDensity | replace(' ', '')}}.{{ ext }}{{ suffix }}" 
     srcset="
       {%- for i in densities -%}
         {{ src }}{{ minDensity if loop.first }}{{ '@' + i + 'x' if not loop.first }}.{{ ext }}{{ suffix }} {{ loop.index }}x{{ ', ' if not loop.last }}
