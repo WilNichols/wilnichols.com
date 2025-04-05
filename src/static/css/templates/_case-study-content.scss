@@ -5,17 +5,22 @@
   place-content: center;
 }
 
-.case-study-image {
-  & {
+.case-study-image-wrapper {
     position: relative;
     margin: 2em auto;
+    width: auto;
+}
+
+.case-study-image {
+  & {
     border-radius: tokens.$cornerXLarge;
     overflow: hidden;
     display: grid;
     place-content: center;
     background-color: var(--materialPrimaryHoverColor);
+    margin: auto;
   }
-
+  
   &--16x9 {
     aspect-ratio: 16/9;
   }
@@ -24,6 +29,9 @@
     // that's Dribbble huh
     width: 400px;
     height: 300px;
+    & + .case-study-image__caption {
+      --captionWidth: 400px;
+    }
   }
   
   &--2x {
@@ -42,20 +50,28 @@
     align-items: center;
   }
 }
+
+.case-study-image__content {
+  position: absolute;
+  inset: 0;
+}
+
 .case-study-image__caption {
   padding: 4px 8px;
   border-radius: tokens.$cornerMedium;
-  backdrop-filter: blur(20px);
   color: var(--contentSecondaryColor);
-  font-size: var(--type--1);
+  font-size: var(--type--2);
+  text-align: center;
+  text-wrap: pretty;
+  width: var(--captionWidth, 100%);
 }
+
 .diligence-annotated-window {
   padding: 0 var(--u8) var(--u8) var(--u8);
 }
 .diligence-detail-window {
   .diligence-screen {
     opacity: 1;
-    position: relative;
     > * {
       z-index: 10;
     }
@@ -74,12 +90,9 @@
 }
 
 .diligence-screen {
-  position: relative;
   overflow: hidden;
   display: grid;
   place-content: center;
-  height: 800px;
-  width: 1280px;
   background-size: cover;
   z-index: 0;
   background-image: url('https://cdn.wilnichols.com/gallery-2023/Hackathon2018/DSCF2387.jpg?width=1280px&format=webp');

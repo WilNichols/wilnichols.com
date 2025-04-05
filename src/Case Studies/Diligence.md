@@ -25,7 +25,7 @@ project:
   - '[Zach Fisher](https://zachfisher.com)'
 ---
 
-In mid 2011, GTD apps were a booming space for indie developers. Between [Things](https://web.archive.org/web/20110323094949/http://culturedcode.com/things/){target=blank}, [The Hit List](https://www.macstories.net/news/potion-factorys-the-hit-list-1-0-now-available/){target=blank}, [Wunderlist](https://www.macstories.net/reviews/wunderlist-review-untethered-task-management-freedom/){target=blank} and infinite others, we saw a small opportunity for a low-real-estate to-do list with projects, sections, and individual tasks.[^1]
+In mid 2011,[^1] GTD apps were a booming space for indie developers. Between [Things](https://web.archive.org/web/20110323094949/http://culturedcode.com/things/){target=blank}, [The Hit List](https://www.macstories.net/news/potion-factorys-the-hit-list-1-0-now-available/){target=blank}, [Wunderlist](https://www.macstories.net/reviews/wunderlist-review-untethered-task-management-freedom/){target=blank} and infinite others, we saw a small opportunity for a low-real-estate to-do list with projects, sections, and individual tasks.[^2]
 
 {% renderTemplate "njk" %}
 {%- from 'case-study-samples.njk' import DiligenceAnnotatedWindow %}
@@ -55,4 +55,5 @@ I designed an app icon and interface icons for the Preferences window.
 
 As a self-taught newcomer to product design and development, I often worked backwards from the product that I wished existed, designing what I desired others build.  Like a lot of ideas then — it was fun, and left incomplete. 
 
-[^1]: Fortunately we only trend-jumped _after_ everyone had built Twitter clients. Thanks, Elon.
+[^1]: The iteration pictured was updated for OS X Mountain Lion in 2013, but was originally designed for OS X Lion in 2011.
+[^2]: Fortunately we only trend-jumped _after_ everyone had built Twitter clients. Thanks, Elon.

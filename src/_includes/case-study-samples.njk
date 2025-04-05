@@ -3,77 +3,81 @@
 {%- from 'img.njk' import img -%}
 
 {% macro DiligenceWindow() -%}  
-<div class="case-study-image case-study-image--2x diligence-detail-windows">
-  <div class="proportionate-scale--surrogate--container">
-    <div class="proportionate-scale--surrogate">
-      {{  img(
-            src = 'https://cdn.wilnichols.com/case-studies/diligence/screenshots/main--independent',
-            class = 'window'
-      ) }}
-      {% set deviceScreen %}
-        <div class="screen">
-          {% set windowPath %}{{ commonPath }}osx/{% endset %}
-          {% for window in windows %}
-            {{  img(
-                  src = windowPath + window,
-                  class = 'window screen-window--' + window
-            ) }}
-          {% endfor %}
-        </div>
-      {% endset %}
+<div class="case-study-image-wrapper">
+  <div class="case-study-image case-study-image--2x diligence-detail-windows">
+    <div class="proportionate-scale--surrogate--container">
+      <div class="proportionate-scale--surrogate">
+        {{  img(
+              src = 'https://cdn.wilnichols.com/case-studies/diligence/screenshots/main--independent',
+              class = 'window'
+        ) }}
+        {% set deviceScreen %}
+          <div class="screen">
+            {% set windowPath %}{{ commonPath }}osx/{% endset %}
+            {% for window in windows %}
+              {{  img(
+                    src = windowPath + window,
+                    class = 'window screen-window--' + window
+              ) }}
+            {% endfor %}
+          </div>
+        {% endset %}
+      </div>
     </div>
   </div>
 </div>
 {%- endmacro %}
 
 {% macro DiligenceAnnotatedWindow() -%}  
-<div class="case-study-image case-study-image--2x diligence-annotated-window">
-  {% set screen %}https://cdn.wilnichols.com/case-studies/diligence/screenshots/menubar--attached{% endset %}
-  
-  {% set annotations = [
-    { text: 'Creates a new task inline at the top of the following list.',
-      class: 'new-task' },
-    { text: 'Primary affordance to undock from the menubar. Secondarily. drag the toolbar.',
-      class: 'undock' },
-    { text: 'Search across categories, groups, details.',
-      class: 'search' },
-    { text: 'Categories. By default, “Incomplete”, and “Complete”. Tap the trailing icon to add a category.',
-      class: 'categories'}
-  ] %}
-  
-  <div class="proportionate-scale--surrogate--container">
-    <div class="proportionate-scale--surrogate">
-      <div class="annotation-container">
-        {{-  img(
-              src = screen,
-              class = 'screen'
-        ) -}}
-        {% for annotation in annotations -%}
-          <div class="annotation annotation--{{ annotation.class }}">
-            <div class="annotation--trigger" data-content="{{ annotation.text }}"></div>
-            <div class="screen-container">
-              {{-  img(
-                    src = screen
-              ) -}}
+{% set screen %}https://cdn.wilnichols.com/case-studies/diligence/screenshots/menubar--attached{% endset %}
+
+{% set annotations = [
+  { text: 'Creates a new task inline at the top of the following list.',
+    class: 'new-task' },
+  { text: 'Primary affordance to undock from the menubar. Secondarily. drag the toolbar.',
+    class: 'undock' },
+  { text: 'Search across categories, groups, details.',
+    class: 'search' },
+  { text: 'Categories. By default, “Incomplete”, and “Complete”. Tap the trailing icon to add a category.',
+    class: 'categories'}
+] %}
+<div class="case-study-image-wrapper">
+  <div class="case-study-image case-study-image--2x diligence-annotated-window">
+    <div class="proportionate-scale--surrogate--container">
+      <div class="proportionate-scale--surrogate">
+        <div class="annotation-container">
+          {{-  img(
+                src = screen,
+                class = 'screen'
+          ) -}}
+          {% for annotation in annotations -%}
+            <div class="annotation annotation--{{ annotation.class }}">
+              <div class="annotation--trigger" data-content="{{ annotation.text }}"></div>
+              <div class="screen-container">
+                {{-  img(
+                      src = screen
+                ) -}}
+              </div>
             </div>
-          </div>
-        {%- endfor %}
+          {%- endfor %}
+        </div>
       </div>
     </div>
   </div>
-  <p class="case-study-image__caption util__device--pointer">Hover over a highlighted part of the interface to learn more.</p>
+  <p class="case-study-image__caption">Hover over a highlighted part of the interface to learn more.</p>
 </div>
 {%- endmacro %}
 
 {%- macro DiligenceDetailWindow() -%}
-  {% set path = 'https://cdn.wilnichols.com/case-studies/diligence/screenshots/' %}
-  {% set screens = [
-    'detail--inactive', 
-    'detail--calendar',
-    'detail--inactive--attachments'
-  ] %}
+{% set path = 'https://cdn.wilnichols.com/case-studies/diligence/screenshots/' %}
+{% set screens = [
+  'detail--inactive', 
+  'detail--calendar',
+  'detail--inactive--attachments'
+] %}
+<div class="case-study-image-wrapper">
   <div class="diligence-detail-window case-study-image case-study-image--16x9 case-study-image--2x">
-    <div class="diligence-screen">
+    <div class="diligence-screen case-study-image__content">
       <div class="proportionate-scale--surrogate--container">
         <div class="proportionate-scale--surrogate">
           {%- for screen in screens -%}
@@ -86,6 +90,8 @@
       </div>
     </div>
   </div>
+  <p class="case-study-image__caption">Clicking a task opens a detail view showing further notes, start and end dates, attached files, and more info.</p>
+</div>
 {%- endmacro -%}
 
 {% macro DiligenceAppIcon() -%}
@@ -137,18 +143,19 @@
   </div>
   {%- endset %}
   {% set tabContents = (tabContents.push(tabMore), tabContents) %}
-  
+<div class="case-study-image-wrapper">
 {{- tabs("app-icon", iconTabs, tabContents, "square") -}}
-  
+</div>
 {%- endmacro %}
 
 {%- macro DiligencePreferenceIcons() -%}
-  {% set path = 'https://cdn.wilnichols.com/case-studies/diligence/small-icons/' %}
-  {% set icons = [
-    'settings__general', 
-    'settings__categories',
-    'settings__appearance'
-  ] %}
+{% set path = 'https://cdn.wilnichols.com/case-studies/diligence/small-icons/' %}
+{% set icons = [
+  'settings__general', 
+  'settings__categories',
+  'settings__appearance'
+] %}
+<div class="case-study-image-wrapper">
   <div class="case-study-image case-study-image--400x300 case-study-image--icons">
     {%- for icon in icons -%}<div class="case-study-image--icons__icon">{{  img(
             src = path + icon,
@@ -157,4 +164,6 @@
             densities = [1, 2]
           ) }}</div>{%- endfor -%}
   </div>
+  <p class="case-study-image__caption">From left to right: general, categories, and appearance.</p>
+</div>
 {%- endmacro -%}

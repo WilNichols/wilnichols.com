@@ -14,7 +14,6 @@ $diligenceWindowWidth: 222px;
 .annotation-container:has(.annotation--trigger:hover) {
   .annotation {
     opacity: 0;
-    transition-delay: 0;
   }
   .annotation:has(.annotation--trigger:hover) {
     opacity: 1;
@@ -36,7 +35,6 @@ $diligenceWindowWidth: 222px;
   border-radius: var(--corners);
   opacity: 1;
   transition: opacity 0.2s ease-out;
-  transition-delay: 0.2s;
   .screen-container {
     position: absolute;
     overflow: hidden;
