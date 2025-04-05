@@ -156,13 +156,20 @@
   'settings__appearance'
 ] %}
 <div class="case-study-image-wrapper">
-  <div class="case-study-image case-study-image--400x300 case-study-image--icons">
-    {%- for icon in icons -%}<div class="case-study-image--icons__icon">{{  img(
-            src = path + icon,
-            class = 'icon--32',
-            suffix= '?format=webp',
-            densities = [1, 2]
-          ) }}</div>{%- endfor -%}
+  <div class="case-study-image case-study-image--400x300 case-study-image--icons ">
+    <div class="case-study__toolbar-icons">
+      {%- for icon in icons -%}<div class="case-study-image--icons__icon">{{  img(
+          src = path + icon,
+          class = 'icon--32--2x',
+          suffix= '?format=webp',
+          densities = [2]
+        ) }}{{  img(
+          src = path + icon,
+          class = 'icon--32',
+          suffix= '?format=webp',
+          densities = [1]
+        ) }}</div>{%- endfor -%}
+    </div>
   </div>
   <p class="case-study-image__caption">From left to right: general, categories, and appearance.</p>
 </div>

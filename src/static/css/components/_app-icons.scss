@@ -108,8 +108,19 @@ $macIcons1x: 1024, 512, 256, 128, 32, 16;
   }
 }
 
-.toolbar-icons {
+.case-study__toolbar-icons {
   display: flex;
-  flex-direction: row;
-  gap: var(--u16);
+  gap: var(--u32);
+  .case-study-image--icons__icon {
+    display: grid;
+    flex-direction: column;
+    gap: var(--u16);
+    grid-template-rows: calc(64px / var(--density)) calc(32px / var(--density));
+  }  
+}
+.icon--32--2x {
+  width: calc(64px / var(--density));
+}
+.icon--32 {
+  width: calc(32px / var(--density));
 }
