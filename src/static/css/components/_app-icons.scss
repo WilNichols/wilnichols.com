@@ -63,13 +63,20 @@ $macIcons1x: 1024, 512, 256, 128, 32, 16;
 
 @each $macIcon in $macIcons1x {
   .icon--mac.icon--#{$macIcon} {
-    width: #{$macIcon + px};
+    --width: #{$macIcon + px};
+    width: var(--width);
+    @include x3 {
+      width: calc(var(--width) * 2/3);
+      max-width: 100%;
+      aspect-ratio: 1;
+    }
   }
 }
 
 .icon-container--high-res {
   display: grid;
   place-content: center;
+  padding: var(--u32);
 }
 
 .icon-container--macOS--smaller {
@@ -78,9 +85,15 @@ $macIcons1x: 1024, 512, 256, 128, 32, 16;
   grid-template-columns: 128px auto;
   gap: 16px;
   justify-content: center;
+  padding: var(--u32);
+  @include x3 {
+    grid-template-rows: calc(256px * 2/3) calc(32px * 2/3) auto;
+    grid-template-columns: calc(128px * 2/3) auto;
+  }
   .icon--256 {
     grid-row: 1 / 2;
     grid-column: 1 / -1;
+    
   }
   .icon--128 {
     grid-row: 2 / 4;
@@ -94,6 +107,7 @@ $macIcons1x: 1024, 512, 256, 128, 32, 16;
     grid-column: 2 / 3;
   }
 }
+
 .toolbar-icons {
   display: flex;
   flex-direction: row;
