@@ -6,9 +6,12 @@
 }
 
 .case-study-image-wrapper {
-    position: relative;
-    margin: 2em auto;
-    width: auto;
+  display: grid;
+  justify-content: center;
+  justify-items: center;
+  position: relative;
+  margin: 2em auto;
+  width: auto;
 }
 
 .case-study-image {
@@ -18,7 +21,6 @@
     display: grid;
     place-content: center;
     background-color: var(--materialPrimaryHoverColor);
-    margin: auto;
   }
   
   &--16x9 {
@@ -38,8 +40,8 @@
     width: 150%;
     max-width: calc(100dvw - 2 * var(--col));
     position: relative;
-    left: 50%;
-    transform: translateX(-50%);
+    // left: 50%;
+    // transform: translateX(-50%);
   }
 
   &--icons {

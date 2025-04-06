@@ -61,6 +61,39 @@
 $macIcons2x: 512, 256, 128, 32, 16;
 $macIcons1x: 1024, 512, 256, 128, 32, 16;
 
+.icons-grid--macOS-max-512 {
+  display: grid;
+  // width: fit-content;
+  width: calc(100dvw - 2 * var(--col));
+  max-width: 900px;
+  grid-template-columns: #{list.nth($macIcons2x, 1) + px} #{list.nth($macIcons2x, 3) + px} auto;
+  grid-template-rows: #{list.nth($macIcons2x, 2) + px} #{list.nth($macIcons2x, 3) + px} auto;
+  gap: var(--u32);
+  padding: var(--u32);
+  box-shadow: inset 0 0 0 var(--px) var(--edgeColor);
+  .icon--512 {
+    grid-row: 1 / 4;
+    grid-column: 1 / 2;
+  }
+  .icon--256 {
+    grid-row: 1 / 2;
+    grid-column: 2 / 4;
+  }
+  .icon--128 {
+    grid-row: 2 / 3;
+    grid-column: 2 / 3;
+  }
+  .icon--32 {
+    grid-row: 2 / 3;
+    grid-column: 3 / 4;
+  }
+  .icon--16 {
+    margin-top: calc(#{list.nth($macIcons2x, 4) + px} + var(--u16));
+    grid-row: 2 / 3;
+    grid-column: 3 / 4;
+  }
+}
+
 @each $macIcon in $macIcons1x {
   .icon--mac.icon--#{$macIcon} {
     --width: #{$macIcon + px};
@@ -118,9 +151,83 @@ $macIcons1x: 1024, 512, 256, 128, 32, 16;
     grid-template-rows: calc(64px / var(--density)) calc(32px / var(--density));
   }  
 }
+
 .icon--32--2x {
   width: calc(64px / var(--density));
 }
+
 .icon--32 {
   width: calc(32px / var(--density));
+}
+
+.utils--density--only-1x {
+  @include x1 {
+    display: inherit;
+  }
+  @include x2 {
+    display: none;
+  }
+  @include x3 {
+    display: none;
+  }
+}
+
+.utils--density--not-1x {
+  @include x1 {
+    display: none;
+  }
+  @include x2 {
+    display: inherit;
+  }
+  @include x3 {
+    display: inherit;
+  }
+}
+
+.utils--density--only-2x {
+  @include x1 {
+    display: none;
+  }
+  @include x2 {
+    display: inherit;
+  }
+  @include x3 {
+    display: none;
+  }
+}
+
+.utils--density--not-2x {
+  @include x1 {
+    display: inherit;
+  }
+  @include x2 {
+    display: none;
+  }
+  @include x3 {
+    display: inherit;
+  }
+}
+
+.utils--density--only-3x {
+  @include x1 {
+    display: none;
+  }
+  @include x2 {
+    display: none;
+  }
+  @include x3 {
+    display: inherit;
+  }
+}
+
+.utils--density--not-3x {
+  @include x1 {
+    display: inherit;
+  }
+  @include x2 {
+    display: inherit;
+  }
+  @include x3 {
+    display: none;
+  }
 }
