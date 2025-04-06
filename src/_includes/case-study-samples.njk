@@ -192,40 +192,43 @@
   {%- endset %}
   {% set tabContents = (tabContents.push(tabMore), tabContents) %}
 <div id="app-icon">
-<div class="case-study-image-wrapper utils--density--only-1x">
-{{- tabs("app-icon--only-1x", iconTabs, tabContents1x, "square") -}}
-</div>
 <div class="case-study-image-wrapper">
 <div class="case-study-image icons-grid--macOS-max-512">
   {{-  img(
-        src = path + '512@2x',
+      src = path + '512@2x',
+      class = 'icon--mac icon--1024',
+      suffix= '?format=webp',
+      densities = [1]
+) -}}
+  {{-  img(
+        src = path + '512',
         class = 'icon--mac icon--512',
         suffix= '?format=webp',
-        densities = [1]
+        densities = [1, 2]
   ) -}}
   {{-  img(
-        src = path + '256@2x',
+        src = path + '256',
         class = 'icon--mac icon--256',
         suffix= '?format=webp',
-        densities = [1]
+        densities = [1, 2]
   ) -}}
   {{-  img(
-        src = path + '128@2x',
+        src = path + '128',
         class = 'icon--mac icon--128',
         suffix= '?format=webp',
-        densities = [1]
+        densities = [1, 2]
   ) -}}
   {{-  img(
-        src = path + '32@2x',
+        src = path + '32',
         class = 'icon--mac icon--32',
         suffix= '?format=webp',
-        densities = [1]
+        densities = [1, 2]
   ) -}}
   {{-  img(
-        src = path + '16@2x',
+        src = path + '16',
         class = 'icon--mac icon--16',
         suffix= '?format=webp',
-        densities = [1]
+        densities = [1, 2]
   ) -}}
 </div>
 </div>

@@ -65,32 +65,64 @@ $macIcons1x: 1024, 512, 256, 128, 32, 16;
   display: grid;
   // width: fit-content;
   width: calc(100dvw - 2 * var(--col));
-  max-width: 900px;
-  grid-template-columns: #{list.nth($macIcons2x, 1) + px} #{list.nth($macIcons2x, 3) + px} auto;
-  grid-template-rows: #{list.nth($macIcons2x, 2) + px} #{list.nth($macIcons2x, 3) + px} auto;
+  max-width: fit-content;
   gap: var(--u32);
   padding: var(--u32);
   box-shadow: inset 0 0 0 var(--px) var(--edgeColor);
-  .icon--512 {
-    grid-row: 1 / 4;
-    grid-column: 1 / 2;
-  }
-  .icon--256 {
+  grid-template-columns: auto #{list.nth($macIcons1x, 2) + px} #{list.nth($macIcons1x, 4) + px} auto auto;
+  grid-template-rows: #{list.nth($macIcons1x, 1) + px} #{list.nth($macIcons1x, 3) + px}  #{list.nth($macIcons1x, 4) + px} auto auto;
+  .icon--1024 {
     grid-row: 1 / 2;
-    grid-column: 2 / 4;
+    grid-column: 1 / -1;
   }
-  .icon--128 {
-    grid-row: 2 / 3;
+  .icon--512 {
+    grid-row: 2 / 4;
     grid-column: 2 / 3;
   }
-  .icon--32 {
+  .icon--256 {
     grid-row: 2 / 3;
+    grid-column: 3 / 5;
+  }
+  .icon--128 {
+    grid-row: 3 / 4;
     grid-column: 3 / 4;
+  }
+  .icon--32 {
+    grid-row: 3 / 4;
+    grid-column: 4 / 5;
   }
   .icon--16 {
     margin-top: calc(#{list.nth($macIcons2x, 4) + px} + var(--u16));
-    grid-row: 2 / 3;
-    grid-column: 3 / 4;
+    grid-row: 3 / 4;
+    grid-column: 4 / 5;
+  }
+  @include x2 {
+    grid-template-columns: calc(#{list.nth($macIcons1x, 1) + px} / var(--density)) calc(#{list.nth($macIcons1x, 3) + px} / var(--density)) auto;
+    grid-template-rows: calc(#{list.nth($macIcons1x, 2) + px} / var(--density)) calc(#{list.nth($macIcons1x, 3) + px} / var(--density)) auto;
+    .icon--1024 {
+      display: none;
+    }
+    .icon--512 {
+      grid-row: 1 / 5;
+      grid-column: 1 / 2;
+    }
+    .icon--256 {
+      grid-row: 1 / 2;
+      grid-column: 2 / 4;
+    }
+    .icon--128 {
+      grid-row: 2 / 3;
+      grid-column: 2 / 3;
+    }
+    .icon--32 {
+      grid-row: 2 / 3;
+      grid-column: 3 / 4;
+    }
+    .icon--16 {
+      margin-top: calc(#{list.nth($macIcons2x, 4) + px} + var(--u16));
+      grid-row: 2 / 3;
+      grid-column: 3 / 4;
+    }
   }
 }
 
