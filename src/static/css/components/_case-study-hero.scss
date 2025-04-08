@@ -6,6 +6,9 @@
     position: relative;
     z-index: 1;
   }
+  .diligence-screen {
+    place-content: center;
+  }
   .diligence-screen,
   .window {
     grid-area: 1 / 1;

@@ -18,13 +18,13 @@ layout: page.njk
     {% include 'heroes/' + page.fileSlug + '.njk' %}
     {{ CaseStudyInfo(project) }}
   </header>
-  <main class="content-body">
+  <div class="content-body">
     {{ content | safe }}
     {{ RevisionList(
       el='section',
       revisions
     )}}
-  </main>
+  </div>
   {{ RelatedPosts(previousPost, nextPost) }}
   {{ Footer() }}
 </div>

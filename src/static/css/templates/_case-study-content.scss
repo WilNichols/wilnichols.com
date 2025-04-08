@@ -1,3 +1,4 @@
+@use '../mixins';
 @use '../tokens';
 
 .proportionate-scale--surrogate {
@@ -5,33 +6,45 @@
   place-content: center;
 }
 
+.case-study-image-wrapper {
+  display: grid;
+  justify-content: center;
+  justify-items: center;
+  position: relative;
+  margin: 2em auto;
+  width: tokens.$width;
+  max-width: 100%;
+}
+
 .case-study-image {
   & {
-    position: relative;
-    margin: 2em auto;
     border-radius: tokens.$cornerXLarge;
     overflow: hidden;
     display: grid;
-    place-content: center;
+    place-content: start;
+    justify-content: center;
     background-color: var(--materialPrimaryHoverColor);
   }
-
+  
   &--16x9 {
     aspect-ratio: 16/9;
   }
 
   &--400x300 {
     // that's Dribbble huh
-    width: 400px;
-    height: 300px;
+    aspect-ratio: 4/3;
+    max-width: 400px;
+    max-height: 300px;
+    width: 100%;
+    & + .case-study-image__caption {
+      --captionWidth: min(100%, 400px);
+    }
   }
   
   &--2x {
-    width: 150%;
-    max-width: calc(100dvw - 2 * var(--col));
+    max-width: calc(tokens.$width * 1.5);
+    width: calc(100dvw - 2 * var(--col));
     position: relative;
-    left: 50%;
-    transform: translateX(-50%);
   }
 
   &--icons {
@@ -42,20 +55,30 @@
     align-items: center;
   }
 }
+
+.case-study-image__content {
+  position: absolute;
+  inset: 0;
+  justify-content: center;
+}
+
 .case-study-image__caption {
   padding: 4px 8px;
   border-radius: tokens.$cornerMedium;
-  backdrop-filter: blur(20px);
   color: var(--contentSecondaryColor);
-  font-size: var(--type--1);
+  font-size: var(--type--2);
+  text-align: center;
+  text-wrap: pretty;
+  width: var(--captionWidth, 100%);
 }
+
 .diligence-annotated-window {
   padding: 0 var(--u8) var(--u8) var(--u8);
 }
+
 .diligence-detail-window {
   .diligence-screen {
     opacity: 1;
-    position: relative;
     > * {
       z-index: 10;
     }
@@ -74,18 +97,14 @@
 }
 
 .diligence-screen {
-  position: relative;
   overflow: hidden;
   display: grid;
-  place-content: center;
-  height: 800px;
-  width: 1280px;
   background-size: cover;
   z-index: 0;
-  // TODO: replace w/ CDN asset
-  background-image: url('../img/DSCF2387.jpg');
+  background-image: url('https://cdn.wilnichols.com/gallery-2023/Hackathon2018/DSCF2387.jpg?width=1280px&format=webp');
   opacity: 0.5;
   background-repeat: no-repeat;
+  
 }
 
 .page--case-study .page-header__container {
@@ -108,5 +127,12 @@
   }
   .page-info__entry__value {
     color: var(--contentPrimaryColor);
+  }
+}
+
+.utils__2x-to-3x {
+  @include mixins.x3 {
+    scale: calc(2/3);
+    transform-origin: top center;
   }
 }

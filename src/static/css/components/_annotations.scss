@@ -2,12 +2,49 @@
 @use 'sass:math';
 @use '../tokens';
 
-$diligenceWindowWidth: 222px;
+%tooltip {
+  &:hover {
+    --tipOpacity: 1;
+    --tipTransform: translateY(0px);
+  }
+  &::after {
+    pointer-events: none;
+    content: attr(data-content);
+    transform: var(--tipTransform, translateY(4px));
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+    opacity: var(--tipOpacity, 0);
+    display: block;
+    position: absolute;
+    line-height: 1.5em;
+    height: auto;
+    padding: var(--u4) var(--u8);
+    border-radius: tokens.$cornerMedium;
+    top: calc(var(--height, 0) + var(--u8));
+    left: var(--tipLeft, 0);
+    background-color: var(--materialElevatedPrimaryColor);
+    color: var(--contentPrimaryColor);
+    font-size: var(--type--2);
+    box-shadow: 
+      0px 6px 12px rgba(0, 0, 0, 0.1), 
+      0px 1.8px 3.6px rgba(0, 0, 0, 0.06), 
+      0px 0.76px 1.52px rgba(0, 0, 0, 0.05), 
+      0px 0.28px 0.56px rgba(0, 0, 0, 0.034);
+  }
+}
 
 .annotation-container {
   position: relative;
   .screen {
     opacity: 0.5;
+  }
+}
+
+.annotation-container:has(.annotation--trigger:hover) {
+  .annotation {
+    opacity: 0;
+  }
+  .annotation:has(.annotation--trigger:hover) {
+    opacity: 1;
   }
 }
 
@@ -24,6 +61,8 @@ $diligenceWindowWidth: 222px;
   width: var(--width);
   height: var(--height);
   border-radius: var(--corners);
+  opacity: 1;
+  transition: opacity 0.2s ease-out;
   .screen-container {
     position: absolute;
     overflow: hidden;
@@ -38,18 +77,21 @@ $diligenceWindowWidth: 222px;
   }
 }
 
-.annotation-trigger {
+.screen-container {
+  z-index: 0;
+}
+
+.annotation--trigger {
   display: block;
-  height: var(--u8);
-  width: var(--u8);
-  border-radius: var(--u4);
-  background-color: var(--linkColor);
+  height: var(--height, var(--u8));
+  width: var(--width, var(--u8));
   position: absolute;
-  inset: var(--trigger, 0 0 0 0);
+  inset: 0;
+  z-index: 10;
+  @extend %tooltip;
   &::after {
-    content: '';
-    display: block;
-    content: attr[data-content];
+    position: relative;
+    width: 220px; // magic number to be optical window width + 8px h margins
   }
 }
 
@@ -57,22 +99,13 @@ $diligenceWindowWidth: 222px;
 // Diligence annotations
 
 // positioning
-.annotation--toolbar {
-  --width: 224px;
-  --height: 47px;
-  --inset: 40px auto auto 40px;
-  --opposingInset: -40px auto auto -40px;
-  --trigger: 0 0 0 0;
-  --corners: 7px 7px 4px 4px;
-}
-
 .annotation--new-task {
   --width: 26px;
   --height: 26px;
   --inset: 52px auto auto 226px;
   --opposingInset: -52px auto auto -226px;
-  --trigger: 0 0 0 0;
   --corners: 3px;
+  --tipLeft: -192px;
 }
 
 .annotation--undock {
@@ -80,8 +113,8 @@ $diligenceWindowWidth: 222px;
   --height: 26px;
   --inset: 52px auto auto 52px;
   --opposingInset: -52px auto auto -52px;
-  --trigger: 0 0 0 0;
   --corners: 3px;
+  --tipLeft: -18px;
 }
 
 .annotation--search {
@@ -89,8 +122,8 @@ $diligenceWindowWidth: 222px;
   --height: 24px;
   --inset: 94px auto auto 55px;
   --opposingInset: -94px auto auto -55px;
-  --trigger: 0 0 0 0;
   --corners: 12px;
+  --tipLeft: -21px;
 }
 
 .annotation--categories {
@@ -98,8 +131,8 @@ $diligenceWindowWidth: 222px;
   --height: 11px;
   --inset: 125px auto auto 128px;
   --opposingInset: -125px auto auto -128px;
-  --trigger: 0 0 0 0;
   --corners: 3px;
+  --tipLeft: -94px;
 }
 
 .annotation--tasks {
@@ -107,6 +140,5 @@ $diligenceWindowWidth: 222px;
  --height: 311px;
  --inset: 143px auto auto 40px;
  --opposingInset: -143px auto auto -40px;
- --trigger: 0 0 0 0;
  --corners: 4px 4px 7px 7px;
 }
