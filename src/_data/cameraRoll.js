@@ -6,62 +6,82 @@ import { parse } from 'node-html-parser';
 
 export default async function () {
   let url = 'https://glass.photo/wilnichols/rss';
-  const feed = await extract(url, {
-    getExtraEntryFields: (feedEntry) => {
-      const {
-        enclosure
-      } = feedEntry
-      return {
-        enclosure: {
-          url: enclosure['@_url']
-        }
-      }
-    }
-  })
   const cameraRollArray = [];
-  let cachePath;
-  if (process.env.ELEVENTY_ENV == 'dev') {
-    cachePath = '.cache'
-  } else {
-    cachePath = '/opt/build/cache/'
-  };
+  let cachePath = process.env.ELEVENTY_ENV === 'dev' ? '.cache' : '/opt/build/cache/';
+  
+  let feed;
+  
+  try {
+    feed = await extract(url, {
+      getExtraEntryFields: (feedEntry) => {
+        const { enclosure } = feedEntry;
+        return {
+          enclosure: {
+            url: enclosure['@_url']
+          }
+        };
+      }
+    });
+  } catch (error) {
+    console.error(`Failed to extract feed from ${url}:`, error);
+    return []; // Exit early with an empty array if feed extraction fails
+  }
   
   for (const entry of feed.entries) {
-    const cameraRollEntry = {};
-    const glassPage = await Fetch(entry.link, {
-      duration: '*',
-      type: 'xml',
-      directory: cachePath,
-    });
-    const parsedGlassPage = parse(glassPage);
-    const photo = '.imageContent img';
-    // this is _incredibly_ brittle, but it looks like they strip a ton of exif data
-    cameraRollEntry.url = entry.link;
-    cameraRollEntry.img = {};
-    cameraRollEntry.img.src = entry.enclosure.url;
-    cameraRollEntry.camera = {};
-    cameraRollEntry.camera.body = parsedGlassPage.querySelectorAll('a[href^="/explore/cameras"]')[0].textContent.trimEnd();
-    cameraRollEntry.camera.lens = parsedGlassPage.querySelectorAll('a[href^="/explore/lenses"]')[0].textContent;
-    const cameraSettings = parsedGlassPage.querySelector('.fa-loader').parentNode.nextSibling.textContent.split(",");
-    cameraRollEntry.settings = {};
-    cameraRollEntry.settings.lens = cameraSettings[0].trimStart();
-    cameraRollEntry.settings.aperture = cameraSettings[1].trimStart();
-    cameraRollEntry.settings.shutter = cameraSettings[2].trimStart();
-    cameraRollEntry.settings.iso = cameraSettings[3].trimStart();
-    cameraRollEntry.date = {};
-    cameraRollEntry.date.raw = parsedGlassPage.querySelector('.fa-calendar').parentNode.nextSibling.getAttribute('title');
-    cameraRollEntry.date.ISO = DateTime.fromFormat(cameraRollEntry.date.raw, 'FF').toISO();
-    cameraRollEntry.date.formatted = DateTime.fromISO(cameraRollEntry.date.ISO, 'FF');
-    console.warn('fetching: ' + cameraRollEntry.img.src);
-    const img = await Fetch(cameraRollEntry.img.src, {
-      duration: '*',
-      type: 'buffer',
-      directory: cachePath,
-    });
-    cameraRollArray.push(cameraRollEntry);
-  };
-  const sortedCameraRoll = cameraRollArray.sort(function(a, b) {
-    return (a.date.ISO < b.date.ISO) ? -1 : ((a.date.ISO > b.date.ISO) ? 1 : 0);
-  });
+    try {
+      const cameraRollEntry = {};
+      const glassPage = await Fetch(entry.link, {
+        duration: '*',
+        type: 'xml',
+        directory: cachePath,
+      });
+
+      const parsedGlassPage = parse(glassPage);
+      cameraRollEntry.url = entry.link;
+      cameraRollEntry.img = { src: entry.enclosure.url };
+      cameraRollEntry.camera = {
+        body: parsedGlassPage.querySelectorAll('a[href^="/explore/cameras"]')[0]?.textContent.trimEnd(),
+        lens: parsedGlassPage.querySelectorAll('a[href^="/explore/lenses"]')[0]?.textContent
+      };
+
+      const cameraSettings = parsedGlassPage.querySelector('.fa-loader')?.parentNode.nextSibling?.textContent.split(',');
+      cameraRollEntry.settings = {
+        lens: cameraSettings?.[0]?.trimStart(),
+        aperture: cameraSettings?.[1]?.trimStart(),
+        shutter: cameraSettings?.[2]?.trimStart(),
+        iso: cameraSettings?.[3]?.trimStart()
+      };
+
+      const rawDate = parsedGlassPage.querySelector('.fa-calendar')?.parentNode.nextSibling?.getAttribute('title');
+      const isoDate = DateTime.fromFormat(rawDate, 'FF').toISO();
+      cameraRollEntry.date = {
+        raw: rawDate,
+        ISO: isoDate,
+        formatted: DateTime.fromISO(isoDate, 'FF')
+      };
+
+      console.warn('fetching: ' + cameraRollEntry.img.src);
+
+      const img = await Fetch(cameraRollEntry.img.src, {
+        duration: '*',
+        type: 'buffer',
+        directory: cachePath,
+        fetchOptions: {
+          signal: AbortSignal.timeout(300000),
+        },
+      });
+
+      cameraRollArray.push(cameraRollEntry);
+    } catch (entryError) {
+      console.error(`Error processing entry at ${entry.link}:`, entryError);
+      continue;
+    }
+  }
+
+  // Sort only valid entries
+  const sortedCameraRoll = cameraRollArray.sort((a, b) =>
+    a.date.ISO < b.date.ISO ? -1 : a.date.ISO > b.date.ISO ? 1 : 0
+  );
+
   return sortedCameraRoll;
 };

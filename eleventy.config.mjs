@@ -21,12 +21,7 @@ dotenv.config();
 
 export default async function(eleventyConfig) {
   eleventyConfig.setQuietMode(false);
-  let cachePath;
-  if (process.env.ELEVENTY_ENV == 'dev') {
-    cachePath = '.cache'
-  } else {
-    cachePath = '/opt/build/cache/'
-  };
+  let cachePath = process.env.ELEVENTY_ENV === 'dev' ? '.cache' : '/opt/build/cache/';
   
   const markdownItOptions = {
       html: true,
@@ -250,7 +245,7 @@ export default async function(eleventyConfig) {
         type: 'buffer',
         directory: cachePath,
         fetchOptions: {
-          signal: AbortSignal.timeout(5000),
+          signal: AbortSignal.timeout(300000),
           headers: {
             "user-agent":
               "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36",
