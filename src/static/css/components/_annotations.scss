@@ -2,7 +2,35 @@
 @use 'sass:math';
 @use '../tokens';
 
-$diligenceWindowWidth: 222px;
+%tooltip {
+  &:hover {
+    --tipOpacity: 1;
+    --tipTransform: translateY(0px);
+  }
+  &::after {
+    pointer-events: none;
+    content: attr(data-content);
+    transform: var(--tipTransform, translateY(4px));
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+    opacity: var(--tipOpacity, 0);
+    display: block;
+    position: absolute;
+    line-height: 1.5em;
+    height: auto;
+    padding: var(--u4) var(--u8);
+    border-radius: tokens.$cornerMedium;
+    top: calc(var(--height, 0) + var(--u8));
+    left: var(--tipLeft, 0);
+    background-color: var(--materialElevatedPrimaryColor);
+    color: var(--contentPrimaryColor);
+    font-size: var(--type--2);
+    box-shadow: 
+      0px 6px 12px rgba(0, 0, 0, 0.1), 
+      0px 1.8px 3.6px rgba(0, 0, 0, 0.06), 
+      0px 0.76px 1.52px rgba(0, 0, 0, 0.05), 
+      0px 0.28px 0.56px rgba(0, 0, 0, 0.034);
+  }
+}
 
 .annotation-container {
   position: relative;
@@ -60,33 +88,10 @@ $diligenceWindowWidth: 222px;
   position: absolute;
   inset: 0;
   z-index: 10;
-  &:hover {
-    --tipOpacity: 1;
-    --tipTransform: translateY(0px);
-  }
+  @extend %tooltip;
   &::after {
-    pointer-events: none;
-    content: attr(data-content);
-    transform: var(--tipTransform, translateY(4px));
-    transition: opacity 0.2s ease-out, transform 0.2s ease-out;
-    opacity: var(--tipOpacity, 0);
-    display: block;
     position: relative;
     width: 220px; // magic number to be optical window width + 8px h margins
-    line-height: 1.5em;
-    height: auto;
-    padding: var(--u4) var(--u8);
-    border-radius: tokens.$cornerSmall;
-    top: calc(var(--height, 0) + var(--u8));
-    left: var(--tipLeft, 0);
-    background-color: var(--materialPrimaryInvertedColor);
-    color: var(--contentPrimaryInvertedColor);
-    font-size: var(--type--2);
-    box-shadow: 
-      0px 6px 12px rgba(0, 0, 0, 0.2), 
-      0px 1.8px 3.6px rgba(0, 0, 0, 0.12), 
-      0px 0.76px 1.52px rgba(0, 0, 0, 0.1), 
-      0px 0.28px 0.56px rgba(0, 0, 0, 0.068);
   }
 }
 

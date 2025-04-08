@@ -17,12 +17,14 @@
 <script>
 {% macro _copyURLScript(url) %}
   const url = '{{ url | htmlBaseUrl(meta.url) }}';
-  async function copyURL() {
+  async function copyURL(event) {
     try {
       await navigator.clipboard.writeText(url);
-      console.log('Content copied to clipboard: ' + url);
+      event.target.classList.add('tooltip--dismissed');
+      setTimeout(() => {
+        event.target.classList.remove('tooltip--dismissed');
+      }, 5000);
     } catch (err) {
-      console.error('Failed to copy: ', err);
     }
   }
 {% endmacro %}
@@ -103,7 +105,7 @@
     <div class="page-header__title">
       {{ pageTitle(title) }}
       {{ pageInfo(title, date, revisions, tags) }}
-      <div class="copy-url"><button class="copy-url__button" onClick="copyURL()">{% include "../static/img/links--16.svg" %}</button></div>
+      <div class="copy-url"><button class="copy-url__button" onClick="copyURL(event)" data-content="Copy Link">{% include "../static/img/links--16.svg" %}</button></div>
     </div>
   </{{ el }}>
   {% js "defer" %}
