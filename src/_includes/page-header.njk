@@ -13,6 +13,21 @@
   document.getElementById("back-button").href = previousPage;
 {% endmacro %}
 </script>
+
+<script>
+{% macro _copyURLScript(url) %}
+  const url = '{{ url | htmlBaseUrl(meta.url) }}';
+  async function copyURL() {
+    try {
+      await navigator.clipboard.writeText(url);
+      console.log('Content copied to clipboard: ' + url);
+    } catch (err) {
+      console.error('Failed to copy: ', err);
+    }
+  }
+{% endmacro %}
+</script>
+
 {# script tags are ignored by njk and don't output. Use the b/c Nova won't syntax-highlight this as js otherwise. #}
 
 {% macro backButton() %}
@@ -83,12 +98,16 @@
 {% macro PageHeader(el="div") %}
   {% include "title-string.njk" %}
   {% set date %}{{ date | readableDateISO }}{% endset %}
-  <{{ el }} class="page-header__title">
+  <{{ el }} class="page-header__title-container">
     {{ backButton() }}
-    {{ pageTitle(title) }}
-    {{ pageInfo(title, date, revisions, tags) }}
+    <div class="page-header__title">
+      {{ pageTitle(title) }}
+      {{ pageInfo(title, date, revisions, tags) }}
+      <div class="copy-url"><button class="copy-url__button" onClick="copyURL()">{% include "../static/img/links--16.svg" %}</button></div>
+    </div>
   </{{ el }}>
   {% js "defer" %}
     {{ _backButtonScript() }}
+    {{ _copyURLScript(page.url) }}
   {% endjs %}
 {% endmacro %}<script>
