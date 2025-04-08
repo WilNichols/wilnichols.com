@@ -152,7 +152,7 @@
     }
   }
   &:hover, &.hover-debug {
-    @extend %listItemBackgroundHover;
+    @extend %blurredBackgroundHover;
     @media(pointer: fine) {
       .post__summary {
         &__text, &::before {
@@ -177,8 +177,12 @@
     }
   }
   &:active {
-    @extend %listItemBackgroundActive;
+    @extend %blurredBackgroundActive;
     z-index: 100;
+    .post__summary::before {
+      background-color: var(--materialPrimaryActiveColor);
+      transition: background-color 0.1s ease-out;
+    }
   }
 }
 

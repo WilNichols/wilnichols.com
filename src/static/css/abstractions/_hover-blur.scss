@@ -1,12 +1,10 @@
 @use 'sass:math';
 @use '../tokens';
 
-%listItemBackground::before {
+%blurredBackground::before {
   content: '';
   z-index: 0;
   position: absolute;
-  inset: -6px -8px;
-  border-radius: tokens.$cornerXLarge;
   opacity: 0;
   filter: blur(.3em);
   will-change: opacity;
@@ -14,7 +12,8 @@
   transition: tokens.$x4 opacity ease-out, tokens.$x4 filter ease-out;
 }
 
-%listItemBackgroundHover::before {
+
+%blurredBackgroundHover::before {
   @media(pointer: fine) {
     opacity: 1;
     filter: blur(0);
@@ -22,9 +21,24 @@
   }
 }
 
-%listItemBackgroundActive {
+%blurredBackgroundActive {
   @media(pointer: fine) {
     scale: .99;
+    transition: scale 0.1s ease-out;
+    &::before {
+      transition: background-color 0.1s ease-out;
+      background-color: var(--materialPrimaryActiveColor);
+    }
+  }
+}
+
+%listItemBackground {
+  &::before {
+    inset: -6px -8px;
+    border-radius: tokens.$cornerXLarge;
+  }
+  & {
+    @extend %blurredBackground;
   }
 }
   

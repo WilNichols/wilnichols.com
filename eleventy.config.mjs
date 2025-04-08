@@ -20,13 +20,8 @@ import { JSDOM } from 'jsdom';
 dotenv.config();
 
 export default async function(eleventyConfig) {
-  eleventyConfig.setQuietMode(true);
-  let cachePath;
-  if (process.env.ELEVENTY_ENV == 'prod') {
-   cachePath = '/opt/build/cache/assets/images'
-  } else if (process.env.ELEVENTY_ENV == 'dev') {
-    cachePath = '.cache'
-  };
+  eleventyConfig.setQuietMode(false);
+  let cachePath = process.env.ELEVENTY_ENV === 'dev' ? '.cache' : '/opt/build/cache/';
   
   const markdownItOptions = {
       html: true,
@@ -244,28 +239,36 @@ export default async function(eleventyConfig) {
   });
   
   eleventyConfig.addAsyncFilter('imageInfo', async function(url) {
-    const image = await Fetch(url, {
-      duration: '*',
-      type: 'buffer',
-      directory: cachePath,
-      fetchOptions: {
-        headers: {
-          "user-agent":
-            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36",
+    try {
+      const image = await Fetch(url, {
+        duration: '*',
+        type: 'buffer',
+        directory: cachePath,
+        fetchOptions: {
+          signal: AbortSignal.timeout(300000),
+          headers: {
+            "user-agent":
+              "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36",
+          },
         },
-      },
-    });
-    const width = sizeOf(image).width;
-    const height = sizeOf(image).height;
-    let orientation = (width == height) ? 'square' : (( width > height ) ? 'landscape' : 'portrait');
-    async function getColor() {
-      return getAverageColor(image).then(color => {
-          return color.hex;
       });
-    };
-    const color = await getColor();
-    const obj = {path: url, height: height, width: width, ratio: width/height, orientation: orientation, color: color};
-    return obj;
+      const width = sizeOf(image).width;
+      const height = sizeOf(image).height;
+      let orientation = (width == height) ? 'square' : (( width > height ) ? 'landscape' : 'portrait');
+      async function getColor() {
+        return getAverageColor(image).then(color => {
+            return color.hex;
+        });
+      };
+      const color = await getColor();
+      const obj = {path: url, height: height, width: width, ratio: width/height, orientation: orientation, color: color};
+      console.warn(url);
+      return obj; 
+    } catch (err) {
+      console.warn(url);
+      console.warn("Error on: ", err);
+      return null;
+    }
   });
   
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

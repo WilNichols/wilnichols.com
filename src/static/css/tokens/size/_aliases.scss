@@ -12,7 +12,6 @@ $cornerLarge: var(--u8);
 $cornerMedium: var(--u6);
 $cornerSmall: var(--u4);
 
-
 @mixin sizeAliases {
   & {
     // Typography. This isn't _the_ solution — I haven't tried much with fluid scales yet, but it's _a_ solution for now. 
