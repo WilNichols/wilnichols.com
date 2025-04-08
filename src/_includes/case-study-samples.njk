@@ -4,7 +4,7 @@
 
 {% macro DiligenceWindow() -%}  
 <div class="case-study-image-wrapper">
-  <div class="case-study-image case-study-image--2x diligence-detail-windows">
+  <div class="case-study-image case-study-image--2x diligence-detail-windows proportionate-scale">
     <div class="proportionate-scale--surrogate--container">
       <div class="proportionate-scale--surrogate">
         {{  img(
@@ -76,9 +76,9 @@
   'detail--inactive--attachments'
 ] %}
 <div class="case-study-image-wrapper">
-  <div class="diligence-detail-window case-study-image case-study-image--16x9 case-study-image--2x">
+  <div class="diligence-detail-window case-study-image case-study-image--16x9 case-study-image--2x proportionate-scale">
     <div class="diligence-screen case-study-image__content">
-      <div class="proportionate-scale--surrogate--container">
+    <div class="proportionate-scale--surrogate--container">
         <div class="proportionate-scale--surrogate">
           {%- for screen in screens -%}
             {{  img(

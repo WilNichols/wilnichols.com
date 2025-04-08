@@ -28,3 +28,31 @@ layout: page.njk
   {{ RelatedPosts(previousPost, nextPost) }}
   {{ Footer() }}
 </div>
+
+{% js "defer" %}
+  function updateProportionalScales() {
+    document.querySelectorAll('.proportionate-scale').forEach(el => {
+      const elWidth = el.offsetWidth;
+      const elHeight = el.offsetHeight;
+  
+      const wrapper = el.parentElement;
+      const wrapperStyles = window.getComputedStyle(wrapper);
+  
+      const wrapperWidth = wrapper.clientWidth
+        - parseFloat(wrapperStyles.paddingLeft)
+        - parseFloat(wrapperStyles.paddingRight);
+      
+      const wrapperHeight = wrapper.clientHeight
+        - parseFloat(wrapperStyles.paddingTop)
+        - parseFloat(wrapperStyles.paddingBottom);
+  
+      const scale = Math.min(elWidth / wrapperWidth, elHeight / wrapperHeight);
+      console.log("width: wrapper: " + wrapperWidth + 'element: ' + elWidth);
+      console.log("height: wrapper: " + wrapperHeight + 'element: ' + elHeight);
+      wrapper.style.setProperty('--transform', scale.toString());
+    });
+  }
+  
+  updateProportionalScales();
+  window.addEventListener('resize', updateProportionalScales);
+{% endjs %}

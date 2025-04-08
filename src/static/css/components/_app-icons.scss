@@ -39,7 +39,6 @@
   }
 }
 
-
 @mixin x3 {
   @media
     only screen and (min-pixel-ratio: 3),
@@ -61,50 +60,71 @@
 $macIcons2x: 512, 256, 128, 32, 16;
 $macIcons1x: 1024, 512, 256, 128, 32, 16;
 
+
 .icons-grid--macOS-max-512 {
   display: grid;
   // width: fit-content;
   width: calc(100dvw - 2 * var(--col));
+  // margin: 0 var(--col);
   max-width: fit-content;
   gap: var(--u32);
   padding: var(--u32);
   box-shadow: inset 0 0 0 var(--px) var(--edgeColor);
-  grid-template-columns: auto #{list.nth($macIcons1x, 2) + px} #{list.nth($macIcons1x, 4) + px} auto auto;
-  grid-template-rows: #{list.nth($macIcons1x, 1) + px} #{list.nth($macIcons1x, 3) + px}  #{list.nth($macIcons1x, 4) + px} auto auto;
-  .icon--1024 {
-    grid-row: 1 / 2;
-    grid-column: 1 / -1;
+  @mixin x1Grid {
+    grid-template-columns: 
+    auto 
+    #{list.nth($macIcons1x, 2) + px} 
+    #{list.nth($macIcons1x, 4) + px} 
+    auto 
+    auto;
+    grid-template-rows: 
+    #{list.nth($macIcons1x, 1) + px} 
+    #{list.nth($macIcons1x, 3) + px}  
+    #{list.nth($macIcons1x, 4) + px} 
+    auto 
+    auto;
+    .icon--1024 {
+      grid-row: 1 / 2;
+      grid-column: 1 / -1;
+    }
+    .icon--512 {
+      grid-row: 2 / 4;
+      grid-column: 2 / 3;
+    }
+    .icon--256 {
+      grid-row: 2 / 3;
+      grid-column: 3 / 5;
+    }
+    .icon--128 {
+      grid-row: 3 / 4;
+      grid-column: 3 / 4;
+    }
+    .icon--32 {
+      grid-row: 3 / 4;
+      grid-column: 4 / 5;
+    }
+    .icon--16 {
+      margin-top: calc(#{list.nth($macIcons2x, 4) + px} + var(--u32));
+      grid-row: 3 / 4;
+      grid-column: 4 / 5;
+    }
   }
-  .icon--512 {
-    grid-row: 2 / 4;
-    grid-column: 2 / 3;
-  }
-  .icon--256 {
-    grid-row: 2 / 3;
-    grid-column: 3 / 5;
-  }
-  .icon--128 {
-    grid-row: 3 / 4;
-    grid-column: 3 / 4;
-  }
-  .icon--32 {
-    grid-row: 3 / 4;
-    grid-column: 4 / 5;
-  }
-  .icon--16 {
-    margin-top: calc(#{list.nth($macIcons2x, 4) + px} + var(--u16));
-    grid-row: 3 / 4;
-    grid-column: 4 / 5;
-  }
-  @include x2 {
-    grid-template-columns: calc(#{list.nth($macIcons1x, 1) + px} / var(--density)) calc(#{list.nth($macIcons1x, 3) + px} / var(--density)) auto;
-    grid-template-rows: calc(#{list.nth($macIcons1x, 2) + px} / var(--density)) calc(#{list.nth($macIcons1x, 3) + px} / var(--density)) auto;
+  @mixin x2GridLandscape {
+    grid-template-columns: 
+      min(
+        calc(#{list.nth($macIcons1x, 1) + px} / var(--density)),
+        auto)
+      calc(#{list.nth($macIcons1x, 3) + px} / var(--density)) ;
+    grid-template-rows: 
+      calc(#{list.nth($macIcons1x, 2) + px} / var(--density))
+      auto;
     .icon--1024 {
       display: none;
     }
     .icon--512 {
-      grid-row: 1 / 5;
+      grid-row: 1 / 3;
       grid-column: 1 / 2;
+      --width: min(100%, #{list.nth($macIcons1x, 2) + px}) !important;
     }
     .icon--256 {
       grid-row: 1 / 2;
@@ -116,12 +136,63 @@ $macIcons1x: 1024, 512, 256, 128, 32, 16;
     }
     .icon--32 {
       grid-row: 2 / 3;
-      grid-column: 3 / 4;
+      grid-column: 2 / 3;
+      margin-left: calc(#{list.nth($macIcons2x, 3) + px} + var(--u32));
     }
     .icon--16 {
-      margin-top: calc(#{list.nth($macIcons2x, 4) + px} + var(--u16));
+      margin-top: calc(#{list.nth($macIcons2x, 4) + px} + var(--u32));
+      margin-left: calc(#{list.nth($macIcons2x, 3) + px} + var(--u32));
+      grid-row: 2 / 3;
+      grid-column: 2 / 3;
+    }
+  }
+  @mixin x2GridPortrait {
+    grid-template-columns: 
+      auto 
+      calc(#{list.nth($macIcons1x, 2) + px} / var(--density))
+      calc(#{list.nth($macIcons1x, 3) + px} / var(--density))
+      auto;
+    grid-template-rows: 
+      calc(#{list.nth($macIcons1x, 1) + px} / var(--density))
+      calc(#{list.nth($macIcons1x, 3) + px} / var(--density))
+      auto;
+    .icon--1024 {
+      display: none;
+    }
+    .icon--512 {
+      grid-row: 1 / 2;
+      grid-column: 1 / 5;
+    }
+    .icon--256 {
+      grid-row: 2 / 4;
+      grid-column: 2 / 3;
+    }
+    .icon--128 {
       grid-row: 2 / 3;
       grid-column: 3 / 4;
+    }
+    .icon--32 {
+      grid-row: 3 / 4;
+      grid-column: 3 / 4;
+      margin-left: 0;
+    }
+    .icon--16 {
+      margin-top: 0;
+      margin-left: calc(#{list.nth($macIcons2x, 4) + px} + var(--u32));
+      grid-row: 3 / 4;
+      grid-column: 3 / 4;
+    }
+  }
+  @include x1Grid;
+  // magic number @ which point 512px set to auto is equal to the sum of the 256px icon 32px gap and 128px icon
+  @media (orientation: landscape) {
+    @include x2 {
+      @include x2GridLandscape;
+    }
+  }
+  @media (orientation: portrait) {
+    @include x2 {
+      @include x2GridPortrait;
     }
   }
 }

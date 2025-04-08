@@ -17,15 +17,14 @@
 <script>
 {% macro _copyURLScript(url) %}
   const url = '{{ url | htmlBaseUrl(meta.url) }}';
-  async function copyURL(event) {
-    try {
-      await navigator.clipboard.writeText(url);
-      event.target.classList.add('tooltip--dismissed');
-      setTimeout(() => {
-        event.target.classList.remove('tooltip--dismissed');
-      }, 5000);
-    } catch (err) {
-    }
+  window.copyURL = async (event) => {
+    await navigator.clipboard.writeText(url).catch(() => {});
+    const target = event.currentTarget;
+    target.classList.add('tooltip--dismissed');
+    
+    setTimeout(() => {
+      target.classList.remove('tooltip--dismissed');
+    }, 5000);
   }
 {% endmacro %}
 </script>
