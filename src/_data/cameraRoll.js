@@ -19,12 +19,7 @@ export default async function () {
     }
   })
   const cameraRollArray = [];
-  let cachePath;
-  if (process.env.ELEVENTY_ENV == 'prod') {
-   cachePath = '/opt/build/cache/'
-  } else if (process.env.ELEVENTY_ENV == 'dev') {
-    cachePath = '.cache'
-  };
+  const cachePath = '/opt/build/cache/'
   
   for (const entry of feed.entries) {
     const cameraRollEntry = {};

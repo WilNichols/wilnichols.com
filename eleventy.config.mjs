@@ -21,12 +21,7 @@ dotenv.config();
 
 export default async function(eleventyConfig) {
   eleventyConfig.setQuietMode(true);
-  let cachePath;
-  if (process.env.ELEVENTY_ENV == 'prod') {
-   cachePath = '/opt/build/cache/assets/images'
-  } else if (process.env.ELEVENTY_ENV == 'dev') {
-    cachePath = '.cache'
-  };
+  const cachePath = '/opt/build/cache/assets/images'
   
   const markdownItOptions = {
       html: true,
