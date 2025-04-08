@@ -1,3 +1,4 @@
+@use '../mixins';
 @use '../tokens';
 
 .proportionate-scale--surrogate {
@@ -20,7 +21,8 @@
     border-radius: tokens.$cornerXLarge;
     overflow: hidden;
     display: grid;
-    place-content: center;
+    place-content: start;
+    justify-content: center;
     background-color: var(--materialPrimaryHoverColor);
   }
   
@@ -57,6 +59,7 @@
 .case-study-image__content {
   position: absolute;
   inset: 0;
+  justify-content: center;
 }
 
 .case-study-image__caption {
@@ -72,6 +75,7 @@
 .diligence-annotated-window {
   padding: 0 var(--u8) var(--u8) var(--u8);
 }
+
 .diligence-detail-window {
   .diligence-screen {
     opacity: 1;
@@ -95,12 +99,12 @@
 .diligence-screen {
   overflow: hidden;
   display: grid;
-  place-content: center;
   background-size: cover;
   z-index: 0;
   background-image: url('https://cdn.wilnichols.com/gallery-2023/Hackathon2018/DSCF2387.jpg?width=1280px&format=webp');
   opacity: 0.5;
   background-repeat: no-repeat;
+  
 }
 
 .page--case-study .page-header__container {
@@ -123,5 +127,12 @@
   }
   .page-info__entry__value {
     color: var(--contentPrimaryColor);
+  }
+}
+
+.utils__2x-to-3x {
+  @include mixins.x3 {
+    scale: calc(2/3);
+    transform-origin: top center;
   }
 }

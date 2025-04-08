@@ -1,6 +1,7 @@
 @use 'sass:list';
 @use 'sass:math';
 @use '../tokens';
+@use '../mixins';
 
 @mixin share($props.../*, $value */) {
   @for $i from 1 to list.length($props) {
@@ -14,40 +15,6 @@
   @include share(mask-position, -webkit-mask-position, center center);
   @include share(mask-repeat, -webkit-mask-repeat, no-repeat);
   @include share(mask-size, -webkit-mask-size, contain);      
-}
-
-// redundant, but helps with readability
-@mixin x1 {
-  @media
-    only screen and (min-pixel-ratio: 1),
-    only screen and (min-device-pixel-ratio: 1),
-    only screen and (min-device-pixel-ratio: 1),
-    only screen and (min-resolution: 196dpi),
-    only screen and (min-resolution: 1dppx) { 
-    @content;
-  }
-}
-
-@mixin x2 {
-  @media
-    only screen and (min-pixel-ratio: 2),
-    only screen and (min-device-pixel-ratio: 2/1),
-    only screen and (min-device-pixel-ratio: 2),
-    only screen and (min-resolution: 192dpi),
-    only screen and (min-resolution: 2dppx) { 
-    @content;
-  }
-}
-
-@mixin x3 {
-  @media
-    only screen and (min-pixel-ratio: 3),
-    only screen and (min-device-pixel-ratio: 3/1),
-    only screen and (min-device-pixel-ratio: 3),
-    only screen and (min-resolution: 288dpi),
-    only screen and (min-resolution: 3dppx) { 
-    @content;
-  }
 }
 
 .icon {
@@ -186,12 +153,12 @@ $macIcons1x: 1024, 512, 256, 128, 32, 16;
   @include x1Grid;
   // magic number @ which point 512px set to auto is equal to the sum of the 256px icon 32px gap and 128px icon
   @media (orientation: landscape) {
-    @include x2 {
+    @include mixins.x2 {
       @include x2GridLandscape;
     }
   }
   @media (orientation: portrait) {
-    @include x2 {
+    @include mixins.x2 {
       @include x2GridPortrait;
     }
   }
@@ -201,7 +168,7 @@ $macIcons1x: 1024, 512, 256, 128, 32, 16;
   .icon--mac.icon--#{$macIcon} {
     --width: #{$macIcon + px};
     width: var(--width);
-    @include x3 {
+    @include mixins.x3 {
       width: calc(var(--width) * 2/3);
       max-width: 100%;
       aspect-ratio: 1;
@@ -222,7 +189,7 @@ $macIcons1x: 1024, 512, 256, 128, 32, 16;
   gap: 16px;
   justify-content: center;
   padding: var(--u32);
-  @include x3 {
+  @include mixins.x3 {
     grid-template-rows: calc(256px * 2/3) calc(32px * 2/3) auto;
     grid-template-columns: calc(128px * 2/3) auto;
   }
@@ -261,76 +228,4 @@ $macIcons1x: 1024, 512, 256, 128, 32, 16;
 
 .icon--32 {
   width: calc(32px / var(--density));
-}
-
-.utils--density--only-1x {
-  @include x1 {
-    display: inherit;
-  }
-  @include x2 {
-    display: none;
-  }
-  @include x3 {
-    display: none;
-  }
-}
-
-.utils--density--not-1x {
-  @include x1 {
-    display: none;
-  }
-  @include x2 {
-    display: inherit;
-  }
-  @include x3 {
-    display: inherit;
-  }
-}
-
-.utils--density--only-2x {
-  @include x1 {
-    display: none;
-  }
-  @include x2 {
-    display: inherit;
-  }
-  @include x3 {
-    display: none;
-  }
-}
-
-.utils--density--not-2x {
-  @include x1 {
-    display: inherit;
-  }
-  @include x2 {
-    display: none;
-  }
-  @include x3 {
-    display: inherit;
-  }
-}
-
-.utils--density--only-3x {
-  @include x1 {
-    display: none;
-  }
-  @include x2 {
-    display: none;
-  }
-  @include x3 {
-    display: inherit;
-  }
-}
-
-.utils--density--not-3x {
-  @include x1 {
-    display: inherit;
-  }
-  @include x2 {
-    display: inherit;
-  }
-  @include x3 {
-    display: none;
-  }
 }

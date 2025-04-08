@@ -1,6 +1,5 @@
 ---
-# date: 2011-01-03T06:00:00.000+00:00
-date: 2025-03-09T23:41
+date: 2025-04-08T01:30
 author: Wil Nichols
 tags:
   - Case-Studies/Groups/Freelance
