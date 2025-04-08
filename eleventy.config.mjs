@@ -250,6 +250,7 @@ export default async function(eleventyConfig) {
         type: 'buffer',
         directory: cachePath,
         fetchOptions: {
+          signal: AbortSignal.timeout(5000),
           headers: {
             "user-agent":
               "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36",
@@ -269,7 +270,8 @@ export default async function(eleventyConfig) {
       console.warn(url);
       return obj; 
     } catch (err) {
-      console.error("Error on: " + url, err);
+      console.warn("url");
+      console.warn("Error on: ", err);
       return null;
     }
   });
