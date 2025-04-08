@@ -19,7 +19,12 @@ export default async function () {
     }
   })
   const cameraRollArray = [];
-  const cachePath = '/opt/build/cache/'
+  let cachePath;
+  if (process.env.ELEVENTY_ENV == 'dev') {
+    cachePath = '.cache'
+  } else {
+    cachePath = '/opt/build/cache/'
+  };
   
   for (const entry of feed.entries) {
     const cameraRollEntry = {};
@@ -47,6 +52,7 @@ export default async function () {
     cameraRollEntry.date.raw = parsedGlassPage.querySelector('.fa-calendar').parentNode.nextSibling.getAttribute('title');
     cameraRollEntry.date.ISO = DateTime.fromFormat(cameraRollEntry.date.raw, 'FF').toISO();
     cameraRollEntry.date.formatted = DateTime.fromISO(cameraRollEntry.date.ISO, 'FF');
+    console.warn('fetching: ' + cameraRollEntry.img.src);
     const img = await Fetch(cameraRollEntry.img.src, {
       duration: '*',
       type: 'buffer',

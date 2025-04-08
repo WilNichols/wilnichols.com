@@ -20,8 +20,13 @@ import { JSDOM } from 'jsdom';
 dotenv.config();
 
 export default async function(eleventyConfig) {
-  eleventyConfig.setQuietMode(true);
-  const cachePath = '/opt/build/cache/assets/images'
+  eleventyConfig.setQuietMode(false);
+  let cachePath;
+  if (process.env.ELEVENTY_ENV == 'dev') {
+    cachePath = '.cache'
+  } else {
+    cachePath = '/opt/build/cache/'
+  };
   
   const markdownItOptions = {
       html: true,
@@ -260,6 +265,7 @@ export default async function(eleventyConfig) {
     };
     const color = await getColor();
     const obj = {path: url, height: height, width: width, ratio: width/height, orientation: orientation, color: color};
+    console.warn(url);
     return obj;
   });
   
