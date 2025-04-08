@@ -11,7 +11,8 @@ revisions:
 {% from "../_includes/picture.njk" import Picture with context %}
 
 {% set src = "https://cdn.wilnichols.com/wedding/7CJ00431.jpg" %}
-{% set imageProps = src | imageInfo %}
+{% set previewSRC %}{{ src }}?width=6px&format=webp{% endset %}
+{% set imageProps = previewSRC | imageInfo %}
 {{  Picture(
     fileName = '7CJ00431-jpg',
     src = src,

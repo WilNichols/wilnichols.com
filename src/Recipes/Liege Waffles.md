@@ -42,7 +42,8 @@ ingredientsContainer:
 {% renderTemplate "njk", data %}
   {% from "../_includes/picture.njk" import Picture with context %}
   {% set src = "https://cdn.wilnichols.com/recipes/liege-waffles/DSCF5623.jpg" %}
-  {% set imageProps = src | imageInfo %}
+  {% set previewSRC %}{{ src }}?width=6px&format=webp{% endset %}
+  {% set imageProps = previewSRC | imageInfo %}
   {{  Picture(
       fileName = 'dscf5623-jpg',
       src = src,
