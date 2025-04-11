@@ -1,6 +1,5 @@
-{# {%- from 'components/device.njk' import Device -%} #}
-{%- from '../_includes/tabs.njk' import tabs with context -%}
 {%- from 'img.njk' import img -%}
+{%- from 'icon-grids.njk' import macOSAppIcon -%}
 
 {% macro DiligenceWindow() -%}  
 <div class="case-study-image-wrapper">
@@ -94,146 +93,47 @@
 </div>
 {%- endmacro -%}
 
-{% macro DiligenceAppIcon() -%}
-  {% set path = 'https://cdn.wilnichols.com/case-studies/diligence/icon/' %}
-  {% set tabContents1x = [] %}
-  {% set tabContents = [] %}
-  {% set iconTabs = [
-    { title: "High-res" },
-    { title: "Smaller" }
-  ] %}
-  {% set tab1024 -%}
-  <div class="icon-container--high-res">
-    {{-  img(
-          src = path + '512@2x',
-          class = 'icon--mac icon--1024',
-          suffix= '?format=webp',
-          densities = [1]
-    ) -}}
-  </div>
-  {%- endset %}
-  {% set tabContents1x = (tabContents1x.push(tab1024), tabContents1x) %}
-  
-  {% set tabMore1x -%}
-  <div class="icon-container--macOS--smaller">
-  {{-  img(
-        src = path + '512',
-        class = 'icon--mac icon--512',
-        suffix= '?format=webp',
-        densities = [1]
-  ) -}}
-    {{-  img(
-          src = path + '256',
-          class = 'icon--mac icon--256',
-          suffix= '?format=webp',
-          densities = [1]
-    ) -}}
-    {{-  img(
-          src = path + '128',
-          class = 'icon--mac icon--128',
-          suffix= '?format=webp',
-          densities = [1]
-    ) -}}
-    {{-  img(
-          src = path + '32',
-          class = 'icon--mac icon--32',
-          suffix= '?format=webp',
-          densities = [1]
-    ) -}}
-    {{-  img(
-          src = path + '16',
-          class = 'icon--mac icon--16',
-          suffix= '?format=webp',
-          densities = [1]
-    ) -}}
-  </div>
-  {%- endset %}
-  {% set tabContents1x = (tabContents1x.push(tabMore1x), tabContents1x) %}
-  {# 2x and 3x #}
-  {% set tab512@2x -%}
-  <div class="icon-container--high-res">
-    {{-  img(
-          src = path + '512@2x',
-          class = 'icon--mac icon--512',
-          suffix= '?format=webp',
-          densities = [1]
-    ) -}}
-  </div>
-  {%- endset %}
-  {% set tabContents = (tabContents.push(tab512@2x), tabContents) %}
-  
-  {% set tabMore -%}
-  <div class="icon-container--macOS--smaller">
-    {{-  img(
-          src = path + '256@2x',
-          class = 'icon--mac icon--256',
-          suffix= '?format=webp',
-          densities = [1]
-    ) -}}
-    {{-  img(
-          src = path + '128@2x',
-          class = 'icon--mac icon--128',
-          suffix= '?format=webp',
-          densities = [1]
-    ) -}}
-    {{-  img(
-          src = path + '32@2x',
-          class = 'icon--mac icon--32',
-          suffix= '?format=webp',
-          densities = [1]
-    ) -}}
-    {{-  img(
-          src = path + '16@2x',
-          class = 'icon--mac icon--16',
-          suffix= '?format=webp',
-          densities = [1]
-    ) -}}
-  </div>
-  {%- endset %}
-  {% set tabContents = (tabContents.push(tabMore), tabContents) %}
-<div id="app-icon">
-<div class="case-study-image-wrapper">
-<div class="case-study-image icons-grid--macOS-max-512">
-  {{-  img(
-      src = path + '512@2x',
-      class = 'icon--mac icon--1024',
-      suffix= '?format=webp',
-      densities = [1]
+{%- macro DiligenceAppIcon() -%}
+{% set path = 'https://cdn.wilnichols.com/case-studies/diligence/icon/' %}
+{%- call macOSAppIcon() -%}
+{{-  img(
+    src = path + '512@2x',
+    class = 'icon--mac icon--1024px',
+    suffix= '?format=webp',
+    densities = [1]
 ) -}}
-  {{-  img(
-        src = path + '512',
-        class = 'icon--mac icon--512',
-        suffix= '?format=webp',
-        densities = [1, 2]
-  ) -}}
-  {{-  img(
-        src = path + '256',
-        class = 'icon--mac icon--256',
-        suffix= '?format=webp',
-        densities = [1, 2]
-  ) -}}
-  {{-  img(
-        src = path + '128',
-        class = 'icon--mac icon--128',
-        suffix= '?format=webp',
-        densities = [1, 2]
-  ) -}}
-  {{-  img(
-        src = path + '32',
-        class = 'icon--mac icon--32',
-        suffix= '?format=webp',
-        densities = [1, 2]
-  ) -}}
-  {{-  img(
-        src = path + '16',
-        class = 'icon--mac icon--16',
-        suffix= '?format=webp',
-        densities = [1, 2]
-  ) -}}
-</div>
-</div>
-</div>
-{%- endmacro %}
+{{-  img(
+      src = path + '512',
+      class = 'icon--mac icon--512px',
+      suffix= '?format=webp',
+      densities = [1, 2]
+) -}}
+{{-  img(
+      src = path + '256',
+      class = 'icon--mac icon--256px',
+      suffix= '?format=webp',
+      densities = [1, 2]
+) -}}
+{{-  img(
+      src = path + '128',
+      class = 'icon--mac icon--128px',
+      suffix= '?format=webp',
+      densities = [1, 2]
+) -}}
+{{-  img(
+      src = path + '32',
+      class = 'icon--mac icon--32px',
+      suffix= '?format=webp',
+      densities = [1, 2]
+) -}}
+{{-  img(
+      src = path + '16',
+      class = 'icon--mac icon--16px',
+      suffix= '?format=webp',
+      densities = [1, 2]
+) -}}
+{%- endcall -%}
+{%- endmacro -%}
 
 {%- macro DiligencePreferenceIcons() -%}
 {% set path = 'https://cdn.wilnichols.com/case-studies/diligence/small-icons/' %}
@@ -243,16 +143,16 @@
   'settings__appearance'
 ] %}
 <div class="case-study-image-wrapper">
-  <div class="case-study-image case-study-image--400x300 case-study-image--icons ">
+  <div class="case-study-image case-study-image--400x300 case-study-image--icons">
     <div class="case-study__toolbar-icons">
       {%- for icon in icons -%}<div class="case-study-image--icons__icon">{{  img(
           src = path + icon,
-          class = 'icon--32--2x',
+          class = 'icon--32px--2x',
           suffix= '?format=webp',
           densities = [2]
         ) }}{{  img(
           src = path + icon,
-          class = 'icon--32',
+          class = 'icon--32px',
           suffix= '?format=webp',
           densities = [1]
         ) }}</div>{%- endfor -%}

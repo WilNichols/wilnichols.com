@@ -24,54 +24,50 @@
   transform-origin: top left;
 }
 
-$macIcons2x: 512, 256, 128, 32, 16;
-$macIcons1x: 1024, 512, 256, 128, 32, 16;
-
+$macIcons: 1024px, 512px, 256px, 128px, 32px, 16px;
 
 .icons-grid--macOS-max-512 {
   display: grid;
-  // width: fit-content;
   width: calc(100dvw - 2 * var(--col));
-  // margin: 0 var(--col);
   max-width: fit-content;
   gap: var(--u32);
   padding: var(--u32);
   box-shadow: inset 0 0 0 var(--px) var(--edgeColor);
   @mixin x1Grid {
     grid-template-columns: 
-    auto 
-    #{list.nth($macIcons1x, 2) + px} 
-    #{list.nth($macIcons1x, 4) + px} 
-    auto 
-    auto;
+      auto 
+      list.nth($macIcons, 2)
+      list.nth($macIcons, 4)
+      auto 
+      auto;
     grid-template-rows: 
-    #{list.nth($macIcons1x, 1) + px} 
-    #{list.nth($macIcons1x, 3) + px}  
-    #{list.nth($macIcons1x, 4) + px} 
-    auto 
-    auto;
-    .icon--1024 {
+      list.nth($macIcons, 1)
+      list.nth($macIcons, 3)
+      list.nth($macIcons, 4)
+      auto 
+      auto;
+    .icon--1024px {
       grid-row: 1 / 2;
       grid-column: 1 / -1;
     }
-    .icon--512 {
+    .icon--512px {
       grid-row: 2 / 4;
       grid-column: 2 / 3;
     }
-    .icon--256 {
+    .icon--256px {
       grid-row: 2 / 3;
       grid-column: 3 / 5;
     }
-    .icon--128 {
+    .icon--128px {
       grid-row: 3 / 4;
       grid-column: 3 / 4;
     }
-    .icon--32 {
+    .icon--32px {
       grid-row: 3 / 4;
       grid-column: 4 / 5;
     }
-    .icon--16 {
-      margin-top: calc(#{list.nth($macIcons2x, 4) + px} + var(--u32));
+    .icon--16px {
+      margin-top: calc(list.nth($macIcons, 5) + var(--u32));
       grid-row: 3 / 4;
       grid-column: 4 / 5;
     }
@@ -79,36 +75,37 @@ $macIcons1x: 1024, 512, 256, 128, 32, 16;
   @mixin x2GridLandscape {
     grid-template-columns: 
       min(
-        calc(#{list.nth($macIcons1x, 1) + px} / var(--density)),
+        calc(list.nth($macIcons, 1) / var(--density)), 
         auto)
-      calc(#{list.nth($macIcons1x, 3) + px} / var(--density)) ;
-    grid-template-rows: 
-      calc(#{list.nth($macIcons1x, 2) + px} / var(--density))
+      calc(list.nth($macIcons, 3) / var(--density))
       auto;
-    .icon--1024 {
+    grid-template-rows: 
+      calc(list.nth($macIcons, 2) / var(--density))
+      auto;
+    .icon--1024px {
       display: none;
     }
-    .icon--512 {
+    .icon--512px {
       grid-row: 1 / 3;
       grid-column: 1 / 2;
-      --width: min(100%, #{list.nth($macIcons1x, 2) + px}) !important;
+      --width: min(100%, list.nth($macIcons, 2)) !important;
     }
-    .icon--256 {
+    .icon--256px {
       grid-row: 1 / 2;
       grid-column: 2 / 4;
     }
-    .icon--128 {
+    .icon--128px {
       grid-row: 2 / 3;
       grid-column: 2 / 3;
     }
-    .icon--32 {
+    .icon--32px {
       grid-row: 2 / 3;
       grid-column: 2 / 3;
-      margin-left: calc(#{list.nth($macIcons2x, 3) + px} + var(--u32));
+      margin-left: calc(list.nth($macIcons, 4) + var(--u32));
     }
-    .icon--16 {
-      margin-top: calc(#{list.nth($macIcons2x, 4) + px} + var(--u32));
-      margin-left: calc(#{list.nth($macIcons2x, 3) + px} + var(--u32));
+    .icon--16px {
+      margin-top: calc(list.nth($macIcons, 5) + var(--u32));
+      margin-left: calc(list.nth($macIcons, 4) + var(--u32));
       grid-row: 2 / 3;
       grid-column: 2 / 3;
     }
@@ -116,36 +113,36 @@ $macIcons1x: 1024, 512, 256, 128, 32, 16;
   @mixin x2GridPortrait {
     grid-template-columns: 
       auto 
-      calc(#{list.nth($macIcons1x, 2) + px} / var(--density))
-      calc(#{list.nth($macIcons1x, 3) + px} / var(--density))
+      calc(list.nth($macIcons, 2) / var(--density))
+      calc(list.nth($macIcons, 3) / var(--density))
       auto;
     grid-template-rows: 
-      calc(#{list.nth($macIcons1x, 1) + px} / var(--density))
-      calc(#{list.nth($macIcons1x, 3) + px} / var(--density))
+      calc(list.nth($macIcons, 1) / var(--density))
+      calc(list.nth($macIcons, 3) / var(--density))
       auto;
-    .icon--1024 {
+    .icon--1024px {
       display: none;
     }
-    .icon--512 {
+    .icon--512px {
       grid-row: 1 / 2;
       grid-column: 1 / 5;
     }
-    .icon--256 {
+    .icon--256px {
       grid-row: 2 / 4;
       grid-column: 2 / 3;
     }
-    .icon--128 {
+    .icon--128px {
       grid-row: 2 / 3;
       grid-column: 3 / 4;
     }
-    .icon--32 {
+    .icon--32px {
       grid-row: 3 / 4;
       grid-column: 3 / 4;
       margin-left: 0;
     }
-    .icon--16 {
+    .icon--16px {
       margin-top: 0;
-      margin-left: calc(#{list.nth($macIcons2x, 4) + px} + var(--u32));
+      margin-left: calc(list.nth($macIcons, 5) + var(--u32));
       grid-row: 3 / 4;
       grid-column: 3 / 4;
     }
@@ -164,9 +161,9 @@ $macIcons1x: 1024, 512, 256, 128, 32, 16;
   }
 }
 
-@each $macIcon in $macIcons1x {
+@each $macIcon in $macIcons {
   .icon--mac.icon--#{$macIcon} {
-    --width: #{$macIcon + px};
+    --width: $macIcon;
     width: var(--width);
     @include mixins.x3 {
       width: calc(var(--width) * 2/3);
@@ -176,40 +173,7 @@ $macIcons1x: 1024, 512, 256, 128, 32, 16;
   }
 }
 
-.icon-container--high-res {
-  display: grid;
-  place-content: center;
-  padding: var(--u32);
-}
-
-.icon-container--macOS--smaller {
-  display: grid;
-  grid-template-rows: 256px 32px auto;
-  grid-template-columns: 128px auto;
-  gap: 16px;
-  justify-content: center;
-  padding: var(--u32);
-  @include mixins.x3 {
-    grid-template-rows: calc(256px * 2/3) calc(32px * 2/3) auto;
-    grid-template-columns: calc(128px * 2/3) auto;
-  }
-  .icon--256 {
-    grid-row: 1 / 2;
-    grid-column: 1 / -1;
-    
-  }
-  .icon--128 {
-    grid-row: 2 / 4;
-  }
-  .icon--32 {
-    grid-row: 2 / 3;
-    grid-column: 2 / 3;
-  }
-  .icon--16 {
-    grid-row: 3 / 4;
-    grid-column: 2 / 3;
-  }
-}
+$icon32: (list.nth($macIcons, 5));
 
 .case-study__toolbar-icons {
   display: flex;
@@ -218,14 +182,16 @@ $macIcons1x: 1024, 512, 256, 128, 32, 16;
     display: grid;
     flex-direction: column;
     gap: var(--u16);
-    grid-template-rows: calc(64px / var(--density)) calc(32px / var(--density));
+    grid-template-rows: 
+      calc(($icon32 * 2) / var(--density))
+      calc($icon32 / var(--density));
   }  
 }
 
-.icon--32--2x {
-  width: calc(64px / var(--density));
+.icon--32px--2x {
+  width: calc(($icon32 * 2) / var(--density));
 }
 
-.icon--32 {
-  width: calc(32px / var(--density));
+.icon--32px {
+  width: calc(list.nth($macIcons, 5) / var(--density));
 }

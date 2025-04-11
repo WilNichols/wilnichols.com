@@ -1,0 +1,36 @@
+@use '../tokens';
+
+.case-study-hero--diligence {  
+  .window {
+    margin: auto;
+    position: relative;
+    z-index: 1;
+  }
+  .diligence-screen {
+    place-content: center;
+  }
+  .diligence-screen,
+  .window {
+    grid-area: 1 / 1;
+  }
+  .screen-window {
+    grid-area: 1 / 1;
+    margin: auto;
+    &--calendar {
+      transform: translate(-880px, 256px);
+    }
+    &--contacts {
+      transform: translate(800px, -64px);
+    }
+    &--game-center {
+      display: none;
+    }
+    &--notes {
+      transform: translate(-640px, -128px);
+      z-index: -1;
+    }
+    &--reminders {
+      transform: translate(544px, 256px);
+    }
+  }
+}
