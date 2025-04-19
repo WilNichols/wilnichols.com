@@ -265,8 +265,8 @@ export default async function(eleventyConfig) {
       // console.warn(url);
       return obj; 
     } catch (err) {
-      console.warn(url);
-      console.warn("Error on: ", err);
+      // console.warn(url);
+      // console.warn("Error on: ", err);
       return null;
     }
   });

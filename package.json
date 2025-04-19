@@ -12,7 +12,6 @@
     "netlify-build": "ELEVENTY_ENV=prod NETLIFY=true npm-run-all build:sass build:eleventy build:morepostcss build:postcss && rm -rf _tmp && rm -rf _site/_ && npm run build:minify",
     "netlify-build-dev": "ELEVENTY_ENV=dev NETLIFY=true npm-run-all build:sass build:eleventy build:morepostcss build:postcss",
     "build": "ELEVENTY_ENV=prod npm-run-all build:sass build:eleventy build:morepostcss build:postcss && rm -rf _tmp && npm run build:minify",
-    "mv-deps": "cp -R node_modules/@fancyapps/ui/dist/fancybox/ src/static/js/fancybox",
     "watch:eleventy": "eleventy --serve",
     "watch:sass": "sass --watch --poll src/static/css:_tmp",
     "build:sass": "sass src/static/css:_tmp",
