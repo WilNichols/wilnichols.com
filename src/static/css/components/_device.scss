@@ -1,0 +1,117 @@
+@use 'sass:math';
+@use 'sass:list';
+@use 'sass:string';
+@use '../mixins';
+@use '../tokens';
+
+.device {
+  aspect-ratio: var(--device-aspect-ratio);
+  @include mixins.share(width, max-width, var(--device-width));
+  @include mixins.share(height, max-height, var(--device-height));
+  display: grid;
+  place-content: center;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  .screen {
+    height: var(--screen-height);
+    width: var(--screen-width);
+  }
+  .proportionate-scale & {
+    @include mixins.share(max-width, max-height, auto);
+  }
+}
+
+@mixin deviceMetrics($outerShort, $outerLong, $innerShort, $innerLong) {
+  --device-aspect-ratio: 
+    #{math.div($outerShort,  $outerLong)};
+  --device-width: #{$outerShort}px;
+  --device-height: #{$outerLong}px;
+  --screen-width: #{$innerShort}px;
+  --screen-height: #{$innerLong}px;
+}
+
+@mixin deviceImage($fileName, $colors: $colors, $suffix: '') { 
+  $path: '#{tokens.$cdnURL}devices/';
+  $defaultColor: '';
+  @if (list.length($colors) > 0) {
+    $defaultColor: '--' + list.nth($colors, 1);
+  } @elif (list.length($colors)) = 0 {
+    $defaultColor: '';
+  }
+  & {
+    $defaultImageString: $path + $fileName + $defaultColor + $suffix;
+    $defaultImage: string.to-lower-case($defaultImageString);
+    @warn $defaultImage;
+    @include mixins.imagex3($defaultImage, 'png');
+    @each $color in $colors {
+      &.device--#{$color} {
+        $coloredImage: string.to-lower-case($path + $fileName + '--' + $color + $suffix);
+        @include mixins.imagex3($coloredImage, 'png');
+      }
+    }
+  }
+}
+
+@mixin device-portrait($dimensions, $name, $colors, $suffix: '') {
+  @include deviceMetrics(
+    list.nth($dimensions, 1),
+    list.nth($dimensions, 2),
+    list.nth($dimensions, 3),
+    list.nth($dimensions, 4)
+  );
+  @include deviceImage($name, $colors, $suffix);
+}
+
+@mixin device-landscape($dimensions, $name, $colors, $suffix: '') {
+  @include deviceMetrics(
+    list.nth($dimensions, 2),
+    list.nth($dimensions, 1),
+    list.nth($dimensions, 4),
+    list.nth($dimensions, 3)
+  );
+  @include deviceImage($name, $colors, $suffix);
+}
+
+@mixin createDevice($name, $dimensions, $orientations: (true, false), $colors: ()) {
+  $has-portrait: list.nth($orientations, 1);
+  $has-landscape: list.nth($orientations, 2);
+  // @warn $name + ': portrait? ' + $has-portrait + ' | landscape? ' + $has-landscape;
+  .device--#{$name} {
+    @if $has-portrait and not $has-landscape {
+      @include device-portrait($dimensions, $name, $colors);
+    } @else if $has-landscape and not $has-portrait {
+      @include device-landscape($dimensions, $name, $colors);
+    } @else if $has-portrait and $has-landscape {
+      @include device-portrait($dimensions, $name, $colors);
+      &.device--portrait {
+        @include device-portrait($dimensions, $name, $colors);
+      }
+      &.device--landscape {
+        @include device-landscape($dimensions, $name, $colors, '--land');
+        
+      }
+    }
+  }
+}
+
+@include createDevice('iPhone2g', tokens.$iPhone2G, (true, false), ('black'));
+@include createDevice('iPad3', tokens.$iPad3, (false, true), ('black', 'white'));
+@include createDevice('iPhone4', tokens.$iPhone4, (true, true), ('black', 'white'));
+@include createDevice('iPhone8', tokens.$iPhone8, (true, false), ('black', 'silver', 'gold'));
+@include createDevice('iPhone11Pro', tokens.$iPhone11Pro, (true, false), ('black', 'silver', 'green', 'gold'));
+@include createDevice('iPhone12Pro', tokens.$iPhone12Pro, (true, false), ('graphite', 'silver'));
+@include createDevice('macbookPro2016', tokens.$macbookPro2016, (true, false));
+
+.device--iPhone11Pro .screen {
+  @include mixins.mask("/assets/img/devices/iPhone11Pro--mask.svg");
+}
+
+.device--iPhone12Pro .screen {
+  @include mixins.mask("/assets/img/devices/iPhone12Pro--mask.svg");
+}
+
+.device--macbookPro2016 .screen {
+  // adjusts the screen to be centered within the hardware-screen
+  transform: translateY(-22px);
+}

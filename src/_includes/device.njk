@@ -1,0 +1,36 @@
+{# 
+  Device(
+    type = 'iPhone2g' | 'iPhone4' | 'iPhone8' (x) | 'iPhone11Pro' | 'iPad3' | 'macbookPro2016'
+    color = 'black' (x) | 'white' (if no white device, ignores, logs error
+    orientation = 'portrait' (x) | 'landscape'
+    contentType = 'img' (x) | 'video' | 'rich' (markup, another template)
+    content = '' 
+    // If (contentType = 'img'), path to image, excluding extension
+    // If (contentType = 'video'), path to video, including extension
+    // If (contentType = 'rich'), macro or include name
+    densities = [1, 2, 3] // defaults to assuming 1-3x images are supplied
+  )
+#}
+
+{%- from 'img.njk' import img -%}
+
+{% macro Device(
+  type = 'iPhone8',
+  color = 'black',
+  orientation = 'portrait',
+  contentType = 'img',
+  content = '',
+  densities = [1, 2, 3]
+) %}
+  <div class="device device--{{ type }} device--{{ orientation }} device--{{ color }}">
+    {% if contentType == 'img' %}
+      {{  img(
+            src = content,
+            densities = densities,
+            class = 'screen'
+      ) }}
+    {% elif contentType == 'rich' %}
+      {{ content | safe }}
+    {% endif %}
+  </div>
+{% endmacro %}
