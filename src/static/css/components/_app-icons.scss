@@ -3,20 +3,6 @@
 @use '../tokens';
 @use '../mixins';
 
-@mixin share($props.../*, $value */) {
-  @for $i from 1 to list.length($props) {
-    #{list.nth($props, $i)}: list.nth($props, -1);
-  }
-}
-
-@mixin mask($mask) {
-  $maskParam: url($mask);
-  @include share(mask-image, -webkit-mask-image, $maskParam);
-  @include share(mask-position, -webkit-mask-position, center center);
-  @include share(mask-repeat, -webkit-mask-repeat, no-repeat);
-  @include share(mask-size, -webkit-mask-size, contain);      
-}
-
 .icon {
   aspect-ratio: 1;
   display: block;

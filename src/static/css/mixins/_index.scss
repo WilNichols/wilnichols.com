@@ -1,3 +1,5 @@
+@use 'sass:list';
+
 @mixin x1 {
   @media
     only screen and (min-pixel-ratio: 1),

@@ -1,0 +1,583 @@
+@use 'sass:list';
+@use 'mixins';
+@use 'tokens';
+
+* {
+	box-sizing: border-box;
+}
+
+// demo 
+.five-square-2-demo {
+	
+	--deviceHeight: #{list.nth(tokens.$iPhone4, 4)}px;
+	--deviceWidth: #{list.nth(tokens.$iPhone4, 3)}px; 
+	--statusbarHeight: 20px;
+	--toolbarHeight: 44px;
+	--toolbarHeightNeg: calc(-1 * var(--toolbarHeight));
+	--toolbarTopMargin: calc(var(--deviceHeight) - var(--toolbarHeight));
+	background: transparent;
+	body {
+		font-family: "Helvetica Neue", "Lucida Grande", sans-serif;
+		font-size: 0;
+		background-color: #000;
+		height: 100vh;
+		width: 100vw;
+		display: grid;
+		place-content: center;
+		background: transparent;
+		* {
+			font-size: small;
+			user-select: none;
+		}
+	}
+	a { text-decoration: none; }
+	a:hover { text-decoration: underline; }
+	* {
+		-webkit-tap-highlight-color: rgba(0,0,0,0);
+	}
+	img { border: none; }
+	
+	.container {
+		position: relative;
+		width: var(--deviceWidth);
+		height: var(--deviceHeight);
+		overflow: hidden;
+	}
+	
+	#game {
+		position: absolute;
+		width: var(--deviceWidth);
+		height: var(--deviceHeight);
+		z-index: 30;
+		overflow: hidden;
+	}
+	
+	// windows
+	.slidingView {
+		height: var(--deviceHeight);
+		width: var(--deviceWidth);
+		z-index: 30;
+		position: absolute;
+		transform: translateY(var(--toolbarTopMargin));
+		transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+		padding-top: var(--toolbarHeight);
+		cursor: default;
+		opacity: 0;
+		pointer-events: none;
+		background-size: var(--deviceWidth) 568px;
+		background-position: top calc(2 * var(--toolbarHeightNeg)) left;
+		background-image: url("#{tokens.$cdnURL}/case-studies/five-square-2/img/chrome.png");
+		transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+		@include mixins.x2 { 
+			background-image: url("#{tokens.$cdnURL}/case-studies/five-square-2/img/chrome@2x.png");
+		}
+		@include mixins.x3 { 
+			background-image: url("#{tokens.$cdnURL}/case-studies/five-square-2/img/chrome@3x.png");
+		}
+	}
+	
+	#game.howToPlay .slidingView {
+		transform: translateY(var(--statusbarHeight));
+		transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+		opacity: 1;
+		pointer-events: auto;
+	}
+	
+	#statusBar {
+		width: var(--deviceWidth);
+		height: var(--statusbarHeight);
+		background-color: rgba(0, 0, 0, 0.6);
+		box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+		position: absolute;
+		z-index: 33;
+		display: flex;
+		transition: background-color 0.2s ease-out;
+		#game.howToPlay & {
+			background-color: rgba(0, 0, 0, 1.0);
+			transition: background-color 0.2s ease-out;
+		}
+		.signal, .battery {
+			position: relative;
+			display: block;
+			height: var(--statusbarHeight);
+			background-color: transparent;
+			z-index: 100000000;
+			&::before, &::after {
+				content: '';
+				position: absolute;
+				top: 0; right: 0; bottom: 0; left: 0;
+				background-size: cover;
+				z-index: 10000;
+				transition: opacity 0.2s ease-out;
+			}
+			&::before {
+				background-image: var(--image);
+				z-index: 10;
+				opacity: 1;
+			}
+		}
+		.signal {
+			width: 26px;
+			margin: 0 auto 0 0;
+			&::before {
+				background-image: url(#{tokens.$cdnURL}/case-studies/five-square-2/img/statusBarSignalFilled.png);
+				@include mixins.x2 { 
+					background-image: url(#{tokens.$cdnURL}/case-studies/five-square-2/img/statusBarSignalFilled@2x.png);
+				}
+				@include mixins.x3 { 
+					background-image: url(#{tokens.$cdnURL}/case-studies/five-square-2/img/statusBarSignalFilled@3x.png);
+				}
+			}
+		}
+		.currentTime {
+			display: inline-block;
+			width: auto;
+			height: var(--statusbarHeight);
+			line-height: var(--statusbarHeight);
+			position: absolute;
+			left: 0;
+			right: 0;
+			text-align: center;
+			color: rgba(255, 255, 255, 0.8);
+			text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.75);
+			font-weight: bold;
+			text-transform: uppercase;
+			transition: color 0.2s ease-out, text-shadow 0.2s ease-out;
+		}
+		.battery {
+			width: 29px;
+			margin: 0 0 0 auto;
+			&::before {
+				background-image: url(#{tokens.$cdnURL}/case-studies/five-square-2/img/statusBarBatteryFilled.png);
+				@include mixins.x2 { 
+					background-image: url(#{tokens.$cdnURL}/case-studies/five-square-2/img/statusBarBatteryFilled@2x.png);
+				}
+				@include mixins.x3 { 
+					background-image: url(#{tokens.$cdnURL}/case-studies/five-square-2/img/statusBarBatteryFilled@3x.png);
+				}
+			}
+		}
+	}
+	
+	#splash {
+		width: var(--deviceWidth);
+		height: var(--deviceHeight);
+		background-color: #000;
+		margin: 0px;
+		float: left;
+		position: absolute;
+		z-index: 4;
+	}
+	#board {
+		height: 447px;
+		width: var(--deviceWidth);
+		padding: 33px 18px 0px 18px;
+		position: absolute;
+		z-index: 1;
+	}
+	#boardBackground {
+		position: absolute;
+		z-index: -1;
+		@include mixins.share(top, right, bottom, left, 0);
+		background-position: 0 0;
+		background-size: var(--deviceWidth) var(--deviceHeight);
+		background-repeat: no-repeat;
+		background-color: transparent;
+		background-image: url("#{tokens.$cdnURL}/case-studies/five-square-2/img/backgrounds.png");
+		@include mixins.x2 { 
+			background-image: url("#{tokens.$cdnURL}/case-studies/five-square-2/img/backgrounds@2x.png");
+		}
+		@include mixins.x3 { 
+			background-image: url("#{tokens.$cdnURL}/case-studies/five-square-2/img/backgrounds@3x.png");
+		}
+	}
+	#play {
+		position: relative;
+		height: 88px; 
+		vertical-align: middle;
+		line-height: 88px;
+		padding: 0 48px;
+		border-radius: var(--toolbarHeight);
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%) scale(1);
+		cursor: pointer;
+		white-space: nowrap; 
+		font-size: 24px;
+		color: rgb(255, 255, 255);
+		font-weight: bold;
+		text-shadow: 0px -2px 1pcpx rgba(0, 0, 0, 0.6);
+		box-shadow:
+	  	0 1.4px 2.6px rgba(0, 0, 0, 0.028),
+	  	0 3.2px 6.4px rgba(0, 0, 0, 0.04),
+	  	0 6px 12px rgba(0, 0, 0, 0.05),
+	  	0 10.8px 21.4px rgba(0, 0, 0, 0.06),
+	  	0 20px 40.2px rgba(0, 0, 0, 0.072),
+	  	0 48px 96px rgba(0, 0, 0, 0.1);
+		animation: FSPulseStart 1.0s ease-out;
+		animation-iteration-count: infinite;
+		animation-play-state: running;
+		transition: box-shadow 0.2s ease-out, transform 0.2s ease-out;
+		&::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			z-index: -1;
+			border-radius: var(--toolbarHeight);
+			transition: background-color 0.2s ease-out;
+		}
+		&:hover {
+			animation-play-state: paused;
+			transform: translate(-50%, -50%) scale(1.05);
+			box-shadow:
+		  	0 1.4px 2.6px rgba(0, 0, 0, 0.084),
+		  	0 3.2px 6.4px rgba(0, 0, 0, 0.122),
+		  	0 6px 12px rgba(0, 0, 0, 0.15),
+		  	0 10.8px 21.4px rgba(0, 0, 0, 0.178),
+		  	0 20px 40.2px rgba(0, 0, 0, 0.216),
+		  	0 48px 96px rgba(0, 0, 0, 0.3);
+			&::before {
+				background-color: rgba(0, 0, 0, 0.2);
+			}
+		}
+		&:active {
+			animation-play-state: paused;
+			transform: translate(-50%, -50%) scale(.975);
+			box-shadow:
+		  	0 0.6px 1.4px rgba(0, 0, 0, 0.042),
+		  	0 1.6px 3.2px rgba(0, 0, 0, 0.061),
+		  	0 3.0px 6px rgba(0, 0, 0, 0.075),
+		  	0 5.4px 10.8px rgba(0, 0, 0, 0.089),
+		  	0 10px 20px rgba(0, 0, 0, 0.108),
+		  	0 24px 448x rgba(0, 0, 0, 0.15);
+			&::before {
+				background-color: rgba(0, 0, 0, 0.4);
+			}
+		}
+	}
+	#toolbar {
+		height: var(--deviceHeight);
+		--spacer: 20px;
+		width: var(--deviceWidth);
+		padding: 0 var(--spacer);
+		display: flex;
+		position: absolute;
+		z-index: 1;
+		transform: translateY(var(--toolbarTopMargin));
+		background-position: top calc(2 * var(--toolbarHeightNeg)) left;
+		background-size: var(--deviceWidth) 568px;
+		background-image: url("#{tokens.$cdnURL}/case-studies/five-square-2/img/chrome.png");
+		transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+		@include mixins.x2 { 
+			background-image: url("#{tokens.$cdnURL}/case-studies/five-square-2/img/chrome@2x.png");
+		}
+		@include mixins.x3 { 
+			background-image: url("#{tokens.$cdnURL}/case-studies/five-square-2/img/chrome@3x.png");
+		}
+		#game.howToPlay & {
+			transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+			transform: translateY(var(--statusbarHeight));
+		}
+	}
+	
+	.toolbarButton {
+		
+		height: var(--toolbarHeight);
+		width: var(--toolbarHeight);
+		float: left;
+		margin-left: 0px;
+		cursor: pointer;
+		background-image: url("#{tokens.$cdnURL}/case-studies/five-square-2/img/chrome.png");
+		background-size: var(--deviceWidth) 568px;
+		background-repeat: no-repeat;
+		--bgPosY: top var(--toolbarHeightNeg);
+		transition: opacity 0.2s ease-out;
+		@include mixins.x2 { 
+			background-image: url("#{tokens.$cdnURL}/case-studies/five-square-2/img/chrome@2x.png");
+		}
+		@include mixins.x3 { 
+			background-image: url("#{tokens.$cdnURL}/case-studies/five-square-2/img/chrome@3x.png");
+		}
+		#game.howToPlay & {
+			opacity: 0;
+		}
+		&:active {
+			--toolbarHeightNeg: 0;
+			-webkit-tap-highlight-color: rgba(0,0,0,0);
+		}
+		&#newGameButton { 
+			background-position: var(--bgPosY) left -20px;
+			margin: 0 var(--spacer) 0 0;	
+		}
+		&#undoButton { 
+			background-position: var(--bgPosY) left -84px;
+			margin: 0;
+		}
+		&#howToPlayButton { 
+			background-position: var(--bgPosY) right -20px;
+			margin: 0 0 0 auto;
+		}
+	}
+	
+	.disabledButton {
+		pointer-events: none;
+		opacity: 0.5;
+	}
+	
+	#win {
+		display: none;
+		height: 428px; /* This is different from the actual height of the image so that the offset added below doesn't cause the toolbar buttons to get obstructed. */
+		width: var(--deviceWidth);
+		background-image: url("#{tokens.$cdnURL}/case-studies/five-square-2/img/winner.png");
+		background-repeat: no-repeat;
+		margin: 8px 0 0 0; /* For some reason the banner only looks perfectly vertically centered if we shift it 8 pixels down. This caused some other problems, which have been fixed. See comment above. */
+		float: left;
+		position: absolute;
+		z-index: 4;
+		@include mixins.x2 { 
+			background-image: url("#{tokens.$cdnURL}/case-studies/five-square-2/img/winner@2x.png");
+		}
+		@include mixins.x3 { 
+			background-image: url("#{tokens.$cdnURL}/case-studies/five-square-2/img/winner@3x.png");
+		}
+	}
+	
+	.navBar {
+		display: flex;
+		align-items: center;
+		width: var(--deviceWidth);
+		height: var(--toolbarHeight);
+		z-index: 32;
+		margin-top: calc(-1 * var(--toolbarHeight));
+		background-position: top calc(2 * var(--toolbarHeightNeg)) left;
+		background-size: var(--deviceWidth) var(--toolbarHeight);
+		.title {
+			display: inline-block;
+			color: #fff;
+			font-weight: bold;
+			font-size: 20px;
+			position: relative;
+			place-self:center;
+			text-align: center;
+			margin: 0 auto;
+		}
+	}
+	#howToPlayDoneButton {
+		width: 62px;
+		height: var(--toolbarHeight);
+		line-height: var(--toolbarHeight);
+		position: absolute;
+		z-index: 0;
+		right: 0px;
+		vertical-align: middle;
+		text-align: center;
+		background-position: 0 calc(-1 * var(--toolbarHeight));
+		background-size: 62px 88px;
+		background-repeat: no-repeat;
+		cursor: pointer;
+		font-size: 12px;
+		color: rgb(255, 255, 255);
+		font-weight: bold;
+		background-image: url("#{tokens.$cdnURL}/case-studies/five-square-2/img/navBarButton.png");
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		@include mixins.x2 { 
+			background-image: url("#{tokens.$cdnURL}/case-studies/five-square-2/img/navBarButton@2x.png");
+		}
+		@include mixins.x3 { 
+			background-image: url("#{tokens.$cdnURL}/case-studies/five-square-2/img/navBarButton@3x.png");
+		}
+		&:active {
+			background-position: 0 0;
+		}
+		span {
+			position: relative;
+			display: contents;
+			z-index: 10;
+			@include mixins.share(top, right, bottom, left, 0);
+			display: block;
+			&::before, &::after {
+				content: attr(data-text);
+				position: absolute;
+				color: #000;
+				mix-blend-mode: var(--blendMode);
+				opacity: var(--opacity);
+				filter: blur(1px);
+				top: 1px;
+				@include mixins.share(right, bottom, left, 0);
+				z-index: -1;
+			}
+			&::before {
+				--blendMode: overlay;
+				--opacity: .75;
+			}
+			&::after {
+				--blendMode: multiply;
+				--opacity: .5;
+			}
+		}
+	}
+	.slidingView {
+		h2 {
+	  	font-size: 17px;
+			display: block;
+			text-align: center;
+	  	font-weight: bold;
+	  	line-height: 2.5;
+		}
+		p {
+			font-size: 14px;
+			
+		}
+		a {
+			font-weight: bold;
+		}
+		p, h2 {
+			margin: 10px 14px 0 14px;
+		}
+		p, h2, h1 {
+			color: #fff;
+			position: relative;
+			&::before, &::after {
+				content: attr(data-text);
+				position: absolute;
+				color: #000;
+				mix-blend-mode: var(--blendMode);
+				opacity: var(--opacity);
+				filter: blur(1px);
+				top: 1px;
+				@include mixins.share(right, bottom, left, 0);
+				z-index: -1;
+			}
+			&::before {
+				--blendMode: overlay;
+				--opacity: .75;
+			}
+			&::after {
+				--blendMode: multiply;
+				--opacity: .5;
+			}
+		}
+		h2 + p {
+			margin: 0 14px;
+		}
+	}
+	
+	#appStoreCell {
+		margin: 20px 20px auto 20px;
+		height: 77px;
+		width: auto;
+		border-radius: 5px;
+		background: #c2c2c2;
+  	background: -moz-linear-gradient(top, #c2c2c2 #c8c8c8);
+  	background: -webkit-gradient(linear, left top, left bottom, from(#c2c2c2), to(#c8c8c8));
+  	filter: progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#c2c2c2', EndColorStr='#c8c8c8', GradientType=0);
+		border: 1px solid #999999;
+		margin-bottom: 15px;
+		&:hover {
+			text-decoration: none;
+			background: #b5b5b5;
+			background: -moz-linear-gradient(top, #b5b5b5 #bababa);
+			background: -webkit-gradient(linear, left top, left bottom, from(#b5b5b5), to(#bababa));
+			filter: progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#b5b5b5', EndColorStr='#bababa', GradientType=0);
+		}
+		#appIcon {
+			height: 57px;
+			width: 57px;
+			margin: 10px auto 10px 10px;
+			position: absolute;
+			@include mixins.mask("../../../iOSAppIconOldMask.svg");				 
+			background-repeat: no-repeat;
+			background-color: transparent;
+			background-size: 57px;
+			background-image: url("#{tokens.$cdnURL}/case-studies/five-square-2/img/appIcon-57.png"); 
+			@include mixins.x2 { 
+				background-image: url("#{tokens.$cdnURL}/case-studies/five-square-2/img/appIcon-57@2x.png");
+			}
+			@include mixins.x3 { 
+				background-image: url("#{tokens.$cdnURL}/case-studies/five-square-2/img/appIcon-57@3x.png");
+			}
+		}
+		#labels {
+			height: 20px;
+			width: 300px;
+			position: absolute;
+			margin: 14px auto auto 67px;
+			text-decoration: none;
+			color: #393a39;
+			font-size: 8pt;
+			#appName {
+				color: black;
+				margin-top: 0px;
+				font-size: 10pt;
+				line-height: normal;
+			}
+			p { font-weight: bold; }
+		}
+	}
+	div.spot {
+		display: none; 
+		background-image: url("#{tokens.$cdnURL}/case-studies/five-square-2/img/cards.png");
+		background-position: 102px 280px;
+		background-size: 663px 350px;
+		background-repeat: no-repeat;
+		backbround-color: transparent;
+		height: 70px; 
+		float: left; 
+		margin: 6px 0px 0px 5px; 
+		width: 51px; 
+		cursor: pointer; 
+		padding: 0px;
+		position: relative;
+		@include mixins.x2 { 
+			background-image: url("#{tokens.$cdnURL}/case-studies/five-square-2/img/cards@2x.png");
+		}
+		@include mixins.x3 { 
+			background-image: url("#{tokens.$cdnURL}/case-studies/five-square-2/img/cards@3x.png");
+		}
+	}
+	
+	@keyframes pulseCard {
+		0% {
+			opacity: 1;
+		}
+		50% {
+			opacity: .25;
+		}
+		100% {
+			opacity: 1;
+		}
+	}
+	.pulsing {
+		animation: pulseCard 1.0s ease-out;
+		animation-iteration-count: infinite;
+	}
+	div.overlay {
+		display: none; 
+		height: 72px;
+		width: 57px;
+		z-index: 2;
+	}
+	div.highlight {
+		display: none; 
+		background-image: url("#{tokens.$cdnURL}/case-studies/five-square-2/img/rim.png"); 
+		background-repeat: no-repeat; 
+		background-size: 57px 72px;
+		height: 72px; 
+		width: 57px;
+		margin-left: -3px;
+		margin-top: -1px;
+		z-index: 3;
+		@include mixins.x2 { 
+			background-image: url("#{tokens.$cdnURL}/case-studies/five-square-2/img/rim@2x.png");
+		}
+		@include mixins.x3 { 
+			background-image: url("#{tokens.$cdnURL}/case-studies/five-square-2/img/rim@3x.png");
+		}
+	}
+	.audio { display: none; }
+}

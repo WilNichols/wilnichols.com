@@ -101,7 +101,7 @@
   display: grid;
   background-size: cover;
   z-index: 0;
-  background-image: url('https://cdn.wilnichols.com/gallery-2023/Hackathon2018/DSCF2387.jpg?width=1280px&format=webp');
+  background-image: url('#{tokens.$cdnURL}/gallery-2023/Hackathon2018/DSCF2387.jpg?width=1280px&format=webp');
   opacity: 0.5;
   background-repeat: no-repeat;
   
