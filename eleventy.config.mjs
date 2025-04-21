@@ -20,7 +20,7 @@ import { JSDOM } from 'jsdom';
 dotenv.config();
 
 export default async function(eleventyConfig) {
-  eleventyConfig.setQuietMode(false);
+  eleventyConfig.setQuietMode(true);
   let cachePath = process.env.ELEVENTY_ENV === 'dev' ? '.cache' : '/opt/build/cache/';
   
   const markdownItOptions = {
@@ -262,7 +262,7 @@ export default async function(eleventyConfig) {
       };
       const color = await getColor();
       const obj = {path: url, height: height, width: width, ratio: width/height, orientation: orientation, color: color};
-      console.warn(url);
+      // console.warn(url);
       return obj; 
     } catch (err) {
       console.warn(url);
