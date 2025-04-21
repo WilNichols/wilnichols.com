@@ -4,7 +4,7 @@ title: "Feed"
 permalink: "feed.xml"
 layout: null
 eleventyImport:
-  collections: "notes"
+  collections: "Feed"
 ---
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xml:base="{{ meta.url }}" xmlns:atom="http://www.w3.org/2005/Atom">
@@ -14,14 +14,13 @@ eleventyImport:
     <atom:link href="{{ permalink | htmlBaseUrl(meta.url) }}" rel="self" type="application/rss+xml" />
     <description>{{ meta.description }}</description>
     <language>{{ meta.lang }}</language>
-    {%- for note in collections.Notes | reverse %}
-      {% if note.url %}
-        {%- set absoluteNoteUrl %}{{ note.url | htmlBaseUrl(meta.url) }}{% endset %}
+    {%- for note in collections.Feed | reverse %}
+        {%- set absoluteNoteUrl %}{% if note.url %}{{ note.url | htmlBaseUrl(meta.url) }}{% elif note.data.dest %}{{ note.data.dest }}{% endif %}{% endset %}
         <item>
           <title>{{ note.data.title }}</title>
           <link>{{ absoluteNoteUrl }}</link>
           <pubDate>{{ note.date | dateToRfc822 }}</pubDate>
-          <dc:creator>{{ meta.name }}</dc:creator>
+          <dc:creator>{% if note.data.source %}{{ note.data.source }}{% else %}{{ meta.name }}{% endif %}</dc:creator>
           <guid>{{ absoluteNoteUrl }}</guid>
           {% if note.data.summary -%}
             <description>{{ note.data.summary }}</description>
@@ -30,7 +29,6 @@ eleventyImport:
             <description><![CDATA[{% if note.data.preview %}<img src="{{ [note.data.preview.meta] | join }}"  />{% endif %}{{ note.content | renderTransforms(note.data.page, meta.url) | safe }}]]></description>
           {%- endif %}
         </item>
-      {% endif %}
     {%- endfor %}
   </channel>
 </rss>
