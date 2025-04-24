@@ -494,7 +494,7 @@ body {
 			width: 57px;
 			margin: 10px auto 10px 10px;
 			position: absolute;
-			@include mixins.mask("../../../iOSAppIconOldMask.svg");				 
+			@include mixins.mask("../../../ios-appicon-old-mask.svg");				 
 			background-repeat: no-repeat;
 			background-color: transparent;
 			background-size: 57px;

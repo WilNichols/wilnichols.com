@@ -42,7 +42,6 @@
   & {
     $defaultImageString: $path + $fileName + $defaultColor + $suffix;
     $defaultImage: string.to-lower-case($defaultImageString);
-    @warn $defaultImage;
     @include mixins.imagex3($defaultImage, 'png');
     @each $color in $colors {
       &.device--#{$color} {
@@ -104,11 +103,11 @@
 @include createDevice('macbookPro2016', tokens.$macbookPro2016, (true, false));
 
 .device--iPhone11Pro .screen {
-  @include mixins.mask("/assets/img/devices/iPhone11Pro--mask.svg");
+  @include mixins.mask("/assets/img/iphone-11-pro--mask.svg");
 }
 
 .device--iPhone12Pro .screen {
-  @include mixins.mask("/assets/img/devices/iPhone12Pro--mask.svg");
+  @include mixins.mask("/assets/img/iphone-12-pro--mask.svg");
 }
 
 .device--macbookPro2016 .screen {

@@ -1,3 +1,5 @@
+{%- from 'img.njk' import img -%}
+
 {% macro macOSAppIcon() -%}
 <div id="app-icon">
 <div class="case-study-image-wrapper">
@@ -7,3 +9,72 @@
 </div>
 </div>
 {% endmacro %}
+
+{% macro iOSGrid(
+  path = '',
+  exclude = [],
+  class = '',
+  isOldVersion = false
+) -%}
+  {% if not isOldVersion %}
+    {% set sizes = ['512', '60', '40', '29'] %}
+    <div class="icon-grid--iPhone--modern">
+      <h6 class="overline caption caption--app-icon">Springboard</h6>
+      <h6 class="overline caption caption--spotlight">Spotlight</h6>
+      <h6 class="overline caption caption--settings">Settings</h6>
+      {% for size in sizes %}
+        {% if loop.first %}
+        <div class="icon--512--container">
+          <h6 class="overline caption caption--app-store">App Store</h6>
+          {{  img(
+                src = path + size,
+                class = 'icon icon--' + size,
+                densities = [1, 2]
+          ) }}
+        </div>
+        {% elif not loop.first %}
+          {{  img(
+                src = path + size,
+                class = 'icon icon--' + size + ' ' + 'icon--' + '3x',
+                densities = [3]
+          ) }}
+          {{  img(
+                src = path + size,
+                class = 'icon icon--' + size + ' ' + 'icon--' + '2x',
+                densities = [2]
+          ) }}
+        {% endif %}
+      {% endfor %}
+    </div>  
+  {% elif isOldVersion %}
+    {% set sizes = ['512', '72', '57', '29'] %}
+    <div class="icon-grid--iOS--old">
+      <h6 class="overline caption caption--iPad-app">iPad app</h6>
+      <h6 class="overline caption caption--iPhone-app">iPhone app</h6>
+      <h6 class="overline caption caption--settings">Settings</h6>
+      {% for size in sizes %}
+        {% if loop.first %}
+        <div class="icon--512--container">
+          <h6 class="overline caption caption--app-store">App Store</h6>
+          {{  img(
+                src = path + size,
+                class = 'icon icon--' + size,
+                densities = [1, 2]
+          ) }}
+        </div>
+        {% elif not loop.first %}
+          {{  img(
+                src = path + size,
+                class = 'icon icon--' + size + ' ' + 'icon--' + '2x',
+                densities = [2]
+          ) }}
+          {{  img(
+                src = path + size,
+                class = 'icon icon--' + size + ' ' + 'icon--' + '1x',
+                densities = [1]
+          ) }}
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% endif %}
+{%- endmacro %}
