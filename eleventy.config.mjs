@@ -154,11 +154,7 @@ export default async function(eleventyConfig) {
   eleventyConfig.addFilter("postDay", (dateObj) => {
     return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat("dd");
   });
-  
-  eleventyConfig.addFilter('htmlDateString', (dateObj) => {
-    return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat('MMMM d, yyyy')
-  });
-  
+
   eleventyConfig.addFilter('typeOf', (obj) => {
     console.log(obj + typeof obj);
   })
