@@ -1,13 +1,13 @@
 {%- from 'img.njk' import img -%}
 
 {% macro macOSAppIcon() -%}
-<div id="app-icon">
-<div class="case-study-image-wrapper">
-<div class="case-study-image icons-grid--macOS-max-512">
-{{- caller() -}}
-</div>
-</div>
-</div>
+  <div id="app-icon">
+    <div class="case-study-image-wrapper">
+      <div class="case-study-image icons-grid--macOS-max-512">
+        {{- caller() -}}
+      </div>
+    </div>
+  </div>
 {% endmacro %}
 
 {% macro iOSGrid(
@@ -18,14 +18,14 @@
 ) -%}
   {% if not isOldVersion %}
     {% set sizes = ['512', '60', '40', '29'] %}
-    <div class="icon-grid--iPhone--modern">
-      <h6 class="overline caption caption--app-icon">Springboard</h6>
-      <h6 class="overline caption caption--spotlight">Spotlight</h6>
-      <h6 class="overline caption caption--settings">Settings</h6>
+    <div class="icon-grid icon-grid--iPhone--modern">
+      <h6 class="caption caption--app-icon">Springboard</h6>
+      <h6 class="caption caption--spotlight">Spotlight</h6>
+      <h6 class="caption caption--settings">Settings</h6>
       {% for size in sizes %}
         {% if loop.first %}
         <div class="icon--512--container">
-          <h6 class="overline caption caption--app-store">App Store</h6>
+          <h6 class="caption caption--app-store">App Store</h6>
           {{  img(
                 src = path + size,
                 class = 'icon icon--' + size,
@@ -48,14 +48,14 @@
     </div>  
   {% elif isOldVersion %}
     {% set sizes = ['512', '72', '57', '29'] %}
-    <div class="icon-grid--iOS--old">
-      <h6 class="overline caption caption--iPad-app">iPad app</h6>
-      <h6 class="overline caption caption--iPhone-app">iPhone app</h6>
-      <h6 class="overline caption caption--settings">Settings</h6>
+    <div class="icon-grid icon-grid--iOS--old">
+      <h6 class="caption caption--iPad-app">iPad app</h6>
+      <h6 class="caption caption--iPhone-app">iPhone app</h6>
+      <h6 class="caption caption--settings">Settings</h6>
       {% for size in sizes %}
         {% if loop.first %}
         <div class="icon--512px--container">
-          <h6 class="overline caption caption--app-store">App Store</h6>
+          <h6 class="caption caption--app-store">App Store</h6>
           {{  img(
                 src = path + size,
                 class = 'icon icon--' + size + 'px',

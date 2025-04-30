@@ -338,8 +338,14 @@ $macIcons: 1024px, 512px, 256px, 128px, 32px, 16px;
   }
 }
 
-
 // Misc
+
+@include tokens.textStyles;
+
+.icon-grid .caption {
+  font-size: var(--type--2);
+  @extend %font--display-medium;
+}
 
 $icon32: (list.nth($macIcons, 5));
 .case-study__toolbar-icons {
