@@ -1,0 +1,167 @@
+@use 'sass:math';
+@use 'sass:list';
+@use '../tokens';
+
+$this: '.devices';
+$child: '.device';
+
+#{$this} {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  align-items: var(--align-items, inherit);
+  & > #{$child} {
+    grid-row: 1 / 2;
+    grid-column: 1 / 2;
+    margin: var(--margin, 0 auto);
+    transform: var(--transform, none);
+    position: relative;
+    width: 100%;
+    z-index: var(--z-index, 1);
+  }
+}
+
+#{$this}--two-portrait-01 {
+  display: flex;
+  flex-direction: row;
+  gap: var(--u-24);
+}
+
+#{$this}--two-landscape-01 {
+  display: grid;
+  grid-template-areas: 1 / 1;
+  #{$child} {
+    position: relative;
+    grid-area: 1 / 1;
+    margin: auto;
+  }
+  #{$child}:nth-of-type(1) {
+    z-index: 10;
+    transform: translateY(20%);
+  }
+  #{$child}:nth-of-type(2) {
+    z-index: 1;
+    transform: rotate(-15deg) scale(.975) translateY(-20%);
+  }
+}
+
+$iPhone8Width: #{list.nth(tokens.$iPhone8, 1)}px;
+$gap: 24px; // same as var(--u-24)
+
+@keyframes marquee-scroll {
+  0% {
+    transform: translate3d((-7 * (433px + 24px), 0, 0));
+  }
+  100% {
+    transform: translate3d((-2 * (433px + 24px), 0, 0));
+  }
+}
+// 2285px for 20s, meaning 114.25px / s
+#{$this}--five-phone-marquee {
+  display: flex;
+  flex-direction: row;
+  gap: var(--u-24);
+  will-change: transform;
+  animation: marquee-scroll linear 20s;
+  animation-iteration-count: infinite;
+  animation-play-state: running;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+  transform: translate3d(0,0,0);
+  &:hover {
+    animation-play-state: paused;
+  }
+  & > * {
+    min-width: $iPhone8Width;
+  }
+}
+
+#{$this}--phone-orientations {
+  display: grid;
+  #{$child} {
+    position: relative;
+    grid-area: 1 / 1;
+    margin: auto;
+  }
+  #{$child}:nth-of-type(1) {
+    z-index: 10;
+    margin: 0 auto 0 0;
+  }
+  #{$child}:nth-of-type(2) {
+    z-index: 1;
+    margin: auto 0 0 0;
+    transform: translateX(20px);
+  }
+}
+
+#{$this}--three-phones {
+  $marginFromCenter: 50%;
+  $center: '& > *:nth-of-type(1)';
+  $left: '& > *:nth-of-type(2)';
+  $right: '& > *:nth-of-type(3)';
+  grid-template-columns: repeat(2, 1fr);
+  #{$left}, #{$right} {
+    --z-index: 1;
+    --transform: scale(0.875);
+  }
+  #{$left} {
+    grid-column: 1 / 2;
+  }
+  #{$right} {
+    grid-column: 2 / 3;
+  }
+  #{$center} {
+    grid-column: 1 / 3;
+    z-index: 10; 
+  }
+}
+
+#{$this}--two-phones {
+  $marginFromCenter: 50%;
+  $fore: '& > *:nth-of-type(1)';
+  $back: '& > *:nth-of-type(2)';
+  grid-template-columns: repeat(2, 1fr);
+  #{$back} {
+    --z-index: 1;
+    --transform: scale(0.875);
+    grid-column: 1 / 2;
+  }
+  #{$fore} {
+    grid-column: 2 / 3;
+    z-index: 10; 
+  }
+}
+
+#{$this}--iPhone1-and-iPhone4-and-11Pro {
+  --align-items: end;
+  grid-template-columns: repeat(2, 1fr);
+  > * {
+  }
+  $marginFromCenter: 50%;
+  > *:nth-child(3) {
+    grid-column: 1 / 2;
+    --z-index: 1;
+  }
+  > *:nth-child(2) {
+    grid-column: 1 / 3;
+    --z-index: 10;
+  }
+  > *:nth-child(1) {
+    grid-column: 2 / 3;
+    --z-index: 100;
+  }
+}
+
+#{$this}--iPhone4-and-11Pro {
+  --align-items: end;
+  $marginFromCenter: 33%;
+  #{$child}--second {
+    --margin: 0;
+    --z-index: 10;
+  }
+  #{$child}--first {
+    --margin: 0 0 0 #{$marginFromCenter};
+    --z-index: 100;
+  }
+}
