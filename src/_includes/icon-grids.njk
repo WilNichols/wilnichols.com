@@ -54,23 +54,23 @@
       <h6 class="overline caption caption--settings">Settings</h6>
       {% for size in sizes %}
         {% if loop.first %}
-        <div class="icon--512--container">
+        <div class="icon--512px--container">
           <h6 class="overline caption caption--app-store">App Store</h6>
           {{  img(
                 src = path + size,
-                class = 'icon icon--' + size,
+                class = 'icon icon--' + size + 'px',
                 densities = [1, 2]
           ) }}
         </div>
         {% elif not loop.first %}
           {{  img(
                 src = path + size,
-                class = 'icon icon--' + size + ' ' + 'icon--' + '2x',
+                class = 'icon icon--' + size + 'px ' + 'icon--' + '2x',
                 densities = [2]
           ) }}
           {{  img(
                 src = path + size,
-                class = 'icon icon--' + size + ' ' + 'icon--' + '1x',
+                class = 'icon icon--' + size + 'px ' + 'icon--' + '1x',
                 densities = [1]
           ) }}
         {% endif %}
