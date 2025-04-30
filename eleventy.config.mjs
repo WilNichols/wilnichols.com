@@ -105,6 +105,10 @@ export default async function(eleventyConfig) {
   eleventyConfig.addFilter("penSCSS", string => {
     return beautify.css(string, { indent_size: 2 });
   });
+
+  eleventyConfig.addFilter("mdRenderNJK", (obj) => {
+    return obj.replace(/[\n\r\t]/gm, '');
+  });
   
   // https://stackoverflow.com/questions/66083103/how-to-generate-a-list-of-all-collections-in-11ty
   eleventyConfig.addCollection("tagsList", function(collectionsApi) {

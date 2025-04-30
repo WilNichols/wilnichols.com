@@ -28,28 +28,28 @@ In mid 2011,[^1] GTD apps were a booming space for indie developers. Between [Th
 
 {% renderTemplate "njk" %}
 {%- from 'unique/case-study--diligence.njk' import DiligenceAnnotatedWindow %}
-  {{ DiligenceAnnotatedWindow() }}
+{{ DiligenceAnnotatedWindow() | mdRenderNJK | safe }}
 {% endrenderTemplate %}
 
 Zach and I began by appraising our ideal GTD solution. We wanted novelty, but without monopolizing the user’s focus. At a time when desktop and mobile UIs were increasingly visually rich and illustrative, we took plenty of liberty in visual design. But, its core was a simple task list. It didn’t need to occupy the user’s screen and demand larger-scale management. It didn’t need to scale from simple list items to complex multidimensional and interdependent tasks. 
 
 {% renderTemplate "njk" %}
 {%- from 'unique/case-study--diligence.njk' import DiligenceDetailWindow %}
-  {{ DiligenceDetailWindow() }}
+{{ DiligenceDetailWindow() | mdRenderNJK | safe }}
 {% endrenderTemplate %}
 
 It needed a main view with tasks, groups of tasks, and mutually-exclusive groups of groups. Furthermore, we planned a detail view allowing for a task description, start and end dates, attached files, and further information.
 
 {% renderTemplate "njk" %}
 {%- from 'unique/case-study--diligence.njk' import DiligenceAppIcon %}
-  {{ DiligenceAppIcon() }}
+{{ DiligenceAppIcon() | mdRenderNJK | safe }}
 {% endrenderTemplate %}
 
 I designed an app icon and interface icons for the Preferences window.
 
 {% renderTemplate "njk" %}
-  {%- from 'unique/case-study--diligence.njk' import DiligencePreferenceIcons %}
-  {{ DiligencePreferenceIcons() }}
+{%- from 'unique/case-study--diligence.njk' import DiligencePreferenceIcons %}
+{{ DiligencePreferenceIcons() | mdRenderNJK | safe }}
 {% endrenderTemplate %}
 
 As a self-taught newcomer to product design and development, I often worked backwards from the product that I wished existed, designing what I desired others build.  Like a lot of ideas then — it was fun, and left incomplete. 

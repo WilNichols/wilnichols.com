@@ -31,7 +31,7 @@ Opt-6 Products came to me with the idea for a unique card game, Five Square. One
 
 {% renderTemplate "njk" %}
 {%- from 'unique/case-study--five-square-2.njk' import FS2Board %}
-  {{ FS2Board() }}
+{{ FS2Board() | mdRenderNJK | safe }}
 {% endrenderTemplate %}
 
 ## Challenge
@@ -40,7 +40,7 @@ We had planned to update our [first version](TODO) of Five Square with expanded 
 
 {% renderTemplate "njk" %}
 {%- from 'unique/case-study--five-square-2.njk' import FS2Settings %}
-  {{ FS2Settings() }}
+{{ FS2Settings() | mdRenderNJK | safe }}
 {% endrenderTemplate %}
 
 ## Solution
@@ -49,7 +49,7 @@ I designed [play screens](#play-screens), [settings screens](#settings-screens),
 
 {% renderTemplate "njk" %}
 {%- from 'unique/case-study--five-square-2.njk' import FS2Icon %}
-  {{ FS2Icon() }}
+{{ FS2Icon() | mdRenderNJK | safe }}
 {% endrenderTemplate %}
 
 ## Conclusion
@@ -58,7 +58,7 @@ Five Square was removed from the App Store some time around 2020, and having bee
 
 {% renderTemplate "njk" %}
 {%- from 'unique/case-study--five-square-2.njk' import FSVersions %}
-  {{ FSVersions() }}
+{{ FSVersions() | mdRenderNJK | safe }}
 {% endrenderTemplate %}
 
 We had planned to [revisit](#future){.detail-link} Five Square with drag-and-drop, but that update wouldn’t be seen until its [2021 renewal](/five-square-3/).
