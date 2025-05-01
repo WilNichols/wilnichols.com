@@ -149,7 +149,7 @@ $macIcons: 1024px, 512px, 256px, 128px, 32px, 16px;
 
 @each $macIcon in $macIcons {
   .icon--mac.icon--#{$macIcon} {
-    --width: $macIcon;
+    --width: #{$macIcon};
     width: var(--width);
     @include mixins.x3 {
       width: calc(var(--width) * 2/3);

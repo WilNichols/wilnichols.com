@@ -94,44 +94,8 @@
 {%- endmacro -%}
 
 {%- macro DiligenceAppIcon() -%}
-{% set path = 'https://cdn.wilnichols.com/case-studies/diligence/icon/' %}
-{%- call macOSAppIcon() -%}
-{{-  img(
-    src = path + '512@2x',
-    class = 'icon--mac icon--1024px',
-    suffix= '?format=webp',
-    densities = [1]
-) -}}
-{{-  img(
-      src = path + '512',
-      class = 'icon--mac icon--512px',
-      suffix= '?format=webp',
-      densities = [1, 2]
-) -}}
-{{-  img(
-      src = path + '256',
-      class = 'icon--mac icon--256px',
-      suffix= '?format=webp',
-      densities = [1, 2]
-) -}}
-{{-  img(
-      src = path + '128',
-      class = 'icon--mac icon--128px',
-      suffix= '?format=webp',
-      densities = [1, 2]
-) -}}
-{{-  img(
-      src = path + '32',
-      class = 'icon--mac icon--32px',
-      suffix= '?format=webp',
-      densities = [1, 2]
-) -}}
-{{-  img(
-      src = path + '16',
-      class = 'icon--mac icon--16px',
-      suffix= '?format=webp',
-      densities = [1, 2]
-) -}}
+{%- call macOSAppIcon('https://cdn.wilnichols.com/case-studies/diligence/icon/') -%}
+
 {%- endcall -%}
 {%- endmacro -%}
 
