@@ -1,0 +1,23 @@
+{#
+  proportionateScale = bool / inserts prop.scale classes
+  surrogate = entity
+  classes = ['', '', ''] / inserts a custom class string to the outer, middle, and inner divs
+#}
+
+{% macro caseStudyImage(
+  proportionateScale = false, 
+  surrogate = '',
+  classes = ['', '', '']) 
+%}
+  <div class="{{ 'proportionate-scale--container ' if proportionateScale }}case-study-image-wrapper" {{ 'id="' + id + '"' if id }}>
+    <div class="case-study-image {{ class }}">
+      <div class="proportionate-scale--surrogate--container">
+        <div class="proportionate-scale--surrogate">
+          {{ caller () }}
+        </div>
+      </div>
+    </div>
+      {% if proportionateScale %}</div>{% endif %}
+    </div>
+  </div>
+{% endmacro %}

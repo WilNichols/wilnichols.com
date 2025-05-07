@@ -1,32 +1,6 @@
 {%- from 'img.njk' import img -%}
 {%- from 'icon-grids.njk' import macOSAppIcon -%}
 
-{% macro DiligenceWindow() -%}  
-<div class="case-study-image-wrapper">
-  <div class="case-study-image case-study-image--2x diligence-detail-windows proportionate-scale">
-    <div class="proportionate-scale--surrogate--container utils__2x-to-3x">
-      <div class="proportionate-scale--surrogate">
-        {{  img(
-              src = 'https://cdn.wilnichols.com/case-studies/diligence/screenshots/main--independent',
-              class = 'window'
-        ) }}
-        {% set deviceScreen %}
-          <div class="screen">
-            {% set windowPath %}{{ commonPath }}osx/{% endset %}
-            {% for window in windows %}
-              {{  img(
-                    src = windowPath + window,
-                    class = 'window screen-window--' + window
-              ) }}
-            {% endfor %}
-          </div>
-        {% endset %}
-      </div>
-    </div>
-  </div>
-</div>
-{%- endmacro %}
-
 {% macro DiligenceAnnotatedWindow() -%}  
 {% set screen %}https://cdn.wilnichols.com/case-studies/diligence/screenshots/menubar--attached{% endset %}
 
@@ -91,12 +65,10 @@
   </div>
   <p class="case-study-image__caption">Clicking a task opens a detail view showing further notes, start and end dates, attached files, and more info.</p>
 </div>
-{%- endmacro -%}
+{%- endmacro -%}c
 
 {%- macro DiligenceAppIcon() -%}
-{%- call macOSAppIcon('https://cdn.wilnichols.com/case-studies/diligence/icon/') -%}
-
-{%- endcall -%}
+  {{ macOSAppIcon('https://cdn.wilnichols.com/case-studies/diligence/icon/') }}
 {%- endmacro -%}
 
 {%- macro DiligencePreferenceIcons() -%}
