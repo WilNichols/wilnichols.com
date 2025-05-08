@@ -7,7 +7,7 @@
 {%- macro tabs(id, tabs, tabContents, modifier) -%}
 <div class="tabs-wrapper" id="{{ id }}">
   {{ _anchors(tabs) }}
-  <div class="tabs-container{{ ' tabs-container--' + modifier if modifier }}" style="--tabCount: {{ tabs | length }}">
+  <div class="code-block tabs-container{{ ' tabs-container--' + modifier if modifier }}" style="--tabCount: {{ tabs | length }}">
     <ul class="tabs-selection">
       {% for tab in tabs -%}
         <li class="tabs__tab" data-tab-index="tab-{{ loop.index }}"><a href="#{{ tab.title }}">{{ tab.title }}</a></li>

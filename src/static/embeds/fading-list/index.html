@@ -1,0 +1,48 @@
+<head>
+  <meta name="color-scheme" content="light dark">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <link rel="stylesheet" href="/assets/css/fading-list.css">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    :root {
+      width: 100%;
+      height: 100%;
+      font-family: inter;
+    }
+    
+    body {
+      display: grid;
+      place-content: center;
+      background-color: transparent;
+    }
+    
+    .container {
+      display: grid;
+      place-content: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 1rem;
+    }
+    
+    span {
+      background-color: light-dark(var(--cK90), var(--cK10));
+    }
+    
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!---->
+    <ul style="--children: 5">
+      <li style="--i: 1">Item 1</li>
+      <li style="--i: 2">Item 2</li>
+      <li style="--i: 3">Item 3</li>
+      <li style="--i: 4">Item 4</li>
+      <li style="--i: 5">Item 5</li>
+    </ul>    
+    <!---->
+  </div>
+</body>

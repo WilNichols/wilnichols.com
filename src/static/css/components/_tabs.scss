@@ -41,19 +41,6 @@ $default-tab: "[data-tab-index='tab-1']";
 .tabs__panes__content {
   display: none;
 }
-  
-.tabs-container {
-  border-radius: tokens.$cornerXLarge;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-  box-shadow: inset 0 0 0 var(--px) var(--edgeColor);
-  background-color: var(--materialPrimaryHoverColor);
-  &--square {
-    aspect-ratio: 1;
-  }
-}
 
 .content-body {
   .tabs__panes {
@@ -92,7 +79,6 @@ $default-tab: "[data-tab-index='tab-1']";
       text-decoration: none;
       @extend %font--display-medium;
       padding: 0 var(--u6);
-      
     }
   }
   .tabs-selection {

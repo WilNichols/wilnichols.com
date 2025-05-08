@@ -2,7 +2,8 @@
 @use '../size/aliases' as tokens;
 @forward 'fonts';
 
-$body-gap: 1em;
+$body-gap: 1lh;
+
 @mixin textStyles {
   @include fonts.placeholders;
 }

@@ -9,21 +9,19 @@ tags:
   - Topic/Accessibility
 preview: 
   type: svg
-  meta: /assets/img/dynamic-type-preview.png
-  dir: dynamic-type
   assets: 
-    - /assets/embeds/dynamic-type/preview.svg
+    - ../static/embeds/dynamic-type/preview.svg
 hero: /assets/embeds/dynamic-type/
 renderTemplate:
   codeTabs: 
     - type: 'code'
+      title: 'CSS'
+      lang: 'css'
+      src: '../static/css/pens/dynamic-type.scss'
+    - type: 'code'
       title: 'HTML'
       lang: 'html'
       src: '../static/embeds/dynamic-type/index.html'
-    - type: 'code'
-      title: 'SCSS'
-      lang: 'scss'
-      src: '../static/css/pens/dynamic-type.scss'
 ---
 This must be viewed in Safari on macOS or iOS to make much sense—they allow one to use iOS and macOS system fonts directly on web. More importantly, they allow one to take advantage of [Dynamic Type](https://developer.apple.com/design/human-interface-guidelines/typography). Of course, use a fallback for non-Apple clients.
 
@@ -40,7 +38,7 @@ One can also override `font-face`, but naturally neither `font-size` nor `line-h
   {%- from '../_includes/highlight.njk' import highlight with context -%}
   {% set tabContents = [] %}
   {% for tab in codeTabs -%}
-      {% set content %}{{ highlight(tab) }}{% endset %}
+      {% set content %}{{ highlight(tab, standalone = false) }}{% endset %}
       {% set tabContents = (tabContents.push(content), tabContents) %}
   {% endfor %}
   {{- tabs("markup", codeTabs, tabContents) -}}

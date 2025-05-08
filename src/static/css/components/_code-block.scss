@@ -1,0 +1,22 @@
+@use '../tokens';
+
+@include tokens.textStyles;
+
+.code-block {
+  border-radius: tokens.$cornerXLarge;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 var(--px) var(--edgeColor);
+  background-color: var(--materialPrimaryHoverColor);
+}
+
+.code-block__title {
+  font-size: 10pt;
+  height: var(--u20);
+  line-height: var(--u20);
+  @extend %font--display-medium;
+  padding: 0 var(--u6);
+  
+}

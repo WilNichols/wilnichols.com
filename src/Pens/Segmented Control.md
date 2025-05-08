@@ -56,7 +56,7 @@ View the source below.
   {%- from '../_includes/highlight.njk' import highlight with context -%}
   {% set tabContents = [] %}
   {% for tab in codeTabs -%}
-      {% set content %}{{ highlight(tab) }}{% endset %}
+      {% set content %}{{ highlight(tab, standalone = false) }}{% endset %}
       {% set tabContents = (tabContents.push(content), tabContents) %}
   {% endfor %}
   {{- tabs("markup", codeTabs, tabContents) -}}

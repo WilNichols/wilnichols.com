@@ -1,7 +1,6 @@
 ---
 title: Devon Kay and The Solutions
 shortTitle: Devon Kay & The Solutions
-altTitle: wtf
 key: DevonKayandTheSolutions
 thumbnail: DSCF5757.jpg
 tags:
