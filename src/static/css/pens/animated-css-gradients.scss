@@ -1,0 +1,83 @@
+@use 'sass:list';
+
+@property --progress {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+
+@property --color1 {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: white;
+}
+
+@property --color2 {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: white;
+}
+
+$gradientLoops: 1;
+$dur: 4s;
+
+@keyframes colorProgress {
+  0% {
+     --progress: 0%;
+  }
+  100% {
+    --progress: #{$gradientLoops * 100%};
+  }
+}
+
+@keyframes colorFade {
+  0% {
+    --color1: rgba(180, 241, 255, 1);
+    --color2: rgba(180, 241, 255, 1);
+  }
+  33% {
+    --color1: rgba(0, 115, 255, 1);
+    --color2: rgba(180, 241, 255, 1);
+  }
+  100% {
+    --color1: rgba(0, 115, 255, 1);
+    --color2: rgba(180, 241, 255, 1);
+  }
+}
+
+@function reverseList($list, $separator:comma) {
+  $reversedList: null;
+  @for $i from list.length($list) to 0 {
+    $reversedList: list.append($reversedList, list.nth($list, $i), $separator);
+  }
+  @return $reversedList;
+}
+
+@function pulsing-gradient() {
+  $stops: null;
+  @for $i from 0 through $gradientLoops {
+    $newStops: 
+      var(--color#{$i + 1}) calc(0% - #{$i} * 100% + var(--progress)), 
+      rgba(90, 225, 255, 1) calc(28.5% - #{$i} * 100% + var(--progress)), 
+      rgba(226, 109, 255, 1) calc(67.5% - #{$i} * 100% + var(--progress)), 
+      rgba(0, 115, 255, 1) calc(93% - #{$i} * 100% + var(--progress));
+    $stops: list.join($stops, reverseList($newStops), $separator: comma);
+  }
+  $gradient: radial-gradient(
+    circle at 50% 5%,
+    reverseList($stops));
+  @return $gradient;
+}
+
+.animated-gradient {
+  background: pulsing-gradient();
+  animation-name: colorProgress, colorFade;
+  animation-duration: $dur;
+  animation-iteration-count: infinite;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out;
+  height: 128px;
+  width: 128px;
+  border-radius: 64px;
+  display: block;
+}

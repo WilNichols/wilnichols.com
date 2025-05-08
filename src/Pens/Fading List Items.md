@@ -4,7 +4,6 @@ author: Wil Nichols
 tags:
   - Topic/CSS
   - Topic/HTML
-  - Topic/no-JS
   - Type/Pen
 preview: 
     type: svg
