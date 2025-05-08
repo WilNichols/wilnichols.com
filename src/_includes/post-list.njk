@@ -33,8 +33,7 @@
             {% endfor %}
           </video>
         {% elif post.data.preview.type == 'svg' %}
-          {% set assetRoot %}{{ remote.gallery.base }}/{{ remote.gallery.video }}/{{ post.data.preview.dir }}/{% endset %}
-          <div class="post__preview__poster {{ post.data.preview.class }}">{% include "../static/embeds/dynamic-type/preview.svg" %}</div>
+          <div class="post__preview__poster {{ post.data.preview.class }}">{% include post.data.preview.assets[0] %}</div>
         {% endif %}
       </div>
     {% endif %}

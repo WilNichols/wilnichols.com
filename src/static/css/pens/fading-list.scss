@@ -1,0 +1,3 @@
+li {
+  opacity: calc(1 - (var(--children, 1) - var(--i, 1)) / var(--children, 1));
+}

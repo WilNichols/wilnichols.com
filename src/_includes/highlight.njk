@@ -1,4 +1,6 @@
-{%- macro highlight(obj) -%}
+{%- macro highlight(obj, standalone = true, title) -%}
+  {% if standalone %}<div class="code-block-container">{% if title %}<span class="code-block__title" id="{{ title }}">{{ title }}</span><div class="code-block">{% endif %}{% endif %}
   {% set code %}{% include obj.src %}{% endset %}
   {% if obj.lang == "html" %}{% highlight "html" %}{{ code | penHTML | safe }}{% endhighlight %}{% elif obj.lang == "scss" %}{% highlight "scss" %}{{ code | penSCSS | safe }}{% endhighlight %}{% else %}{% highlight "html" %}{{ code | safe }}{% endhighlight %}{% endif %}
+  {% if standalone %}</div></div>{% endif %}
 {%- endmacro -%}

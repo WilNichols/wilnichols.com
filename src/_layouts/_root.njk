@@ -14,8 +14,7 @@
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon-180.png">
-    {% include "title-string.njk" %}
-    <title>{{ meta.title.base if not title }}{{ title if title }}</title>
+    <title>{{ altTitle if altTitle else title }}</title>
     <link rel="stylesheet" href="{{ '/assets/css/styles.css' | url | bust }}">
     <link rel="stylesheet" href="https://use.typekit.net/unc0ogx.css">
   </head>

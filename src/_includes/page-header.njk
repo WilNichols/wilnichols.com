@@ -42,8 +42,8 @@
   </a>
 {% endmacro %}
 
-{% macro pageTitle(title) %}
-  <h1 class="page__title">{{ title | markdownify | replace("<p>", "") | replace("</p>", "") | safe }}</h1>
+{% macro pageTitle(cookedTitleString) %}
+  <h1 class="page__title">{{ cookedTitleString | markdownify | replace("<p>", "") | replace("</p>", "") | safe }}</h1>
 {% endmacro %}
 
 {% macro pageInfoEntry(icon, content, el = "li") %}
@@ -97,13 +97,13 @@
 {% endmacro %}
 
 {% macro PageHeader(el="div") %}
-  {% include "title-string.njk" %}
+  {% set cookedTitleString %}{{ altTitle if altTitle else page.fileSlug }}{% endset %}
   {% set date %}{{ date | readableDateISO }}{% endset %}
   <{{ el }} class="page-header__title-container">
     {{ backButton() }}
     <div class="page-header__title">
-      {{ pageTitle(title) }}
-      {{ pageInfo(title, date, revisions, tags) }}
+      {{ pageTitle(cookedTitleString) }}
+      {{ pageInfo(cookedTitleString, date, revisions, tags) }}
       <div class="copy-url"><button class="copy-url__button" onClick="copyURL(event)" data-content="Copy Link">{% include "../static/img/links--16.svg" %}</button></div>
     </div>
   </{{ el }}>
