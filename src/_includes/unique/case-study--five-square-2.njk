@@ -6,7 +6,7 @@
 {% set assetRoot %}https://cdn.wilnichols.com/case-studies/{% endset %}
 {% set assetPath %}{{ assetRoot }}five-square-2/screenshots/{% endset %}
 
-{% macro FS2Hero() %}
+{% macro FS2Hero(class = 'case-study-hero case-study-hero--five-square-2 case-study-image--2x') %}
   {% set screen %}
     <iframe class="screen" src="/assets/embeds/five-square-2/" width="320" height="480" frameborder="0"></iframe>
   {% endset %}
@@ -20,29 +20,17 @@
 {% endmacro %}
 
 {% macro FS2HowToPlay() -%}
-  {% call caseStudyImage(proportionateScale = true) %}
+  {% call caseStudyImage(class = 'case-study-image--2x utils__2x-to-3x') %}
     {{  Device(
           type = 'iPhone4',
           content = assetPath + '/02'
     ) }}
   {% endcall %}
-{# <div class="case-study-image-wrapper">
-  <div class="case-study-image case-study-image--2x diligence-detail-windows proportionate-scale">
-    <div class="proportionate-scale--surrogate--container utils__2x-to-3x">
-      <div class="proportionate-scale--surrogate">
-        {{  Device(
-              type = 'iPhone4',
-              content = assetPath + '/02'
-        ) }}
-      </div>
-    </div>
-  </div>
-</div> #}
 {%- endmacro %}
 
 {% macro FS2Board() -%}
   {% set screens = ['08', '07', '06'] %}
-  {% call caseStudyImage(proportionateScale = true) %}
+  {% call caseStudyImage(class = 'case-study-image--2x') %}
     <div class="devices devices--three-phones">
       {% for screen in screens %}
         {{  Device(
@@ -52,27 +40,11 @@
       {% endfor %}
     </div>
   {% endcall %}
-{# <div class="case-study-image-wrapper">
-  <div class="case-study-image case-study-image--2x diligence-detail-windows proportionate-scale">
-    <div class="proportionate-scale--surrogate--container utils__2x-to-3x">
-      <div class="proportionate-scale--surrogate">
-        <div class="devices devices--three-phones">
-          {% for screen in screens %}
-            {{  Device(
-                  type = 'iPhone4',
-                  content = assetPath + screen
-            ) }}
-          {% endfor %}
-        </div>
-      </div>
-    </div>
-  </div>
-</div> #}
 {%- endmacro %}
 
 {% macro FS2Settings() -%}
   {% set screens = ['04', '03', '02'] %}
-  {% call caseStudyImage(proportionateScale = true) %}
+  {% call caseStudyImage(class = 'case-study-image--2x') %}
     <div class="devices devices--three-phones">
       {% for screen in screens %}
         {{  Device(
@@ -82,44 +54,16 @@
       {% endfor %}
     </div>
   {% endcall %}
-{# <div class="case-study-image-wrapper">
-  <div class="case-study-image case-study-image--2x diligence-detail-windows proportionate-scale">
-    <div class="proportionate-scale--surrogate--container utils__2x-to-3x">
-      <div class="proportionate-scale--surrogate">
-        <div class="devices devices--three-phones">
-          {% for screen in screens %}
-            {{  Device(
-                  type = 'iPhone4',
-                  content = assetPath + screen
-            ) }}
-          {% endfor %}
-        </div>
-      </div>
-    </div>
-  </div>
-</div> #}
 {%- endmacro %}
 
-{% macro FS2Icon() -%}
-{% call caseStudyImage(proportionateScale = true) %}
-  {{- iOSGrid (
-    path = assetRoot + 'five-square-2/icon/',
-    isOldVersion = true
-   ) -}}
-{% endcall %}
-{# <div class="case-study-image-wrapper">
-  <div class="case-study-image case-study-image--2x diligence-detail-windows proportionate-scale">
-    <div class="proportionate-scale--surrogate--container utils__2x-to-3x">
-      <div class="proportionate-scale--surrogate">
-        {{- iOSGrid (
-          path = assetRoot + 'five-square-2/icon/',
-          isOldVersion = true
-         ) -}}
-      </div>
-    </div>
-  </div>
-</div> #}
-{%- endmacro %}
+{% macro FS2Icon() %}
+  {% call caseStudyImage(class = 'case-study-image--2x') %}
+    {{- iOSGrid (
+      path = assetRoot + 'five-square-2/icon/',
+      isOldVersion = true
+    ) -}}
+  {% endcall %}
+{% endmacro %}
 
 
 {% macro FSVersions() -%}
@@ -138,7 +82,7 @@
     type: 'iPhone2g'
   }
 ] %}
-{% call caseStudyImage(proportionateScale = true) %}
+{% call caseStudyImage(class = 'case-study-image--2x utils__2x-to-3x') %}
   <div class="devices devices--iPhone1-and-iPhone4-and-11Pro">
     {% for screen in screens %}
       {{  Device(
@@ -149,21 +93,4 @@
     {% endfor %}
   </div>
 {% endcall %}
-{# <div class="case-study-image-wrapper">
-  <div class="case-study-image case-study-image--2x diligence-detail-windows proportionate-scale">
-    <div class="proportionate-scale--surrogate--container utils__2x-to-3x">
-      <div class="proportionate-scale--surrogate">
-        <div class="devices devices--iPhone1-and-iPhone4-and-11Pro">
-          {% for screen in screens %}
-            {{  Device(
-                  type = screen.type,
-                  color = screen.color | d('black'),
-                  content = screen.path
-            ) }}
-          {% endfor %}
-        </div>
-      </div>
-    </div>
-  </div>
-</div> #}
 {%- endmacro %}
