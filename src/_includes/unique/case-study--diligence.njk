@@ -1,20 +1,58 @@
 {%- from 'img.njk' import img -%}
 {%- from 'icon-grids.njk' import macOSAppIcon -%}
+{%- from 'case-study-image.njk' import caseStudyImage -%}
 
-{% macro DiligenceAnnotatedWindow() -%}  
-{% set screen %}https://cdn.wilnichols.com/case-studies/diligence/screenshots/menubar--attached{% endset %}
+{% macro DiligenceHero() %}  
+  {% set commonPath = 'https://cdn.wilnichols.com/case-studies/diligence/' %}
+  {% set windows = ['calendar', 'contacts', 'game-center', 'notes', 'reminders'] %}
+  {% call caseStudyImage(proportionateScale = true) %}
+    {{  img(
+          src = commonPath + 'screenshots/main--independent',
+          class = 'window utils__2x-to-3x'
+    ) }}
+    <div class="diligence-screen">
+      {% set windowPath %}{{ commonPath }}osx/{% endset %}
+      {% for window in windows %}
+          {{  img(
+                src = windowPath + window,
+                class = 'window screen-window--' + window
+          ) }}
+      {% endfor %}
+    </div>
+  {% endcall %}
+{% endmacro %}
 
-{% set annotations = [
-  { text: 'Creates a new task inline at the top of the following list.',
-    class: 'new-task' },
-  { text: 'Primary affordance to undock from the menubar. Secondarily. drag the toolbar.',
-    class: 'undock' },
-  { text: 'Search across categories, groups, details.',
-    class: 'search' },
-  { text: 'Categories. By default, “Incomplete”, and “Complete”. Tap the trailing icon to add a category.',
-    class: 'categories'}
-] %}
-<div class="case-study-image-wrapper">
+{% macro DiligenceAnnotatedWindow() %}  
+  {% set screen %}https://cdn.wilnichols.com/case-studies/diligence/screenshots/menubar--attached{% endset %}
+  {% set annotations = [
+    { text: 'Creates a new task inline at the top of the following list.',
+      class: 'new-task' },
+    { text: 'Primary affordance to undock from the menubar. Secondarily. drag the toolbar.',
+      class: 'undock' },
+    { text: 'Search across categories, groups, details.',
+      class: 'search' },
+    { text: 'Categories. By default, “Incomplete”, and “Complete”. Tap the trailing icon to add a category.',
+      class: 'categories'}
+  ] %}
+  {% call caseStudyImage(proportionateScale = false) %}
+    <div class="annotation-container utils__2x-to-3x">
+      {{-  img(
+            src = screen,
+            class = 'screen'
+      ) -}}
+      {% for annotation in annotations -%}
+        <div class="annotation annotation--{{ annotation.class }}">
+          <div class="annotation--trigger" data-content="{{ annotation.text }}"></div>
+          <div class="screen-container">
+            {{-  img(
+                  src = screen
+            ) -}}
+          </div>
+        </div>
+      {%- endfor %}
+    </div>
+  {% endcall %}
+{# <div class="case-study-image-wrapper">
   <div class="case-study-image case-study-image--2x diligence-annotated-window">
     <div class="proportionate-scale--surrogate--container">
       <div class="proportionate-scale--surrogate">
@@ -38,17 +76,25 @@
     </div>
   </div>
   <p class="case-study-image__caption">Hover over a highlighted part of the interface to learn more.</p>
-</div>
-{%- endmacro %}
+</div> #}
+{% endmacro %}
 
-{%- macro DiligenceDetailWindow() -%}
-{% set path = 'https://cdn.wilnichols.com/case-studies/diligence/screenshots/' %}
-{% set screens = [
-  'detail--inactive', 
-  'detail--calendar',
-  'detail--inactive--attachments'
-] %}
-<div class="case-study-image-wrapper">
+{% macro DiligenceDetailWindow() %}
+  {% set path = 'https://cdn.wilnichols.com/case-studies/diligence/screenshots/' %}
+  {% set screens = [
+    'detail--inactive', 
+    'detail--calendar',
+    'detail--inactive--attachments'
+  ] %}
+  {% call caseStudyImage(proportionateScale = true) %}
+    {%- for screen in screens -%}
+      {{  img(
+            src = path + screen,
+            class = 'window'
+      ) }}
+    {%- endfor -%}
+  {% endcall %}
+{# <div class="case-study-image-wrapper">
   <div class="diligence-detail-window case-study-image case-study-image--16x9 case-study-image--2x proportionate-scale">
     <div class="diligence-screen case-study-image__content">
       <div class="proportionate-scale--surrogate--container utils__2x-to-3x">
@@ -64,21 +110,43 @@
     </div>
   </div>
   <p class="case-study-image__caption">Clicking a task opens a detail view showing further notes, start and end dates, attached files, and more info.</p>
-</div>
-{%- endmacro -%}c
+</div> #}
+{% endmacro %}
 
-{%- macro DiligenceAppIcon() -%}
-  {{ macOSAppIcon('https://cdn.wilnichols.com/case-studies/diligence/icon/') }}
-{%- endmacro -%}
+{% macro DiligenceAppIcon() %}
+  {% call caseStudyImage(proportionateScale = true) %}
+    {{ macOSAppIcon('https://cdn.wilnichols.com/case-studies/diligence/icon/') }}
+  {% endcall %}
+{% endmacro %}
 
-{%- macro DiligencePreferenceIcons() -%}
-{% set path = 'https://cdn.wilnichols.com/case-studies/diligence/small-icons/' %}
-{% set icons = [
-  'settings__general', 
-  'settings__categories',
-  'settings__appearance'
-] %}
-<div class="case-study-image-wrapper">
+{% macro DiligencePreferenceIcons() %}
+  {% set path = 'https://cdn.wilnichols.com/case-studies/diligence/small-icons/' %}
+  {% set icons = [
+    'settings__general', 
+    'settings__categories',
+    'settings__appearance'
+  ] %}
+  {% call caseStudyImage() %}
+    <div class="case-study__toolbar-icons">
+      {% for icon in icons %}
+        <div class="case-study-image--icons__icon">
+          {{  img(
+            src = path + icon,
+            class = 'icon--32px--2x',
+            suffix= '?format=webp',
+            densities = [2]
+          ) }}
+          {{  img(
+            src = path + icon,
+            class = 'icon--32px',
+            suffix= '?format=webp',
+            densities = [1]
+          ) }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endcall %}
+{# <div class="case-study-image-wrapper">
   <div class="case-study-image case-study-image--400x300 case-study-image--icons">
     <div class="case-study__toolbar-icons">
       {%- for icon in icons -%}<div class="case-study-image--icons__icon">{{  img(
@@ -95,5 +163,5 @@
     </div>
   </div>
   <p class="case-study-image__caption">From left to right: general, categories, and appearance.</p>
-</div>
-{%- endmacro -%}
+</div> #}
+{% endmacro %}

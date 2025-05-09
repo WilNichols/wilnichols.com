@@ -1,12 +1,32 @@
 {%- from 'device.njk' import Device -%}
 {%- from 'img.njk' import img -%}
 {%- from 'icon-grids.njk' import iOSGrid -%}
+{%- from 'case-study-image.njk' import caseStudyImage -%}
 
 {% set assetRoot %}https://cdn.wilnichols.com/case-studies/{% endset %}
 {% set assetPath %}{{ assetRoot }}five-square-2/screenshots/{% endset %}
 
+{% macro FS2Hero() %}
+  {% set screen %}
+    <iframe class="screen" src="/assets/embeds/five-square-2/" width="320" height="480" frameborder="0"></iframe>
+  {% endset %}
+  {% call caseStudyImage(proportionateScale = true) %}
+    {{  Device(
+          type = 'iPhone4',
+          contentType = 'rich',
+          content = screen
+    ) }}
+  {% endcall %}
+{% endmacro %}
+
 {% macro FS2HowToPlay() -%}
-<div class="case-study-image-wrapper">
+  {% call caseStudyImage(proportionateScale = true) %}
+    {{  Device(
+          type = 'iPhone4',
+          content = assetPath + '/02'
+    ) }}
+  {% endcall %}
+{# <div class="case-study-image-wrapper">
   <div class="case-study-image case-study-image--2x diligence-detail-windows proportionate-scale">
     <div class="proportionate-scale--surrogate--container utils__2x-to-3x">
       <div class="proportionate-scale--surrogate">
@@ -17,12 +37,22 @@
       </div>
     </div>
   </div>
-</div>
+</div> #}
 {%- endmacro %}
 
 {% macro FS2Board() -%}
-{% set screens = ['08', '07', '06'] %}
-<div class="case-study-image-wrapper">
+  {% set screens = ['08', '07', '06'] %}
+  {% call caseStudyImage(proportionateScale = true) %}
+    <div class="devices devices--three-phones">
+      {% for screen in screens %}
+        {{  Device(
+              type = 'iPhone4',
+              content = assetPath + screen
+        ) }}
+      {% endfor %}
+    </div>
+  {% endcall %}
+{# <div class="case-study-image-wrapper">
   <div class="case-study-image case-study-image--2x diligence-detail-windows proportionate-scale">
     <div class="proportionate-scale--surrogate--container utils__2x-to-3x">
       <div class="proportionate-scale--surrogate">
@@ -37,12 +67,22 @@
       </div>
     </div>
   </div>
-</div>
+</div> #}
 {%- endmacro %}
 
 {% macro FS2Settings() -%}
-{% set screens = ['04', '03', '02'] %}
-<div class="case-study-image-wrapper">
+  {% set screens = ['04', '03', '02'] %}
+  {% call caseStudyImage(proportionateScale = true) %}
+    <div class="devices devices--three-phones">
+      {% for screen in screens %}
+        {{  Device(
+              type = 'iPhone4',
+              content = assetPath + screen
+        ) }}
+      {% endfor %}
+    </div>
+  {% endcall %}
+{# <div class="case-study-image-wrapper">
   <div class="case-study-image case-study-image--2x diligence-detail-windows proportionate-scale">
     <div class="proportionate-scale--surrogate--container utils__2x-to-3x">
       <div class="proportionate-scale--surrogate">
@@ -57,11 +97,17 @@
       </div>
     </div>
   </div>
-</div>
+</div> #}
 {%- endmacro %}
 
 {% macro FS2Icon() -%}
-<div class="case-study-image-wrapper">
+{% call caseStudyImage(proportionateScale = true) %}
+  {{- iOSGrid (
+    path = assetRoot + 'five-square-2/icon/',
+    isOldVersion = true
+   ) -}}
+{% endcall %}
+{# <div class="case-study-image-wrapper">
   <div class="case-study-image case-study-image--2x diligence-detail-windows proportionate-scale">
     <div class="proportionate-scale--surrogate--container utils__2x-to-3x">
       <div class="proportionate-scale--surrogate">
@@ -72,7 +118,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> #}
 {%- endmacro %}
 
 
@@ -92,7 +138,18 @@
     type: 'iPhone2g'
   }
 ] %}
-<div class="case-study-image-wrapper">
+{% call caseStudyImage(proportionateScale = true) %}
+  <div class="devices devices--iPhone1-and-iPhone4-and-11Pro">
+    {% for screen in screens %}
+      {{  Device(
+            type = screen.type,
+            color = screen.color | d('black'),
+            content = screen.path
+      ) }}
+    {% endfor %}
+  </div>
+{% endcall %}
+{# <div class="case-study-image-wrapper">
   <div class="case-study-image case-study-image--2x diligence-detail-windows proportionate-scale">
     <div class="proportionate-scale--surrogate--container utils__2x-to-3x">
       <div class="proportionate-scale--surrogate">
@@ -108,5 +165,5 @@
       </div>
     </div>
   </div>
-</div>
+</div> #}
 {%- endmacro %}

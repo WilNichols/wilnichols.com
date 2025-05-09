@@ -1,4 +1,7 @@
-{%- from 'img.njk' import img -%}
+{% from 'unique/case-study--diligence.njk' import DiligenceHero %} 
+
+{{ DiligenceHero() }}
+{# {%- from 'img.njk' import img -%}
 {% set commonPath = 'https://cdn.wilnichols.com/case-studies/diligence/' %}
 {% set windows = ['calendar', 'contacts', 'game-center', 'notes', 'reminders'] %}
 <div class="case-study-image-wrapper">
@@ -17,4 +20,4 @@
           {% endfor %}
     </div>
   </div>
-</div>
+</div> #}
