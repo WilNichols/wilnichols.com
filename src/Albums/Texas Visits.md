@@ -2,7 +2,7 @@
 title: Texas Visits
 shortTitle: Visits
 key: TexasVisits
-thumbnail: DSCF6087.jpg
+thumbnail: DSCF6023-b.jpg
 tags:
   - AlbumInfo/Camera/X-T4
   - AlbumInfo/Location/Georgetown
