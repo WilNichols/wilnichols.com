@@ -5,19 +5,16 @@
 #}
 
 {% macro caseStudyImage(
-  proportionateScale = false, 
-  surrogate = '',
-  classes = ['', '', '']) 
+  id,
+  class,
+  caption) 
 %}
-  <div class="{{ 'proportionate-scale--container ' if proportionateScale }}case-study-image-wrapper" {{ 'id="' + id + '"' if id }}>
+  <div class="case-study-image-wrapper"{{ ' id=' + id if id }}>
     <div class="case-study-image {{ class }}">
-      <div class="proportionate-scale--surrogate--container">
-        <div class="proportionate-scale--surrogate">
-          {{ caller () }}
-        </div>
-      </div>
+      {{ caller () }}
     </div>
-      {% if proportionateScale %}</div>{% endif %}
-    </div>
+    {% if caption %}
+      <p class="case-study-image__caption">{{ caption | safe }}</p>
+    {% endif %}
   </div>
 {% endmacro %}

@@ -5,12 +5,12 @@
 {% macro DiligenceHero() %}  
   {% set commonPath = 'https://cdn.wilnichols.com/case-studies/diligence/' %}
   {% set windows = ['calendar', 'contacts', 'game-center', 'notes', 'reminders'] %}
-  {% call caseStudyImage(proportionateScale = true) %}
+  {% call caseStudyImage(class = 'case-study-hero case-study-hero--diligence case-study-image--16x9 case-study-image--2x') %}
     {{  img(
           src = commonPath + 'screenshots/main--independent',
           class = 'window utils__2x-to-3x'
     ) }}
-    <div class="diligence-screen">
+    <div class="diligence-screen diligence-screen--children-transparent">
       {% set windowPath %}{{ commonPath }}osx/{% endset %}
       {% for window in windows %}
           {{  img(
@@ -34,7 +34,8 @@
     { text: 'Categories. By default, “Incomplete”, and “Complete”. Tap the trailing icon to add a category.',
       class: 'categories'}
   ] %}
-  {% call caseStudyImage(proportionateScale = false) %}
+  {% call caseStudyImage(
+    class = 'case-study-image--2x diligence-annotated-window', caption = 'Hover over a highlighted part of the interface to learn more.') %}
     <div class="annotation-container utils__2x-to-3x">
       {{-  img(
             src = screen,
@@ -86,12 +87,13 @@
     'detail--calendar',
     'detail--inactive--attachments'
   ] %}
-  {% call caseStudyImage(proportionateScale = true) %}
-    {%- for screen in screens -%}
-      {{  img(
-            src = path + screen,
-            class = 'window'
-      ) }}
+  {% call caseStudyImage(
+    class = 'diligence-screen diligence-screen--transparent diligence-detail-window case-study-image--16x9 case-study-image--2x') %}
+      {%- for screen in screens -%}
+        {{  img(
+              src = path + screen,
+              class = 'window utils__2x-to-3x'
+        ) }}
     {%- endfor -%}
   {% endcall %}
 {# <div class="case-study-image-wrapper">
@@ -114,7 +116,9 @@
 {% endmacro %}
 
 {% macro DiligenceAppIcon() %}
-  {% call caseStudyImage(proportionateScale = true) %}
+  {% call caseStudyImage(
+    id = 'app-icon',
+    class = 'icons-grid--macOS-max-512') %}
     {{ macOSAppIcon('https://cdn.wilnichols.com/case-studies/diligence/icon/') }}
   {% endcall %}
 {% endmacro %}
@@ -126,7 +130,9 @@
     'settings__categories',
     'settings__appearance'
   ] %}
-  {% call caseStudyImage() %}
+  {% call caseStudyImage(
+    class = 'case-study-image--400x300 case-study-image--icons',
+    caption = 'From left to right: general, categories, and appearance.') %}
     <div class="case-study__toolbar-icons">
       {% for icon in icons %}
         <div class="case-study-image--icons__icon">

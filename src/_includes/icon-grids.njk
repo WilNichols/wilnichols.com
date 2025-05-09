@@ -1,36 +1,30 @@
 {%- from 'img.njk' import img -%}
 
 {% macro macOSAppIcon(path) -%}
-  <div id="app-icon">
-    <div class="case-study-image-wrapper">
-      <div class="case-study-image icons-grid--macOS-max-512">
-        {% set sizes = ['512', '256', '128', '32', '16'] %}
-        {% for size in sizes %}
-          {% if loop.first %}
-            {{-  img(
-                src = path + sizes[0] + '@2x',
-                class = 'icon--mac icon--' + sizes[0] * 2 + 'px',
-                suffix= '?format=webp',
-                densities = [1]
-            ) -}}
-            {{-  img(
-                src = path + size,
-                class = 'icon--mac icon--' + size+ 'px',
-                suffix= '?format=webp',
-                densities = [1, 2]
-            ) -}} 
-          {% elif not loop.first %}
-            {{-  img(
-                  src = path + size,
-                  class = 'icon--mac icon--' + size + 'px',
-                  suffix= '?format=webp',
-                  densities = [1, 2]
-            ) -}}
-          {% endif %}
-        {% endfor %}
-      </div>
-    </div>
-  </div>
+  {% set sizes = ['512', '256', '128', '32', '16'] %}
+  {% for size in sizes %}
+    {% if loop.first %}
+      {{-  img(
+          src = path + sizes[0] + '@2x',
+          class = 'icon--mac icon--' + sizes[0] * 2 + 'px',
+          suffix= '?format=webp',
+          densities = [1]
+      ) -}}
+      {{-  img(
+          src = path + size,
+          class = 'icon--mac icon--' + size+ 'px',
+          suffix= '?format=webp',
+          densities = [1, 2]
+      ) -}} 
+    {% elif not loop.first %}
+      {{-  img(
+            src = path + size,
+            class = 'icon--mac icon--' + size + 'px',
+            suffix= '?format=webp',
+            densities = [1, 2]
+      ) -}}
+    {% endif %}
+  {% endfor %}
 {% endmacro %}
 
 {% macro iOSGrid(

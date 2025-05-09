@@ -11,7 +11,7 @@
   justify-content: center;
   justify-items: center;
   position: relative;
-  margin: 2em auto;
+  margin: 2lh auto;
   width: tokens.$width;
   max-width: 100%;
 }
@@ -24,6 +24,7 @@
     place-content: start;
     justify-content: center;
     background-color: var(--materialPrimaryHoverColor);
+    box-shadow: inset 0 0 0 var(--px) var(--edgeColor);
   }
   
   &--16x9 {
@@ -33,9 +34,7 @@
   &--400x300 {
     // that's Dribbble huh
     aspect-ratio: 4/3;
-    max-width: 400px;
-    max-height: 300px;
-    width: 100%;
+    width: max(400px, 100%);
     & + .case-study-image__caption {
       --captionWidth: min(100%, 400px);
     }
@@ -48,7 +47,6 @@
   }
 
   &--icons {
-    box-shadow: inset 0 0 0 var(--px) var(--edgeColor);
     display: flex;
     justify-content: center;
     gap: var(--u16);
@@ -77,6 +75,7 @@
 }
 
 .diligence-detail-window {
+  grid-template-columns: auto 1fr 1fr 1fr auto;
   .diligence-screen {
     opacity: 1;
     > * {
@@ -101,10 +100,21 @@
   display: grid;
   background-size: cover;
   z-index: 0;
-  background-image: url('#{tokens.$cdnURL}/gallery-2023/Hackathon2018/DSCF2387.jpg?width=1280px&format=webp');
-  opacity: 0.5;
-  background-repeat: no-repeat;
-  
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: url('#{tokens.$cdnURL}/gallery-2023/Hackathon2018/DSCF2387.jpg?width=1280px&format=webp');
+    background-repeat: no-repeat;
+  }
+  &--transparent::after {
+    opacity: 0.5;
+  }
+  &--children-transparent {
+    opacity: 0.5;
+  }
 }
 
 .page--case-study .page-header__container {

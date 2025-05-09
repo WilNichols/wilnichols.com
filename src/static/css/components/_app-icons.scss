@@ -18,7 +18,6 @@ $macIcons: 1024px, 512px, 256px, 128px, 32px, 16px;
   max-width: fit-content;
   gap: var(--u32);
   padding: var(--u32);
-  box-shadow: inset 0 0 0 var(--px) var(--edgeColor);
   @mixin x1Grid {
     grid-template-columns: 
       auto 
