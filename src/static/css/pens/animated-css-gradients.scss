@@ -1,0 +1,129 @@
+@use 'sass:list';
+
+$gradientLoops: 2;
+$dur: 4s;
+
+$colors: (rgb(180, 241, 255), rgb(90, 225, 255), rgb(226, 109, 255), rgb(0, 115, 255), rgb(0, 85, 255));
+
+@property --progress {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+
+// outputs property definitions for each potential animated color
+@for $loop from 1 through $gradientLoops {
+  @for $color from 1 through list.length($colors) {
+    @property --color#{$color}Loop#{$loop} {
+      syntax: '<color>';
+      inherits: false;
+      initial-value: white;
+    }
+  }
+}
+
+@keyframes colorProgress {
+  0% {
+     --progress: 0%;
+  }
+  100% {
+    --progress: #{($gradientLoops - 1) * 100%};
+  }
+}
+
+@keyframes colorFade {
+  0% {
+    --color1Loop1: #{list.nth($colors, 1)};
+    --color1Loop2: #{list.nth($colors, 1)};
+    --color2Loop1: #{list.nth($colors, 2)};
+    --color2Loop2: #{list.nth($colors, 2)};
+    --color3Loop1: #{list.nth($colors, 3)};
+    --color3Loop2: #{list.nth($colors, 3)};
+    --color4Loop1: #{list.nth($colors, 4)};
+    --color4Loop2: #{list.nth($colors, 1)};
+  }
+  100% {
+    --color1Loop1: #{list.nth($colors, 4)};
+    --color1Loop2: #{list.nth($colors, 1)};
+    --color2Loop1: #{list.nth($colors, 5)};
+    --color2Loop2: #{list.nth($colors, 2)};
+    --color3Loop1: #{list.nth($colors, 3)};
+    --color3Loop2: #{list.nth($colors, 3)};
+    --color4Loop1: #{list.nth($colors, 5)};
+    --color4Loop2: #{list.nth($colors, 4)};
+  }
+}
+
+@function reverseList($list, $separator:comma) {
+  $reversedList: null;
+  @for $i from list.length($list) to 0 {
+    $reversedList: list.append($reversedList, list.nth($list, $i), $separator);
+  }
+  @return $reversedList;
+}
+
+@function animated-gradient() {
+  $stops: null;
+  @for $i from 1 through $gradientLoops {
+    $newStops: 
+      var(--color1Loop#{$i}) calc(0% - #{$i - 1} * 100% + var(--progress)), 
+      var(--color2Loop#{$i}) calc(28.5% - #{$i - 1} * 100% + var(--progress)), 
+      var(--color3Loop#{$i}) calc(67.5% - #{$i - 1} * 100% + var(--progress)), 
+      var(--color4Loop#{$i}) calc(93% - #{$i - 1} * 100% + var(--progress));
+    $stops: list.join($stops, reverseList($newStops), $separator: comma);
+  }
+  $gradient: radial-gradient(
+    circle at 50% 5%,
+    reverseList($stops));
+  @return $gradient;
+}
+
+.sphere {
+  background-blend-mode: color-dodge, normal;
+  background: 
+    radial-gradient(
+      circle at 50% 5%,
+      rgba(255, 255, 255, 0.75) 0%,
+      rgba(255, 255, 255, 0) 33.3%
+    ),
+    animated-gradient();
+  animation-name: colorProgress, colorFade;
+  animation-duration: $dur;
+  animation-iteration-count: infinite;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out;
+  height: 128px;
+  width: 128px;
+  border-radius: 64px;
+  display: block;
+  z-index: 10;
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 64px;
+    box-shadow: inset 0px -16px 24px black;
+    mix-blend-mode: soft-light;
+  }
+}
+
+.shadow {
+  height: 128px;
+  width: 128px;
+  border-radius: 64px;
+  display: block;
+  filter: blur(8px);
+  z-index: 1;
+  background:
+    radial-gradient(
+      circle at 50% 95%,
+      list.nth($colors, 5) 0%,
+      rgba(list.nth($colors, 5), 0) 33.3%
+    )
+}
+
+.sphere, .shadow {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}

@@ -1,0 +1,49 @@
+@property --progress {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+
+@property --fadingColor {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: white;
+}
+
+@keyframes progress {
+  0% {
+     --progress: 0%;
+  }
+  100% {
+    --progress: 100%;
+  }
+}
+
+@keyframes fadingColor {
+  0% {
+    --fadingColor: rgba(180, 241, 255, 1);
+  }
+  100% {
+    --fadingColor: rgba(0, 115, 255, 1);
+  }
+}
+
+el {
+  animation-name: progress, fadingColor;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out;
+  background-image: 
+    radial-gradient(
+      circle at 50% 100%, 
+      rgb(180, 241, 255) calc(-100% + var(--progress)), 
+      rgb(90, 225, 255) calc(-71.5% + var(--progress)), 
+      rgb(226, 109, 255) calc(-32.5% + var(--progress)), 
+      rgb(0, 115, 255) calc(0 + var(--progress)),
+      rgb(180, 241, 255) calc(0% + var(--fadingColor)), 
+      rgb(90, 225, 255) calc(28.5% + var(--progress)), 
+      rgb(226, 109, 255) calc(67.5% + var(--progress)), 
+      rgb(0, 115, 255) calc(100% + var(--progress))
+    );
+}
