@@ -6,9 +6,29 @@ tags:
   - Topic/HTML
   - Type/Pen
 preview: 
-    type: svg
-    assets: 
-      - ../static/embeds/fading-list/preview.svg
+  type: vid
+  class: themed-3x
+  meta: /assets/vid/animated-css-gradients-poster--light@2x.png
+  dir: animated-css-gradients
+  assets:
+    - media: '(prefers-color-scheme: dark) and (-webkit-min-device-pixel-ratio: 3) and (min-resolution: 180dpi)'
+      poster: animated-css-gradients-poster--dark@3x.png
+      source: animated-css-gradients--dark@3x.mp4
+    - media: '(prefers-color-scheme: light) and (-webkit-min-device-pixel-ratio: 3) and (min-resolution: 180dpi)'
+      poster: animated-css-gradients-poster--light@3x.png
+      source: animated-css-gradients--light@3x.mp4
+    - media: '(prefers-color-scheme: dark) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 120dpi)'
+      poster: animated-css-gradients-poster--dark@2x.png
+      source: animated-css-gradients--dark@2x.mp4
+    - media: '(prefers-color-scheme: light) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 120dpi)'
+      poster: animated-css-gradients-poster--light@2x.png
+      source: animated-css-gradients--light@2x.mp4
+    - media: '(prefers-color-scheme: dark) and (-webkit-min-device-pixel-ratio: 1) and (min-resolution: 60dpi)'
+      poster: animated-css-gradients-poster--dark.png
+      source: animated-css-gradients--dark.mp4
+    - media: '(prefers-color-scheme: light) and (-webkit-min-device-pixel-ratio: 1) and (min-resolution: 60dpi)'
+      poster: animated-css-gradients-poster--light.png
+      source: animated-css-gradients--light.mp4
 hero: /assets/embeds/animated-css-gradients/
 renderTemplate:
   codeSnippets: 
