@@ -5,19 +5,19 @@
 {% macro _scaleScript() %}
   function scaleElement(el) {
     const elWidth = el.offsetWidth;
-    // const elHeight = el.offsetHeight;
     const wrapper = el.parentElement;
     const container = wrapper.parentElement;
     const wrapperWidth = wrapper.clientWidth;
     const wrapperHeight = wrapper.clientHeight;
   
-    const scale = Math.min(1, wrapperWidth / elWidth);
-  
-    wrapper.classList.add('proportionate-scale-bounds');
-    container.classList.add('proportionate-scale-block');
-    container.style.setProperty('--scale', scale);
+    wrapper.classList.add('proportionate-scale-wrapper');
+    container.classList.add('proportionate-scale-container');
+    container.style.setProperty('--wrapperWidth', wrapperWidth + 'px');
+    container.style.setProperty('--elWidth', elWidth + 'px');
     // only set height once; otherwise it's recursive
-    isOnResize ? '' : container.style.setProperty('--height', wrapperHeight + 'px');
+    if (!isOnResize) {
+      container.style.setProperty('--wrapperHeight', wrapperHeight + 'px');
+    }
   }
   
   function proportionateScale(isOnResize = false) {

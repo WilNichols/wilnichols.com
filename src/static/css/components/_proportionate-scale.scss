@@ -1,17 +1,25 @@
-.proportionate-scale-block {
-  height: calc(var(--height) * var(--scale));
-  --scaleJS: calc(var(--scale, 1) * var(--scaleModifier, 1));
+.proportionate-scale-container {
+  --scale: min(1, calc(var(--wrapperWidth) / (var(--elWidth) + var(--u48))));
+  height: calc(var(--wrapperHeight) * var(--scale));
+  --scaleModified: calc(var(--scale, 1) * var(--scaleModifier, 1));
 }
 
-.proportionate-scale-bounds {
+.proportionate-scale-wrapper {
   
 }
 
 .proportionate-scale  {
-  transform: scale(var(--scaleJS));
-  transform-origin: top center;
+  @supports (scale: 1) {
+    scale: var(--scaleModified);
+  }
+  @supports not (scale: 1) {
+    transform: scale(var(--scaleModified));
+  }
+  & {
+    transform-origin: top center;
+  }
 }
 
 .proportionate-scale .opposite-transform {
-  transform: scale(max(1, calc(1 / var(--scaleJS))));
+  transform: scale(max(1, calc(1 / var(--scaleModified))));
 }
