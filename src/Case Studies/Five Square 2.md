@@ -25,34 +25,26 @@ project:
   - '[George Woodliff-Stanley](https://twitter.com/joyurge)'
 ---
 
-## Background
-
-Opt-6 Products came to me with the idea for a unique card game, Five Square. One starts with a [5x5 grid of cards](#grid){.detail-link}, and wins by consolidating all cards into a single position. You do this by moving a card within its column or row, onto another card of the same denomination or suit. The game seems simple until the player finds themselves with two irreconcilable stacks at the game’s end.  
+Opt-6 Products came to me with the idea for a unique card game, Five Square. A player starts with a 5x5 grid of cards, and wins by consolidating all cards into a single position. This is done by by moving a card within its column or row, onto another card of the same denomination or suit. The game appears simple until the player finds themselves with two irreconcilable stacks at the game’s end.
 
 {% renderTemplate "njk" %}
 {%- from 'unique/case-study--five-square-2.njk' import FS2Board %}
 {{ FS2Board() | mdRenderNJK | safe }}
 {% endrenderTemplate %}
 
-## Challenge
-
-We had planned to update our [first version](TODO) of Five Square with expanded gameplay settings and clearer How to Play instructions; however, Apple’s Game Center announcement in 2010 prompted us to reassess Five Square’s visual treatment. Additionally, in the time since our first release, the iPad had been announced and we wanted to ship a Universal app to take advantage of that opportunity.
+We had planned to update our 2011 release of Five Square with expanded gameplay settings and clearer How to Play instructions; however, Apple’s Game Center announcement in 2010 prompted us to reassess Five Square’s visual treatment. Additionally, in the time since our first release, the iPad had been announced and we wanted to ship a Universal app to take advantage of that opportunity.
 
 {% renderTemplate "njk" %}
 {%- from 'unique/case-study--five-square-2.njk' import FS2Settings %}
 {{ FS2Settings() | mdRenderNJK | safe }}
 {% endrenderTemplate %}
 
-## Solution
-
-I designed [play screens](#play-screens), [settings screens](#settings-screens), and a [new icon](#icon) that were in line with Apple’s new visual language, as well as iterating over gameplay directions, settings, and statistics to track user improvement game-over-game.
+I designed play screens (the card table), settings and performance screens, and a new icon that were in line with Apple’s new visual language, as well as iterating over gameplay directions, settings, and statistics to track user improvement game-over-game.
 
 {% renderTemplate "njk" %}
 {%- from 'unique/case-study--five-square-2.njk' import FS2Icon %}
 {{ FS2Icon() | mdRenderNJK | safe }}
 {% endrenderTemplate %}
-
-## Conclusion
 
 Five Square was removed from the App Store some time around 2020, and having been built against a no-longer-supported iOS SDK, it’s no longer available as a downloadable purchase. However, a demo of the game is available above, originally developed by Carter and George for the marketing website.
 
