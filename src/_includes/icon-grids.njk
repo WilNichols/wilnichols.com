@@ -1,5 +1,4 @@
 {%- from 'img.njk' import img -%}
-{%- from 'proportionate-scale.njk' import proportionateScale with context -%}
 
 {% macro macOSAppIcon(path) -%}
   {% set sizes = ['512', '256', '128', '32', '16'] %}
@@ -7,13 +6,13 @@
     {% if loop.first %}
       {{-  img(
           src = path + sizes[0] + '@2x',
-          class = 'icon--mac icon--' + sizes[0] * 2 + 'px',
+          class = 'icon--mac icon--' + sizes[0] * 2 + 'px icon--resizable',
           suffix= '?format=webp',
           densities = [1]
       ) -}}
       {{-  img(
           src = path + size,
-          class = 'icon--mac icon--' + size+ 'px',
+          class = 'icon--mac icon--' + size + 'px icon--resizable',
           suffix= '?format=webp',
           densities = [1, 2]
       ) -}} 
@@ -44,13 +43,11 @@
         {% if loop.first %}
             <div class="icon--512--container">
               <h6 class="caption caption--app-store">App Store</h6>
-              {% call proportionateScale() %}
-                {{  img(
-                      src = path + size,
-                      class = 'icon icon--' + size,
-                      densities = [1, 2]
-                ) }}
-              {% endcall %}
+              {{  img(
+                    src = path + size,
+                    class = 'icon icon--' + size,
+                    densities = [1, 2]
+              ) }}
             </div>
         {% elif not loop.first %}
           {{  img(
@@ -76,13 +73,11 @@
         {% if loop.first %}
           <div class="icon--512px--container">
             <h6 class="caption caption--app-store">App Store</h6>
-            {% call proportionateScale() %}
-              {{  img(
-                    src = path + size,
-                    class = 'icon icon--' + size + 'px',
-                    densities = [1, 2]
-              ) }}
-            {% endcall %}
+            {{  img(
+                  src = path + size,
+                  class = 'icon icon--' + size + 'px icon--resizable',
+                  densities = [1, 2]
+            ) }}
           </div>
         {% elif not loop.first %}
           {{  img(

@@ -1,6 +1,6 @@
 .proportionate-scale-container {
-  --scale: min(1, calc(var(--wrapperWidth) / (var(--elWidth) + var(--u48))));
-  height: calc(var(--wrapperHeight) * var(--scale));
+  --scale: min(1, calc(var(--wrapperWidth) / (var(--elWidth) + 48)));
+  height: calc(var(--wrapperHeight) * var(--scale) * 1px);
   --scaleModified: calc(var(--scale, 1) * var(--scaleModifier, 1));
 }
 
@@ -10,7 +10,7 @@
 
 .proportionate-scale  {
   @supports (scale: 1) {
-    scale: var(--scaleModified);
+    scale: var(--scale);
   }
   @supports not (scale: 1) {
     transform: scale(var(--scaleModified));

@@ -169,14 +169,18 @@ $macIcons: 1024px, 512px, 256px, 128px, 32px, 16px;
   // set icon sizes
   .icon {
     // basics
-    --width: calc(var(--dimension) / var(--density, 1));
+    --staticWidth: calc(var(--dimension) / var(--density, 1));
     /* Wil, I'm here */
-    width: var(--width);
+    width: var(--staticWidth);
     @include mixins.mask("/assets/img/ios-appicon-old-mask.svg");
     // force 512 size
     &--512px {
       --dimension: #{list.nth($icons, 1) * 2};
-      /* Wil, I'm here */
+    }
+    &--resizable {
+      $maxWidth: calc(100dvw - 2 * var(--col) - var(--u48));
+      --fluidWidth: min(#{$maxWidth}, var(--staticWidth));
+      width: var(--fluidWidth);
     }
     // set size for all others
     @each $icon in $icons {
@@ -278,7 +282,6 @@ $macIcons: 1024px, 512px, 256px, 128px, 32px, 16px;
       grid-column: 1 / 9;
       grid-row: 1 / 2;
       margin: 0 auto;
-      /* find me Wil */
     }
     .icon--#{list.nth($icons, 2)}.icon--2x {
       grid-column: 2 / 3;

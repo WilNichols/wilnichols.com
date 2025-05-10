@@ -12,11 +12,11 @@
   
     wrapper.classList.add('proportionate-scale-wrapper');
     container.classList.add('proportionate-scale-container');
-    container.style.setProperty('--wrapperWidth', wrapperWidth + 'px');
-    container.style.setProperty('--elWidth', elWidth + 'px');
+    container.style.setProperty('--wrapperWidth', wrapperWidth);
+    container.style.setProperty('--elWidth', elWidth);
     // only set height once; otherwise it's recursive
     if (!isOnResize) {
-      container.style.setProperty('--wrapperHeight', wrapperHeight + 'px');
+      container.style.setProperty('--wrapperHeight', wrapperHeight);
     }
   }
   
