@@ -1,0 +1,44 @@
+{% from "footer.njk" import Footer with context %}
+{% from "tag.njk" import tag as tagButton %}
+
+<script>
+{% macro _scaleScript() %}
+  function scaleElement(el) {
+    const elWidth = el.offsetWidth;
+    const elHeight = el.offsetHeight;
+    const wrapper = el.parentElement;
+    const wrapperWidth = wrapper.clientWidth;
+    const wrapperHeight = wrapper.clientHeight;
+  
+    const scale = Math.min(
+      wrapperWidth / elWidth,
+      wrapperHeight / elHeight
+    );
+  
+    wrapper.style.setProperty('--transform', scale);
+  }
+  
+  function proportionateScale() {
+    const elements = document.querySelectorAll('.proportionate-scale__item');
+    elements.forEach(scaleElement);
+  }
+  
+  function handleDomReady() {
+    proportionateScale();
+    window.addEventListener('resize', proportionateScale);
+  }
+  
+  document.addEventListener('DOMContentLoaded', handleDomReady);
+{% endmacro %}
+</script>
+
+{% macro proportionateScale() -%}
+  {% js "defer" %}
+    {{ _scaleScript() }}
+  {% endjs %}
+  <div class="proportionate-scale">
+    <div class="proportionate-scale__item">
+      {{ caller () }}
+    </div>
+  </div>
+{%- endmacro %}

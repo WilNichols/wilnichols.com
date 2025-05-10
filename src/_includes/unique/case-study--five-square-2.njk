@@ -1,7 +1,8 @@
-{%- from 'device.njk' import Device -%}
-{%- from 'img.njk' import img -%}
-{%- from 'icon-grids.njk' import iOSGrid -%}
 {%- from 'case-study-image.njk' import caseStudyImage -%}
+{%- from 'device.njk' import Device -%}
+{%- from 'icon-grids.njk' import iOSGrid -%}
+{%- from 'img.njk' import img -%}
+{%- from 'proportionate-scale.njk' import proportionateScale with context -%}
 
 {% set assetRoot %}https://cdn.wilnichols.com/case-studies/{% endset %}
 {% set assetPath %}{{ assetRoot }}five-square-2/screenshots/{% endset %}
@@ -11,11 +12,13 @@
     <iframe class="screen" src="/assets/embeds/five-square-2/" width="320" height="480" frameborder="0"></iframe>
   {% endset %}
   {% call caseStudyImage(class = 'case-study-hero case-study-hero--five-square-2 case-study-image--2x') %}
-    {{  Device(
-          type = 'iPhone4',
-          contentType = 'rich',
-          content = screen
-    ) }}
+    {% call proportionateScale()  %}
+      {{  Device(
+            type = 'iPhone4',
+            contentType = 'rich',
+            content = screen
+      ) }}
+    {% endcall %}
   {% endcall %}
 {% endmacro %}
 
@@ -31,28 +34,32 @@
 {% macro FS2Board() -%}
   {% set screens = ['08', '07', '06'] %}
   {% call caseStudyImage(class = 'case-study-image--2x') %}
-    <div class="devices devices--three-phones">
-      {% for screen in screens %}
-        {{  Device(
-              type = 'iPhone4',
-              content = assetPath + screen
-        ) }}
-      {% endfor %}
-    </div>
+    {% call proportionateScale()  %}
+      <div class="devices devices--three-phones">
+        {% for screen in screens %}
+          {{  Device(
+                type = 'iPhone4',
+                content = assetPath + screen
+          ) }}
+        {% endfor %}
+      </div>
+    {% endcall %}
   {% endcall %}
 {%- endmacro %}
 
 {% macro FS2Settings() -%}
   {% set screens = ['04', '03', '02'] %}
   {% call caseStudyImage(class = 'case-study-image--2x') %}
-    <div class="devices devices--three-phones">
-      {% for screen in screens %}
-        {{  Device(
-              type = 'iPhone4',
-              content = assetPath + screen
-        ) }}
-      {% endfor %}
-    </div>
+    {% call proportionateScale()  %}
+      <div class="devices devices--three-phones">
+        {% for screen in screens %}
+          {{  Device(
+                type = 'iPhone4',
+                content = assetPath + screen
+          ) }}
+        {% endfor %}
+      </div>
+    {% endcall %}
   {% endcall %}
 {%- endmacro %}
 

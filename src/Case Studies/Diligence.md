@@ -27,7 +27,7 @@ project:
 In mid 2011,[^1] GTD apps were a booming space for indie developers. Between [Things](https://web.archive.org/web/20110323094949/http://culturedcode.com/things/){target=blank}, [The Hit List](https://www.macstories.net/news/potion-factorys-the-hit-list-1-0-now-available/){target=blank}, [Wunderlist](https://www.macstories.net/reviews/wunderlist-review-untethered-task-management-freedom/){target=blank} and infinite others, we saw a small opportunity for a low-real-estate to-do list with projects, sections, and individual tasks.[^2]
 
 {% renderTemplate "njk" %}
-{%- from 'unique/case-study--diligence.njk' import DiligenceAnnotatedWindow %}
+{%- from 'unique/case-study--diligence.njk' import DiligenceAnnotatedWindow with context %}
 {{ DiligenceAnnotatedWindow() | mdRenderNJK | safe }}
 {% endrenderTemplate %}
 

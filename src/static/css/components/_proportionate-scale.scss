@@ -1,0 +1,13 @@
+.proportionate-scale__item  {
+  --transformJS: calc(var(--transform, 1) * var(--transformModifier, 1));
+  --transformClamp: min(1, var(--transformJS));
+  transform: scale(var(--transformClamp));
+}
+
+.proportionate-scale {
+
+}
+
+.proportionate-scale .opposite-transform {
+  transform: scale(max(1, calc(1 / var(--transformClamp))));
+}

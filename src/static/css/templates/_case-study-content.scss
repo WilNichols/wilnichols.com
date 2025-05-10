@@ -1,10 +1,6 @@
 @use '../mixins';
 @use '../tokens';
 
-.proportionate-scale--surrogate {
-  display: grid;
-  place-content: center;
-}
 
 .case-study-image-wrapper {
   display: grid;
@@ -91,9 +87,6 @@
       background-color: var(--materialPrimaryColor);
       opacity: 0.5;
     }
-  }
-  .proportionate-scale--surrogate {
-    display: flex;
   }
 }
 
