@@ -6,11 +6,11 @@
 {% set assetRoot %}https://cdn.wilnichols.com/case-studies/{% endset %}
 {% set assetPath %}{{ assetRoot }}five-square-2/screenshots/{% endset %}
 
-{% macro FS2Hero(class = 'case-study-hero case-study-hero--five-square-2 case-study-image--2x') %}
+{% macro FS2Hero() %}
   {% set screen %}
     <iframe class="screen" src="/assets/embeds/five-square-2/" width="320" height="480" frameborder="0"></iframe>
   {% endset %}
-  {% call caseStudyImage(proportionateScale = true) %}
+  {% call caseStudyImage(class = 'case-study-hero case-study-hero--five-square-2 case-study-image--2x') %}
     {{  Device(
           type = 'iPhone4',
           contentType = 'rich',
