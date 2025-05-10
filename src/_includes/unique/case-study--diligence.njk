@@ -5,7 +5,7 @@
 {% macro DiligenceHero() %}  
   {% set commonPath = 'https://cdn.wilnichols.com/case-studies/diligence/' %}
   {% set windows = ['calendar', 'contacts', 'game-center', 'notes', 'reminders'] %}
-  {% call caseStudyImage(class = 'case-study-hero case-study-hero--diligence case-study-image--16x9 case-study-image--2x') %}
+  {% call caseStudyImage(class = 'case-study-hero case-study-hero--diligence case-study-image--no-padding case-study-image--16x9 case-study-image--2x') %}
     {{  img(
           src = commonPath + 'screenshots/main--independent',
           class = 'window utils__2x-to-3x'
@@ -35,7 +35,7 @@
       class: 'categories'}
   ] %}
   {% call caseStudyImage(
-    class = 'case-study-image--2x diligence-annotated-window', caption = 'Hover over a highlighted part of the interface to learn more.') %}
+    class = 'case-study-image--2x case-study-image--no-padding diligence-annotated-window', caption = 'Hover over a highlighted part of the interface to learn more.') %}
     <div class="annotation-container utils__2x-to-3x">
       {{-  img(
             src = screen,
@@ -53,31 +53,6 @@
       {%- endfor %}
     </div>
   {% endcall %}
-{# <div class="case-study-image-wrapper">
-  <div class="case-study-image case-study-image--2x diligence-annotated-window">
-    <div class="proportionate-scale--surrogate--container">
-      <div class="proportionate-scale--surrogate">
-        <div class="annotation-container utils__2x-to-3x">
-          {{-  img(
-                src = screen,
-                class = 'screen'
-          ) -}}
-          {% for annotation in annotations -%}
-            <div class="annotation annotation--{{ annotation.class }}">
-              <div class="annotation--trigger" data-content="{{ annotation.text }}"></div>
-              <div class="screen-container">
-                {{-  img(
-                      src = screen
-                ) -}}
-              </div>
-            </div>
-          {%- endfor %}
-        </div>
-      </div>
-    </div>
-  </div>
-  <p class="case-study-image__caption">Hover over a highlighted part of the interface to learn more.</p>
-</div> #}
 {% endmacro %}
 
 {% macro DiligenceDetailWindow() %}
@@ -88,7 +63,7 @@
     'detail--inactive--attachments'
   ] %}
   {% call caseStudyImage(
-    class = 'diligence-screen diligence-screen--transparent diligence-detail-window case-study-image--16x9 case-study-image--2x') %}
+    class = 'diligence-screen diligence-screen--transparent diligence-detail-window case-study-image--16x9 case-study-image--2x case-study-image--no-padding') %}
       {%- for screen in screens -%}
         {{  img(
               src = path + screen,
@@ -96,23 +71,6 @@
         ) }}
     {%- endfor -%}
   {% endcall %}
-{# <div class="case-study-image-wrapper">
-  <div class="diligence-detail-window case-study-image case-study-image--16x9 case-study-image--2x proportionate-scale">
-    <div class="diligence-screen case-study-image__content">
-      <div class="proportionate-scale--surrogate--container utils__2x-to-3x">
-        <div class="proportionate-scale--surrogate">
-          {%- for screen in screens -%}
-            {{  img(
-                  src = path + screen,
-                  class = 'window'
-            ) }}
-          {%- endfor -%}
-        </div>
-      </div>
-    </div>
-  </div>
-  <p class="case-study-image__caption">Clicking a task opens a detail view showing further notes, start and end dates, attached files, and more info.</p>
-</div> #}
 {% endmacro %}
 
 {% macro DiligenceAppIcon() %}
@@ -152,22 +110,4 @@
       {% endfor %}
     </div>
   {% endcall %}
-{# <div class="case-study-image-wrapper">
-  <div class="case-study-image case-study-image--400x300 case-study-image--icons">
-    <div class="case-study__toolbar-icons">
-      {%- for icon in icons -%}<div class="case-study-image--icons__icon">{{  img(
-          src = path + icon,
-          class = 'icon--32px--2x',
-          suffix= '?format=webp',
-          densities = [2]
-        ) }}{{  img(
-          src = path + icon,
-          class = 'icon--32px',
-          suffix= '?format=webp',
-          densities = [1]
-        ) }}</div>{%- endfor -%}
-    </div>
-  </div>
-  <p class="case-study-image__caption">From left to right: general, categories, and appearance.</p>
-</div> #}
 {% endmacro %}

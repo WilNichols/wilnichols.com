@@ -23,10 +23,10 @@
                 --darkPoster: url({{ assetRoot }}{{ post.data.preview.assets[4].poster }});
                 --lightPoster: url({{ assetRoot }}{{ post.data.preview.assets[5].poster }});
               {% endif %}"
-            autoplay 
+            autoPlay 
             loop 
             muted 
-            playsinline
+            playsInline
             >
             {% for asset in post.data.preview.assets %}
               <source media="{{ asset.media }}" src="{{ assetRoot }}{{ asset.source }}" type="video/mp4">
