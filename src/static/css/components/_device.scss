@@ -17,7 +17,7 @@
     height: var(--screen-height);
     width: var(--screen-width);
   }
-  .proportionate-scale__item & {
+  .proportionate-scale & {
     @include mixins.share(max-width, max-height, auto);
   }
 }

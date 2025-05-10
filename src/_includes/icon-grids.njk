@@ -1,4 +1,5 @@
 {%- from 'img.njk' import img -%}
+{%- from 'proportionate-scale.njk' import proportionateScale with context -%}
 
 {% macro macOSAppIcon(path) -%}
   {% set sizes = ['512', '256', '128', '32', '16'] %}
@@ -41,14 +42,16 @@
       <h6 class="caption caption--settings">Settings</h6>
       {% for size in sizes %}
         {% if loop.first %}
-          <div class="icon--512--container">
-            <h6 class="caption caption--app-store">App Store</h6>
-            {{  img(
-                  src = path + size,
-                  class = 'icon icon--' + size,
-                  densities = [1, 2]
-            ) }}
-          </div>
+            <div class="icon--512--container">
+              <h6 class="caption caption--app-store">App Store</h6>
+              {% call proportionateScale() %}
+                {{  img(
+                      src = path + size,
+                      class = 'icon icon--' + size,
+                      densities = [1, 2]
+                ) }}
+              {% endcall %}
+            </div>
         {% elif not loop.first %}
           {{  img(
                 src = path + size,
@@ -71,14 +74,16 @@
       <h6 class="caption caption--settings">Settings</h6>
       {% for size in sizes %}
         {% if loop.first %}
-        <div class="icon--512px--container">
-          <h6 class="caption caption--app-store">App Store</h6>
-          {{  img(
-                src = path + size,
-                class = 'icon icon--' + size + 'px',
-                densities = [1, 2]
-          ) }}
-        </div>
+          <div class="icon--512px--container">
+            <h6 class="caption caption--app-store">App Store</h6>
+            {% call proportionateScale() %}
+              {{  img(
+                    src = path + size,
+                    class = 'icon icon--' + size + 'px',
+                    densities = [1, 2]
+              ) }}
+            {% endcall %}
+          </div>
         {% elif not loop.first %}
           {{  img(
                 src = path + size,

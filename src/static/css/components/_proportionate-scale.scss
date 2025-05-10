@@ -1,13 +1,17 @@
-.proportionate-scale__item  {
-  --transformJS: calc(var(--transform, 1) * var(--transformModifier, 1));
-  --transformClamp: min(1, var(--transformJS));
-  transform: scale(var(--transformClamp));
+.proportionate-scale-block {
+  height: calc(var(--height) * var(--scale));
+  --scaleJS: calc(var(--scale, 1) * var(--scaleModifier, 1));
 }
 
-.proportionate-scale {
+.proportionate-scale-bounds {
+  
+}
 
+.proportionate-scale  {
+  transform: scale(var(--scaleJS));
+  transform-origin: top center;
 }
 
 .proportionate-scale .opposite-transform {
-  transform: scale(max(1, calc(1 / var(--transformClamp))));
+  transform: scale(max(1, calc(1 / var(--scaleJS))));
 }

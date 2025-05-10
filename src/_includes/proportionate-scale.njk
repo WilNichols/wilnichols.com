@@ -5,27 +5,31 @@
 {% macro _scaleScript() %}
   function scaleElement(el) {
     const elWidth = el.offsetWidth;
-    const elHeight = el.offsetHeight;
+    // const elHeight = el.offsetHeight;
     const wrapper = el.parentElement;
+    const container = wrapper.parentElement;
     const wrapperWidth = wrapper.clientWidth;
     const wrapperHeight = wrapper.clientHeight;
   
-    const scale = Math.min(
-      wrapperWidth / elWidth,
-      wrapperHeight / elHeight
-    );
+    const scale = Math.min(1, wrapperWidth / elWidth);
   
-    wrapper.style.setProperty('--transform', scale);
+    wrapper.classList.add('proportionate-scale-bounds');
+    container.classList.add('proportionate-scale-block');
+    container.style.setProperty('--scale', scale);
+    // only set height once; otherwise it's recursive
+    isOnResize ? '' : container.style.setProperty('--height', wrapperHeight + 'px');
   }
   
-  function proportionateScale() {
-    const elements = document.querySelectorAll('.proportionate-scale__item');
+  function proportionateScale(isOnResize = false) {
+    const elements = document.querySelectorAll('.proportionate-scale');
     elements.forEach(scaleElement);
   }
   
   function handleDomReady() {
-    proportionateScale();
-    window.addEventListener('resize', proportionateScale);
+    proportionateScale(isOnResize = false);
+    window.addEventListener('resize', function(event) {
+      proportionateScale(isOnResize = true);
+    });
   }
   
   document.addEventListener('DOMContentLoaded', handleDomReady);
@@ -33,12 +37,10 @@
 </script>
 
 {% macro proportionateScale() -%}
+  <div class="proportionate-scale">
+    {{ caller () }}
+  </div>
   {% js "defer" %}
     {{ _scaleScript() }}
   {% endjs %}
-  <div class="proportionate-scale">
-    <div class="proportionate-scale__item">
-      {{ caller () }}
-    </div>
-  </div>
 {%- endmacro %}

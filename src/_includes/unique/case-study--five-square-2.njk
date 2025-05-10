@@ -12,7 +12,7 @@
     <iframe class="screen" src="/assets/embeds/five-square-2/" width="320" height="480" frameborder="0"></iframe>
   {% endset %}
   {% call caseStudyImage(class = 'case-study-hero case-study-hero--five-square-2 case-study-image--2x') %}
-    {% call proportionateScale()  %}
+    {% call proportionateScale() %}
       {{  Device(
             type = 'iPhone4',
             contentType = 'rich',
@@ -34,7 +34,7 @@
 {% macro FS2Board() -%}
   {% set screens = ['08', '07', '06'] %}
   {% call caseStudyImage(class = 'case-study-image--2x') %}
-    {% call proportionateScale()  %}
+    {% call proportionateScale() %}
       <div class="devices devices--three-phones">
         {% for screen in screens %}
           {{  Device(
@@ -50,7 +50,7 @@
 {% macro FS2Settings() -%}
   {% set screens = ['04', '03', '02'] %}
   {% call caseStudyImage(class = 'case-study-image--2x') %}
-    {% call proportionateScale()  %}
+    {% call proportionateScale() %}
       <div class="devices devices--three-phones">
         {% for screen in screens %}
           {{  Device(
@@ -74,30 +74,32 @@
 
 
 {% macro FSVersions() -%}
-{% set screens = [
-  {
-    path: assetRoot + 'five-square-3/screenshots/01',
-    type: 'iPhone11Pro',
-    color: 'silver'
-  },
-  {
-    path: assetRoot + 'five-square-2/screenshots/01',
-    type: 'iPhone4'
-  },
-  {
-    path: assetRoot + 'five-square-1/screenshots/01',
-    type: 'iPhone2g'
-  }
-] %}
-{% call caseStudyImage(class = 'case-study-image--2x utils__2x-to-3x') %}
-  <div class="devices devices--iPhone1-and-iPhone4-and-11Pro">
-    {% for screen in screens %}
-      {{  Device(
-            type = screen.type,
-            color = screen.color | d('black'),
-            content = screen.path
-      ) }}
-    {% endfor %}
-  </div>
-{% endcall %}
+  {% set screens = [
+    {
+      path: assetRoot + 'five-square-3/screenshots/01',
+      type: 'iPhone11Pro',
+      color: 'silver'
+    },
+    {
+      path: assetRoot + 'five-square-2/screenshots/01',
+      type: 'iPhone4'
+    },
+    {
+      path: assetRoot + 'five-square-1/screenshots/01',
+      type: 'iPhone2g'
+    }
+  ] %}
+  {% call caseStudyImage(class = 'case-study-image--2x utils__2x-to-3x') %}
+    {% call proportionateScale() %}
+      <div class="devices devices--iPhone1-and-iPhone4-and-11Pro">
+        {% for screen in screens %}
+          {{  Device(
+                type = screen.type,
+                color = screen.color | d('black'),
+                content = screen.path
+          ) }}
+        {% endfor %}
+      </div>
+    {% endcall %}
+  {% endcall %}
 {%- endmacro %}
