@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import { DateTime } from 'luxon';
 import { EleventyRenderPlugin, EleventyHtmlBasePlugin } from '@11ty/eleventy';
 import Fetch from '@11ty/eleventy-fetch';
+import htmlmin from "html-minifier-terser";
 import markdownIt from 'markdown-it';
 import markdownItAnchor from 'markdown-it-anchor';
 import markdownItAttrs from 'markdown-it-attrs';
@@ -324,6 +325,18 @@ export default async function(eleventyConfig) {
   eleventyConfig.addWatchTarget("src/static/css/");
   eleventyConfig.addWatchTarget("src/static/js/");
   eleventyConfig.setWatchThrottleWaitTime(1000); // in milliseconds
+  
+  eleventyConfig.addTransform("trimMarkdown", async function (content) {
+    if ((this.page.outputPath || "").endsWith(".html")) {
+      return htmlmin.minify(content, {
+        useShortDoctype: true,
+        removeComments: true,
+        collapseWhitespace: true
+      });
+    }
+    return content;
+  });
+  
   
   return {
     dir: {

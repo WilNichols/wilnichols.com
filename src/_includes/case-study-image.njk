@@ -4,17 +4,17 @@
   classes = ['', '', ''] / inserts a custom class string to the outer, middle, and inner divs
 #}
 
-{% macro caseStudyImage(
+{%- macro caseStudyImage(
   id,
   class,
   caption) 
-%}
+-%}
   <div class="case-study-image-wrapper"{{ ' id=' + id if id }}>
     <div class="case-study-image {{ class }}">
       {{ caller () }}
     </div>
-    {% if caption %}
+    {%- if caption -%}
       <p class="case-study-image__caption">{{ caption | safe }}</p>
-    {% endif %}
+    {%- endif -%}
   </div>
-{% endmacro %}
+{%- endmacro -%}

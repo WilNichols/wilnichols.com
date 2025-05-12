@@ -1,5 +1,5 @@
 ---
-date: 2025-04-24T01:30
+date: 2025-05-11T22:10
 author: Wil Nichols
 tags:
   - Case-Studies/Groups/Freelance
@@ -18,11 +18,10 @@ project:
   tools:
   - Photoshop
   period: 
-  - Summer 2011 
-  - Spring 2013
+  - Summer 2011
   collaborators: 
-  - '[Carter Allen](https://twitter.com/CarterA)'
-  - '[George Woodliff-Stanley](https://twitter.com/joyurge)'
+  - '[Carter Allen](https://cartera.me)'
+  - '[George Woodliff-Stanley](http://childrenastheorists.wordpress.com/)'
 ---
 
 Opt-6 Products came to me with the idea for a unique card game, Five Square. A player starts with a 5x5 grid of cards, and wins by consolidating all cards into a single position. This is done by by moving a card within its column or row, onto another card of the same denomination or suit. The game appears simple until the player finds themselves with two irreconcilable stacks at the game’s end.

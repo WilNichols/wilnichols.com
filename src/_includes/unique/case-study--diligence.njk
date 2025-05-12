@@ -2,7 +2,7 @@
 {%- from 'icon-grids.njk' import macOSAppIcon -%}
 {%- from 'case-study-image.njk' import caseStudyImage -%}
 
-{% macro DiligenceHero() %}  
+{%- macro DiligenceHero() -%}  
   {% set commonPath = 'https://cdn.wilnichols.com/case-studies/diligence/' %}
   {% set windows = ['calendar', 'contacts', 'game-center', 'notes', 'reminders'] %}
   {% call caseStudyImage(class = 'case-study-hero case-study-hero--diligence case-study-image--no-padding case-study-image--16x9 case-study-image--2x') %}
@@ -20,10 +20,9 @@
       {% endfor %}
     </div>
   {% endcall %}
-{% endmacro %}
+{%- endmacro -%}
 
-{% macro DiligenceAnnotatedWindow() %}  
-
+{%- macro DiligenceAnnotatedWindow() -%}  
   {% set screen %}https://cdn.wilnichols.com/case-studies/diligence/screenshots/menubar--attached{% endset %}
   {% set annotations = [
     { text: 'Creates a new task inline at the top of the following list.',
@@ -54,9 +53,9 @@
       {%- endfor %}
     </div>
   {% endcall %}
-{% endmacro %}
+{%- endmacro -%}
 
-{% macro DiligenceDetailWindow() %}
+{%- macro DiligenceDetailWindow() -%}
   {% set path = 'https://cdn.wilnichols.com/case-studies/diligence/screenshots/' %}
   {% set screens = [
     'detail--inactive', 
@@ -72,17 +71,17 @@
         ) }}
     {%- endfor -%}
   {% endcall %}
-{% endmacro %}
+{%- endmacro -%}
 
-{% macro DiligenceAppIcon() %}
+{%- macro DiligenceAppIcon() -%}
   {% call caseStudyImage(
     id = 'app-icon',
     class = 'icons-grid--macOS-max-512') %}
     {{ macOSAppIcon('https://cdn.wilnichols.com/case-studies/diligence/icon/') }}
   {% endcall %}
-{% endmacro %}
+{%- endmacro -%}
 
-{% macro DiligencePreferenceIcons() %}
+{%- macro DiligencePreferenceIcons() -%}
   {% set path = 'https://cdn.wilnichols.com/case-studies/diligence/small-icons/' %}
   {% set icons = [
     'settings__general', 
@@ -111,4 +110,4 @@
       {% endfor %}
     </div>
   {% endcall %}
-{% endmacro %}
+{%- endmacro -%}
