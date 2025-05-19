@@ -4,7 +4,7 @@
 <ol class="album-groups-list" reversed>
   {% asyncEach albumGroup in collections.AlbumGroups | reverse %}
     <li class="album-group">
-      <h2 class="album-group__title">{{ albumGroup.data.title }}</h2>
+      <h2 class="album-group__title">{{ albumGroup.data.title }}&puncsp;</h2>
       <ol class="album-group__albums-list">
         {% set albumGroup = albumGroup.data.tag %}
         {% asyncEach album in collections[albumGroup] | reverse %}
@@ -14,7 +14,7 @@
             {% set dataSRC %}{{ previewSRC }}?width=6px&format=webp{% endset %}
             {% set imageProps = dataSRC | imageInfo %}
             <li class="album-group__album">
-              <a class="album-group__album__link" href="{{ album.data.permalink }}" data-preview="{{ previewSrc }}">{{ album.data.shortTitle if album.data.shortTitle else album.data.title | replace(albumGroup.data.title, '') }}</a>{% if not loop.last %}, {% endif %}
+              <a class="album-group__album__link" href="{{ album.data.permalink }}" data-preview="{{ previewSrc }}">{{ album.data.shortTitle if album.data.shortTitle else album.data.title | replace(albumGroup.data.title, '') }}</a>{% if not loop.last %},&puncsp;{% endif %}
               <div class="album-preview">
                 {{  Picture(
                     fileName = album.data.thumbnail,
