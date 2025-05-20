@@ -5,10 +5,10 @@
 @include tokens.headingStyles;
 @include tokens.placeholders;
 
-
 .page--albums {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .album-groups-list {
@@ -40,8 +40,6 @@
   display: inline;
 }
 
-$previewBreakpoint: (tokens.$breakpoint * 2) * 1.33;
-
 .album-group__album__link {
   // color: var(--contentSecondaryColor);
   position: relative;
@@ -56,13 +54,13 @@ $previewBreakpoint: (tokens.$breakpoint * 2) * 1.33;
     transition: background-color .2s ease-out,transform .2s ease-out;
   }
   &:hover {
+    & + .album-preview {
+      @include tokens.light-dark(opacity, 0.33, 0.5);
+      @include tokens.light-dark(mix-blend-mode, multiply, screen);
+    }
     & + .album-preview img {
       filter: blur(0);
       transform: scale(1);
-      opacity: 1;
-      @media screen and (width <= $previewBreakpoint) {
-        opacity: 0.33;
-      }
       & {
         transition-duration: tokens.$x4;
       }
@@ -75,7 +73,6 @@ $previewBreakpoint: (tokens.$breakpoint * 2) * 1.33;
 }
 
 .album-preview {
-  $left: max(calc(tokens.$categoryWidth + var(--col)), 50vw);
   $halfCol: calc(var(--col)/2);
   & {
     z-index: -10;
@@ -83,13 +80,10 @@ $previewBreakpoint: (tokens.$breakpoint * 2) * 1.33;
     place-items: center;
     pointer-events: none;
     position: fixed;
-    width: 50vw;
-    inset: $halfCol $halfCol $halfCol auto;
-  }
-  @media screen and (width <= $previewBreakpoint) {
     width: auto;
     inset: $halfCol;
     justify-content: center;
+    opacity: 0;
   }
   picture {
     & {
@@ -101,7 +95,6 @@ $previewBreakpoint: (tokens.$breakpoint * 2) * 1.33;
       max-height: 100%;
       max-width: 100%;
       position: absolute;
-      opacity: 0;
       filter: blur(.6em);
       transform: scale(0.9875);
       transition: tokens.$x opacity ease-out, tokens.$x filter ease-out, tokens.$x transform ease-out;
