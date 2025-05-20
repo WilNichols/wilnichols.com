@@ -306,9 +306,6 @@ export default async function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy({"src/static/vid": "/assets/vid"});
   eleventyConfig.addPassthroughCopy({"src/static/embeds": "/assets/embeds"});
   eleventyConfig.addPassthroughCopy({"src/static/favicon": "/"});
-  eleventyConfig.addPassthroughCopy({
-      "./node_modules/motion/dist/motion.js": "/assets/js/motion.js"
-  });
 
   // CSS Mapping
   if (process.env.ELEVENTY_ENV == 'dev') {
