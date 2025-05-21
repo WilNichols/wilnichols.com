@@ -5,7 +5,7 @@ tags:
   - Topic/Life
   - Topic/Media
 url: 
-summary: "'The 2016 primaries were just like that time Snipe smooched Dumbledore in the ninth book' and all that shit"
+summary: "“The 2016 primaries were just like that time Snipe smooched Dumbledore in the ninth book” and that genre of commentary."
 ---
 
 I voraciously consume sci-fi, space operas, and fantasy. Historical fiction to a lesser degree.[^1] Iconic within these genres, Star Wars is a part of the cultural cannon. My mother was seventeen when A New Hope landed in theaters, and while she didn’t carry the interest into her adult life, child-marketing hit me hard with Pizza Hut’s [1999 The Phantom Menace](https://swnz.co.nz/2016/07/30/pizza-hut-phantom-menace-promotions-1999/){target=blank} campaign, and Lego’s first Star Wars sets released that same year. I’m not enough of a fan to visibly share my interest,[^2] but I’m enough of one to consume media and watch the shows they put out.
