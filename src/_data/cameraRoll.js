@@ -60,7 +60,7 @@ export default async function () {
         formatted: DateTime.fromISO(isoDate, 'FF')
       };
 
-      // console.warn('fetching: ' + cameraRollEntry.img.src);
+      console.warn('fetching: ' + cameraRollEntry.img.src);
 
       const img = await Fetch(cameraRollEntry.img.src, {
         duration: '*',

@@ -263,7 +263,7 @@ export default async function(eleventyConfig) {
       };
       const color = await getColor();
       const obj = {path: url, height: height, width: width, ratio: width/height, orientation: orientation, color: color};
-      // console.warn(url);
+      console.warn('fetching: ' + url);
       return obj; 
     } catch (err) {
       // console.warn(url);
