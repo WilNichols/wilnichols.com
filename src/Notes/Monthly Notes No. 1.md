@@ -1,5 +1,5 @@
 ---
-date: 2025-05-31 T23:59
+date: 2025-05-31T23:57
 author: Wil Nichols
 tags:
   - Topic/Life
