@@ -7,7 +7,7 @@ tags:
 summary: "May’s monthly notes"
 ---
 
-May’s ben a curious month. It’ll be both Friday and I not know where the week went, and 9pm on a Tuesday evening that’s dragged for hours. When I’m not filling time it drags, and after filling enough, I drag. 
+May’s been a curious month. It’ll be both Friday and I not know where the week went, and 9pm on a Tuesday evening that’s dragged for hours. When I’m not filling time it drags, and after filling enough, I drag. 
 
 This last Memorial Day weekend I realized that when not filling my time, I have a difficult time enjoying relaxation. There’s a discomfort—if not anxiety—in being still. 
 
