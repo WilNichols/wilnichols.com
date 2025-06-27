@@ -3,7 +3,7 @@ date: 2025-01-23T00:52
 author: Wil Nichols
 tags:
   - Topic/Life
-summary: How to address Manton Reeces, and what I believe on related topics.
+summary: How to address Manton Reece, and what I believe on related topics.
 ---
 
 Manton Reece of Micro.blog thoroughly mishandled discourse with his fellow indieweb darling [Adam Newbold](https://adam.omg.lol). [It's](https://social.lol/@adam/113872452801184988) [still](https://www.manton.org/2025/01/22/ive-now-read-adam-newbolds.html) [unfolding](https://vincentritter.com/2025/01/22/silence).[^1] Others have discussed the merits of Adam’s argument and I have few unique words to add to the discourse, but it’s worth pausing to recognize how much simpler this would’ve been had Manton plainly voiced his views, instead of side-stepping Adam’s points and trying to take the discussion to private emails. It’s as if were he to plainly respond to Adam, Manton risks alienating friends, customers, employees, investors, or another meaningful audience.
