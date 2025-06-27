@@ -127,7 +127,8 @@ export default async function(eleventyConfig) {
       ...collectionsApi.getFilteredByTag("Type/Case Study"),
       ...collectionsApi.getFilteredByTag("Type/Note"),
       ...collectionsApi.getFilteredByTag("Type/Link"),
-      ...collectionsApi.getFilteredByTag("Type/Recipe")
+      ...collectionsApi.getFilteredByTag("Type/Recipe"),
+      ...collectionsApi.getFilteredByTag("Type/NewAlbum")
     ];
     const sortedFeed = feed.sort(function(a, b) {
       return (a.date < b.date) ? -1 : ((a.date > b.date) ? 1 : 0);

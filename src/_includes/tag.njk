@@ -1,4 +1,5 @@
 {% macro tag(label) -%}
-  {% set label = label | replace("Type/", "") %}
+  {# "Type/NewAlbum" is a tag used to insert photo albums to my main feed, but I don't want my old albums there. For now I'm replacing their names with Album here so that I'm not rendering "NewAlbum". #}
+  {% set label = label | replace("Type/", "") | replace("NewAlbum", "Album") %}
   <span class="post__type post__type--}">{{ label }}</span>
 {%- endmacro %}
