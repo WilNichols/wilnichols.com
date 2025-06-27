@@ -47,11 +47,12 @@ export default async function(eleventyConfig) {
             match.url = `/` + slugify(`${parts[0].trim().replace(/\s/g, "-")}/`).replace('-s', 's') + `/`;
         }
     });
-      // remove the hr
-      md.renderer.rules.footnote_block_open = () => (
-        '<section class="footnotes">\n' +
-        '<ol class="footnotes-list">\n'
-      );
+    // remove the hr
+    md.renderer.rules.footnote_block_open = () => (
+      '<section class="footnotes">\n' +
+      '<ol class="footnotes-list">\n'
+    );
+    md.linkify.set({ fuzzyLink: false });
   })
   
   eleventyConfig.setLibrary('md', md);

@@ -7,6 +7,7 @@ tags:
   - Topic/Work
   - Topic/AI
 ---
+
 I last wrote on generative AI and its use a hair under a year ago, decrying its sloppish output, its climate and water impact, and its foundational thefts of intellectual property and creative labor.
 
 Much has changed since. A year ago Zello had a scattering of internally influential early adopters. This worried me, but I wasn’t sure where they’d take us. In my limited and pedestrian product thinking, I couldn’t imagine what use walkie-talkie users would have for AI-labelled, headlining, highly-marketed features.
