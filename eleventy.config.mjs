@@ -339,6 +339,11 @@ export default async function(eleventyConfig) {
     return content;
   });
   
+  eleventyConfig.addPreprocessor("drafts", "*", (data, content) => {
+    if(data.draft && process.env.ELEVENTY_ENV === "prod") {
+      return false;
+    }
+  });
   
   return {
     dir: {
