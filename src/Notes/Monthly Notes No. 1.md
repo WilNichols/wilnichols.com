@@ -3,7 +3,7 @@ date: 2025-05-31T23:57
 author: Wil Nichols
 tags:
   - Topic/Life
-  - Topic/Monthly-Notes
+  - Topic/Monthly Notes
 summary: "May’s monthly notes"
 ---
 
