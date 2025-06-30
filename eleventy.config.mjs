@@ -243,30 +243,41 @@ export default async function(eleventyConfig) {
   
   eleventyConfig.addAsyncFilter('imageInfo', async function(url) {
     try {
-      const image = await Fetch(url, {
-        duration: '*',
-        type: 'buffer',
-        directory: cachePath,
-        fetchOptions: {
-          signal: AbortSignal.timeout(300000),
-          headers: {
-            "user-agent":
-              "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36",
+      if (process.env.FAST) {
+        return {
+          path: '#',
+          height: 4,
+          width: 6,
+          ratio: 1.5,
+          orientation: 'landscape',
+          color: '#a5a5a5'
+        }
+      } else {
+        const image = await Fetch(url, {
+          duration: '*',
+          type: 'buffer',
+          directory: cachePath,
+          fetchOptions: {
+            signal: AbortSignal.timeout(300000),
+            headers: {
+              "user-agent":
+                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36",
+            },
           },
-        },
-      });
-      const width = sizeOf(image).width;
-      const height = sizeOf(image).height;
-      let orientation = (width == height) ? 'square' : (( width > height ) ? 'landscape' : 'portrait');
-      async function getColor() {
-        return getAverageColor(image).then(color => {
-            return color.hex;
         });
-      };
-      const color = await getColor();
-      const obj = {path: url, height: height, width: width, ratio: width/height, orientation: orientation, color: color};
-      console.warn('fetching: ' + url);
-      return obj; 
+        const width = sizeOf(image).width;
+        const height = sizeOf(image).height;
+        let orientation = (width == height) ? 'square' : (( width > height ) ? 'landscape' : 'portrait');
+        async function getColor() {
+          return getAverageColor(image).then(color => {
+              return color.hex;
+          });
+        };
+        const color = await getColor();
+        const obj = {path: url, height: height, width: width, ratio: width/height, orientation: orientation, color: color};
+        console.warn('fetching: ' + url);
+        return obj; 
+      }
     } catch (err) {
       // console.warn(url);
       // console.warn("Error on: ", err);
