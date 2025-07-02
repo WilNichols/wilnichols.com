@@ -1,0 +1,2 @@
+/*
+	Basic-Auth: process.env.USER1_NAME:process.env.USER1_PASS process.env.USER2_NAME:process.env.USER2_PASS

@@ -137,6 +137,17 @@ export default async function(eleventyConfig) {
     return sortedFeed;
   });
   
+  // https://stackoverflow.com/questions/66083103/how-to-generate-a-list-of-all-collections-in-11ty
+  eleventyConfig.addCollection("Drafts", function (collectionsApi) {
+    return collectionsApi.getAll().filter(function (item) {
+      return "draft" in item.data;
+    });
+  });
+  
+  eleventyConfig.addFilter("draftsOf", (collection1, collection2) => {
+    return collection1.filter(value => collection2.includes(value));
+  });
+  
   eleventyConfig.addFilter("markdownify", string => {
     return md.renderInline(string)
   });
@@ -212,75 +223,83 @@ export default async function(eleventyConfig) {
   });
   
   eleventyConfig.addAsyncFilter("getPhotos",  async function(dir) {
-    // do some Async work
-    // console.log('getting photos for ' + dir);
-    const client = new S3Client({ 
-      region: "us-east-1" ,
-      credentials: {
-        accessKeyId: process.env.WN_AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.WN_AWS_SECRET_ACCESS_KEY
-      }
-    });
-    const albumsParams = {
-      Bucket: 'wnphoto01',
-      Delimiter: '/',
-      Prefix: 'gallery-2023/' + dir + '/'
-    };
-    
-    const command = new ListObjectsV2Command(albumsParams);
-    let data;
-    let albums;
-    try {
-      data = await client.send(command);
-      albums = data.Contents.map(a => a.Key.replace(albumsParams.Prefix, '').replace(albumsParams.Delimiter, ''));
+    if (!process.env.FAST) {
+      // do some Async work
+      // console.log('getting photos for ' + dir);
+      const client = new S3Client({ 
+        region: "us-east-1" ,
+        credentials: {
+          accessKeyId: process.env.WN_AWS_ACCESS_KEY_ID,
+          secretAccessKey: process.env.WN_AWS_SECRET_ACCESS_KEY
+        }
+      });
+      const albumsParams = {
+        Bucket: 'wnphoto01',
+        Delimiter: '/',
+        Prefix: 'gallery-2023/' + dir + '/'
+      };
       
-    } catch (error) {
-      return 'AWS failure'
-    } finally {
-      return albums;
+      const command = new ListObjectsV2Command(albumsParams);
+      let data;
+      let albums;
+      try {
+        data = await client.send(command);
+        albums = data.Contents.map(a => a.Key.replace(albumsParams.Prefix, '').replace(albumsParams.Delimiter, ''));
+        
+      } catch (error) {
+        return 'AWS failure'
+      } finally {
+        return albums;
+      }
+    } else {
+      return null;
     }
   });
   
   eleventyConfig.addAsyncFilter('imageInfo', async function(url) {
-    try {
-      if (process.env.FAST) {
-        return {
-          path: '#',
-          height: 4,
-          width: 6,
-          ratio: 1.5,
-          orientation: 'landscape',
-          color: '#a5a5a5'
-        }
-      } else {
-        const image = await Fetch(url, {
-          duration: '*',
-          type: 'buffer',
-          directory: cachePath,
-          fetchOptions: {
-            signal: AbortSignal.timeout(300000),
-            headers: {
-              "user-agent":
-                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36",
+    if (!process.env.FAST) {
+      try {
+        if (process.env.FAST) {
+          return {
+            path: '#',
+            height: 4,
+            width: 6,
+            ratio: 1.5,
+            orientation: 'landscape',
+            color: '#a5a5a5'
+          }
+        } else {
+          const image = await Fetch(url, {
+            duration: '*',
+            type: 'buffer',
+            directory: cachePath,
+            fetchOptions: {
+              signal: AbortSignal.timeout(300000),
+              headers: {
+                "user-agent":
+                  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36",
+              },
             },
-          },
-        });
-        const width = sizeOf(image).width;
-        const height = sizeOf(image).height;
-        let orientation = (width == height) ? 'square' : (( width > height ) ? 'landscape' : 'portrait');
-        async function getColor() {
-          return getAverageColor(image).then(color => {
-              return color.hex;
           });
-        };
-        const color = await getColor();
-        const obj = {path: url, height: height, width: width, ratio: width/height, orientation: orientation, color: color};
-        console.warn('fetching: ' + url);
-        return obj; 
+          const width = sizeOf(image).width;
+          const height = sizeOf(image).height;
+          let orientation = (width == height) ? 'square' : (( width > height ) ? 'landscape' : 'portrait');
+          async function getColor() {
+            return getAverageColor(image).then(color => {
+                return color.hex;
+            });
+          };
+          const color = await getColor();
+          const obj = {path: url, height: height, width: width, ratio: width/height, orientation: orientation, color: color};
+          console.warn('fetching: ' + url);
+          return obj; 
+        }
+      } catch (err) {
+        // console.warn(url);
+        // console.warn("Error on: ", err);
+        return null;
       }
-    } catch (err) {
-      // console.warn(url);
-      // console.warn("Error on: ", err);
+    } else {
       return null;
     }
   });
@@ -320,9 +339,11 @@ export default async function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy({"src/static/embeds": "/assets/embeds"});
   eleventyConfig.addPassthroughCopy({"src/static/favicon": "/"});
 
-  // CSS Mapping
   if (process.env.ELEVENTY_ENV == 'dev') {
+    // CSS Mapping
     eleventyConfig.addPassthroughCopy({"src/static/css": "/src/static/css"});
+    // Build Protection
+    eleventyConfig.addPassthroughCopy({"src/_headers": "/_headers"});
   }
 
   // Plugins
