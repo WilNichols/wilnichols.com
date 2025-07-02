@@ -59,7 +59,7 @@
 {% macro postList(collection, renderFooter = false) -%}
   <ol class="posts-list" reversed>
     {% set drafts = collections.Drafts | draftsOf(collection) %}
-    {% if collections.Drafts.length > 0 %}
+    {% if drafts.length > 0 %}
       <li class="posts-month">
         <h2 class="post__month-and-year"><span class="post__month">Drafts</span></h2>
         <ol class="posts">

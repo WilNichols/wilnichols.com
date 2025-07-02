@@ -98,7 +98,7 @@
 
 {% macro PageHeader(el="div") %}
   {% set cookedTitleString %}{{ altTitle if altTitle else page.fileSlug }}{% endset %}
-  {% set date %}{{ date | readableDateISO }}{% endset %}
+  {% set date %}{% if draft %}Draft{% else %}{{ date | readableDateISO }}{% endif %}{% endset %}
   <{{ el }} class="page-header__title-container">
     {{ backButton() }}
     <div class="page-header__title">
