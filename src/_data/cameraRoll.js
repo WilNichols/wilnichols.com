@@ -9,9 +9,9 @@ export default async function () {
     let url = 'https://glass.photo/wilnichols/rss';
     const cameraRollArray = [];
     let cachePath = process.env.ELEVENTY_ENV === 'dev' ? '.cache' : '/opt/build/cache/';
-    
+
     let feed;
-    
+
     try {
       feed = await extract(url, {
         getExtraEntryFields: (feedEntry) => {
