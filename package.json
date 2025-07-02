@@ -11,7 +11,7 @@
     "start": "ELEVENTY_ENV=dev npm-run-all build:sass --parallel watch:*",
     "start-fast": "ELEVENTY_ENV=dev FAST=true npm-run-all build:sass --parallel watch:*",
     "netlify-build": "ELEVENTY_ENV=prod NETLIFY=true npm-run-all build:sass build:eleventy build:morepostcss build:postcss && rm -rf _tmp && rm -rf _site/_ && npm run build:minify",
-    "netlify-build-dev": "ELEVENTY_ENV=dev NETLIFY=true npm-run-all build:sass build:eleventy build:morepostcss build:postcss && headers",
+    "netlify-build-dev": "ELEVENTY_ENV=dev NETLIFY=true npm-run-all build:sass build:eleventy build:morepostcss build:postcss dev:headers",
     "build": "ELEVENTY_ENV=prod npm-run-all build:sass build:eleventy build:morepostcss build:postcss && rm -rf _tmp && npm run build:minify",
     "watch:eleventy": "eleventy --serve",
     "watch:sass": "sass --watch --poll src/static/css:_tmp",
@@ -22,7 +22,7 @@
     "build:morepostcss": "postcss _tmp/**/*.css -d _site/assets/css/",
     "build:eleventy": "eleventy",
     "build:minify": "html-minifier --input-dir _site --output-dir _site --file-ext html --remove-comments --collapse-whitespace --conservative-collapse --minify-js --minify-urls --use-short-doctype",
-    "headers": "sed -i s/USER1_NAME_PLACEHOLDER/$USER1_NAME/g _headers && sed -i s/USER1_PASS_PLACEHOLDER/$USER1_PASS/g _headers && sed -i s/USER2_NAME_PLACEHOLDER/$USER2_NAME/g _headers && sed -i s/USER2_PASS_PLACEHOLDER/$USER2_PASS/g _headers"
+    "dev:headers": "sed -i s/USER1_NAME_PLACEHOLDER/$USER1_NAME/g _headers && sed -i s/USER1_PASS_PLACEHOLDER/$USER1_PASS/g _headers && sed -i s/USER2_NAME_PLACEHOLDER/$USER2_NAME/g _headers && sed -i s/USER2_PASS_PLACEHOLDER/$USER2_PASS/g _headers"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0",
