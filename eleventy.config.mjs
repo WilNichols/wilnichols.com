@@ -137,6 +137,17 @@ export default async function(eleventyConfig) {
     return sortedFeed;
   });
   
+  // https://stackoverflow.com/questions/66083103/how-to-generate-a-list-of-all-collections-in-11ty
+  eleventyConfig.addCollection("Drafts", function (collectionsApi) {
+    return collectionsApi.getAll().filter(function (item) {
+      return "draft" in item.data;
+    });
+  });
+  
+  eleventyConfig.addFilter("draftsOf", (collection1, collection2) => {
+    return collection1.filter(value => collection2.includes(value));
+  })
+  
   eleventyConfig.addFilter("markdownify", string => {
     return md.renderInline(string)
   });
