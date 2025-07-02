@@ -339,11 +339,9 @@ export default async function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy({"src/static/embeds": "/assets/embeds"});
   eleventyConfig.addPassthroughCopy({"src/static/favicon": "/"});
 
+  // CSS Mapping
   if (process.env.ELEVENTY_ENV == 'dev') {
-    // CSS Mapping
     eleventyConfig.addPassthroughCopy({"src/static/css": "/src/static/css"});
-    // Build Protection
-    eleventyConfig.addPassthroughCopy({"src/_headers": "/_headers"});
   }
 
   // Plugins
