@@ -23,7 +23,7 @@
     "build:eleventy": "eleventy",
     "build:minify": "html-minifier --input-dir _site --output-dir _site --file-ext html --remove-comments --collapse-whitespace --conservative-collapse --minify-js --minify-urls --use-short-doctype",
     "headers:move": "cp src/_headers _site/_headers",
-    "headers:replace": "sed -i s/USER1_NAME_PLACEHOLDER/$USER1_NAME/g _headers && sed -i s/USER1_PASS_PLACEHOLDER/$USER1_PASS/g _headers && sed -i s/USER2_NAME_PLACEHOLDER/$USER2_NAME/g _headers && sed -i s/USER2_PASS_PLACEHOLDER/$USER2_PASS/g _headers"
+    "headers:replace": "sed -i s/USER1_NAME_PLACEHOLDER/$USER1_NAME/g _site/_headers && sed -i s/USER1_PASS_PLACEHOLDER/$USER1_PASS/g _site/_headers && sed -i s/USER2_NAME_PLACEHOLDER/$USER2_NAME/g _site/_headers && sed -i s/USER2_PASS_PLACEHOLDER/$USER2_PASS/g _site/_headers"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0",
