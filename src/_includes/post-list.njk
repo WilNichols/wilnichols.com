@@ -58,26 +58,42 @@
 
 {% macro postList(collection, renderFooter = false) -%}
   <ol class="posts-list" reversed>
+    {% set drafts = collections.Drafts | draftsOf(collection) %}
+    {% if drafts.length > 0 %}
+      <li class="posts-month">
+        <h2 class="post__month-and-year"><span class="post__month">Drafts</span></h2>
+        <ol class="posts">
+        {% for draft in drafts %}
+          <li class="note">
+            {% set draftPrefix %}0{{ loop.index }}{% endset %}
+            {{ postListItem(draft, draftPrefix, showAccessories) }}
+          </li>
+        {% endfor %}
+        </ol>
+      </li>
+    {% endif %}
     {% set currentDay = "" %}
     {% set currentMonth = "" %}
     {% set currentYear = "" %}
     {% for post in collection | reverse %}
-      {% set postDay = post.date | postDay %}
-      {% set postMonth = post.data.month %}
-      {% set postYear = post.data.year %}
-      {% set postPrefix %}{% if (currentDay == postDay) and (currentMonth == postMonth) %}↳{% else %}{{ postDay }}{% endif %}{% endset %}
-      {% if currentMonth != postMonth %}
-        {% if loop.index > 1 %}</ol></li>{% endif %}
-        <li class="posts-month">
-          <h2 class="post__month-and-year"><span class="post__month">{{ postMonth }}</span>{% if currentYear != postYear %} <span class="post__year">{{ postYear }}</span>{% endif %}</h2>
-          <ol class="posts">
+      {% if not post.data.draft %}
+        {% set postDay = post.date | postDay %}
+        {% set postMonth = post.data.month %}
+        {% set postYear = post.data.year %}
+        {% set postPrefix %}{% if (currentDay == postDay) and (currentMonth == postMonth) %}↳{% else %}{{ postDay }}{% endif %}{% endset %}
+        {% if currentMonth != postMonth %}
+          {% if loop.index > 1 %}</ol></li>{% endif %}
+          <li class="posts-month">
+            <h2 class="post__month-and-year"><span class="post__month">{{ postMonth }}</span>{% if currentYear != postYear %} <span class="post__year">{{ postYear }}</span>{% endif %}</h2>
+            <ol class="posts">
+        {% endif %}
+        <li class="note">
+          {{ postListItem(post, postPrefix, showAccessories) }}
+        </li>
+        {% set currentDay = postDay %}
+        {% set currentMonth = postMonth %}
+        {% set currentYear = postYear %}
       {% endif %}
-      <li class="note">
-        {{ postListItem(post, postPrefix, showAccessories) }}
-      </li>
-      {% set currentDay = postDay %}
-      {% set currentMonth = postMonth %}
-      {% set currentYear = postYear %}
     {% endfor %}
     {% if renderFooter %}{{ Footer(el="li", classModifier="grid") }}{% endif %}
 </ol>
