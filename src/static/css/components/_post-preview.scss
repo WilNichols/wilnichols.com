@@ -5,6 +5,7 @@
 @include tokens.textStyles;
 @include tokens.headingStyles;
 
+$delay: .1s;
 .post__month {
   white-space-collapse: break-spaces;
 }
@@ -90,6 +91,7 @@
     row-gap: 2px; // this is a const because it looks better
     opacity: 1;
     transition: opacity tokens.$x ease-out;
+    transition-delay: 0;
     @extend %listItemBackground;
     // Platter overrides
     &::before {
@@ -125,6 +127,7 @@
       opacity: 0;
       filter: blur(.3em);
       transition: tokens.$x transform ease-out, tokens.$x opacity ease-out, tokens.$x filter ease-out;
+      transition-delay: 0;
     }
   }
   .post__accessories {
@@ -144,6 +147,7 @@
   }
   .post__day, .post__title, .post__accessories, .post__summary__text  {
     transition: tokens.$x transform ease-out;
+    transition-delay: 0;
   }
   .post__summary__text {
     opacity: 0;
@@ -153,32 +157,44 @@
   }
   &:hover, &.hover-debug {
     @extend %blurredBackgroundHover;
+    // the above @extend adds a pseudo element, to which we then add:
+    &::before {
+      transition-delay: $delay;
+    }
     @media(pointer: fine) {
       .post__summary {
         &__text, &::before {
           filter: blur(0);
           opacity: 1;
           transition: tokens.$x opacity ease-out, tokens.$x filter ease-out;
+          transition-delay: $delay;
         }
       }
       $d: .25ex;
       .post__day, .post__title, .post__summary__text {
         transform: translateX($d);
+        transition-delay: $delay;
       }
       .post__accessories {
         transform: translateX(-$d);
+        transition-delay: $delay;
       }
       .post__direction {
         transform: translateX(-$d);
         opacity: 1;
         filter: blur(0);
         transition: tokens.$x transform ease-out, tokens.$x opacity ease-out, tokens.$x filter ease-out;
+        transition-delay: $delay;
       }
     }
   }
   &:active {
     @extend %blurredBackgroundActive;
     z-index: 100;
+    // the above @extend adds a pseudo element, to which we then add:
+    &::before {
+      transition-delay: 0;
+    }
     .post__summary::before {
       background-color: var(--materialPrimaryActiveColor);
       transition: background-color 0.1s ease-out;
@@ -217,6 +233,7 @@
     transition: tokens.$x opacity ease-out;
   }
   .post__link:hover & {
+    transition-delay: $delay;
     & {
       box-shadow: 
         0px 6px 12px 1px rgba(0, 0, 0, calc(0.05 * var(--shadowMultiplier, 1))), 
