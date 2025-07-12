@@ -7,9 +7,13 @@ body {
   line-height: tokens.$gapSmall;
   @extend %font--text-regular;
   --rounding-interval: 1px;
+  color: var(--contentPrimaryColor);
   padding: var(--col);
   background-color: var(--materialPrimaryColor);
-  color: var(--contentPrimaryColor);
+  @media (width <= tokens.$breakpoint) and (pointer: coarse) {
+    padding: var(--u16);
+    background-color: var(--materialSecondaryColor);
+  }
 }
 
 .page {
