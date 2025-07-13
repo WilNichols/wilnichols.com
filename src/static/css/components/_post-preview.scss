@@ -28,8 +28,6 @@ $delay: .1s;
   flex-direction: row-reverse;
   justify-content: end;
   gap: 5px;
-  min-height: tokens.$gapSmall;
-  line-height: tokens.$gapSmall;
   align-items: center;
   > li {
     display: contents;
@@ -121,7 +119,7 @@ $delay: .1s;
     display: grid;
     color: var(--contentTertiaryColor);
     place-content: center;
-    margin: auto 0;
+    margin: calc((1.2em - 16px)/2) 0;
     // adds 4px leading padding, making the col 20px wide
     padding: 0 0 0 .25rem;
     @media(pointer: fine) {
@@ -137,7 +135,7 @@ $delay: .1s;
     grid-column: 3 / 4;
     display: flex;
     gap: 4px;
-    margin: auto 0;
+    margin: calc((1.2em - 16px)/2) 0;
     > li {
       display: contents;
     }
