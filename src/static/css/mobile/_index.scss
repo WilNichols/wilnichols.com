@@ -3,7 +3,9 @@
 
 @include mixins.smartPhone {
   body {
-    padding: var(--u16);
+    &:not(:has(.page--note)) {
+      padding: var(--u16); 
+    }
     &:has(.posts) {
       background-color: var(--materialGroupedSecondaryColor);
     }
