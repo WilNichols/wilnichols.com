@@ -48,7 +48,7 @@
     background-color: var(--linkUnderlineColor);
     content: "";
     z-index: -1;
-    height: 2px;
+    height: 1px;
     inset: auto 0 0 0;
     position: absolute;
     transition: background-color .2s ease-out,transform .2s ease-out;
