@@ -95,6 +95,10 @@
         {% set currentYear = postYear %}
       {% endif %}
     {% endfor %}
-    {% if renderFooter %}{{ Footer(el="li", classModifier="grid") }}{% endif %}
 </ol>
+{% if renderFooter %}
+<ol class="footer-container">
+    {{ Footer(el="li", classModifier="grid") }}
+</ol>
+{% endif %}
 {%- endmacro %}

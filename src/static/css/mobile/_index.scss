@@ -92,4 +92,9 @@
   .post__day {
     text-align: center;
   }
+  
+  .footer-container {
+    grid-template-columns: min-content auto;
+    padding: 0 var(--u16);
+  }
 }
