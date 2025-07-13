@@ -10,10 +10,6 @@ body {
   color: var(--contentPrimaryColor);
   padding: var(--col);
   background-color: var(--materialPrimaryColor);
-  @media (width <= tokens.$breakpoint) and (pointer: coarse) {
-    padding: var(--u16);
-    background-color: var(--materialSecondaryColor);
-  }
 }
 
 .page {

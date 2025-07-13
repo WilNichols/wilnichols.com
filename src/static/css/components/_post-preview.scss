@@ -34,6 +34,9 @@ $delay: .1s;
   > li {
     display: contents;
   }
+  &:empty {
+    display: none;
+  }
 }
 
 .post__type {
@@ -109,7 +112,7 @@ $delay: .1s;
   .post__title {
     grid-column: 2 / 4;
   }
-  .post__title:has(~ .post__accessories) {
+  .post__title:has(~ .post__accessories:not(:empty)) {
     grid-column: 2 / 3;
   }
   .post__direction {
@@ -137,6 +140,9 @@ $delay: .1s;
     margin: auto 0;
     > li {
       display: contents;
+    }
+    &:empty {
+      display: none;
     }
   }
   .post__day, .post__title {
