@@ -6,18 +6,6 @@
 @include tokens.headingStyles;
 
 $delay: .1s;
-
-%mobileBackground {
-  @media (width <= tokens.$breakpoint) and (pointer: coarse) {
-    // force background color 
-    &::before {
-      background-color: var(--materialPrimaryColor);
-      opacity: 1;
-      filter: blur(0);
-    }
-  }
-}
-
 .post__month {
   white-space-collapse: break-spaces;
 }
@@ -105,7 +93,6 @@ $delay: .1s;
     transition: opacity tokens.$x ease-out;
     transition-delay: 0;
     @extend %listItemBackground;
-    @extend %mobileBackground;
     // Platter overrides
     &::before {
       inset: -6px -8px;
@@ -170,12 +157,11 @@ $delay: .1s;
   }
   &:hover, &.hover-debug {
     @extend %blurredBackgroundHover;
-    @extend %mobileBackground;
     // the above @extend adds a pseudo element, to which we then add:
     &::before {
       transition-delay: $delay;
     }
-    @media (pointer: fine) {
+    @media(pointer: fine) {
       .post__summary {
         &__text, &::before {
           filter: blur(0);
@@ -314,12 +300,9 @@ $delay: .1s;
   // subgrid doesn't work for columns bc of the absolute positioning?
   // 20px is magic. 16px icon + 4px margin
   grid-template-columns: min-content auto 20px;
+  z-index: 100;
   width: 100%;
   column-gap: .25em;
-  z-index: 100;
-  @media (width <= tokens.$breakpoint) and (pointer: coarse) {
-    z-index: -1;
-  }
   @media(pointer: fine) {
     pointer-events: none;
     position: absolute;
@@ -350,18 +333,15 @@ $delay: .1s;
     content: '';
     display: block;
     border-radius: 0 0 .6em .6em;
+    background-color: var(--materialPrimaryHoverColor);
+    filter: blur(.3em);
     will-change: opacity;
     transition: tokens.$x4 opacity ease-out, tokens.$x4 filter ease-out;
     // negative top inset prevents a visible gap during the blur animation
     inset: -1px -8px -6px -8px;
     position: absolute;
-    @media (width > tokens.$breakpoint) and (pointer: coarse), (pointer: fine) {
-      background-color: var(--materialPrimaryHoverColor);
-      opacity: 0;
-      filter: blur(.3em);
-    }
+    opacity: 0;
   }
-  @extend %mobileBackground;
 }
 
 // goofy, maybe too much
