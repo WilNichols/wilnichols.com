@@ -72,16 +72,12 @@
     }
     .post__preview {
       & {
-        margin: 0 0;
-      }
-      &::before {
-        content: none;
+        margin: 0;
       }
     }
   }
   // remove separator when post-previews follow each other
   .note:has(+ .note .post__preview) .post__link::after {
-    // remove separator between consecutive post-preview posts
     content: none;
   }
   .note:has(.post__preview) ~ .note .post__link {
