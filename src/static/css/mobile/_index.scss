@@ -65,8 +65,27 @@
 
   .post__link {
     padding: var(--u12) var(--u16) var(--u12) 0;
-    // box-shadow: 0 5px 0 red;
-    // border-bottom: 1px solid red;
+    &:has(.post__preview) {
+      // 6px = 10px outer radius minus 4px inner radius
+      padding: 6px 6px var(--u12) 6px;
+      row-gap: var(--u12);
+    }
+    .post__preview {
+      & {
+        margin: 0 0;
+      }
+      &::before {
+        content: none;
+      }
+    }
+  }
+  // remove separator when post-previews follow each other
+  .note:has(+ .note .post__preview) .post__link::after {
+    // remove separator between consecutive post-preview posts
+    content: none;
+  }
+  .note:has(.post__preview) ~ .note .post__link {
+    padding-top: 0;
   }
 
   .post__accessories {
