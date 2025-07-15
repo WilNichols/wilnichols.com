@@ -5,6 +5,8 @@
 @include tokens.textStyles;
 @include tokens.headingStyles;
 
+$delay: .1s;
+
 .post__month {
   white-space-collapse: break-spaces;
 }
@@ -27,11 +29,12 @@
   flex-direction: row-reverse;
   justify-content: end;
   gap: 5px;
-  min-height: tokens.$gapSmall;
-  line-height: tokens.$gapSmall;
   align-items: center;
   > li {
     display: contents;
+  }
+  &:empty {
+    display: none;
   }
 }
 
@@ -90,6 +93,7 @@
     row-gap: 2px; // this is a const because it looks better
     opacity: 1;
     transition: opacity tokens.$x ease-out;
+    transition-delay: 0s;
     @extend %listItemBackground;
     // Platter overrides
     &::before {
@@ -107,7 +111,7 @@
   .post__title {
     grid-column: 2 / 4;
   }
-  .post__title:has(~ .post__accessories) {
+  .post__title:has(~ .post__accessories:not(:empty)) {
     grid-column: 2 / 3;
   }
   .post__direction {
@@ -116,7 +120,7 @@
     display: grid;
     color: var(--contentTertiaryColor);
     place-content: center;
-    margin: auto 0;
+    margin: calc((1.2em - 16px)/2) 0;
     // adds 4px leading padding, making the col 20px wide
     padding: 0 0 0 .25rem;
     @media(pointer: fine) {
@@ -125,15 +129,19 @@
       opacity: 0;
       filter: blur(.3em);
       transition: tokens.$x transform ease-out, tokens.$x opacity ease-out, tokens.$x filter ease-out;
+      transition-delay: 0s;
     }
   }
   .post__accessories {
     grid-column: 3 / 4;
     display: flex;
     gap: 4px;
-    margin: auto 0;
+    margin: calc((1.2em - 16px)/2) 0;
     > li {
       display: contents;
+    }
+    &:empty {
+      display: none;
     }
   }
   .post__day, .post__title {
@@ -142,8 +150,12 @@
   .post__preview ~ .post__day, .post__preview ~ .post__title {
     grid-row: 2 / 3;
   }
+  .post__preview ~ .post__summary {
+    grid-row: 3 / 4;
+  }
   .post__day, .post__title, .post__accessories, .post__summary__text  {
     transition: tokens.$x transform ease-out;
+    transition-delay: 0s;
   }
   .post__summary__text {
     opacity: 0;
@@ -153,32 +165,44 @@
   }
   &:hover, &.hover-debug {
     @extend %blurredBackgroundHover;
+    // the above @extend adds a pseudo element, to which we then add:
+    &::before {
+      transition-delay: $delay;
+    }
     @media(pointer: fine) {
       .post__summary {
         &__text, &::before {
           filter: blur(0);
           opacity: 1;
           transition: tokens.$x opacity ease-out, tokens.$x filter ease-out;
+          transition-delay: $delay;
         }
       }
       $d: .25ex;
       .post__day, .post__title, .post__summary__text {
         transform: translateX($d);
+        transition-delay: $delay;
       }
       .post__accessories {
         transform: translateX(-$d);
+        transition-delay: $delay;
       }
       .post__direction {
         transform: translateX(-$d);
         opacity: 1;
         filter: blur(0);
         transition: tokens.$x transform ease-out, tokens.$x opacity ease-out, tokens.$x filter ease-out;
+        transition-delay: $delay;
       }
     }
   }
   &:active {
     @extend %blurredBackgroundActive;
     z-index: 100;
+    // the above @extend adds a pseudo element, to which we then add:
+    &::before {
+      transition-delay: 0s;
+    }
     .post__summary::before {
       background-color: var(--materialPrimaryActiveColor);
       transition: background-color 0.1s ease-out;
@@ -202,8 +226,9 @@
     transition: tokens.$x box-shadow ease-out;
   }
   > * {
-    aspect-ratio: 4 / 3;
+    aspect-ratio: var(--ratio, 4 / 3);
     border-radius: 4px;
+    overflow: hidden;
     // apply to the child to avoid clipping on subpixels
   }
   &::before {
@@ -217,6 +242,7 @@
     transition: tokens.$x opacity ease-out;
   }
   .post__link:hover & {
+    transition-delay: $delay;
     & {
       box-shadow: 
         0px 6px 12px 1px rgba(0, 0, 0, calc(0.05 * var(--shadowMultiplier, 1))), 

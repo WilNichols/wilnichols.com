@@ -1,18 +1,23 @@
 @use 'sass:math';
 @use '../tokens';
+@use '../mixins';
 
 @include tokens.textStyles;
 
-.posts-list, .about-me, .header {
+.posts-list, 
+.about-me, 
+.header, 
+.footer-container {
   max-width: tokens.$categoryWidth;
   width: 100%;
 }
 
-.posts-list {
+.posts-list,
+.footer-container {
   & {
     display: flex;
     flex-direction: column;
-    gap:tokens.$gapSmall;
+    gap: tokens.$gapSmall;
     width: 100%;
   }
   @media (width <= tokens.$breakpoint) {
@@ -40,6 +45,13 @@
   }
 }
 
+.footer-container {
+  display: grid;
+  // magic number is trying to figure out what 25px at max type size is proportionately
+  grid-template-columns: calc(2 * var(--type--2)) auto;
+  column-gap: tokens.$note-title-gap;
+}
+
 .page__footer.page__footer--grid {
   & {
     display: grid;
@@ -51,6 +63,6 @@
     margin-top: math.div(tokens.$gapSmall, 2);
   }
   .copyright__text {
-    grid-column: 2 / 4;
+    grid-column: 2 / 3;
   }
 }

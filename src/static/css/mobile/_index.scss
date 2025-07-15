@@ -1,0 +1,117 @@
+@use '../mixins';
+@use '../tokens';
+
+@include mixins.smartPhone {
+  body {
+    &:not(:has(.page--note)) {
+      padding: var(--u16); 
+    }
+    &:has(.posts) {
+      background-color: var(--materialGroupedSecondaryColor);
+    }
+  }
+
+  .header {
+    align-items: center;
+    margin: var(--col) 0;
+  }
+
+  .header__logo {
+    height: 28px;
+    width: 28px;
+  }
+
+  .header__logo svg {
+    scale: 1.33;
+    @include mixins.x3 {
+      translate: .67px 2.67px
+    }
+  }
+
+  .header__name {
+    font-size: var(--type-3);
+    font-weight: 600;
+  }
+
+  .header__title {
+    font-size: var(--type-0);
+    font-weight: 500;
+  }
+
+  .header__name, .header__title {
+    text-align: center;
+  }
+
+  .navigation__items {
+    inset: 0;
+    padding: 0;
+    width: auto;
+    margin-bottom: 0;
+  }
+
+  $postCol1: 54px;
+  $separatorHeight: var(--px);
+  
+  .post__month-and-year {
+    padding: 0 var(--u16);
+  }
+
+  .posts {
+    background-color: var(--materialGroupedPrimaryColor);
+    border-radius: tokens.$cornerXLarge;
+    row-gap: $separatorHeight;
+    column-gap: 0;
+    grid-template-columns: $postCol1 auto min-content min-content;
+    overflow: hidden;
+  }
+
+  .post__link {
+    padding: var(--u12) var(--u16) var(--u12) 0;
+    &:has(.post__preview) {
+      padding-top: 6px;
+      .post__preview {
+        // margix numbers are from the inspector. 16px padding minus 6px offset.
+        margin: 0 -10px var(--u12) 6px;
+      }
+    }
+    .post__preview {
+      margin: 0;
+    }
+  }
+  // remove separator when post-previews follow each other
+  .note:has(.post__preview):has(+ .note .post__preview) .post__link::after {
+    content: none;
+  }
+  .note:has(.post__preview) ~ .note .post__link {
+    padding-top: 0;
+  }
+
+  .post__accessories {
+    padding: 0 .25em 0 0;
+  }
+
+  .post__summary {
+    column-gap: 0;
+    grid-template-columns: $postCol1 auto 20px;
+  }
+
+  // separator
+  .note:not(:last-of-type) .post__link::after {
+    content: '';
+    position: absolute;
+    bottom: calc(-1 * #{$separatorHeight});
+    left: $postCol1;
+    right: 0;
+    height: $separatorHeight;
+    background-color: var(--edgeColor);
+  }
+
+  .post__day {
+    text-align: center;
+  }
+  
+  .footer-container {
+    grid-template-columns: min-content auto;
+    padding: 0 var(--u16);
+  }
+}

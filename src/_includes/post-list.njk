@@ -1,4 +1,5 @@
 {% from "footer.njk" import Footer with context %}
+{% from "picture.njk" import Picture with context %}
 {% from "tag.njk" import tag as tagButton %}
 
 {% macro postListItem(post, postPrefix, showAccessories) -%}
@@ -36,6 +37,18 @@
           <div class="post__preview__poster {{ post.data.preview.class }}">{% include post.data.preview.assets[0] %}</div>
         {% endif %}
       </div>
+    {% elif post.data.thumbnail %}
+      <div class="post__preview">
+        {% set previewSRC %}{{ remote.gallery.base }}/{{ remote.gallery.photos }}/{{ post.data.key }}/{{ post.data.thumbnail }}{% endset %}
+        {{  Picture(
+            class  = 'post__preview__poster',
+            fileName = post.data.thumbnail,
+            src = previewSRC,
+            loading = "eager",
+            imageProps = post.data.imagePropsSynchronous,
+            isWNCDN = true
+        ) }}
+      </div>
     {% endif %}
     <span class="post__day">{{ postPrefix }}</span>
     <span class="post__title">{{ printedTitle | markdownify | replace("<p>", "") | replace("</p>", "") | safe }}</span>
@@ -63,19 +76,19 @@
       <li class="posts-month">
         <h2 class="post__month-and-year"><span class="post__month">Drafts</span></h2>
         <ol class="posts">
-        {% for draft in drafts %}
+        {% asyncEach draft in drafts %}
           <li class="note">
             {% set draftPrefix %}0{{ loop.index }}{% endset %}
             {{ postListItem(draft, draftPrefix, showAccessories) }}
           </li>
-        {% endfor %}
+        {% endeach %}
         </ol>
       </li>
     {% endif %}
     {% set currentDay = "" %}
     {% set currentMonth = "" %}
     {% set currentYear = "" %}
-    {% for post in collection | reverse %}
+    {% asyncEach post in collection | reverse %}
       {% if not post.data.draft %}
         {% set postDay = post.date | postDay %}
         {% set postMonth = post.data.month %}
@@ -94,7 +107,11 @@
         {% set currentMonth = postMonth %}
         {% set currentYear = postYear %}
       {% endif %}
-    {% endfor %}
-    {% if renderFooter %}{{ Footer(el="li", classModifier="grid") }}{% endif %}
+    {% endeach %}
 </ol>
+{% if renderFooter %}
+<ol class="footer-container">
+    {{ Footer(el="li", classModifier="grid") }}
+</ol>
+{% endif %}
 {%- endmacro %}

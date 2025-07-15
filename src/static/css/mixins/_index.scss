@@ -1,4 +1,5 @@
 @use 'sass:list';
+@use '../tokens';
 
 @mixin x1 {
   @media
@@ -54,5 +55,11 @@
   }
   @media (min--moz-device-pixel-ratio: 2.6), (-o-min-device-pixel-ratio: 5.2 / 2), (-webkit-min-device-pixel-ratio: 2.6), (min-device-pixel-ratio: 2.6), (min-resolution: 2.6dppx) { 
     background-image: url($image + "@3x." + $extension);
+  }
+}
+
+@mixin smartPhone {
+  @media (width <= tokens.$breakpoint) and (pointer: coarse) {
+    @content;
   }
 }
