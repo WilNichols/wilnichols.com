@@ -22,15 +22,6 @@
   {% endcall %}
 {% endmacro %}
 
-{%- macro FS2HowToPlay() -%}
-  {% call caseStudyImage(class = 'case-study-image--2x utils__2x-to-3x') %}
-    {{  Device(
-          type = 'iPhone4',
-          content = assetPath + '/02'
-    ) }}
-  {% endcall %}
-{%- endmacro -%}
-
 {%- macro FS2Board() -%}
   {% set screens = ['08', '07', '06'] %}
   {% call caseStudyImage(class = 'case-study-image--2x') %}
@@ -88,7 +79,7 @@
       type: 'iPhone2g'
     }
   ] %}
-  {% call caseStudyImage(class = 'case-study-image--2x utils__2x-to-3x') %}
+  {% call caseStudyImage(class = 'case-study-image--2x') %}
     {% call proportionateScale() %}
       <div class="devices devices--iPhone1-and-iPhone4-and-11Pro">
         {% for screen in screens %}

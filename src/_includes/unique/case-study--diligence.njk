@@ -5,7 +5,7 @@
 {%- macro DiligenceHero() -%}  
   {% set commonPath = 'https://cdn.wilnichols.com/case-studies/diligence/' %}
   {% set windows = ['calendar', 'contacts', 'game-center', 'notes', 'reminders'] %}
-  {% call caseStudyImage(class = 'case-study-hero case-study-hero--diligence case-study-image--no-padding case-study-image--16x9 case-study-image--2x') %}
+  {% call caseStudyImage(class = 'case-study-hero case-study-hero--diligence case-study-image--no-padding case-study-image--16x9 case-study-image--2x case-study-image--bottom-align') %}
     {{  img(
           src = commonPath + 'screenshots/main--independent',
           class = 'window utils__2x-to-3x'
@@ -67,7 +67,7 @@
       {%- for screen in screens -%}
         {{  img(
               src = path + screen,
-              class = 'window utils__2x-to-3x'
+              class = 'window'
         ) }}
     {%- endfor -%}
   {% endcall %}
