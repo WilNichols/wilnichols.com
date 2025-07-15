@@ -1,6 +1,5 @@
 ---
-draft: true
-date: 2025-06-27T00:00
+date: 2025-07-15T00:00
 summary: "Reflections on changes to my use of and attitude towards AI in the last year."
 author: Wil Nichols
 tags:
