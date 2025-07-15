@@ -17,11 +17,23 @@
     border-radius: tokens.$cornerXLarge;
     overflow: hidden;
     display: grid;
-    place-content: start;
+    place-content: center;
     justify-content: center;
     background-color: var(--materialPrimaryHoverColor);
     box-shadow: inset 0 0 0 var(--px) var(--edgeColor);
     padding: 1lh var(--col);
+  }
+  
+  &--bottom-align {
+    & {
+      place-content: start;
+    }
+    .proportionate-scale {
+      transform-origin: top center;
+    }
+    & > * {
+      transform-origin: top center !important;
+    }
   }
   
   &--no-padding {
@@ -35,10 +47,9 @@
   &--400x300 {
     // that's Dribbble huh
     aspect-ratio: 4/3;
-    width: max(400px, 100%);
-    padding: 0;
+    width: min(100%, 400px);
     & + .case-study-image__caption {
-      --captionWidth: min(100%, 400px);
+      --captionWidth: 100%;
     }
   }
   
@@ -73,20 +84,9 @@
 }
 
 .diligence-detail-window {
-  grid-template-columns: auto 1fr 1fr 1fr auto;
-  .diligence-screen {
-    opacity: 1;
-    > * {
-      z-index: 10;
-    }
-    &::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      background-color: var(--materialPrimaryColor);
-      opacity: 0.5;
-    }
+  grid-template-columns: repeat(3, 1fr);
+  .window {
+    max-width: 100%;
   }
 }
 
@@ -138,6 +138,6 @@
 .utils__2x-to-3x {
   @include mixins.x3 {
     scale: calc(2/3);
-    transform-origin: top center;
+    transform-origin: center center;
   }
 }
