@@ -6,6 +6,7 @@
 @include tokens.headingStyles;
 
 $delay: .1s;
+
 .post__month {
   white-space-collapse: break-spaces;
 }
@@ -92,7 +93,7 @@ $delay: .1s;
     row-gap: 2px; // this is a const because it looks better
     opacity: 1;
     transition: opacity tokens.$x ease-out;
-    transition-delay: 0;
+    transition-delay: 0s;
     @extend %listItemBackground;
     // Platter overrides
     &::before {
@@ -128,7 +129,7 @@ $delay: .1s;
       opacity: 0;
       filter: blur(.3em);
       transition: tokens.$x transform ease-out, tokens.$x opacity ease-out, tokens.$x filter ease-out;
-      transition-delay: 0;
+      transition-delay: 0s;
     }
   }
   .post__accessories {
@@ -154,7 +155,7 @@ $delay: .1s;
   }
   .post__day, .post__title, .post__accessories, .post__summary__text  {
     transition: tokens.$x transform ease-out;
-    transition-delay: 0;
+    transition-delay: 0s;
   }
   .post__summary__text {
     opacity: 0;
@@ -200,7 +201,7 @@ $delay: .1s;
     z-index: 100;
     // the above @extend adds a pseudo element, to which we then add:
     &::before {
-      transition-delay: 0;
+      transition-delay: 0s;
     }
     .post__summary::before {
       background-color: var(--materialPrimaryActiveColor);
