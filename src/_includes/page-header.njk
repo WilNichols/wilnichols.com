@@ -101,7 +101,7 @@
   {% set date %}{% if draft %}Draft{% else %}{{ date | readableDateISO }}{% endif %}{% endset %}
   <{{ el }} class="page-header__title-container">
     {{ backButton() }}
-    <div class="page-header__title">
+    <div class="page-header__title" style="--view-transition-name: post-title--{{ page.fileSlug | slugify }}">
       {{ pageTitle(cookedTitleString) }}
       {{ pageInfo(cookedTitleString, date, revisions, tags) }}
       <div class="copy-url"><button class="copy-url__button" onClick="copyURL(event)" data-content="Copy Link">{% include "../static/img/links--16.svg" %}</button></div>

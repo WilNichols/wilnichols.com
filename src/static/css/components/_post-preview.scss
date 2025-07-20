@@ -95,6 +95,9 @@ $delay: .1s;
     transition: opacity tokens.$x ease-out;
     transition-delay: 0s;
     @extend %listItemBackground;
+    view-transition-name: var(--view-transition-name);
+    // z-index-modifier is passed in from .note in post-list.njk, accounting for z-index interactions w/ view-transition-name
+    z-index: calc(10 + var(--z-index-modifier, 0));
     // Platter overrides
     &::before {
       inset: -6px -8px;

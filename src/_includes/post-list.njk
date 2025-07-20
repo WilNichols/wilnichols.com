@@ -6,7 +6,7 @@
 {% set printedTitle %}{{ post.data.altTitle if post.data.altTitle else post.data.title }}{% endset %}
   {% if (post.data.dest) and not (post.content) %}{% set isSimpleLink = true %}{% endif %}
   {% set url %}{% if isSimpleLink %}{{ post.data.dest }}{% else %}{{ post.url }}{% endif %}{% endset %}
-  <a href="{{ url }}" class="post__link"{{ ' target="blank"' if isSimpleLink }}>
+  <a href="{{ url }}" class="post__link"{{ ' target="blank"' if isSimpleLink }} style="--view-transition-name: post-title--{{ post.fileSlug | slugify }}">
     {% if post.data.preview %}
       <div class="post__preview">
         {% if post.data.preview.type == 'vid' %}
@@ -88,6 +88,7 @@
     {% set currentDay = "" %}
     {% set currentMonth = "" %}
     {% set currentYear = "" %}
+    {% set monthIndex = 0 %}
     {% asyncEach post in collection | reverse %}
       {% if not post.data.draft %}
         {% set postDay = post.date | postDay %}
@@ -96,16 +97,18 @@
         {% set postPrefix %}{% if (currentDay == postDay) and (currentMonth == postMonth) %}↳{% else %}{{ postDay }}{% endif %}{% endset %}
         {% if currentMonth != postMonth %}
           {% if loop.index > 1 %}</ol></li>{% endif %}
-          <li class="posts-month">
+          {% set monthIncrement = monthIndex + 1 %}
+          <li class="posts-month" style="--z-index--modifier: {{ post.data.year - monthIncrement }}">
             <h2 class="post__month-and-year"><span class="post__month">{{ postMonth }}</span>{% if currentYear != postYear %} <span class="post__year">{{ postYear }}</span>{% endif %}</h2>
             <ol class="posts">
         {% endif %}
-        <li class="note">
+        <li class="note" style="--z-index-modifier: {{ collection.length - loop.index }}">
           {{ postListItem(post, postPrefix, showAccessories) }}
         </li>
         {% set currentDay = postDay %}
         {% set currentMonth = postMonth %}
         {% set currentYear = postYear %}
+        {% set monthIndex = monthIncrement %}
       {% endif %}
     {% endeach %}
 </ol>
