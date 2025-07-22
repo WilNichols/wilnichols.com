@@ -88,7 +88,7 @@
     {% set currentDay = "" %}
     {% set currentMonth = "" %}
     {% set currentYear = "" %}
-    {% set monthIndex = 0 %}
+    {% set totalMonths = 0 %}
     {% asyncEach post in collection | reverse %}
       {% if not post.data.draft %}
         {% set postDay = post.date | postDay %}
@@ -97,8 +97,8 @@
         {% set postPrefix %}{% if (currentDay == postDay) and (currentMonth == postMonth) %}↳{% else %}{{ postDay }}{% endif %}{% endset %}
         {% if currentMonth != postMonth %}
           {% if loop.index > 1 %}</ol></li>{% endif %}
-          {% set monthIncrement = monthIndex + 1 %}
-          <li class="posts-month" style="--z-index--modifier: {{ post.data.year - monthIncrement }}">
+          {% set totalMonths = totalMonths + 1 %}
+          <li class="posts-month" style="--z-index--modifier: {{ loop.length - totalMonths }}">
             <h2 class="post__month-and-year"><span class="post__month">{{ postMonth }}</span>{% if currentYear != postYear %} <span class="post__year">{{ postYear }}</span>{% endif %}</h2>
             <ol class="posts">
         {% endif %}
@@ -108,7 +108,6 @@
         {% set currentDay = postDay %}
         {% set currentMonth = postMonth %}
         {% set currentYear = postYear %}
-        {% set monthIndex = monthIncrement %}
       {% endif %}
     {% endeach %}
 </ol>
