@@ -57,6 +57,7 @@ $logoWidth: 21px;
   display: grid;
   grid-template-columns: auto min-content;
   column-gap: var(--u16);
+  view-transition-name: var(--view-transition-name);
 }
 
 .page__title {

@@ -1,5 +1,9 @@
 @use 'tokens';
 
+@view-transition {
+  navigation: auto;
+}
+
 :root {
   @include tokens.colorAliases;
   @include tokens.colorLiterals;

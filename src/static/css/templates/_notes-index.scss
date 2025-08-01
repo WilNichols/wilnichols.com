@@ -31,6 +31,8 @@
   display: flex;
   flex-direction: column;
   gap: math.div(tokens.$gapSmall, 2);
+  // var passed in from .posts-month in post-list.njk, accounting for z-index view-transition malarky
+  z-index: calc(0 + var(--z-index--modifier, 0));
 }
 
 .posts {
