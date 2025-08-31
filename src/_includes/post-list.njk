@@ -96,7 +96,7 @@
         {% set postYear = post.data.year %}
         {% set postPrefix %}{% if (currentDay == postDay) and (currentMonth == postMonth) %}↳{% else %}{{ postDay }}{% endif %}{% endset %}
         {% if currentMonth != postMonth %}
-          {% if loop.index > 1 %}</ol></li>{% endif %}
+          {% if (loop.index > 1 and drafts.length == 0) or (loop.index > 2 and drafts.length > 0) %}</ol></li>{% endif %}
           {% set totalMonths = totalMonths + 1 %}
           <li class="posts-month" style="--z-index--modifier: {{ loop.length - totalMonths }}">
             <h2 class="post__month-and-year"><span class="post__month">{{ postMonth }}</span>{% if currentYear != postYear %} <span class="post__year">{{ postYear }}</span>{% endif %}</h2>
