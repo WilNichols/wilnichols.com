@@ -20,7 +20,10 @@
   orientation = 'portrait',
   contentType = 'img',
   content = '',
-  densities = [1, 2, 3]
+  densities = [1, 2, 3],
+  dimensions = [375, 667],
+  style,
+  videoAttrs
 ) %}
   <div class="device device--{{ type }} device--{{ orientation }} device--{{ color }}">
     {% if contentType == 'img' %}
@@ -31,6 +34,17 @@
       ) }}
     {% elif contentType == 'rich' %}
       {{ content | safe }}
+    {% elif contentType == 'video' %}
+      {% set css %}style="{{ style }}"{% endset %}
+      <video 
+        width="{{ dimensions[0] }}" 
+        height="{{ dimensions[1] }}"
+        poster="/assets/img/poster.gif" 
+        {{ css if style }}
+        {{ videoAttrs }}
+        >
+          <source src="{{ content }}" type="video/mp4">
+      </video>
     {% endif %}
   </div>
 {% endmacro %}

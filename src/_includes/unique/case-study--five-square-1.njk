@@ -1,0 +1,91 @@
+{%- from 'case-study-image.njk' import caseStudyImage -%}
+{%- from 'device.njk' import Device -%}
+{%- from 'icon-grids.njk' import iOSGrid -%}
+{%- from 'img.njk' import img -%}
+{%- from 'proportionate-scale.njk' import proportionateScale with context -%}
+
+{% set assetRoot %}https://cdn.wilnichols.com/case-studies/{% endset %}
+{% set assetPath %}{{ assetRoot }}five-square-1/{% endset %}
+
+{%- macro FS1Hero() -%}
+  {% set screen %}
+  {% endset %}
+  {% call caseStudyImage(class = 'case-study-hero case-study-hero--five-square-1 case-study-image--2x') %}
+    {% call proportionateScale() %}
+      {{  Device(
+            type = 'iPhone2g',
+            contentType = 'video',
+            content = assetPath + 'fs.mp4',
+            dimensions = [320, 480],
+            videoAttrs = 'autoplay loop muted playsinline'
+      ) }}
+    {% endcall %}
+  {% endcall %}
+{% endmacro %}
+
+{%- macro FS1Board() -%}
+  {% set screens = ['01', '03', '02'] %}
+  {% call caseStudyImage(class = 'case-study-image--2x') %}
+    {% call proportionateScale() %}
+      <div class="devices devices--three-phones">
+        {% for screen in screens %}
+          {{  Device(
+                type = 'iPhone2g',
+                content = assetPath + 'screens/' + screen
+          ) }}
+        {% endfor %}
+      </div>
+    {% endcall %}
+  {% endcall %}
+{%- endmacro %}
+
+{%- macro FS1Selection() -%}
+  {% set assets = [] %}
+  {% for i in range(1, 6) %}
+    {% set assets = assets.concat('0' + i) %}
+  {% endfor %}
+  {% set test %}debug: {{ assets }}{% endset %}
+  {{ test | warn }}
+  {% call caseStudyImage(class = 'case-study-image--2x') %}
+    {% for asset in assets %}
+      {{  img(
+        src = assetPath + 'misc/cardSelection' + asset,
+        suffix= '?format=webp',
+        densities = [1, 2, 3]
+      ) }}
+    {% endfor %}
+  {% endcall %}
+{%- endmacro %}
+
+{%- macro FS1Icons() -%}
+  {% set assets = [] %}
+  {% for i in range(1, 36) %}
+    {% set s = i|string %}
+    {% if s|length == 1 %}
+      {% set s = '0' ~ s %}
+    {% endif %}
+    {% set assets = assets.concat([s]) %}
+  {% endfor %}
+
+  
+  {{ 'test: ' | warn }}{{ assets | warn }}
+  
+  {% call caseStudyImage(class = 'case-study-image--2x') %}
+    {% for asset in assets %}
+      {{  img(
+        src = assetPath + 'icon_iterations/' + asset,
+        suffix= '?format=webp',
+        densities = [1, 2, 3]
+      ) }}
+    {% endfor %}
+  {% endcall %}
+{%- endmacro %}
+
+{%- macro FS1AppIcon() -%}
+  {% call caseStudyImage(class = 'case-study-image--2x') %}
+    {{- iOSGrid (
+      path = assetRoot + 'five-square-1/icon/',
+      isOldVersion = true
+    ) -}}
+  {% endcall %}
+{%- endmacro %}

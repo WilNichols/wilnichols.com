@@ -3,14 +3,14 @@ date: 2025-05-11T22:10
 author: Wil Nichols
 tags:
   - Case-Studies/Groups/Freelance
-  - Case-Studies/Platforms/Desktop
+  - Case-Studies/Platforms/iOS
   - Case-Studies/Tools/Photoshop
   - Topic/Nostalgia
   - Topic/Skeuomorphism
   - Topic/Work
-summary: The Solitaire of Chess. My second iPhone app to ship with Opt-6 Products in 2009, Five Square later received an overhaul in 2011 with a brand-new, shining UI.
+summary: Following its initial release in Fall 2009, Five Square later received a 2011 overhaul with a brand-new, shining UI.
 project:
-  outcome: Universal iOS app shipping from 2009 through 2016.
+  outcome: A universal iOS app shipping from 2011 through 2016.
   client: 'Opt-6 Products'
   skills:
   - Visual Design
@@ -20,8 +20,8 @@ project:
   period: 
   - Summer 2011
   collaborators: 
-  - '[Carter Allen](https://cartera.me)'
-  - '[George Woodliff-Stanley](http://childrenastheorists.wordpress.com/)'
+  - '[Carter Allen](https://cartera.me){target=blank}'
+  - '[George Woodliff-Stanley](http://childrenastheorists.wordpress.com/){target=blank}'
 ---
 
 Opt-6 Products came to me with the idea for a unique card game, Five Square. A player starts with a 5x5 grid of cards, and wins by consolidating all cards into a single position. This is done by by moving a card within its column or row, onto another card of the same denomination or suit. The game appears simple until the player finds themselves with two irreconcilable stacks at the game’s end.
@@ -45,7 +45,7 @@ I designed play screens (the card table), settings and performance screens, and 
 {{ FS2Icon() | mdRenderNJK | safe }}
 {% endrenderTemplate %}
 
-Five Square was removed from the App Store some time around 2020, and having been built against a no-longer-supported iOS SDK, it’s no longer available as a downloadable purchase. However, a demo of the game is available above, originally developed by Carter and George for the marketing website.
+Five Square was removed from the App Store some time around 2020, and having been built against a no-longer-supported iOS SDK, it’s no longer available as a downloadable purchase. However, a demo of the game is available above, originally built by Carter and George for the marketing website.
 
 {% renderTemplate "njk" %}
 {%- from 'unique/case-study--five-square-2.njk' import FSVersions %}
