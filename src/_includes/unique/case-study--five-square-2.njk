@@ -55,10 +55,10 @@
 {%- endmacro -%}
 
 {%- macro FS2Icon() -%}
-  {% call caseStudyImage(class = 'case-study-image--2x') %}
+  {% call caseStudyImage(class = 'case-study-image--2x', id = 'app-icon') %}
     {{- iOSGrid (
       path = assetRoot + 'five-square-2/icon/',
-      isOldVersion = true
+      version = 'universalOld'
     ) -}}
   {% endcall %}
 {%- endmacro -%}
@@ -75,7 +75,7 @@
       type: 'iPhone4'
     },
     {
-      path: assetRoot + 'five-square-1/screenshots/01',
+      path: assetRoot + 'five-square-1/screens/01',
       type: 'iPhone2g'
     }
   ] %}
