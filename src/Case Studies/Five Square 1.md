@@ -33,7 +33,7 @@ Quick on the heels of my first iOS app icon in [MathTasks](/TODO/), Opt-6 Produc
 {{ FS1Board() | mdRenderNJK | safe }}
 {% endrenderTemplate %}
 
-I was fourteen and entering high school at the end of the summer, and wouldn’t own an iPhone for another year. My family and I were on one of our yearly pilgrimages from Georgetown to Amarillo, and had stoped in Levelland[^1] to visit my mother’s Aunt Faye. I remember sitting at the dining table in her wood-paneled, shag-carpeted, amber-lit home[^2], using her neighbor’s wi-fi to send card designs to Carter and George. She fortunately had a deck of cards that I used as references, seeing how to practically reduce detail to fit the cards’ 39px x 54px surface.
+I was fourteen and entering high school at the end of the summer, and wouldn’t own an iPhone for another year. My family and I were on one of our yearly pilgrimages from Georgetown to Amarillo, and had stoped in Levelland[^1] to visit my mother’s Aunt Faye. I remember sitting at the dining table in her wood-paneled, shag-carpeted, amber-lit home,[^2] using her neighbor’s wi-fi to send card designs to Carter and George. She fortunately had a deck of cards that I used as references, seeing how to practically reduce detail to fit the cards’ 39px x 54px surface.
 
 {% renderTemplate "njk" %}
 {%- from 'unique/case-study--five-square-1.njk' import FS1Selection %}
