@@ -1,0 +1,10 @@
+@use '../tokens';
+
+.case-study__icon-iterations {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap; 
+  gap: var(--u16);
+  width: 100%;
+  max-width: tokens.$width;
+}

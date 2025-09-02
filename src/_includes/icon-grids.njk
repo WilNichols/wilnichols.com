@@ -31,9 +31,9 @@
   path = '',
   exclude = [],
   class = '',
-  isOldVersion = false
+  version = modern
 ) -%}
-  {% if not isOldVersion %}
+  {% if version == 'universalModern' %}
     {% set sizes = ['512', '60', '40', '29'] %}
     <div class="icon-grid icon-grid--iPhone--modern">
       <h6 class="caption caption--app-icon">Springboard</h6>
@@ -63,7 +63,7 @@
         {% endif %}
       {% endfor %}
     </div>  
-  {% elif isOldVersion %}
+  {% elif version == 'universalOld' %}
     {% set sizes = ['512', '72', '57', '29'] %}
     <div class="icon-grid icon-grid--iOS--old">
       <h6 class="caption caption--iPad-app">iPad app</h6>
@@ -90,6 +90,35 @@
                 class = 'icon icon--' + size + 'px ' + 'icon--' + '1x',
                 densities = [1]
           ) }}
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% elif version == 'iPhoneOld' %}
+    {% set sizes = ['512', '57', '29'] %}
+    <div class="icon-grid icon-grid--iPhone--old">
+      <h6 class="caption caption--iPhone-app">iPhone app</h6>
+      <h6 class="caption caption--settings">Settings</h6>
+      {% for size in sizes %}
+        {% if loop.first %}
+          <div class="icon--512px--container">
+            <h6 class="caption caption--app-store">App Store</h6>
+            {{  img(
+                  src = path + size,
+                  class = 'icon icon--' + size + 'px icon--resizable',
+                  densities = [1, 2, 3]
+            ) }}
+          </div>
+        {% elif not loop.first %}
+          {{  img(
+                src = path + size,
+                class = 'icon icon--2x icon--' + size + 'px ',
+                densities = [2]
+          ) }}      
+          {{  img(
+                src = path + size,
+                class = 'icon icon--1x icon--' + size + 'px ',
+                densities = [1]
+          ) }}        
         {% endif %}
       {% endfor %}
     </div>

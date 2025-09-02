@@ -41,19 +41,16 @@
 
 {%- macro FS1Selection() -%}
   {% set assets = [] %}
-  {% for i in range(1, 6) %}
-    {% set assets = assets.concat('0' + i) %}
-  {% endfor %}
-  {% set test %}debug: {{ assets }}{% endset %}
-  {{ test | warn }}
   {% call caseStudyImage(class = 'case-study-image--2x') %}
-    {% for asset in assets %}
-      {{  img(
-        src = assetPath + 'misc/cardSelection' + asset,
-        suffix= '?format=webp',
-        densities = [1, 2, 3]
-      ) }}
-    {% endfor %}
+    <div class="case-study__icon-iterations">
+      {% for asset in range(1, 6) %}
+        {{  img(
+          src = assetPath + 'misc/cardSelection0' + asset,
+          suffix= '?format=webp',
+          densities = [1, 2, 3]
+        ) }}
+      {% endfor %}
+    </div>
   {% endcall %}
 {%- endmacro %}
 
@@ -66,26 +63,26 @@
     {% endif %}
     {% set assets = assets.concat([s]) %}
   {% endfor %}
-
   
-  {{ 'test: ' | warn }}{{ assets | warn }}
-  
-  {% call caseStudyImage(class = 'case-study-image--2x') %}
-    {% for asset in assets %}
-      {{  img(
-        src = assetPath + 'icon_iterations/' + asset,
-        suffix= '?format=webp',
-        densities = [1, 2, 3]
-      ) }}
-    {% endfor %}
+  {% call caseStudyImage(class = 'case-study-image--2x case-study-image--black') %}
+    <div class="case-study__icon-iterations">
+      {% for asset in assets %}
+        {{  img(
+          src = assetPath + 'icon_iterations/' + asset,
+          suffix= '?format=webp',
+          densities = [1, 2, 3],
+          class = 'icon icon--57px'
+        ) }}
+      {% endfor %}
+    </div>
   {% endcall %}
 {%- endmacro %}
 
 {%- macro FS1AppIcon() -%}
-  {% call caseStudyImage(class = 'case-study-image--2x') %}
+  {% call caseStudyImage(class = 'case-study-image--2x case-study-image--black') %}
     {{- iOSGrid (
       path = assetRoot + 'five-square-1/icon/',
-      isOldVersion = true
+      version = 'iPhoneOld'
     ) -}}
   {% endcall %}
 {%- endmacro %}
