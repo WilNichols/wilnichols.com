@@ -25,7 +25,7 @@
 
 {%- macro FS1Board() -%}
   {% set screens = ['01', '03', '02'] %}
-  {% call caseStudyImage(class = 'case-study-image--2x') %}
+  {% call caseStudyImage(class = 'case-study-image--2x', caption = 'Assets in this case study have been reproduced at 2x and 3x for modern screens.') %}
     {% call proportionateScale() %}
       <div class="devices devices--three-phones">
         {% for screen in screens %}
@@ -37,11 +37,10 @@
       </div>
     {% endcall %}
   {% endcall %}
-{%- endmacro %}
+{%- endmacro -%}
 
 {%- macro FS1Selection() -%}
-  {% set assets = [] %}
-  {% call caseStudyImage(class = 'case-study-image--2x') %}
+  {% call caseStudyImage(class = 'case-study-image--16x9') %}
     <div class="case-study__icon-iterations">
       {% for asset in range(1, 6) %}
         {{  img(
@@ -52,21 +51,16 @@
       {% endfor %}
     </div>
   {% endcall %}
-{%- endmacro %}
+{%- endmacro -%}
 
 {%- macro FS1Icons() -%}
-  {% set assets = [] %}
-  {% for i in range(1, 36) %}
-    {% set s = i|string %}
-    {% if s|length == 1 %}
-      {% set s = '0' ~ s %}
-    {% endif %}
-    {% set assets = assets.concat([s]) %}
-  {% endfor %}
-  
-  {% call caseStudyImage(class = 'case-study-image--2x case-study-image--black') %}
+  {% call caseStudyImage(class = 'case-study-image--2x case-study-image--black', caption = 'Remember when you couldn’t set a wallpaper in iOS? Pepperidge Farm remembers.') %}
     <div class="case-study__icon-iterations">
-      {% for asset in assets %}
+      {% for asset in range(1, 36) %}
+        {% set asset = asset | string %}
+        {% if asset | length == 1 %}
+          {% set asset = '0' ~ asset %}
+        {% endif %}
         {{  img(
           src = assetPath + 'icon_iterations/' + asset,
           suffix= '?format=webp',
@@ -76,7 +70,7 @@
       {% endfor %}
     </div>
   {% endcall %}
-{%- endmacro %}
+{%- endmacro -%}
 
 {%- macro FS1AppIcon() -%}
   {% call caseStudyImage(class = 'case-study-image--2x case-study-image--black') %}
@@ -85,4 +79,4 @@
       version = 'iPhoneOld'
     ) -}}
   {% endcall %}
-{%- endmacro %}
+{%- endmacro -%}

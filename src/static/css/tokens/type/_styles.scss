@@ -31,6 +31,9 @@ $body-gap: 1lh;
         color: var(--linkVisitedColor);
       }
     }
+    &[href*="TODO"] {
+      text-decoration-style: dotted;
+    }
   }
 
   h1, h2, h3, h4, h5, h6, .note-title {  

@@ -55,7 +55,7 @@
 {%- endmacro -%}
 
 {%- macro FS2Icon() -%}
-  {% call caseStudyImage(class = 'case-study-image--2x') %}
+  {% call caseStudyImage(class = 'case-study-image--2x', id = 'app-icon') %}
     {{- iOSGrid (
       path = assetRoot + 'five-square-2/icon/',
       version = 'universalOld'
