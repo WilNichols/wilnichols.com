@@ -1,5 +1,4 @@
 ---
-
 date: 2025-09-01T23:39
 author: Wil Nichols
 tags:
