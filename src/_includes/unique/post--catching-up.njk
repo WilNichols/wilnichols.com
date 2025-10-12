@@ -1,0 +1,28 @@
+{%- from 'picture.njk' import Picture with context -%}
+{% set pictures = [
+  {
+    className: "austin-9",
+    src: "https://cdn.wilnichols.com/gallery-2023/Austin9/DSCF5478.jpg"
+  },
+  {
+    className: "pittsburgh-5",
+    src: "https://cdn.wilnichols.com/gallery-2023/Pittsburgh5/DSCF8911.jpg"
+  },
+  {
+    className: "pittsburgh-4",
+    src: "https://cdn.wilnichols.com/gallery-2023/Pittsburgh4/DSCF8466.jpg"
+  }
+ ] %}
+ <div class="picture-stack">
+  {% for picture in pictures %}
+    {{  Picture(
+        fileName = picture.src,
+        src = picture.src,
+        loading = 'eager',
+        isWNCDN = true,
+        args = {
+          width: '420'
+        }
+    ) }}
+  {% endfor %}
+</div>
