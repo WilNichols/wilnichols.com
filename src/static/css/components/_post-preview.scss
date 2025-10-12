@@ -228,6 +228,10 @@ $delay: .1s;
       0px 0.28px 0.56px 1px transparent;
     transition: tokens.$x box-shadow ease-out;
   }
+  &--custom {
+    box-shadow: none;
+    border-radius: 0;
+  }
   > * {
     aspect-ratio: var(--ratio, 4 / 3);
     border-radius: 4px;
@@ -244,19 +248,23 @@ $delay: .1s;
     opacity: 1;
     transition: tokens.$x opacity ease-out;
   }
+  &--custom:before {
+    content: none;
+  }
   .post__link:hover & {
     transition-delay: $delay;
-    & {
-      box-shadow: 
-        0px 6px 12px 1px rgba(0, 0, 0, calc(0.05 * var(--shadowMultiplier, 1))), 
-        0px 1.8px 3.6px 1px rgba(0, 0, 0, calc(0.03 * var(--shadowMultiplier, 1))), 
-        0px 0.76px 1.52px 1px rgba(0, 0, 0, calc(0.025 * var(--shadowMultiplier, 1))), 
-        0px 0.28px 0.56px 1px rgba(0, 0, 0, calc(0.017 * var(--shadowMultiplier, 1)));
-    }
+    box-shadow: 
+      0px 6px 12px 1px rgba(0, 0, 0, calc(0.05 * var(--shadowMultiplier, 1))), 
+      0px 1.8px 3.6px 1px rgba(0, 0, 0, calc(0.03 * var(--shadowMultiplier, 1))), 
+      0px 0.76px 1.52px 1px rgba(0, 0, 0, calc(0.025 * var(--shadowMultiplier, 1))), 
+      0px 0.28px 0.56px 1px rgba(0, 0, 0, calc(0.017 * var(--shadowMultiplier, 1)));
     &::before {
       transition-duration: inherit;
       opacity: 0;
     }
+  }
+  .post__link:hover &--custom {
+    box-shadow: none;
   }
 }
 
@@ -356,6 +364,59 @@ $delay: .1s;
   }
 }
 
+// .picture-stack {
+//   display: grid;
+//   margin: .6em auto .3em auto;
+//   overflow: visible;
+//   border-radius: 0; // this is set by post-preview
+//   aspect-ratio: unset !important; // this is otherwise set by post-preview
+//   > * {
+//     grid-area: 1 / 2 / 1 / 2;
+//     border-radius: 12px;
+//     overflow: hidden;
+//     transform-origin: 50% 100%;
+//     box-shadow: 
+//       0px 4px 8px 1px rgba(0, 0, 0, calc(0.05 * var(--shadowMultiplier, 1))), 
+//       0px 1.35px 2.7px 1px rgba(0, 0, 0, calc(0.03 * var(--shadowMultiplier, 1))), 
+//       0px 0.56px .76px 1px rgba(0, 0, 0, calc(0.025 * var(--shadowMultiplier, 1)));
+//     transition: 0.2s ease-out opacity, 0.2s ease-out scale, 0.2s ease-out transform-origin, 0.2s ease-out transform;
+//     &:first-child {
+//       z-index: 10;
+//       transform-origin: 50% 50%;
+//       rotate: .5deg;
+//     }
+//     &:nth-child(2) {
+//       z-index: 1;
+//       rotate: -1.5deg;
+//       scale: .98;
+//       opacity: 0.67;
+//       transform: translateX(-24px);
+//     }
+//     &:last-child {
+//       z-index: 0;
+//       rotate: 2deg;
+//       scale: .98;
+//       opacity: 0.67;
+//       transform: translateX(16px);
+//     }
+//   }
+//   .post__link:hover & {
+//     & > *:first-child {
+//       transform: translateY(-3px);
+//       scale: 1;
+//     }
+//     & > *:nth-child(2), & > *:nth-child(3) {
+//       transform-origin: 50% 150%;
+//       opacity: 1;
+//     }
+//   }
+//   picture {
+//     // FIXME: after adding a synchronous version of ImageInfo, don't hardcode these
+//     --width: min(420px, 100%);
+//     width: var(--width);
+//     height: calc(var(--width) / 1.5);
+//   }
+// }
 // goofy, maybe too much
 // 
 // .posts-month {

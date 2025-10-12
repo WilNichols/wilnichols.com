@@ -82,10 +82,12 @@
   .note:has(.post__preview):has(+ .note .post__preview) .post__link::after {
     content: none;
   }
-  .note:has(.post__preview) ~ .note .post__link {
+  .note:has(.post__preview) ~ .note:has(.post__preview) .post__link {
     padding-top: 0;
   }
-
+  // .note:has(.post__preview) + .note:has(.post__preview) .post__link {
+  //   background-color: red !important;
+  // }
   .post__accessories {
     padding: 0 .25em 0 0;
   }

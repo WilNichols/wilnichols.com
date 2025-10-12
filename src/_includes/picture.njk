@@ -25,35 +25,48 @@
   imageProps,
   loading = 'lazy',
   isWNCDN = false,
-  customSRCSet
+  customSRCSet,
+  args
 ) %}
   {% js "defer" %}
     {{ _progLoadImg() }}
   {% endjs %}
   {%- set sizes -%}
-    {%- if isWNCDN -%}
-      (max-width: 640px) 640px, 
-      (max-width: 960px) 960px, 
-      (max-width: 1200px) 1200px, 
-      (min-width: 1201px) 1800px
+    {%- if args.width -%}
+      (max-width: {{ args.width }}px) {{ args.width }}px, 
+      (max-width: {{ args.width * 2}}px) {{ args.width * 2}}px, 
+      (max-width: {{ args.width * 3}}px) {{ args.width * 3}}px, 
     {%- else -%}
-      (max-width: 1024px) 1024px, 
-      (max-width: 2048px) 2048px, 
-      (max-width: 2049px) 3072px
+      {%- if isWNCDN -%}
+        (max-width: 640px) 640px, 
+        (max-width: 960px) 960px, 
+        (max-width: 1200px) 1200px, 
+        (min-width: 1201px) 1800px
+      {%- else -%}
+        (max-width: 1024px) 1024px, 
+        (max-width: 2048px) 2048px, 
+        (max-width: 2049px) 3072px
+      {%- endif -%}
     {%- endif -%}
   {%- endset -%}
   {%- set srcset -%}
-    {%- if isWNCDN -%}
-      {{ src }}?width=2400px&format=webp, 
-      {{ src }}?width=1100px&format=webp 960w, 
-      {{ src }}?width=1400px&format=webp 1200w, 
-      {{ src }}?width=2000px&format=webp 1800w
+    {%- if args.width -%}
+      {{ src }}?width={{ args.width * 3}}px&format=webp 3x, 
+      {{ src }}?width={{ args.width * 2}}px&format=webp 2x, 
+      {{ src }}?width={{ args.width * 1}}px&format=webp 1x
     {%- else -%}
-      {{ customSRCSet | safe }}
+      {%- if isWNCDN -%}
+        {{ src }}?width=2400px&format=webp, 
+        {{ src }}?width=1100px&format=webp 960w, 
+        {{ src }}?width=1400px&format=webp 1200w, 
+        {{ src }}?width=2000px&format=webp 1800w
+      {%- else -%}
+        {{ customSRCSet | safe }}
+      {%- endif -%}
     {%- endif -%}
   {%- endset -%}
   {%- set src -%}
-    {% if isWNCDN %}{{ src | replace(" ", "") }}?width=1400&format=webp{% else %}{{ src | safe }}{% endif %}
+    {% if isWNCDN %}{{ src | replace(" ", "") }}?width={{ args.width if args.width else '1400' }}&format=webp{% else %}{{ src | safe }}{% endif %}
   {%- endset -%}
   <picture class="picture--{{ imageProps.orientation }}" style="--ratio: {{ imageProps.ratio }}; --color: {{ imageProps. color }}">
     <source

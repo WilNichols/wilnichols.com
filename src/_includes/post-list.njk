@@ -8,7 +8,7 @@
   {% set url %}{% if isSimpleLink %}{{ post.data.dest }}{% else %}{{ post.url }}{% endif %}{% endset %}
   <a href="{{ url }}" class="post__link"{{ ' target="blank"' if isSimpleLink }} style="--view-transition-name: post-title--{{ post.fileSlug | slugify }}">
     {% if post.data.preview %}
-      <div class="post__preview">
+      <div class="post__preview{{ ' post__preview--custom' if (post.data.preview.type == 'template') }}">
         {% if post.data.preview.type == 'vid' %}
           {% set assetRoot %}{{ remote.gallery.base }}/{{ remote.gallery.video }}/{{ post.data.preview.dir }}/{% endset %}
           <video 
@@ -35,6 +35,8 @@
           </video>
         {% elif post.data.preview.type == 'svg' %}
           <div class="post__preview__poster {{ post.data.preview.class }}">{% include post.data.preview.assets[0] %}</div>
+        {% elif post.data.preview.type == 'template' %}
+          {% include post.data.preview.path %}
         {% endif %}
       </div>
     {% elif post.data.thumbnail %}
