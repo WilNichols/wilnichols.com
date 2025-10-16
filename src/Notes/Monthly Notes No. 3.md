@@ -37,4 +37,4 @@ In my personal writing regarding Clyde, I dwell on what exactly we learn from ou
 [^4]: Please let me have my glib bullshit.
 [^5]: Clyde Alvin Nunn passed away on October 11, 2024. I’ve got a (happily) unpublished draft describing him that I’ll let disappear into the recesses of my computer’s storage. 
 [^6]: I’m taking suggestions for a tennis-relevant version of “slam-dunk.” “Overhead” doesn’t do enough.
-[^7]: No shade on mu siblings. We all — humanity — want to do better. We keep fucking up. 
+[^7]: No shade on my siblings. We all — humanity — want to do better. We keep fucking up. 
