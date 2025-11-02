@@ -222,42 +222,8 @@ export default async function(eleventyConfig) {
     return grouped;
   });
   
-  eleventyConfig.addAsyncFilter("getPhotos",  async function(dir) {
-    if (!process.env.FAST) {
-      // do some Async work
-      // console.log('getting photos for ' + dir);
-      const client = new S3Client({ 
-        region: "us-east-1" ,
-        credentials: {
-          accessKeyId: process.env.WN_AWS_ACCESS_KEY_ID,
-          secretAccessKey: process.env.WN_AWS_SECRET_ACCESS_KEY
-        }
-      });
-      const albumsParams = {
-        Bucket: 'wnphoto01',
-        Delimiter: '/',
-        Prefix: 'gallery-2023/' + dir + '/'
-      };
-      
-      const command = new ListObjectsV2Command(albumsParams);
-      let data;
-      let albums;
-      try {
-        data = await client.send(command);
-        albums = data.Contents.map(a => a.Key.replace(albumsParams.Prefix, '').replace(albumsParams.Delimiter, ''));
-        
-      } catch (error) {
-        return 'AWS failure'
-      } finally {
-        return albums;
-      }
-    } else {
-      return null;
-    }
-  });
-  
   eleventyConfig.addAsyncFilter('imageInfo', async function(url) {
-    if (!process.env.FAST) {
+    if (process.env.FAST) {
       try {
         if (process.env.FAST) {
           return {

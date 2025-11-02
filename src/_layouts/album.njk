@@ -1,5 +1,4 @@
 ---
-layout: page.njk
 eleventyImport:
   collections: ["photos"]
 ---
@@ -21,9 +20,8 @@ eleventyImport:
     {{ content | safe }}
     {{ RelatedPosts(previousPost, nextPost, altString = "Viewing") }}
   </div>
-  {% set photos = key | getPhotos %}
   {% set albumLength %}{{ photos | length }}{% endset %}
-  <ul class="album__album-photos">
+  {# <ul class="album__album-photos">
     {% for photo in photos | reverse %}
       {% if loop.index < 3 %}{% set loading = 'eager' %}{% else %}{% set loading = 'lazy' %}{% endif %}
       {% set src %}{{ remote.gallery.base }}/{{ remote.gallery.photos }}/{{ key }}/{{ photo }}{% endset %}
@@ -45,5 +43,5 @@ eleventyImport:
         </li>
       {% endif %}
     {% endfor %}
-  </ul>
+  </ul> #}
 </div>
