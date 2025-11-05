@@ -8,7 +8,6 @@ import markdownItAnchor from 'markdown-it-anchor';
 import markdownItAttrs from 'markdown-it-attrs';
 import markdownItFootnote from 'markdown-it-footnote';
 import markdownItTitle from 'markdown-it-title';
-import fs from 'fs';
 import { getAverageColor } from 'fast-average-color-node';
 import { S3Client, ListObjectsV2Command } from '@aws-sdk/client-s3';
 import sizeOf from 'image-size';
@@ -121,6 +120,42 @@ export default async function(eleventyConfig) {
           }
       });
       return tagsList;
+  });
+  
+  eleventyConfig.addCollection("imageData", async function(collectionsApi) {
+      const allItems = collectionsApi.getAll();
+      // creates flattened array of all photos + lastModifieds from albums
+      const allPhotos = (
+        await Promise.all(
+          allItems.map(async (item) => {
+            let photos = item.data?.eleventyComputed?.photos;
+            if (!photos) return [];
+            if (typeof photos === "function") photos = photos(item.data);
+            return await Promise.resolve(photos);
+          })
+        )
+      ).flat().filter(Boolean);
+
+      const photoMap = Object.fromEntries(
+        allPhotos
+          .flat()
+          .filter(photo => photo && photo.key)
+          .map(({ key, lastModified }) => {
+            let host;
+            try {
+              const parsed = new URL(key);
+              host = `${parsed.protocol}//${parsed.host}`;
+            } catch {
+              host = process.env.CDN;
+            }
+
+            const url = `${host}/${key}`;
+            return [key, { lastModified, host, url }];
+          })
+      );
+
+      console.log(photoMap);
+      return photoMap;
   });
   
   eleventyConfig.addCollection("Feed", function (collectionsApi) {

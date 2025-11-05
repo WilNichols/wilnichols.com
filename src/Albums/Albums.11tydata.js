@@ -2,9 +2,10 @@ import dotenv from 'dotenv';
 import { S3Client, ListObjectsV2Command } from '@aws-sdk/client-s3';
 import slugify from "@sindresorhus/slugify";
 
+
 async function test(key) {
   // console.log(key);
-  if (process.env.FAST) {
+  if (!process.env.FAST) {
     // do some Async work
     // console.log('getting photos for ' + dir);
     const client = new S3Client({ 
@@ -25,15 +26,11 @@ async function test(key) {
     let albums;
     try {
       data = await client.send(command);
-      albums = data.Contents.map(a => a.Key).slice(1); // slice b/c it first returns the directory
-      // console.log(data.Contents);
+      albums = data.Contents
+        .slice(1)
+        .map(({ Key, LastModified }) => ({ key: Key, lastModified: LastModified }));
       // vcheck image size and report those over 30megabytes bc they'll fail to trasfrorm
       data.Contents.forEach(image => image.Size > 30 * 1024 * 1024 && console.warn(image.Key + ' is above 30MB'))
-      // for photo in data.Contents {
-      //   if data.contents.size > 29999999 {
-      //     console.log('wtf yo');
-      //   }
-      // }
     } catch (error) {
       return 'AWS failure'
     } finally {
@@ -43,6 +40,7 @@ async function test(key) {
     return null;
   }
 }
+
 export default function (eleventy) {
   return {
     layout: "album.njk",
