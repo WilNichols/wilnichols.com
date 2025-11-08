@@ -1,7 +1,8 @@
+import crypto from "crypto";
 import dotenv from 'dotenv';
 import { DateTime } from 'luxon';
 import { EleventyRenderPlugin, EleventyHtmlBasePlugin } from '@11ty/eleventy';
-import Fetch from '@11ty/eleventy-fetch';
+import { AssetCache, Fetch } from '@11ty/eleventy-fetch';
 import htmlmin from "html-minifier-terser";
 import markdownIt from 'markdown-it';
 import markdownItAnchor from 'markdown-it-anchor';
@@ -18,6 +19,45 @@ import syntaxHighlight from '@11ty/eleventy-plugin-syntaxhighlight';
 import { JSDOM } from 'jsdom';
 
 dotenv.config();
+
+async function imageInfo(url) {
+  try {
+    const image = await Fetch(url, {
+      duration: '*',
+      type: 'buffer',
+      directory: cachePath,
+      fetchOptions: {
+        signal: AbortSignal.timeout(300000),
+        headers: {
+          "user-agent":
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36",
+        },
+      },
+    });
+    const width = sizeOf(image).width;
+    const height = sizeOf(image).height;
+    let orientation = (width == height) ? 'square' : (( width > height ) ? 'landscape' : 'portrait');
+    async function getColor() {
+      return getAverageColor(image).then(color => {
+          return color.hex;
+      });
+    };
+    const color = await getColor();
+    const obj = {path: url, height: height, width: width, ratio: width/height, orientation: orientation, color: color};
+    console.warn('fetching: ' + url);
+    return obj; 
+  } catch {
+    return {
+      error: 'true',
+      path: '#',
+      height: 4,
+      width: 6,
+      ratio: 1.5,
+      orientation: 'landscape',
+      color: '#a5a5a5'
+    }
+  }
+}
 
 export default async function(eleventyConfig) {
   eleventyConfig.setQuietMode(true);
@@ -122,40 +162,59 @@ export default async function(eleventyConfig) {
       return tagsList;
   });
   
-  eleventyConfig.addCollection("imageData", async function(collectionsApi) {
-      const allItems = collectionsApi.getAll();
-      // creates flattened array of all photos + lastModifieds from albums
-      const allPhotos = (
-        await Promise.all(
-          allItems.map(async (item) => {
-            let photos = item.data?.eleventyComputed?.photos;
-            if (!photos) return [];
-            if (typeof photos === "function") photos = photos(item.data);
-            return await Promise.resolve(photos);
-          })
-        )
-      ).flat().filter(Boolean);
-
-      const photoMap = Object.fromEntries(
+  eleventyConfig.addCollection("photos", async (collectionsApi) => {
+    const allItems = collectionsApi.getAll();
+  
+    const allPhotos = (
+      await Promise.all(
+        allItems.map(async (item) => {
+          let photos = item.data?.eleventyComputed?.photos;
+          if (!photos) return [];
+          if (typeof photos === "function") photos = photos(item.data);
+          return await Promise.resolve(photos);
+        })
+      )
+    ).flat().filter(Boolean);
+  
+    const photoMap = Object.fromEntries(
+      await Promise.all(
         allPhotos
-          .flat()
           .filter(photo => photo && photo.key)
-          .map(({ key, lastModified }) => {
+          .map(async ({key, lastModified}) => {
             let host;
             try {
-              const parsed = new URL(key);
-              host = `${parsed.protocol}//${parsed.host}`;
+              const u = new URL(key);
+              host = `${u.protocol}//${u.host}`;
             } catch {
               host = process.env.CDN;
             }
-
+  
             const url = `${host}/${key}`;
-            return [key, { lastModified, host, url }];
-          })
-      );
+  
+            const cacheFile = crypto
+              .createHash("sha1")
+              .update(url)
+              .digest("base64")
+              .replace(/[^a-zA-Z0-9]/g, "")
+              .substring(0, 7)
+              .toLowerCase();
+  
+            const args = (host === process.env.CDN) ? '?width=6px&format=webp' : '';
+            const meta = {key, lastModified, host, url, cacheFile, args};
+  
+            const asset = new AssetCache(url);
+            if (!asset.isCacheValid("30d")) {
+              await asset.save(meta, "json");
+            }
 
-      console.log(photoMap);
-      return photoMap;
+            const cached = await asset.getCachedValue();
+  
+            return [key, cached];
+          })
+      )
+    );
+    console.log(photoMap)
+    return photoMap;
   });
   
   eleventyConfig.addCollection("Feed", function (collectionsApi) {
