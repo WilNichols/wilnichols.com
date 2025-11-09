@@ -2,9 +2,7 @@ import dotenv from 'dotenv';
 import { S3Client, ListObjectsV2Command } from '@aws-sdk/client-s3';
 import slugify from "@sindresorhus/slugify";
 
-
 async function test(key) {
-  // console.log(key);
   if (!process.env.FAST) {
     // do some Async work
     // console.log('getting photos for ' + dir);
