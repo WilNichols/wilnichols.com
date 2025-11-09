@@ -145,81 +145,88 @@ export default async function(eleventyConfig) {
     const allPhotos = (
       await Promise.all(
         allItems.map(async (item) => {
-          let photos = item.data?.eleventyComputed?.photos;
+          let photos = item.data.photos;
           if (!photos) return [];
           if (typeof photos === "function") photos = photos(item.data);
           return await Promise.resolve(photos);
         })
       )
     ).flat().filter(Boolean);
-
-    async function imageInfo(url) {
-      const response = await fetch(url);
-      const arrayBuffer = await response.arrayBuffer();
-      const buffer = Buffer.from(arrayBuffer);
-
-      const { width, height } = imageSize(buffer);
-
-      const ratio = width / height;
-      const orientation = (width == height) ? 'square' : (( width > height ) ? 'landscape' : 'portrait');
-
-      return { width, height, ratio, orientation };
-    }
-
+  
     const photoMap = Object.fromEntries(
       await Promise.all(
         allPhotos
           .filter(photo => photo && photo.key)
-          .map(async ({key, lastModified, meta}) => {
-            let host;
-            try {
-              const u = new URL(key);
-              host = `${u.protocol}//${u.host}`;
-            } catch {
-              host = process.env.CDN;
-            }
+          .map(async ({ key, lastModified, meta }) => {
 
-            // in cases where I'm hotlinking my own image, it already has the host value
-            const url = `${host}/${key}`.replace(/(https?:\/\/[^/]+)\/\1\//, '$1/');
-
-            const cacheFile = crypto
-              .createHash("sha1")
-              .update(url)
-              .digest("base64")
-              .replace(/[^a-zA-Z0-9]/g, "")
-              .slice(0, 7)
-              .toLowerCase();
+            let isAbsolute = true, host = "";
+            try { const u = new URL(key); host = `${u.protocol}//${u.host}`; }
+            catch { isAbsolute = false; host = process.env.CDN ?? ""; }
   
-            const args = (host === process.env.CDN) ? '?width=6px&format=webp' : '';
-            const imageData = await imageInfo(url + args);
-            const color = await getAverageColor(url + args);
-            const fileInfo = {
-              color: color.hex,
-              width: imageData.width,
-              height: imageData.height,
-              ratio: imageData.ratio,
-              orientation: imageData.orientation
-            };
-            
-            const obj = { key, host, url, args, lastModified, cacheFile, meta, fileInfo };
+            const normalizedKey =
+              isAbsolute ? key :
+              host && key.startsWith("/") ? `${host}${key}` :
+              host ? `${host}/${key}` : key;
+  
+            const url = normalizedKey; 
+  
+            // normalizes relative url inputs
+            const hashInput = isAbsolute
+              ? (() => { const u = new URL(url); return `${u.protocol}//${u.host}${u.pathname}${u.search}`; })()
+              : (key); 
 
-            const asset = new AssetCache(url);
+            // hash used to look up custom-named cache (later) for file's meta and fileInfo
+            const cacheFile = crypto
+              .createHash("sha1").update(hashInput).digest("base64")
+              .replace(/[^a-z0-9]/gi, "").slice(0, 7).toLowerCase();
+  
+            const args = host === process.env.CDN ? "?width=6px&format=webp" : "";
+  
+            const asset = new AssetCache(cacheFile);
+
             if (!asset.isCacheValid("30d")) {
-              await asset.save(obj, "json");
-            }
 
+              const infoUrl = url + args;
+  
+              let width = 0, height = 0, ratio = 0, orientation = "unknown", colorHex = "#000000";
+
+              try {
+                const resp = await fetch(infoUrl);
+                if (resp.ok) {
+                  const buf = Buffer.from(await resp.arrayBuffer());
+                  const dim = imageSize(buf);
+                  width = dim.width;
+                  height = dim.height;
+                  ratio = width / height;
+                  orientation = (width === height) ? "square" : (width > height ? "landscape" : "portrait");
+                  colorHex = await getAverageColor(infoUrl);
+                }
+              } catch {}
+  
+              const fileInfo = { 
+                capturedAt: new Date().toISOString(),
+                color: colorHex.hex, 
+                width, height, ratio, orientation, 
+                ...(meta && typeof meta === "object" ? meta : {}),
+              };
+
+              const toCache = {
+                key: normalizedKey,
+                lastModified, host, url, args, cacheFile,
+                fileInfo
+              };
+              await asset.save(toCache, "json");
+            }
+  
             let cached = await asset.getCachedValue();
+            if (typeof cached === "string") { try { cached = JSON.parse(cached); } catch {} }
 
-            // When the cache is first written, it returns objects as strings.
-            if (typeof cached === "string") {
-              cached = JSON.parse(cached); 
-            }
-
-            return [key, cached];
+            return [normalizedKey, cached];
           })
       )
     );
-    console.log(photoMap)
+  
+    console.log(photoMap);
     return photoMap;
   });
   
