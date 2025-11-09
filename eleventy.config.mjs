@@ -191,9 +191,17 @@ export default async function(eleventyConfig) {
               let width = 0, height = 0, ratio = 0, orientation = "unknown", colorHex = "#000000";
 
               try {
-                const resp = await fetch(infoUrl);
+                const resp = await fetch(infoUrl, {
+                  redirect: "follow",
+                  headers: { "User-Agent": "Eleventy/Fetch", "Referer": host }
+                });
+                if (!resp.ok) throw new Error(`Fetch ${resp.status} ${infoUrl}`);
+                const type = resp.headers.get("content-type") || "";
+                if (!type.startsWith("image/")) throw new Error(`Not an image: ${type}`);
                 if (resp.ok) {
-                  const buf = Buffer.from(await resp.arrayBuffer());
+                  const ab = await resp.arrayBuffer();
+                  if (!ab.byteLength) throw new Error("Empty body");
+                  const buf = Buffer.from(ab);
                   const dim = imageSize(buf);
                   width = dim.width;
                   height = dim.height;
@@ -201,7 +209,7 @@ export default async function(eleventyConfig) {
                   orientation = (width === height) ? "square" : (width > height ? "landscape" : "portrait");
                   colorHex = await getAverageColor(infoUrl);
                 }
-              } catch {}
+              } catch { console.warn('⚠️ | ' + normalizedKey) }
   
               const fileInfo = { 
                 capturedAt: new Date().toISOString(),
@@ -220,13 +228,14 @@ export default async function(eleventyConfig) {
   
             let cached = await asset.getCachedValue();
             if (typeof cached === "string") { try { cached = JSON.parse(cached); } catch {} }
-
+            
+            console.log(cached.fileInfo.width + ' | ' +normalizedKey);
             return [normalizedKey, cached];
           })
       )
     );
   
-    console.log(photoMap);
+    // console.log(photoMap);
     return photoMap;
   });
   
