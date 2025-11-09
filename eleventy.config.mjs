@@ -194,6 +194,9 @@ export default async function(eleventyConfig) {
    async function testMe(string) {
     return string + ' test test test'
    }
+   async function getColor(url) {
+     return getAverageColor(url);
+   };
     const photoMap = Object.fromEntries(
       await Promise.all(
         allPhotos
@@ -206,8 +209,10 @@ export default async function(eleventyConfig) {
             } catch {
               host = process.env.CDN;
             }
-            const url = `${host}/${key}`;
-  
+
+            // in cases where I'm hotlinking my own image, it already has the host value
+            const url = `${host}/${key}`.replace(/(https?:\/\/[^/]+)\/\1\//, '$1/');
+
             const cacheFile = crypto
               .createHash("sha1")
               .update(url)
@@ -218,7 +223,9 @@ export default async function(eleventyConfig) {
   
             const args = (host === process.env.CDN) ? '?width=6px&format=webp' : '';
             const test = testMe('wtf');
-            const obj = {key, lastModified, host, url, cacheFile, args, meta, test};
+            let color = await getColor(url + args)
+            color = color.hex
+            const obj = {key, host, url, args, lastModified, cacheFile, meta, test, color};
             
             const asset = new AssetCache(url);
             if (!asset.isCacheValid("30d")) {
