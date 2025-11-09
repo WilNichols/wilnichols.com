@@ -1,4 +1,5 @@
 ---
+layout: page.njk
 eleventyImport:
   collections: ["photos"]
 ---
@@ -21,27 +22,22 @@ eleventyImport:
     {{ RelatedPosts(previousPost, nextPost, altString = "Viewing") }}
   </div>
   {% set albumLength %}{{ photos | length }}{% endset %}
-  {# <ul class="album__album-photos">
+  <ul class="album__album-photos">
     {% for photo in photos | reverse %}
       {% if loop.index < 3 %}{% set loading = 'eager' %}{% else %}{% set loading = 'lazy' %}{% endif %}
-      {% set src %}{{ remote.gallery.base }}/{{ remote.gallery.photos }}/{{ key }}/{{ photo }}{% endset %}
-      {% set fileName %}{{ photo | slugify }}{% endset %}
-      {% if photo !== '' %}
-        {% set previewSRC %}{{ src }}?width=6px&format=webp{% endset %}
-        {% set imageProps = previewSRC | imageInfo %}
-        <li class="album__album-photos__photo" id="{{ fileName | replace('-jpg', '') | replace('dscf', '') }}">
-          {{  Picture(
-              fileName = fileName,
-              src = src,
-              loading = loading,
-              imageProps = imageProps,
-              isWNCDN = true
-          ) }}
-          {% if loop.index == (albumLength - 1) %}
-            {{ Footer() }}
-          {% endif %}
-        </li>
-      {% endif %}
+      {% set src %}{{ remote.gallery.base }}/{{ photo.key }}{% endset %}
+      {% set fileName %}{{ photo.fileName | slugify }}{% endset %}
+      {% set previewSRC %}{{ src }}?width=6px&format=webp{% endset %}
+      {% set imageProps = previewSRC | imageInfo %}
+      <li class="album__album-photos__photo" id="{{ fileName | replace('-jpg', '') | replace('dscf', '') }}">
+        {{  Picture(
+            fileName = fileName,
+            src = src,
+            loading = loading,
+            isWNCDN = true
+        ) }}
+      </li>
     {% endfor %}
-  </ul> #}
+    {{ Footer(el="li") }}
+  </ul>
 </div>

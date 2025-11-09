@@ -7,6 +7,9 @@ summary: "I got married. Here’s what that means to me."
 revisions:
 - date: 2025-02-22T18:51
   content: Added the photo! 
+eleventyComputed:
+  photos: 
+  - key: 'https://cdn.wilnichols.com/wedding/7CJ00431.jpg'
 ---
 {% from "../_includes/picture.njk" import Picture with context %}
 

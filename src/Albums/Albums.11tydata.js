@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import { S3Client, ListObjectsV2Command } from '@aws-sdk/client-s3';
 import slugify from "@sindresorhus/slugify";
 
-async function test(key) {
+async function getAlbumContentsFromAWS(key) {
   if (!process.env.FAST) {
     // do some Async work
     // console.log('getting photos for ' + dir);
@@ -26,8 +26,12 @@ async function test(key) {
       data = await client.send(command);
       albums = data.Contents
         .slice(1)
-        .map(({ Key, LastModified }) => ({ key: Key, lastModified: LastModified }));
-      // vcheck image size and report those over 30megabytes bc they'll fail to trasfrorm
+        .map(({ Key, LastModified }) => ({ 
+          key: Key, 
+          lastModified: LastModified,
+          fileName: Key.split('/').pop(),
+        }));
+      // check image size and report those over 30megabytes bc they'll fail to transform
       data.Contents.forEach(image => image.Size > 30 * 1024 * 1024 && console.warn(image.Key + ' is above 30MB'))
     } catch (error) {
       return 'AWS failure'
@@ -45,7 +49,7 @@ export default function (eleventy) {
     tags: ["Albums", "Topic/Photography"],
     eleventyComputed: {
       permalink: data => '/albums/' + slugify(data.page.fileSlug).replace('-s', 's') + '/',
-      photos: async data => test(data.key)
+      photos: async data => getAlbumContentsFromAWS(data.key)
     }
   }
 }

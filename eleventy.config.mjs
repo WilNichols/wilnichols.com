@@ -162,6 +162,23 @@ export default async function(eleventyConfig) {
       return tagsList;
   });
   
+  eleventyConfig.addCollection("glassPhotos", async (collectionsApi) => {
+    // we sent these to a colleciton b/c njk templates can't read straight from eleventyComputed
+    const allItems = collectionsApi.getFilteredByTag("cameraRollSource");
+    const glassPhotos = (
+      await Promise.all(
+        allItems.map(async (item) => {
+          let photos = item.data?.eleventyComputed?.photos;
+          if (!photos) return [];
+          if (typeof photos === "function") photos = photos(item.data);
+          return await Promise.resolve(photos);
+        })
+      )
+    ).flat().filter(Boolean);
+    // console.log(glassPhotos)
+    return glassPhotos;
+  });
+  
   eleventyConfig.addCollection("photos", async (collectionsApi) => {
     const allItems = collectionsApi.getAll();
   
@@ -217,11 +234,11 @@ export default async function(eleventyConfig) {
               cached = JSON.parse(cached); 
             }
 
-            return [key, typeof cached];
+            return [key, cached];
           })
       )
     );
-    console.log(photoMap)
+    // console.log(photoMap)
     return photoMap;
   });
   
