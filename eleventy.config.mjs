@@ -175,7 +175,9 @@ export default async function(eleventyConfig) {
         })
       )
     ).flat().filter(Boolean);
-  
+   async function testMe(string) {
+    return string + ' test test test'
+   }
     const photoMap = Object.fromEntries(
       await Promise.all(
         allPhotos
@@ -200,16 +202,22 @@ export default async function(eleventyConfig) {
               .toLowerCase();
   
             const args = (host === process.env.CDN) ? '?width=6px&format=webp' : '';
-            const meta = {key, lastModified, host, url, cacheFile, args};
+            const test = testMe('wtf');
+            const meta = {key, lastModified, host, url, cacheFile, args, test};
   
             const asset = new AssetCache(url);
             if (!asset.isCacheValid("30d")) {
               await asset.save(meta, "json");
             }
 
-            const cached = await asset.getCachedValue();
-  
-            return [key, cached];
+            let cached = await asset.getCachedValue();
+
+            // When the cache is first written, it returns objects as strings.
+            if (typeof cached === "string") {
+              cached = JSON.parse(cached); 
+            }
+
+            return [key, typeof cached];
           })
       )
     );
