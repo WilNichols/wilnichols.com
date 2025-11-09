@@ -163,7 +163,7 @@ export default async function(eleventyConfig) {
   });
   
   eleventyConfig.addCollection("glassPhotos", async (collectionsApi) => {
-    // we sent these to a colleciton b/c njk templates can't read straight from eleventyComputed
+    // we sent these to a collection b/c njk templates can't read straight from eleventyComputed
     const allItems = collectionsApi.getFilteredByTag("cameraRollSource");
     const glassPhotos = (
       await Promise.all(
@@ -175,7 +175,6 @@ export default async function(eleventyConfig) {
         })
       )
     ).flat().filter(Boolean);
-    // console.log(glassPhotos)
     return glassPhotos;
   });
   
@@ -199,7 +198,7 @@ export default async function(eleventyConfig) {
       await Promise.all(
         allPhotos
           .filter(photo => photo && photo.key)
-          .map(async ({key, lastModified}) => {
+          .map(async ({key, lastModified, meta}) => {
             let host;
             try {
               const u = new URL(key);
@@ -207,7 +206,6 @@ export default async function(eleventyConfig) {
             } catch {
               host = process.env.CDN;
             }
-  
             const url = `${host}/${key}`;
   
             const cacheFile = crypto
@@ -220,11 +218,11 @@ export default async function(eleventyConfig) {
   
             const args = (host === process.env.CDN) ? '?width=6px&format=webp' : '';
             const test = testMe('wtf');
-            const meta = {key, lastModified, host, url, cacheFile, args, test};
-  
+            const obj = {key, lastModified, host, url, cacheFile, args, meta, test};
+            
             const asset = new AssetCache(url);
             if (!asset.isCacheValid("30d")) {
-              await asset.save(meta, "json");
+              await asset.save(obj, "json");
             }
 
             let cached = await asset.getCachedValue();
@@ -238,7 +236,7 @@ export default async function(eleventyConfig) {
           })
       )
     );
-    // console.log(photoMap)
+    console.log(photoMap)
     return photoMap;
   });
   
