@@ -11,7 +11,7 @@ import markdownItFootnote from 'markdown-it-footnote';
 import markdownItTitle from 'markdown-it-title';
 import { getAverageColor } from 'fast-average-color-node';
 import { S3Client, ListObjectsV2Command } from '@aws-sdk/client-s3';
-import sizeOf from 'image-size';
+import { imageSize } from 'image-size';
 import slugify from "@sindresorhus/slugify";
 import pluginRss from '@11ty/eleventy-plugin-rss';
 import beautify from 'js-beautify';
@@ -19,45 +19,6 @@ import syntaxHighlight from '@11ty/eleventy-plugin-syntaxhighlight';
 import { JSDOM } from 'jsdom';
 
 dotenv.config();
-
-async function imageInfo(url) {
-  try {
-    const image = await Fetch(url, {
-      duration: '*',
-      type: 'buffer',
-      directory: cachePath,
-      fetchOptions: {
-        signal: AbortSignal.timeout(300000),
-        headers: {
-          "user-agent":
-            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36",
-        },
-      },
-    });
-    const width = sizeOf(image).width;
-    const height = sizeOf(image).height;
-    let orientation = (width == height) ? 'square' : (( width > height ) ? 'landscape' : 'portrait');
-    async function getColor() {
-      return getAverageColor(image).then(color => {
-          return color.hex;
-      });
-    };
-    const color = await getColor();
-    const obj = {path: url, height: height, width: width, ratio: width/height, orientation: orientation, color: color};
-    console.warn('fetching: ' + url);
-    return obj; 
-  } catch {
-    return {
-      error: 'true',
-      path: '#',
-      height: 4,
-      width: 6,
-      ratio: 1.5,
-      orientation: 'landscape',
-      color: '#a5a5a5'
-    }
-  }
-}
 
 export default async function(eleventyConfig) {
   eleventyConfig.setQuietMode(true);
@@ -191,12 +152,24 @@ export default async function(eleventyConfig) {
         })
       )
     ).flat().filter(Boolean);
-   async function testMe(string) {
-    return string + ' test test test'
-   }
-   async function getColor(url) {
-     return getAverageColor(url);
-   };
+
+    async function getColor(url) {
+      return getAverageColor(url);
+    };
+
+    async function imageInfo(url) {
+      const response = await fetch(url);
+      const arrayBuffer = await response.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+
+      const { width, height } = imageSize(buffer);
+
+      const ratio = width / height;
+      const orientation = (width == height) ? 'square' : (( width > height ) ? 'landscape' : 'portrait');
+
+      return { width, height, ratio, orientation };
+    }
+
     const photoMap = Object.fromEntries(
       await Promise.all(
         allPhotos
@@ -222,11 +195,18 @@ export default async function(eleventyConfig) {
               .toLowerCase();
   
             const args = (host === process.env.CDN) ? '?width=6px&format=webp' : '';
-            const test = testMe('wtf');
-            let color = await getColor(url + args)
-            color = color.hex
-            const obj = {key, host, url, args, lastModified, cacheFile, meta, test, color};
+            const imageData = await imageInfo(url + args)
+            const color = await getColor(url + args)
+            const fileInfo = {
+              color: color.hex,
+              width: imageData.width,
+              height: imageData.height,
+              ratio: imageData.ratio,
+              orientation: imageData.orientation
+            }
             
+            const obj = { key, host, url, args, lastModified, cacheFile, meta, fileInfo };
+
             const asset = new AssetCache(url);
             if (!asset.isCacheValid("30d")) {
               await asset.save(obj, "json");
