@@ -153,10 +153,6 @@ export default async function(eleventyConfig) {
       )
     ).flat().filter(Boolean);
 
-    async function getColor(url) {
-      return getAverageColor(url);
-    };
-
     async function imageInfo(url) {
       const response = await fetch(url);
       const arrayBuffer = await response.arrayBuffer();
@@ -191,19 +187,19 @@ export default async function(eleventyConfig) {
               .update(url)
               .digest("base64")
               .replace(/[^a-zA-Z0-9]/g, "")
-              .substring(0, 7)
+              .slice(0, 7)
               .toLowerCase();
   
             const args = (host === process.env.CDN) ? '?width=6px&format=webp' : '';
-            const imageData = await imageInfo(url + args)
-            const color = await getColor(url + args)
+            const imageData = await imageInfo(url + args);
+            const color = await getAverageColor(url + args);
             const fileInfo = {
               color: color.hex,
               width: imageData.width,
               height: imageData.height,
               ratio: imageData.ratio,
               orientation: imageData.orientation
-            }
+            };
             
             const obj = { key, host, url, args, lastModified, cacheFile, meta, fileInfo };
 
