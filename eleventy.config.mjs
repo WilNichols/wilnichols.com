@@ -184,12 +184,14 @@ export default async function(eleventyConfig) {
   
             const asset = new AssetCache(cacheFile);
 
-            if (!asset.isCacheValid("30d")) {
-
+            let cachedInfo = await asset.getCachedValue();
+            
+            if (!cachedInfo || (new Date(lastModified) <= new Date(cachedInfo.capturedAt))) {
+            
               const infoUrl = url + args;
   
               let success = false, width = 0, height = 0, ratio = 0, orientation = "unknown", colorHex = "#000000";
-              
+
               let attempts = 0;
               while (attempts < 3 && !success) {
                 attempts++;
@@ -231,19 +233,28 @@ export default async function(eleventyConfig) {
                 lastModified, host, url, args, cacheFile,
                 fileInfo
               };
-              await asset.save(toCache, "json");
+              await asset.save(fileInfo, "json");
             }
   
-            let cached = await asset.getCachedValue();
-            if (typeof cached === "string") { try { cached = JSON.parse(cached); } catch {} }
-            
-            console.log(cached.fileInfo.width + ' | ' +normalizedKey);
-            return [normalizedKey, cached];
+            if (typeof cachedInfo === "string") {
+              try { cachedInfo = JSON.parse(cachedInfo); } catch {}
+            }
+
+            const result = {
+              key: normalizedKey,
+              lastModified,
+              host,
+              url,
+              args,
+              cacheFile,
+              fileInfo: cachedInfo
+            };
+            return [normalizedKey, result];
           })
       )
     );
   
-    // console.log(photoMap);
+    console.log(photoMap);
     return photoMap;
   });
   
