@@ -34,6 +34,9 @@
     "markdown-it-anchor": "^9.2.0",
     "markdown-it-attrs": "^4.2.0",
     "markdown-it-footnote": "^4.0.0",
+    "netlify-plugin-cache": "^1.0.3",
+    "netlify-plugin-cache-folder": "^0.0.8",
+    "netlify-plugin-debug-cache": "^1.0.4",
     "node-html-parser": "^7.0.1",
     "title-case": "^4.3.1"
   },

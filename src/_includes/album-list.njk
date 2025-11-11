@@ -11,8 +11,6 @@
           
           {% if album.data.permalink and (album.data.thumbnail !== '') %} 
             {% set previewSRC %}{{ remote.gallery.base }}/{{ remote.gallery.photos }}/{{ album.data.key }}/{{ album.data.thumbnail }}{% endset %}
-            {% set dataSRC %}{{ previewSRC }}?width=6px&format=webp{% endset %}
-            {% set imageProps = dataSRC | imageInfo %}
             <li class="album-group__album">
               <a class="album-group__album__link" href="{{ album.data.permalink }}" data-preview="{{ previewSrc }}">{{ album.data.shortTitle if album.data.shortTitle else album.data.title | replace(albumGroup.data.title, '') }}</a>{% if not loop.last %},&ensp;{% endif %}
               <div class="album-preview">
@@ -20,7 +18,6 @@
                     fileName = album.data.thumbnail,
                     src = previewSRC,
                     loading = "eager",
-                    imageProps = imageProps,
                     isWNCDN = true
                 ) }}
               </div>

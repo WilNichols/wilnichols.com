@@ -43,11 +43,10 @@
       <div class="post__preview">
         {% set previewSRC %}{{ remote.gallery.base }}/{{ remote.gallery.photos }}/{{ post.data.key }}/{{ post.data.thumbnail }}{% endset %}
         {{  Picture(
-            class  = 'post__preview__poster',
+            class = 'post__preview__poster',
             fileName = post.data.thumbnail,
             src = previewSRC,
             loading = "eager",
-            imageProps = post.data.imagePropsSynchronous,
             isWNCDN = true
         ) }}
       </div>
