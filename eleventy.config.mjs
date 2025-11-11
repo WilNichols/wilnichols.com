@@ -163,61 +163,46 @@ export default async function(eleventyConfig) {
             try { const u = new URL(key); host = `${u.protocol}//${u.host}`; }
             catch { isAbsolute = false; host = process.env.CDN ?? ""; }
   
-            const normalizedKey =
+            const url =
               isAbsolute ? key :
               host && key.startsWith("/") ? `${host}${key}` :
               host ? `${host}/${key}` : key;
-  
-            const url = normalizedKey; 
-  
-            // normalizes relative url inputs
-            const hashInput = isAbsolute
-              ? (() => { const u = new URL(url); return `${u.protocol}//${u.host}${u.pathname}${u.search}`; })()
-              : (key); 
 
-            // hash used to look up custom-named cache (later) for file's meta and fileInfo
-            const cacheFile = crypto
-              .createHash("sha1").update(hashInput).digest("base64")
-              .replace(/[^a-z0-9]/gi, "").slice(0, 7).toLowerCase();
-  
             const args = host === process.env.CDN ? "?width=6px&format=webp" : "";
   
-            const asset = new AssetCache(cacheFile);
-
-            let cachedInfo = await asset.getCachedValue();
+            const asset = new AssetCache(url);
+            let cachedInfo = await asset.getCachedValue().catch(() => null);
             
-            if (!cachedInfo || (new Date(lastModified) <= new Date(cachedInfo.capturedAt))) {
+            if (!cachedInfo?.capturedAt || new Date(lastModified) > new Date(cachedInfo.capturedAt)) {
             
-              const infoUrl = url + args;
-  
+              const imageURL = url + args;
               let success = false, width = 0, height = 0, ratio = 0, orientation = "unknown", colorHex = "#000000";
-
               let attempts = 0;
+
               while (attempts < 3 && !success) {
                 attempts++;
                 try {
-                  const resp = await fetch(infoUrl, {
+                  const resp = await fetch(imageURL, {
                     redirect: "follow",
                     headers: { "User-Agent": "Eleventy/Fetch", "Referer": host }
                   });
-                  if (!resp.ok) throw new Error(`Fetch ${resp.status} ${infoUrl}`);
+                  if (!resp.ok) throw new Error(`Fetch ${resp.status} ${imageURL}`);
                   const type = resp.headers.get("content-type") || "";
-                  if (!type.startsWith("image/")) throw new Error(`Not an image: ${type}`);
                   if (resp.ok) {
                     const ab = await resp.arrayBuffer();
                     if (!ab.byteLength) throw new Error("Empty body");
                     const buf = Buffer.from(ab);
-                    const dim = imageSize(buf);
+                    const size = imageSize(buf);
                     success = true;
-                    width = dim.width;
-                    height = dim.height;
+                    width = size.width;
+                    height = size.height;
                     ratio = width / height;
                     orientation = (width === height) ? "square" : (width > height ? "landscape" : "portrait");
-                    colorHex = await getAverageColor(infoUrl);
+                    colorHex = await getAverageColor(imageURL);
                   }
                 } catch { 
-                  console.warn('⚠️ | ' + normalizedKey) 
-                  if (attempts === 3) console.warn('❌ | giving up on ' + normalizedKey);
+                  console.warn('⚠️ | ' + url) 
+                  if (attempts === 3) console.warn('❌ | giving up on ' + url);
                 }
               }
 
@@ -229,11 +214,13 @@ export default async function(eleventyConfig) {
               };
 
               const toCache = {
-                key: normalizedKey,
-                lastModified, host, url, args, cacheFile,
+                key: url,
+                lastModified, host, url, args,
                 fileInfo
               };
+
               await asset.save(fileInfo, "json");
+              cachedInfo = fileInfo;
             }
   
             if (typeof cachedInfo === "string") {
@@ -241,15 +228,15 @@ export default async function(eleventyConfig) {
             }
 
             const result = {
-              key: normalizedKey,
+              key: url,
               lastModified,
               host,
               url,
               args,
-              cacheFile,
               fileInfo: cachedInfo
             };
-            return [normalizedKey, result];
+
+            return [url, result];
           })
       )
     );
