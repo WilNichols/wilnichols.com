@@ -12,15 +12,10 @@ eleventyComputed:
   - key: 'https://cdn.wilnichols.com/wedding/7CJ00431.jpg'
 ---
 {% from "../_includes/picture.njk" import Picture with context %}
-
-{% set src = "https://cdn.wilnichols.com/wedding/7CJ00431.jpg" %}
-{% set previewSRC %}{{ src }}?width=6px&format=webp{% endset %}
-{% set imageProps = previewSRC | imageInfo %}
 {{  Picture(
     fileName = '7CJ00431-jpg',
-    src = src,
+    src = 'https://cdn.wilnichols.com/wedding/7CJ00431.jpg',
     loading = 'eager',
-    imageProps = imageProps,
     isWNCDN = true
 ) }}
 Here’s a photo. View our talented photographers’ portfolio, and consider hiring them, at jyangphoto.com

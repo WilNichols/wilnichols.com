@@ -61,6 +61,11 @@ export default async function(eleventyConfig) {
   
   // Filters
   
+  eleventyConfig.addFilter("getPhoto", function (key) {
+    const photos = this.ctx.collections?.photos;
+    return photos[key];
+  });
+  
   eleventyConfig.addFilter("links_to", async function(collection, target) {
     const hostname = "wilnichols.com";
     const cache = {};
@@ -241,7 +246,7 @@ export default async function(eleventyConfig) {
       )
     );
   
-    console.log(photoMap);
+    // console.log(photoMap);
     return photoMap;
   });
   
@@ -342,54 +347,6 @@ export default async function(eleventyConfig) {
       }, {})
     );
     return grouped;
-  });
-  
-  eleventyConfig.addAsyncFilter('imageInfo', async function(url) {
-    if (process.env.FAST) {
-      try {
-        if (process.env.FAST) {
-          return {
-            path: '#',
-            height: 4,
-            width: 6,
-            ratio: 1.5,
-            orientation: 'landscape',
-            color: '#a5a5a5'
-          }
-        } else {
-          const image = await Fetch(url, {
-            duration: '*',
-            type: 'buffer',
-            directory: cachePath,
-            fetchOptions: {
-              signal: AbortSignal.timeout(300000),
-              headers: {
-                "user-agent":
-                  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36",
-              },
-            },
-          });
-          const width = sizeOf(image).width;
-          const height = sizeOf(image).height;
-          let orientation = (width == height) ? 'square' : (( width > height ) ? 'landscape' : 'portrait');
-          async function getColor() {
-            return getAverageColor(image).then(color => {
-                return color.hex;
-            });
-          };
-          const color = await getColor();
-          const obj = {path: url, height: height, width: width, ratio: width/height, orientation: orientation, color: color};
-          console.warn('fetching: ' + url);
-          return obj; 
-        }
-      } catch (err) {
-        // console.warn(url);
-        // console.warn("Error on: ", err);
-        return null;
-      }
-    } else {
-      return null;
-    }
   });
   
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
