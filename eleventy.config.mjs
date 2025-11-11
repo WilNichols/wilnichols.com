@@ -1,17 +1,17 @@
+import crypto from "crypto";
 import dotenv from 'dotenv';
 import { DateTime } from 'luxon';
 import { EleventyRenderPlugin, EleventyHtmlBasePlugin } from '@11ty/eleventy';
-import Fetch from '@11ty/eleventy-fetch';
+import { AssetCache, Fetch } from '@11ty/eleventy-fetch';
 import htmlmin from "html-minifier-terser";
 import markdownIt from 'markdown-it';
 import markdownItAnchor from 'markdown-it-anchor';
 import markdownItAttrs from 'markdown-it-attrs';
 import markdownItFootnote from 'markdown-it-footnote';
 import markdownItTitle from 'markdown-it-title';
-import fs from 'fs';
 import { getAverageColor } from 'fast-average-color-node';
 import { S3Client, ListObjectsV2Command } from '@aws-sdk/client-s3';
-import sizeOf from 'image-size';
+import { imageSize } from 'image-size';
 import slugify from "@sindresorhus/slugify";
 import pluginRss from '@11ty/eleventy-plugin-rss';
 import beautify from 'js-beautify';
@@ -60,6 +60,11 @@ export default async function(eleventyConfig) {
   eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
   
   // Filters
+  
+  eleventyConfig.addFilter("getPhoto", function (key) {
+    const photos = this.ctx.collections?.photos;
+    return photos[key];
+  });
   
   eleventyConfig.addFilter("links_to", async function(collection, target) {
     const hostname = "wilnichols.com";
@@ -121,6 +126,128 @@ export default async function(eleventyConfig) {
           }
       });
       return tagsList;
+  });
+  
+  eleventyConfig.addCollection("glassPhotos", async (collectionsApi) => {
+    // we sent these to a collection b/c njk templates can't read straight from eleventyComputed
+    const allItems = collectionsApi.getFilteredByTag("cameraRollSource");
+    const glassPhotos = (
+      await Promise.all(
+        allItems.map(async (item) => {
+          let photos = item.data?.eleventyComputed?.photos;
+          if (!photos) return [];
+          if (typeof photos === "function") photos = photos(item.data);
+          return await Promise.resolve(photos);
+        })
+      )
+    ).flat().filter(Boolean);
+    return glassPhotos;
+  });
+  
+  eleventyConfig.addCollection("photos", async (collectionsApi) => {
+    const allItems = collectionsApi.getAll();
+  
+    const allPhotos = (
+      await Promise.all(
+        allItems.map(async (item) => {
+          let photos = item.data.photos;
+          if (!photos) return [];
+          if (typeof photos === "function") photos = photos(item.data);
+          return await Promise.resolve(photos);
+        })
+      )
+    ).flat().filter(Boolean);
+  
+    const photoMap = Object.fromEntries(
+      await Promise.all(
+        allPhotos
+          .filter(photo => photo && photo.key)
+          .map(async ({ key, lastModified, meta }) => {
+
+            let isAbsolute = true, host = "";
+            try { const u = new URL(key); host = `${u.protocol}//${u.host}`; }
+            catch { isAbsolute = false; host = process.env.CDN ?? ""; }
+  
+            const url =
+              isAbsolute ? key :
+              host && key.startsWith("/") ? `${host}${key}` :
+              host ? `${host}/${key}` : key;
+
+            const args = host === process.env.CDN ? "?width=6px&format=webp" : "";
+  
+            const asset = new AssetCache(url);
+            let cachedInfo = await asset.getCachedValue().catch(() => null);
+            
+            if (!cachedInfo?.capturedAt || new Date(lastModified) > new Date(cachedInfo.capturedAt)) {
+            
+              const imageURL = url + args;
+              let success = false, width = 0, height = 0, ratio = 0, orientation = "unknown", colorHex = "#000000";
+              let attempts = 0;
+
+              while (attempts < 3 && !success) {
+                attempts++;
+                try {
+                  const resp = await fetch(imageURL, {
+                    redirect: "follow",
+                    headers: { "User-Agent": "Eleventy/Fetch", "Referer": host }
+                  });
+                  if (!resp.ok) throw new Error(`Fetch ${resp.status} ${imageURL}`);
+                  const type = resp.headers.get("content-type") || "";
+                  if (resp.ok) {
+                    const ab = await resp.arrayBuffer();
+                    if (!ab.byteLength) throw new Error("Empty body");
+                    const buf = Buffer.from(ab);
+                    const size = imageSize(buf);
+                    success = true;
+                    width = size.width;
+                    height = size.height;
+                    ratio = width / height;
+                    orientation = (width === height) ? "square" : (width > height ? "landscape" : "portrait");
+                    colorHex = await getAverageColor(imageURL);
+                  }
+                } catch { 
+                  console.warn('⚠️ | ' + url) 
+                  if (attempts === 3) console.warn('❌ | giving up on ' + url);
+                }
+              }
+
+              const fileInfo = { 
+                capturedAt: new Date().toISOString(),
+                color: colorHex.hex, 
+                success, width, height, ratio, orientation, 
+                ...(meta && typeof meta === "object" ? meta : {}),
+              };
+
+              const toCache = {
+                key: url,
+                lastModified, host, url, args,
+                fileInfo
+              };
+
+              await asset.save(fileInfo, "json");
+              cachedInfo = fileInfo;
+            }
+  
+            if (typeof cachedInfo === "string") {
+              try { cachedInfo = JSON.parse(cachedInfo); } catch {}
+            }
+
+            const result = {
+              key: url,
+              lastModified,
+              host,
+              url,
+              args,
+              fileInfo: cachedInfo
+            };
+
+            return [url, result];
+          })
+      )
+    );
+  
+    // console.log(photoMap);
+    return photoMap;
   });
   
   eleventyConfig.addCollection("Feed", function (collectionsApi) {
@@ -220,88 +347,6 @@ export default async function(eleventyConfig) {
       }, {})
     );
     return grouped;
-  });
-  
-  eleventyConfig.addAsyncFilter("getPhotos",  async function(dir) {
-    if (!process.env.FAST) {
-      // do some Async work
-      // console.log('getting photos for ' + dir);
-      const client = new S3Client({ 
-        region: "us-east-1" ,
-        credentials: {
-          accessKeyId: process.env.WN_AWS_ACCESS_KEY_ID,
-          secretAccessKey: process.env.WN_AWS_SECRET_ACCESS_KEY
-        }
-      });
-      const albumsParams = {
-        Bucket: 'wnphoto01',
-        Delimiter: '/',
-        Prefix: 'gallery-2023/' + dir + '/'
-      };
-      
-      const command = new ListObjectsV2Command(albumsParams);
-      let data;
-      let albums;
-      try {
-        data = await client.send(command);
-        albums = data.Contents.map(a => a.Key.replace(albumsParams.Prefix, '').replace(albumsParams.Delimiter, ''));
-        
-      } catch (error) {
-        return 'AWS failure'
-      } finally {
-        return albums;
-      }
-    } else {
-      return null;
-    }
-  });
-  
-  eleventyConfig.addAsyncFilter('imageInfo', async function(url) {
-    if (!process.env.FAST) {
-      try {
-        if (process.env.FAST) {
-          return {
-            path: '#',
-            height: 4,
-            width: 6,
-            ratio: 1.5,
-            orientation: 'landscape',
-            color: '#a5a5a5'
-          }
-        } else {
-          const image = await Fetch(url, {
-            duration: '*',
-            type: 'buffer',
-            directory: cachePath,
-            fetchOptions: {
-              signal: AbortSignal.timeout(300000),
-              headers: {
-                "user-agent":
-                  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36",
-              },
-            },
-          });
-          const width = sizeOf(image).width;
-          const height = sizeOf(image).height;
-          let orientation = (width == height) ? 'square' : (( width > height ) ? 'landscape' : 'portrait');
-          async function getColor() {
-            return getAverageColor(image).then(color => {
-                return color.hex;
-            });
-          };
-          const color = await getColor();
-          const obj = {path: url, height: height, width: width, ratio: width/height, orientation: orientation, color: color};
-          console.warn('fetching: ' + url);
-          return obj; 
-        }
-      } catch (err) {
-        // console.warn(url);
-        // console.warn("Error on: ", err);
-        return null;
-      }
-    } else {
-      return null;
-    }
   });
   
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

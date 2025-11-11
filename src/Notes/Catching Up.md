@@ -6,14 +6,7 @@ tags:
   - Topic/Photography
 summary: "Three new photo albums and some bullshitting"
 key: Austin9
-thumbnail: DSCF5478.jpg
-imagePropsSynchronous:
-  path: 'https://cdn.wilnichols.com/gallery-2023/Austin9/DSCF5478.jpg?width=6px&format=webp'
-  height: 4
-  width: 6
-  ratio: 1.5
-  orientation: 'landscape'
-  color: '#323232'
+thumbnail: DSCF5416.jpg
 ---
 
 Once more I have a backlog of posts to write, but an unwillingness to voice thoughts to the void. Between a newly-vocal willingness to literally kill homeless campers and lick the boots of your neighborhood gestapo,[^1] I don’t know what good _voicing thoughts_ does anyone. 

@@ -28,6 +28,7 @@
   customSRCSet,
   args
 ) %}
+  {% if not imageProps %}{% set imageProps = collections.photos[src].fileInfo %}{% endif %}
   {% js "defer" %}
     {{ _progLoadImg() }}
   {% endjs %}
