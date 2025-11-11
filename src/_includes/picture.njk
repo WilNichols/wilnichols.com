@@ -29,6 +29,7 @@
   args
 ) %}
   {% if not imageProps %}{% set imageProps = collections.photos[src].fileInfo %}{% endif %}
+  {{ imageProps | warn }}
   {% js "defer" %}
     {{ _progLoadImg() }}
   {% endjs %}
@@ -69,7 +70,7 @@
   {%- set src -%}
     {% if isWNCDN %}{{ src | replace(" ", "") }}?width={{ args.width if args.width else '1400' }}&format=webp{% else %}{{ src | safe }}{% endif %}
   {%- endset -%}
-  <picture class="picture--{{ imageProps.orientation }}" style="--ratio: {{ imageProps.ratio }}; --color: {{ imageProps. color }}">
+  <picture class="picture--{{ imageProps.orientation }}" style="--ratio: {{ imageProps.ratio }}; --color: {{ imageProps.color }}">
     <source
       sizes="{{ sizes }}"
       srcset="{{ srcset }}"

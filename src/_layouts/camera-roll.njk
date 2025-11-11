@@ -10,7 +10,6 @@ layout: page.njk
   <ul class="album__album-photos">
     {# using a collection gets around Nunjucks synchronous behavior #}
     {% for photo in collections.glassPhotos | reverse %}
-      {{ photo | warn }}
       {% if loop.index < 3 %}{% set loading = 'eager' %}{% else %}{% set loading = 'lazy' %}{% endif %}
       {% set src = photo.key %}
       {% set photoID %}photo-{{ loop.index }}{% endset %}
