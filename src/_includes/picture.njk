@@ -29,7 +29,6 @@
   args
 ) %}
   {% if not imageProps %}{% set imageProps = collections.photos[src].fileInfo %}{% endif %}
-  {{ imageProps | warn }}
   {% js "defer" %}
     {{ _progLoadImg() }}
   {% endjs %}
