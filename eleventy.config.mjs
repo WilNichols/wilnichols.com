@@ -188,33 +188,41 @@ export default async function(eleventyConfig) {
 
               const infoUrl = url + args;
   
-              let width = 0, height = 0, ratio = 0, orientation = "unknown", colorHex = "#000000";
-
-              try {
-                const resp = await fetch(infoUrl, {
-                  redirect: "follow",
-                  headers: { "User-Agent": "Eleventy/Fetch", "Referer": host }
-                });
-                if (!resp.ok) throw new Error(`Fetch ${resp.status} ${infoUrl}`);
-                const type = resp.headers.get("content-type") || "";
-                if (!type.startsWith("image/")) throw new Error(`Not an image: ${type}`);
-                if (resp.ok) {
-                  const ab = await resp.arrayBuffer();
-                  if (!ab.byteLength) throw new Error("Empty body");
-                  const buf = Buffer.from(ab);
-                  const dim = imageSize(buf);
-                  width = dim.width;
-                  height = dim.height;
-                  ratio = width / height;
-                  orientation = (width === height) ? "square" : (width > height ? "landscape" : "portrait");
-                  colorHex = await getAverageColor(infoUrl);
+              let success = false, width = 0, height = 0, ratio = 0, orientation = "unknown", colorHex = "#000000";
+              
+              let attempts = 0;
+              while (attempts < 3 && !success) {
+                attempts++;
+                try {
+                  const resp = await fetch(infoUrl, {
+                    redirect: "follow",
+                    headers: { "User-Agent": "Eleventy/Fetch", "Referer": host }
+                  });
+                  if (!resp.ok) throw new Error(`Fetch ${resp.status} ${infoUrl}`);
+                  const type = resp.headers.get("content-type") || "";
+                  if (!type.startsWith("image/")) throw new Error(`Not an image: ${type}`);
+                  if (resp.ok) {
+                    const ab = await resp.arrayBuffer();
+                    if (!ab.byteLength) throw new Error("Empty body");
+                    const buf = Buffer.from(ab);
+                    const dim = imageSize(buf);
+                    success = true;
+                    width = dim.width;
+                    height = dim.height;
+                    ratio = width / height;
+                    orientation = (width === height) ? "square" : (width > height ? "landscape" : "portrait");
+                    colorHex = await getAverageColor(infoUrl);
+                  }
+                } catch { 
+                  console.warn('⚠️ | ' + normalizedKey) 
+                  if (attempts === 3) console.warn('❌ | giving up on ' + normalizedKey);
                 }
-              } catch { console.warn('⚠️ | ' + normalizedKey) }
-  
+              }
+
               const fileInfo = { 
                 capturedAt: new Date().toISOString(),
                 color: colorHex.hex, 
-                width, height, ratio, orientation, 
+                success, width, height, ratio, orientation, 
                 ...(meta && typeof meta === "object" ? meta : {}),
               };
 
