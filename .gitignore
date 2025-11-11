@@ -1,6 +1,6 @@
 _site
 .DS_Store
-node_modules
+**/node_modules/**
 _tmp
 /.env
 /.cache
