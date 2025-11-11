@@ -14,7 +14,7 @@ layout: page.njk
       {% set src = photo.key %}
       {% set photoID %}photo-{{ loop.index }}{% endset %}
       <li class="album__album-photos__photo" id="{{ photoID }}">
-        <a href="{{ photo.fileInfo.url }}" target="blank">
+        <a href="{{ photo.meta.url }}" target="blank">
           {{  Picture(
               fileName = photoID,
               src = src,
@@ -22,11 +22,11 @@ layout: page.njk
           ) }}
         </a>
         <ul class="album__album-photos__photo__metadata">
-          <li>{{ photo.fileInfo.date.formatted | readableDateISO }}</li>
-          <li>{{ photo.fileInfo.camera.lens | replace("Fujifilm ", "") | replace("mF", "m F") }}</li>
-          <li>{{ photo.fileInfo.settings.aperture | replace("/", "") }}</li>
-          <li>{{ photo.fileInfo.settings.shutter }}</li>
-          <li>{{ photo.fileInfo.settings.iso }}</li>
+          <li>{{ photo.meta.date.formatted | readableDateISO }}</li>
+          <li>{{ photo.meta.camera.lens | replace("Fujifilm ", "") | replace("mF", "m F") }}</li>
+          <li>{{ photo.meta.settings.aperture | replace("/", "") }}</li>
+          <li>{{ photo.meta.settings.shutter }}</li>
+          <li>{{ photo.meta.settings.iso }}</li>
         </ul>
       </li>
     {% endfor %}
