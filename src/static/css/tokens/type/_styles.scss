@@ -60,7 +60,7 @@ $body-gap: 1lh;
 
   $blockquoteOffset: 0;
   blockquote {
-    margin: 0 0 1lh 0;
+    margin: 0 0 .5lh 0;
     padding: 0 $blockquoteOffset;
     font-style: oblique;
     p:first-child::before,

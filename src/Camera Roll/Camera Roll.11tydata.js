@@ -37,7 +37,16 @@ async function getAlbumContentsFromGlass() {
   
       const parsedGlassPage = parse(glassPage);
       const cameraSettings = parsedGlassPage.querySelector('.fa-loader')?.parentNode.nextSibling?.textContent.split(',');
-      const rawDate = parsedGlassPage.querySelector('.fa-calendar')?.parentNode.nextSibling?.getAttribute('title');
+      const formatter = new Intl.DateTimeFormat("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true,
+      });
+      const rawDate = formatter.format(new Date(entry.published));
       const isoDate = DateTime.fromFormat(rawDate, 'FF').toISO();
 
       cameraRollEntry = {

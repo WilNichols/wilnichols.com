@@ -59,6 +59,10 @@
   > p, > ol, > ul, > .code-block, > .code-block-container {
     margin: 0 0 1lh 0;
   }
+  > p:has(> cite) {
+    line-height: var(--type--2);
+    margin: 0 0 calc(1.5 * var(--type-0)) 0;
+  }
 }
 
 .page--case-study .content-body > .tabs-wrapper {
