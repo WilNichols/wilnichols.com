@@ -5,13 +5,28 @@ body:has(> .page--album) {
   padding: 0;
 }
 
-.page--album {
-  scroll-snap-type: y proximity;
+// bc :root is typically the scrolling element
+:root:has(> body > .page--album) {
   -webkit-overflow-scrolling: touch;
   overflow-y: scroll;
   overflow-x: hidden;
+  @media(pointer: coarse) {
+    scroll-snap-type: y mandatory;
+    .page__footer {
+      height: 50dvh; // this fixes the footer never snapping on iOS 26 mobileSafari. Search me as to why and I haven't yet tested it elsewhere. #YOLO
+    }
+  }
+  @media(pointer: fine) {
+    scroll-snap-type: y proximity;
+    .page__footer {
+      height: 10dvh; // this is just goofy
+    }
+  }
+}
+
+.page--album {
+  min-height: 100dvh;
   padding: 0 var(--col) var(--col) var(--col);
-  height: 100dvh;
 }
 
 $gap: var(--col);
