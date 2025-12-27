@@ -1,6 +1,6 @@
 ---
 layout: 'category.njk'
-permalink: '/notes/'
-collection: Feed
+permalink: 'index.html'
+collection: Design
 eleventyExcludeFromCollections: true
 ---
