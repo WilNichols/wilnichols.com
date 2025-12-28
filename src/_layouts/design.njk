@@ -1,0 +1,11 @@
+---
+layout: page.njk
+---
+
+{% from "../_includes/header.njk" import Header with context %}
+{% from "../_includes/shots.njk" import shotList with context %}
+
+<div class="page page--design">
+  {{ Header("page--design__header") }}
+  {{ shotList(collections['Design'], true) }}
+</div>

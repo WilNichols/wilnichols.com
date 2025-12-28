@@ -57,13 +57,19 @@ export default async function(eleventyConfig) {
   
   eleventyConfig.setLibrary('md', md);
   
-  eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
+  eleventyConfig.addShortcode('year', () => `${new Date().getFullYear()}`);
   
   // Filters
   
   eleventyConfig.addFilter("getPhoto", function (key) {
     const photos = this.ctx.collections?.photos;
     return photos[key];
+  });
+  
+  eleventyConfig.addFilter("getNestedTag", function (tags, prefix) {
+    prefix = prefix + '/';
+    const nestedTag = tags.filter(s => s.startsWith(prefix))
+    return nestedTag.toString().replace(prefix, '');
   });
   
   eleventyConfig.addFilter("links_to", async function(collection, target) {

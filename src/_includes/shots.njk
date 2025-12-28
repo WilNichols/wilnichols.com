@@ -1,0 +1,41 @@
+{% from "footer.njk" import Footer with context %}
+{% from "picture.njk" import Picture with context %}
+{% from "tag.njk" import tag as tagButton %}
+
+{% macro shot(post) -%}
+  {{ post.content | safe }}
+{%- endmacro %}
+
+{% macro projectMeta(postInfo, learnMoreLink) -%}
+  <li class="project">
+    <div class="project__meta">
+      <h2 class="project__title"><span class="project__name">{{ postInfo.project }}</span></h2>{{tagButton(postInfo.client)}}
+    </div>
+    <ol class="shots">
+{%- endmacro %}
+
+{% macro shotList(collection, renderFooter = false) -%}
+  <ol class="project-list" reversed>
+    {% set drafts = collections.Drafts | draftsOf(collection) %}
+    {% set info = {} %}
+    {% asyncEach post in collection | reverse %}
+      {% set postInfo = {
+        project: post.data.tags | getNestedTag("Design"),
+        client: post.data.tags | getNestedTag("Client")
+      } %}
+      {% if info.project != postInfo.project %}
+        {% if (loop.index > 1 ) %}</ol></li>{% endif %}
+        {{ projectMeta(postInfo, false)}}
+      {% endif %}
+      <li class="shot" style="--view-transition-name: post-title--{{ post.fileSlug | slugify }}">
+        {{ shot(post) }}
+      </li>
+      {% set info = postInfo %}
+    {% endeach %}
+</ol>
+{% if renderFooter %}
+<ol class="footer-container">
+    {{ Footer(el="li", classModifier="grid") }}
+</ol>
+{% endif %}
+{%- endmacro %}

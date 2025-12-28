@@ -1,88 +1,92 @@
 @use '../tokens';
 
-body:has(> .page--album) {
-  --materialPrimaryColor: var(--photoBackgroundMaterialColor);
-  padding: 0;
-}
-
 // bc :root is typically the scrolling element
-:root:has(> body > .page--album) {
+:root:has(> body > .page--design) {
   -webkit-overflow-scrolling: touch;
   overflow-y: scroll;
   overflow-x: hidden;
-  @media(pointer: coarse) {
-    scroll-snap-type: y mandatory;
-    .page__footer {
-      height: 50dvh; // this fixes the footer never snapping on iOS 26 mobileSafari. Search me as to why and I haven't yet tested it elsewhere. #YOLO
-    }
-  }
-  @media(pointer: fine) {
-    scroll-snap-type: y proximity;
-    .page__footer {
-      height: 10dvh; // this is just goofy
-    }
-  }
+  scroll-snap-type: y proximity;
 }
 
-.page--album {
+.page--design {
   min-height: 100dvh;
-  padding: 0 var(--col) var(--col) var(--col);
+  padding: 0 0 var(--col) 0;
 }
 
-.page--camera-roll__header {
+.page--design__header {
   margin: 0 auto calc(var(--col)/3) auto;
 }
 
-.page--camera-roll__header,
-.page--album .page-header__container {
+.page--design__header,
+.page--design .page-header__container {
   scroll-snap-align: start;
   padding-top: var(--col);
   scroll-snap-stop: always;
 }
 
-.page--album .page-info__column {
-  padding: 0;
-  .page-info__entry {
-    margin: 0;
-  }
-  .page-info__entry__key {
-    width: auto;
-  }
-}
-
-.album__album-photos {
+.project-list {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: calc(var(--col) / 3);
 }
 
-.page--album .page__footer {
+.page--design .page__footer {
   scroll-margin-bottom: var(--col);
   scroll-snap-stop: always;
 }
 
-.page--album .related-posts {
+.page--design .related-posts {
   margin-bottom: var(--col);
 }
 
-.album__album-photos__photo {
+.project {
+  scroll-snap-align: center; 
+  display: flex;
+  flex-direction: column;
+  gap: var(--u16);
+}
+
+.project__meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.project__meta, .shots {
+  padding: 0 var(--col);
+  scroll-snap-type: x mandatory;
+}
+
+$shotGap: #{calc(var(--col) / 2)};
+
+.shots {
+  display: flex;
+  flex-direction: row;
+  width: 100dvw;
+  overflow: auto;
+  align-items: start;
+  justify-content: start;
+  gap: $shotGap;
+}
+
+.shot {
+  flex: 1;
+  scroll-snap-align: center; 
   & {
     display: flex;
     place-content: center;
     scroll-snap-align: center; 
     flex-direction: column;
     align-items: center;
+    min-width: calc(100dvw - (var(--col) * 2) - $shotGap);
+    width: calc(100dvw - (var(--col) * 2) - $shotGap);
   }
   picture {
     display: block;
     position: relative;
-    background-color: var(--color);
-    $intrinsicWidth: calc(100dvw - var(--col)); 
-    $maxHeight: calc(100dvh - var(--col)); 
-    $maxWidth: calc($maxHeight * var(--ratio));
-    width: min($intrinsicWidth, $maxWidth);
-    height: min(calc($intrinsicWidth / var(--ratio)), $maxHeight);
+    background-color: var(--materialElevatedPrimaryColor);
   }
   img {
     display: block;
@@ -107,7 +111,7 @@ body:has(> .page--album) {
   } 
 }
 
-.album__album-photos__photo__metadata {
+.shot .content {
   & {
     display: flex;
     flex-wrap: wrap; 
