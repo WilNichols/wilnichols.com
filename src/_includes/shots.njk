@@ -14,7 +14,7 @@
     <ol class="shots">
 {%- endmacro %}
 
-{% macro shotList(collection, renderFooter = false) -%}
+{% macro shotList(collection) -%}
   <ol class="project-list" reversed>
     {% set drafts = collections.Drafts | draftsOf(collection) %}
     {% set info = {} %}
@@ -32,10 +32,5 @@
       </li>
       {% set info = postInfo %}
     {% endeach %}
-</ol>
-{% if renderFooter %}
-<ol class="footer-container">
-    {{ Footer(el="li", classModifier="grid") }}
-</ol>
-{% endif %}
+  </ol>
 {%- endmacro %}

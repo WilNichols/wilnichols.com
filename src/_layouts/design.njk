@@ -2,10 +2,12 @@
 layout: page.njk
 ---
 
+{% from "../_includes/footer.njk" import Footer with context %}
 {% from "../_includes/header.njk" import Header with context %}
 {% from "../_includes/shots.njk" import shotList with context %}
 
 <div class="page page--design">
   {{ Header("page--design__header") }}
-  {{ shotList(collections['Design'], true) }}
+  {{ shotList(collections['Design']) }}
+  {{ Footer(el="footer") }}
 </div>

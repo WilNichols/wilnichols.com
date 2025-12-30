@@ -1,11 +1,13 @@
 @use '../tokens';
 
+$debug: false;
+
 // bc :root is typically the scrolling element
 :root:has(> body > .page--design) {
   -webkit-overflow-scrolling: touch;
   overflow-y: scroll;
   overflow-x: hidden;
-  scroll-snap-type: y proximity;
+  scroll-snap-type: y mandatory;
 }
 
 .page--design {
@@ -21,7 +23,6 @@
 .page--design .page-header__container {
   scroll-snap-align: start;
   padding-top: var(--col);
-  scroll-snap-stop: always;
 }
 
 .project-list {
@@ -33,7 +34,9 @@
 
 .page--design .page__footer {
   scroll-margin-bottom: var(--col);
-  scroll-snap-stop: always;
+  scroll-snap-align: end;
+  width: 75dvmin;
+  margin: 0 auto;
 }
 
 .page--design .related-posts {
@@ -45,6 +48,8 @@
   display: flex;
   flex-direction: column;
   gap: var(--u16);
+  width: 100dvw;
+  --child-padding: var(--col);
 }
 
 .project__meta {
@@ -52,41 +57,95 @@
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-}
-
-.project__meta, .shots {
-  padding: 0 var(--col);
-  scroll-snap-type: x mandatory;
+  place-self: center;
+  width: 75dvmin;
+  margin: 0 var(--child-padding);
 }
 
 $shotGap: #{calc(var(--col) / 2)};
 
 .shots {
+  padding: 0 calc((100dvw - 75dvmin)/2);
   display: flex;
   flex-direction: row;
-  width: 100dvw;
-  overflow: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
   align-items: start;
   justify-content: start;
   gap: $shotGap;
+  // scroll
+  scroll-snap-type: x mandatory;
+  scroll-snap-stop: always; 
+  -webkit-overflow-scrolling: touch;
+  // hide scrollbars
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  ::-webkit-scrollbar { display: none; }
+}
+
+@keyframes showShot {
+  0% {
+    opacity: .5;
+    transform: scale(0.9);
+    transform-origin: center left;
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+    transform-origin: center;
+  }
+  100% {
+    opacity: .5;
+    transform: scale(0.9);
+    transform-origin: center right;
+  }
+}
+
+@keyframes showContent {
+  0%, 33% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  67%, 100% {
+    opacity: 0;
+  }
+}
+
+.shot picture, .shot .content {
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: both;
+}
+
+.shot picture {
+  animation-timeline: view(x calc(((100dvw - 75dvmin)/2)));
+  animation-name: showShot;
+}
+
+.shot .content {
+  animation-timeline: view(x calc((100dvw - 75dvmin)/2));
+  animation-name: showContent;
 }
 
 .shot {
-  flex: 1;
-  scroll-snap-align: center; 
   & {
+    scroll-snap-stop: always;
+    scroll-snap-align: center; 
     display: flex;
     place-content: center;
-    scroll-snap-align: center; 
     flex-direction: column;
     align-items: center;
-    min-width: calc(100dvw - (var(--col) * 2) - $shotGap);
-    width: calc(100dvw - (var(--col) * 2) - $shotGap);
   }
   picture {
+    // transform-origin: center left;
+    font-size: var(--type-0);
+    border-radius: .6em;
     display: block;
     position: relative;
-    background-color: var(--materialElevatedPrimaryColor);
+    background-color: var(--materialElevatedNoninteractivePrimaryColor);
+    min-height: 50dvmin;
+    width: 75dvmin;
   }
   img {
     display: block;
@@ -127,5 +186,20 @@ $shotGap: #{calc(var(--col) / 2)};
   li {
     text-align: center;
     white-space: nowrap;
+  }
+}
+
+@if $debug {
+  .project {
+    outline: 1px solid red;
+  }
+  .project__meta {
+    outline: 1px solid yellow;
+  }
+  .shots {
+    outline: 1px solid #00ff00;
+  }
+  .shot {
+    outline: 1px solid #ffff00;
   }
 }
