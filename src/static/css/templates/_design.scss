@@ -1,7 +1,26 @@
+@use 'sass:math';
 @use '../tokens';
 
-$debug: false;
+@property --shadow {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
 
+@property --opacity {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --backgroundColor {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: white;
+}
+
+$debug: false;
+$size: 75dvmin;
 // bc :root is typically the scrolling element
 :root:has(> body > .page--design) {
   -webkit-overflow-scrolling: touch;
@@ -35,7 +54,7 @@ $debug: false;
 .page--design .page__footer {
   scroll-margin-bottom: var(--col);
   scroll-snap-align: end;
-  width: 75dvmin;
+  width: $size;
   margin: 0 auto;
 }
 
@@ -58,14 +77,15 @@ $debug: false;
   justify-content: space-between;
   align-items: center;
   place-self: center;
-  width: 75dvmin;
+  width: $size;
   margin: 0 var(--child-padding);
 }
 
 $shotGap: #{calc(var(--col) / 2)};
 
 .shots {
-  padding: 0 calc((100dvw - 75dvmin)/2);
+  // compensate for child's drop-shadow
+  padding: 25dvh calc((100dvw - $size)/2);
   display: flex;
   flex-direction: row;
   overflow-x: auto;
@@ -81,25 +101,34 @@ $shotGap: #{calc(var(--col) / 2)};
   scrollbar-width: none;
   -ms-overflow-style: none;
   ::-webkit-scrollbar { display: none; }
+  // compensate for child's drop-shadow
+  margin: -25dvh 0;
 }
 
 @keyframes showShot {
   0% {
-    opacity: .5;
+    --backgroundColor: var(--materialElevatedNoninteractiveSecondaryColor);
+    --shadow: 0;
+    --opacity: 0.5;
     transform: scale(0.9);
     transform-origin: center left;
   }
   50% {
-    opacity: 1;
+    --backgroundColor: var(--materialElevatedNoninteractivePrimaryColor);
     transform: scale(1);
+    --shadow: 1;
+    --opacity: 1;
     transform-origin: center;
   }
   100% {
-    opacity: .5;
+    --backgroundColor: var(--materialElevatedNoninteractiveSecondaryColor);
+    --shadow: 0;
+    --opacity: 0.5;
     transform: scale(0.9);
     transform-origin: center right;
   }
 }
+
 
 @keyframes showContent {
   0%, 33% {
@@ -113,18 +142,17 @@ $shotGap: #{calc(var(--col) / 2)};
   }
 }
 
-.shot picture, .shot .content {
+.shot picture, .shot .content, {
+  animation-timeline: view(x calc(((100dvw - $size)/2)));
   animation-timing-function: ease-in-out;
   animation-fill-mode: both;
 }
 
 .shot picture {
-  animation-timeline: view(x calc(((100dvw - 75dvmin)/2)));
   animation-name: showShot;
 }
 
 .shot .content {
-  animation-timeline: view(x calc((100dvw - 75dvmin)/2));
   animation-name: showContent;
 }
 
@@ -143,9 +171,24 @@ $shotGap: #{calc(var(--col) / 2)};
     border-radius: .6em;
     display: block;
     position: relative;
-    background-color: var(--materialElevatedNoninteractivePrimaryColor);
-    min-height: 50dvmin;
-    width: 75dvmin;
+    background-color: var(--backgroundColor);
+    min-height: math.div($size, 1.5);
+    width: $size;
+    &::after {
+      content: '';
+      border-radius: .6em;
+      position: absolute;
+      display: block;
+      inset: 0;
+      opacity: var(--shadow);
+      /* https://smoothshadows.com/#djEsMSw0LDAuMTIsNjQsMzIsMCwjMDMwNzEyLCNmM2Y0ZjYsI2ZmZmZmZiwx */
+      box-shadow: 
+        0px 2px 4px rgba(3, 7, 18, 0.03),
+        0px 8px 16px rgba(3, 7, 18, 0.06),
+        0px 18px 36px rgba(3, 7, 18, 0.09),
+        0px 32px 64px rgba(3, 7, 18, 0.12);
+
+    }
   }
   img {
     display: block;
@@ -153,6 +196,7 @@ $shotGap: #{calc(var(--col) / 2)};
     height: 100%;
     overflow: hidden;
     z-index: 10;
+    opacity: var(--opacity, 1);
     & + .blurUp {
       z-index: 100;
       position: absolute;

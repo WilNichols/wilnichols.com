@@ -11,6 +11,7 @@
     @include light-dark(--materialSecondaryColor, var(--cK95), var(--cK5));
     @include light-dark(--materialSecondaryHoverColor, var(--cK90), var(--cK10));
     @include light-dark(--materialElevatedNoninteractivePrimaryColor, var(--c100), var(--cK5));
+    @include light-dark(--materialElevatedNoninteractiveSecondaryColor, var(--cK95), var(--cK1));
     @include light-dark(--materialElevatedPrimaryColor, var(--c100), var(--cK10));
     @include light-dark(--materialElevatedPrimaryHoverColor, var(--cK95), var(--cK20));
     @include light-dark(--materialElevatedPrimaryActiveColor, var(--cK90), var(--cK30));
