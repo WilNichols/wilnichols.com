@@ -17,9 +17,6 @@
     <title>{{ altTitle if altTitle else title }}</title>
     <link rel="stylesheet" href="{{ '/assets/css/styles.css' | url | bust }}">
     <link rel="stylesheet" href="https://use.typekit.net/unc0ogx.css">
-    {% if env.context == 'prod' -%}
-      <script src="https://cdn.usefathom.com/script.js" data-site="LKKQZUGE" defer></script>
-    {%- endif %}
   </head>
   <body>
     {{ content | safe }}
