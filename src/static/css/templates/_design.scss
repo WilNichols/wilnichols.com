@@ -1,12 +1,6 @@
 @use 'sass:math';
 @use '../tokens';
 
-@property --shadow {
-  syntax: '<number>';
-  inherits: true;
-  initial-value: 0;
-}
-
 @property --opacity {
   syntax: '<number>';
   inherits: true;
@@ -26,15 +20,15 @@
 }
 
 $debug: false;
-$size: 75dvmin;
+$carouselInset: calc(((100dvw - var(--desktopPanelWidth))/2));
+
 // bc :root is typically the scrolling element
 :root:has(> body > .page--design) {
   -webkit-overflow-scrolling: touch;
   overflow-y: scroll;
   overflow-x: hidden;
-  @media (pointers: fine) {
-    scroll-snap-type: y mandatory;
-  }
+  scroll-snap-type: y mandatory;
+  
 }
 
 .page--design {
@@ -119,8 +113,11 @@ $size: 75dvmin;
   width: 100dvw;
   overflow: hidden;
   position: relative;
+  mask-image: 
+    linear-gradient(90deg,rgba(0, 0, 0, 0.25) 0%, rgba(255, 255, 255, 1) 10%, rgba(255, 255, 255, 1) 90%, rgba(0, 0, 0, 0.25) 100%);
   @media (pointer: coarse) and (width <= tokens.$breakpoint) {
     display: contents;
+    mask-image: unset;
   }
 }
 
@@ -130,7 +127,6 @@ $shotGap: #{calc(var(--col) / 2)};
   display: flex;
   justify-content: start;
   // scroll
-  scroll-snap-type: y mandatory;
   scroll-snap-stop: normal; 
   -webkit-overflow-scrolling: touch;
   // hide scrollbars
@@ -138,6 +134,7 @@ $shotGap: #{calc(var(--col) / 2)};
   -ms-overflow-style: none;
   ::-webkit-scrollbar { display: none; }
   // the following are overridden in the below media query
+  scroll-snap-type: y mandatory;
   position: absolute;
   inset: 0;
   align-items: end;
@@ -153,6 +150,7 @@ $shotGap: #{calc(var(--col) / 2)};
   }
   // mobile-only 
   @media (pointer: coarse) and (width <= tokens.$breakpoint) {
+    scroll-snap-type: x mandatory;
     position: static;
     // inset: initial;
     align-items: start;
@@ -165,35 +163,49 @@ $shotGap: #{calc(var(--col) / 2)};
     width: 100dvw;
     transform: none;
   }
-
 }
 
-@keyframes showShot {
+@keyframes desktopMoveCarousel {
   0% {
     --backgroundColor: var(--materialElevatedNoninteractiveSecondaryColor);
-    --shadow: 0;
     --opacity: 0.5;
     transform: scale(0.9);
     transform-origin: top center;
+    filter: blur(.6em);
   }
   50% {
     --backgroundColor: var(--materialElevatedNoninteractivePrimaryColor);
     transform: scale(1);
-    --shadow: 1;
     --opacity: 1;
     transform-origin: center;
+    filter: blur(0);
   }
   100% {
     --backgroundColor: var(--materialElevatedNoninteractiveSecondaryColor);
-    --shadow: 0;
     --opacity: 0.5;
     transform: scale(0.9);
     transform-origin: bottom center;
+    filter: blur(.6em)
+  }
+}
+
+@keyframes mobileMoveCarousel {
+  0% {
+    --backgroundColor: var(--materialElevatedNoninteractiveSecondaryColor);
+    --opacity: 0.5;
+  }
+  50% {
+    --backgroundColor: var(--materialElevatedNoninteractivePrimaryColor);
+    --opacity: 1;
+  }
+  100% {
+    --backgroundColor: var(--materialElevatedNoninteractiveSecondaryColor);
+    --opacity: 0.5;
   }
 }
 
 
-@keyframes showContent {
+@keyframes desktopShowContent {
   0%, 33% {
     opacity: 0;
   }
@@ -205,18 +217,43 @@ $shotGap: #{calc(var(--col) / 2)};
   }
 }
 
+@keyframes mobileShowContent {
+  0%, 33% {
+    opacity: .5;
+  }
+  50% {
+    opacity: 1;
+  }
+  67%, 100% {
+    opacity: .5;
+  }
+}
+
 .shot picture, .shot .content, {
-  animation-timeline: view(y calc(((100dvw - var(--desktopPanelWidth))/2)));
+  animation-timeline: view(y $carouselInset);
   animation-timing-function: ease-in-out;
   animation-fill-mode: both;
+  @media (pointer: coarse) and (width <= tokens.$breakpoint) { 
+    animation-timeline: view(x $carouselInset);
+  }
 }
 
 .shot picture {
-  animation-name: showShot;
+  will-change: filter, transform, transform-origin, opacity, background-color, var(--backgroundColor);
+  animation-name: desktopMoveCarousel;
+  overflow: visible;
+  
+  @media (pointer: coarse) and (width <= tokens.$breakpoint) { 
+    animation-name: mobileMoveCarousel;
+  }
 }
 
 .shot .content {
-  animation-name: showContent;
+  will-change: opacity;
+  animation-name: desktopShowContent;
+  @media (pointer: coarse) and (width <= tokens.$breakpoint) { 
+    animation-name: mobileShowContent;
+  }
 }
 
 .shot {
@@ -248,15 +285,6 @@ $shotGap: #{calc(var(--col) / 2)};
       // while the container isn't rotated, the orientation is flipped
       height: var(--desktopPanelHeight);
       width: var(--desktopPanelWidth);
-    }
-    &::after {
-      content: '';
-      border-radius: .6em;
-      position: absolute;
-      display: block;
-      inset: 0;
-      opacity: var(--shadow);
-      /* https://smoothshadows.com/#djEsMSw0LDAuMTIsNjQsMzIsMCwjMDMwNzEyLCNmM2Y0ZjYsI2ZmZmZmZiwx */
     }
   }
   source {
