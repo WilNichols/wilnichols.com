@@ -43,14 +43,14 @@ $size: 75dvmin;
     // largest sizes for deskop and touchscreen
   --desktopPanelWidth: 85dvmin;
   --desktopPanelHeight: calc((2 * var(--desktopPanelWidth))/3);
+  // smallest desktop size
   @media (width <= tokens.$breakpoint) {
-    // smallest desktop size
     --desktopPanelWidth: calc(100dvw - var(--col) * 2);
-    @media (pointer: coarse) {
-      // smallest mobile sizes
-      --desktopPanelWidth: calc(100dvw - var(--u64));
-      --desktopPanelHeight: calc(var(--desktopPanelWidth) * 1.5);
-    }
+  }
+  // mobile sizes
+  @media (pointer: coarse) and (width <= tokens.$breakpoint) {
+    --desktopPanelWidth: calc(100dvw - var(--u64));
+    --desktopPanelHeight: calc(var(--desktopPanelWidth) * 1.5);
   }
 }
 
@@ -99,14 +99,13 @@ $size: 75dvmin;
   place-self: center;
   font-size: var(--type-0);
   padding: 0 .6em .6em .6em;
-  @media (pointer: fine) {
-    width: var(--desktopPanelWidth);
-    margin: 0 var(--child-padding);  
-  }
-  @media (pointer: coarse) {
+  width: var(--desktopPanelWidth);
+  margin: 0 var(--child-padding);  
+  @media (pointer: coarse) and (width <= tokens.$breakpoint) {
     width: 100dvw;
     $pad: calc(var(--u16) + .6em);
     padding: 0 $pad .6em $pad;
+    margin: initial;
   }
 }
 
@@ -119,10 +118,8 @@ $size: 75dvmin;
   height: calc(var(--desktopPanelHeight) + 8rem);
   width: 100dvw;
   overflow: hidden;
-  @media(pointer: fine) {
-    position: relative;
-  }
-  @media(pointer: coarse) {
+  position: relative;
+  @media (pointer: coarse) and (width <= tokens.$breakpoint) {
     display: contents;
   }
 }
@@ -140,32 +137,35 @@ $shotGap: #{calc(var(--col) / 2)};
   scrollbar-width: none;
   -ms-overflow-style: none;
   ::-webkit-scrollbar { display: none; }
-  // mobile-only {
-  @media(pointer: coarse) {
+  // the following are overridden in the below media query
+  position: absolute;
+  inset: 0;
+  align-items: end;
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: calc((100dvw - var(--desktopPanelWidth))/2) 0;
+  gap: var(--u16);
+  height: 100dvw;
+  transform: rotate(-90deg);
+  @media (width <= tokens.$breakpoint) {
+    padding: var(--col) 0;
+  }
+  // mobile-only 
+  @media (pointer: coarse) and (width <= tokens.$breakpoint) {
+    position: static;
+    // inset: initial;
     align-items: start;
     flex-direction: row;
     overflow-x: auto;
     overflow-y: hidden;
     padding: 0 var(--u16);
     gap: var(--u8);
+    height: auto;
     width: 100dvw;
+    transform: none;
   }
-  // desktop-only
-  @media(pointer: fine) {
-    position: absolute;
-    inset: 0;
-    align-items: end;
-    flex-direction: column;
-    overflow-x: hidden;
-    overflow-y: auto;
-    padding: calc((100dvw - var(--desktopPanelWidth))/2) 0;
-    @media (width <= tokens.$breakpoint) {
-      padding: var(--col) 0;
-    }
-    gap: var(--u16);
-    height: 100dvw;
-    transform: rotate(-90deg);
-  }
+
 }
 
 @keyframes showShot {
@@ -226,13 +226,10 @@ $shotGap: #{calc(var(--col) / 2)};
     display: flex;
     place-content: center;
     align-items: center;
-    // mobile-only {
-    @media(pointer: coarse) {
+    flex-direction: row-reverse;
+    // mobile-only
+    @media (pointer: coarse) and (width <= tokens.$breakpoint) {
       flex-direction: column;
-    }
-    // desktop-only
-    @media(pointer: fine) {
-      flex-direction: row-reverse;
     }
   }
   picture {
@@ -242,15 +239,15 @@ $shotGap: #{calc(var(--col) / 2)};
     display: grid;
     position: relative;
     background-color: var(--backgroundColor);
-    // mobile-only {
-    @media(pointer: coarse) {
-      height: calc(var(--desktopPanelWidth) / 1.5);
+    // large screens
+    // these are flipped bc the container is rotate 90deg
+    height: var(--desktopPanelWidth);
+    width: var(--desktopPanelHeight);
+    // mobile-only
+    @media (pointer: coarse) and (width <= tokens.$breakpoint) {
+      // while the container isn't rotated, the orientation is flipped
+      height: var(--desktopPanelHeight);
       width: var(--desktopPanelWidth);
-    }
-    // desktop-only
-    @media(pointer: fine) {
-      height: var(--desktopPanelWidth);
-      width: calc(var(--desktopPanelWidth) / 1.5);
     }
     &::after {
       content: '';
@@ -270,12 +267,14 @@ $shotGap: #{calc(var(--col) / 2)};
     overflow: hidden;
     z-index: 10;
     opacity: var(--opacity, 1);
-    min-height: calc(var(--desktopPanelWidth) / 1.5);
+    min-height: var(--desktopPanelHeight);
     width: var(--desktopPanelWidth);
     // desktop-only
-    @media(pointer: fine) {
-      transform: rotate(90deg) translateY(-100%);
-      transform-origin: top left;
+    transform: rotate(90deg) translateY(-100%);
+    transform-origin: top left;
+    // mobile 
+    @media (pointer: coarse) and (width <= tokens.$breakpoint) { 
+      transform: none;
     }
     & + .blurUp {
       z-index: 100;
@@ -302,19 +301,22 @@ $shotGap: #{calc(var(--col) / 2)};
     flex-direction: row;
     list-style: none;
     color: var(--contentSecondaryColor);
-    width: 100%;
     justify-content: space-between;
-    padding: var(--type--2) .6em;
-    // desktop-only
-    @media(pointer: fine) {
+    height: 100%;
+    width: auto;
+    padding: .6em var(--type--2);
+    p {
+      font-size: var(--type--2);
+      writing-mode: vertical-rl;
+      cursor: text;
+    }
+    @media (pointer: coarse) and (width <= tokens.$breakpoint) {
+      width: 100%;
+      padding: var(--type--2) .6em;
+      height: auto;
       p {
-        font-size: var(--type--2);
-        writing-mode: vertical-rl;
-        cursor: text;
+        writing-mode: initial;
       }
-      height: 100%;
-      width: auto;
-      padding: .6em var(--type--2);
     }
   }
   li {
