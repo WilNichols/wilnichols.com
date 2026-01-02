@@ -105,7 +105,8 @@ $size: 75dvmin;
   }
   @media (pointer: coarse) {
     width: 100dvw;
-    margin: 0 var(--u16);
+    $pad: calc(var(--u16) + .6em);
+    padding: 0 $pad .6em $pad;
   }
 }
 
