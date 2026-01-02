@@ -6,12 +6,17 @@
   {{ post.content | safe }}
 {%- endmacro %}
 
+{% macro endProject() -%}
+  </ol></div></li>
+{%- endmacro %}
+
 {% macro projectMeta(postInfo, learnMoreLink) -%}
   <li class="project">
     <div class="project__meta">
       <h2 class="project__title"><span class="project__name">{{ postInfo.project }}</span></h2>{{tagButton(postInfo.client)}}
     </div>
-    <ol class="shots">
+    <div class="shots-container">
+      <ol class="shots">
 {%- endmacro %}
 
 {% macro shotList(collection) -%}
@@ -24,12 +29,14 @@
         client: post.data.tags | getNestedTag("Client")
       } %}
       {% if info.project != postInfo.project %}
-        {% if (loop.index > 1 ) %}</ol></li>{% endif %}
+        {# closes the loop for most shots #}
+        {% if (loop.index > 1 ) %}{{ endProject() }}{% endif %}
         {{ projectMeta(postInfo, false)}}
       {% endif %}
       <li class="shot" style="--view-transition-name: post-title--{{ post.fileSlug | slugify }}">
         {{ shot(post) }}
       </li>
+      {% if loop.index == loop.length %}{{ endProject() }}{% endif %}
       {% set info = postInfo %}
     {% endeach %}
   </ol>

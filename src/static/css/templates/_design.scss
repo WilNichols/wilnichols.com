@@ -81,17 +81,27 @@ $size: 75dvmin;
   margin: 0 var(--child-padding);
 }
 
+.shots-container {
+  height: calc(50dvmin + 8rem);
+  width: 100dvw;
+  overflow: hidden;
+  @media(pointer: fine) {
+    position: relative;
+  }
+  @media(pointer: coarse) {
+    display: contents;
+  }
+}
 $shotGap: #{calc(var(--col) / 2)};
 
 .shots {
   // compensate for child's drop-shadow
   display: flex;
-  align-items: start;
   justify-content: start;
   
   // scroll
   scroll-snap-type: y mandatory;
-  scroll-snap-stop: always; 
+  scroll-snap-stop: normal; 
   -webkit-overflow-scrolling: touch;
   // hide scrollbars
   scrollbar-width: none;
@@ -99,24 +109,26 @@ $shotGap: #{calc(var(--col) / 2)};
   ::-webkit-scrollbar { display: none; }
   // mobile-only {
   @media(pointer: coarse) {
-    lex-direction: row;
+    align-items: start;
+    flex-direction: row;
     overflow-x: auto;
     overflow-y: hidden;
     padding: 0 var(--u16);
     gap: var(--u8);
     width: 100dvw;
-    
   }
   // desktop-only
   @media(pointer: fine) {
+    position: absolute;
+    inset: 0;
+    align-items: end;
     flex-direction: column;
     overflow-x: hidden;
     overflow-y: auto;
-    padding: 0 calc((100dvw - $size)/2);
+    padding: calc((100dvw - $size)/2) 0;
     gap: $shotGap;
     height: 100dvw;
-    transform-origin: top left;
-    transform: rotate(-90deg) translateX(-100%);
+    transform: rotate(-90deg);
   }
 }
 
@@ -126,7 +138,7 @@ $shotGap: #{calc(var(--col) / 2)};
     --shadow: 0;
     --opacity: 0.5;
     transform: scale(0.9);
-    transform-origin: bottom center;
+    transform-origin: top center;
   }
   50% {
     --backgroundColor: var(--materialElevatedNoninteractivePrimaryColor);
@@ -140,7 +152,7 @@ $shotGap: #{calc(var(--col) / 2)};
     --shadow: 0;
     --opacity: 0.5;
     transform: scale(0.9);
-    transform-origin: top center;
+    transform-origin: bottom center;
   }
 }
 
@@ -173,7 +185,7 @@ $shotGap: #{calc(var(--col) / 2)};
 
 .shot {
   & {
-    scroll-snap-stop: always;
+    scroll-snap-stop: normal;
     scroll-snap-align: center; 
     display: flex;
     place-content: center;
@@ -212,13 +224,10 @@ $shotGap: #{calc(var(--col) / 2)};
       inset: 0;
       opacity: var(--shadow);
       /* https://smoothshadows.com/#djEsMSw0LDAuMTIsNjQsMzIsMCwjMDMwNzEyLCNmM2Y0ZjYsI2ZmZmZmZiwx */
-      box-shadow: 
-        0px 2px 4px rgba(3, 7, 18, 0.03),
-        0px 8px 16px rgba(3, 7, 18, 0.06),
-        0px 18px 36px rgba(3, 7, 18, 0.09),
-        0px 32px 64px rgba(3, 7, 18, 0.12);
-
     }
+  }
+  source {
+    display: none;
   }
   img {
     display: block;
@@ -265,6 +274,7 @@ $shotGap: #{calc(var(--col) / 2)};
     @media(pointer: fine) {
       p {
         writing-mode: vertical-rl;
+        cursor: text;
       }
       height: 100%;
       width: auto;
@@ -282,12 +292,12 @@ $shotGap: #{calc(var(--col) / 2)};
     outline: 1px solid red;
   }
   .project__meta {
-    outline: 1px solid yellow;
+    outline: 1px solid purple;
   }
   .shots {
     outline: 1px solid #00ff00;
   }
   .shot {
-    outline: 1px solid #ffff00;
+    outline: 1px solid purple;
   }
 }
