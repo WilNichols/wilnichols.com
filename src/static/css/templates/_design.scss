@@ -19,19 +19,39 @@
   initial-value: white;
 }
 
-$debug: true;
+@property --desktopPanelWidth {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 75dvmin;
+}
+
+$debug: false;
 $size: 75dvmin;
 // bc :root is typically the scrolling element
 :root:has(> body > .page--design) {
   -webkit-overflow-scrolling: touch;
   overflow-y: scroll;
   overflow-x: hidden;
-  scroll-snap-type: y mandatory;
+  @media (pointers: fine) {
+    scroll-snap-type: y mandatory;
+  }
 }
 
 .page--design {
   min-height: 100dvh;
   padding: 0 0 var(--col) 0;
+    // largest sizes for deskop and touchscreen
+  --desktopPanelWidth: 85dvmin;
+  --desktopPanelHeight: calc((2 * var(--desktopPanelWidth))/3);
+  @media (width <= tokens.$breakpoint) {
+    // smallest desktop size
+    --desktopPanelWidth: calc(100dvw - var(--col) * 2);
+    @media (pointer: coarse) {
+      // smallest mobile sizes
+      --desktopPanelWidth: calc(100dvw - var(--u64));
+      --desktopPanelHeight: calc(var(--desktopPanelWidth) * 1.5);
+    }
+  }
 }
 
 .page--design__header {
@@ -54,7 +74,7 @@ $size: 75dvmin;
 .page--design .page__footer {
   scroll-margin-bottom: var(--col);
   scroll-snap-align: end;
-  width: $size;
+  width: var(--desktopPanelWidth);
   margin: 0 auto;
 }
 
@@ -66,7 +86,7 @@ $size: 75dvmin;
   scroll-snap-align: center; 
   display: flex;
   flex-direction: column;
-  gap: var(--u16);
+  gap: 0;
   width: 100dvw;
   --child-padding: var(--col);
 }
@@ -75,14 +95,27 @@ $size: 75dvmin;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  align-items: center;
+  align-items: end;
   place-self: center;
-  width: $size;
-  margin: 0 var(--child-padding);
+  font-size: var(--type-0);
+  padding: 0 .6em .6em .6em;
+  @media (pointer: fine) {
+    width: var(--desktopPanelWidth);
+    margin: 0 var(--child-padding);  
+  }
+  @media (pointer: coarse) {
+    width: 100dvw;
+    margin: 0 var(--u16);
+  }
+}
+
+.project__title {
+  line-height: 1em;
+  height: 1lh;
 }
 
 .shots-container {
-  height: calc(50dvmin + 8rem);
+  height: calc(var(--desktopPanelHeight) + 8rem);
   width: 100dvw;
   overflow: hidden;
   @media(pointer: fine) {
@@ -92,13 +125,12 @@ $size: 75dvmin;
     display: contents;
   }
 }
+
 $shotGap: #{calc(var(--col) / 2)};
 
 .shots {
-  // compensate for child's drop-shadow
   display: flex;
   justify-content: start;
-  
   // scroll
   scroll-snap-type: y mandatory;
   scroll-snap-stop: normal; 
@@ -125,8 +157,11 @@ $shotGap: #{calc(var(--col) / 2)};
     flex-direction: column;
     overflow-x: hidden;
     overflow-y: auto;
-    padding: calc((100dvw - $size)/2) 0;
-    gap: $shotGap;
+    padding: calc((100dvw - var(--desktopPanelWidth))/2) 0;
+    @media (width <= tokens.$breakpoint) {
+      padding: var(--col) 0;
+    }
+    gap: var(--u16);
     height: 100dvw;
     transform: rotate(-90deg);
   }
@@ -159,18 +194,18 @@ $shotGap: #{calc(var(--col) / 2)};
 
 @keyframes showContent {
   0%, 33% {
-    opacity: 0.5;
+    opacity: 0;
   }
   50% {
     opacity: 1;
   }
   67%, 100% {
-    opacity: 0.5;
+    opacity: 0;
   }
 }
 
 .shot picture, .shot .content, {
-  animation-timeline: view(y calc(((100dvw - $size)/2)));
+  animation-timeline: view(y calc(((100dvw - var(--desktopPanelWidth))/2)));
   animation-timing-function: ease-in-out;
   animation-fill-mode: both;
 }
@@ -208,13 +243,13 @@ $shotGap: #{calc(var(--col) / 2)};
     background-color: var(--backgroundColor);
     // mobile-only {
     @media(pointer: coarse) {
-      height: math.div($size, 1.5);
-      width: $size;
+      height: calc(var(--desktopPanelWidth) / 1.5);
+      width: var(--desktopPanelWidth);
     }
     // desktop-only
     @media(pointer: fine) {
-      height: $size;
-      width: math.div($size, 1.5);;
+      height: var(--desktopPanelWidth);
+      width: calc(var(--desktopPanelWidth) / 1.5);
     }
     &::after {
       content: '';
@@ -234,8 +269,8 @@ $shotGap: #{calc(var(--col) / 2)};
     overflow: hidden;
     z-index: 10;
     opacity: var(--opacity, 1);
-    min-height: math.div($size, 1.5);
-    width: $size;
+    min-height: calc(var(--desktopPanelWidth) / 1.5);
+    width: var(--desktopPanelWidth);
     // desktop-only
     @media(pointer: fine) {
       transform: rotate(90deg) translateY(-100%);
@@ -266,19 +301,19 @@ $shotGap: #{calc(var(--col) / 2)};
     flex-direction: row;
     list-style: none;
     color: var(--contentSecondaryColor);
-    font-size: var(--type--2);
     width: 100%;
     justify-content: space-between;
-    padding: var(--type--2) 0;
+    padding: var(--type--2) .6em;
     // desktop-only
     @media(pointer: fine) {
       p {
+        font-size: var(--type--2);
         writing-mode: vertical-rl;
         cursor: text;
       }
       height: 100%;
       width: auto;
-      padding: 0 var(--type--2);
+      padding: .6em var(--type--2);
     }
   }
   li {
