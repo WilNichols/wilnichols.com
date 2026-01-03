@@ -175,7 +175,7 @@ $shotGap: #{calc(var(--col) / 2)};
   }
   50% {
     --backgroundColor: var(--materialElevatedNoninteractivePrimaryColor);
-    transform: scale(1) translate3d(0,0,0);;
+    transform: scale(1) translate3d(0,0,0);
     --opacity: 1;
     transform-origin: center;
     filter: blur(0);
