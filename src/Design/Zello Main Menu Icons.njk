@@ -8,27 +8,11 @@ tags:
   - "Design/Main Menu"
 ---
 
-<picture>
-  <source
-    type="image/webp"
-    srcset="
-      https://cdn.wilnichols.com/design/zello-main-menu-icons.png?format=webp 1x,
-      https://cdn.wilnichols.com/design/zello-main-menu-icons@2x.png?format=webp 2x,
-      https://cdn.wilnichols.com/design/zello-main-menu-icons@3x.png?format=webp 3x
-    "
-  />
-  <img
-    src="https://cdn.wilnichols.com/design/zello-main-menu-icons.png"
-    srcset="
-      https://cdn.wilnichols.com/design/zello-main-menu-icons.png 1x,
-      https://cdn.wilnichols.com/design/zello-main-menu-icons@2x.png 2x,
-      https://cdn.wilnichols.com/design/zello-main-menu-icons@3x.png 3x
-    "
-    alt="Zello iOS's Main Menu"
-    loading="lazy"
-    decoding="async"
-  />
-</picture>
+{# Desktop #}
+<div class="picture">
+  {% include "../_includes/unique/zello-main-menu-icons.svg" %}
+  {% include "../_includes/unique/zello-main-menu-icons--mobile.svg" %}
+</div>
 <div class="content">
   <p>The icons used belong to a library that Sam Valdez and I have gradually added to since 2022.</p>
 </div>

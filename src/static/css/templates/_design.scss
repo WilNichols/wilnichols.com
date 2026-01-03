@@ -28,7 +28,6 @@ $carouselInset: calc(((100dvw - var(--desktopPanelWidth))/2));
   overflow-y: scroll;
   overflow-x: hidden;
   scroll-snap-type: y mandatory;
-  
 }
 
 .page--design {
@@ -229,7 +228,7 @@ $shotGap: #{calc(var(--col) / 2)};
   }
 }
 
-.shot picture, .shot .content, {
+.shot .picture, .shot .content, {
   animation-timeline: view(y $carouselInset);
   animation-timing-function: ease-in-out;
   animation-fill-mode: both;
@@ -238,7 +237,7 @@ $shotGap: #{calc(var(--col) / 2)};
   }
 }
 
-.shot picture {
+.shot .picture {
   will-change: filter, transform, transform-origin, opacity, background-color, var(--backgroundColor);
   animation-name: desktopMoveCarousel;
   overflow: visible;
@@ -269,9 +268,10 @@ $shotGap: #{calc(var(--col) / 2)};
       flex-direction: column;
     }
   }
-  picture {
+  .picture {
     // transform-origin: center left;
     font-size: var(--type-0);
+    overflow: hidden;
     border-radius: .6em;
     display: grid;
     position: relative;
@@ -290,20 +290,22 @@ $shotGap: #{calc(var(--col) / 2)};
   source {
     display: none;
   }
-  img {
-    display: block;
-    overflow: hidden;
-    z-index: 10;
-    opacity: var(--opacity, 1);
-    min-height: var(--desktopPanelHeight);
-    width: var(--desktopPanelWidth);
+  img, svg {
     // desktop-only
     transform: rotate(90deg) translateY(-100%);
     transform-origin: top left;
+    min-height: var(--desktopPanelHeight);
+    width: var(--desktopPanelWidth);
+    opacity: var(--opacity, 1);
     // mobile 
     @media (pointer: coarse) and (width <= tokens.$breakpoint) { 
       transform: none;
     }
+  }
+  img {
+    display: block;
+    overflow: hidden;
+    z-index: 10;
     & + .blurUp {
       z-index: 100;
       position: absolute;
@@ -365,5 +367,19 @@ $shotGap: #{calc(var(--col) / 2)};
   }
   .shot {
     outline: 1px solid purple;
+  }
+}
+
+.design--mobile {
+  display: none;
+  @media (pointer: coarse) and (width <= tokens.$breakpoint) {
+    display: block;
+  }
+}
+
+.design--desktop {
+  display: block;
+  @media (pointer: coarse) and (width <= tokens.$breakpoint) {
+    display: none;
   }
 }
