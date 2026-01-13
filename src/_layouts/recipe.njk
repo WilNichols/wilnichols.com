@@ -3,7 +3,6 @@ layout: page.njk
 ---
 
 {%- from 'page-header.njk' import PageHeader with context -%}
-{%- from 'related-posts.njk' import RelatedPosts with context -%}
 {%- from "../_includes/footer.njk" import Footer with context -%}
 {%- from "../_includes/revisions.njk" import RevisionList with context -%}
 
@@ -22,6 +21,5 @@ layout: page.njk
       revisions
     )}}
   </main>
-  {{ RelatedPosts(previousPost, nextPost, backlinks) }}
   {{ Footer() }}
 </article>
