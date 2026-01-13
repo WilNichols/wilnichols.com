@@ -8,11 +8,11 @@
     "node": ">=20.11.0"
   },
   "scripts": {
-    "start": "ELEVENTY_ENV=dev npm-run-all build:sass --parallel watch:*",
-    "start-fast": "ELEVENTY_ENV=dev FAST=true npm-run-all build:sass --parallel watch:*",
-    "netlify-build": "ELEVENTY_ENV=prod NETLIFY=true npm-run-all build:sass build:eleventy build:morepostcss build:postcss && rm -rf _tmp && rm -rf _site/_ && npm run build:minify",
-    "netlify-build-dev": "ELEVENTY_ENV=dev NETLIFY=true npm-run-all build:sass build:eleventy build:morepostcss build:postcss && npm run headers:move && npm run headers:replace",
-    "build": "ELEVENTY_ENV=prod npm-run-all build:sass build:eleventy build:morepostcss build:postcss && rm -rf _tmp && npm run build:minify",
+    "start": "ELEVENTY_ENV=dev NODE_OPTIONS='--max-old-space-size=8192' npm-run-all build:sass --parallel watch:*",
+    "start-fast": "ELEVENTY_ENV=dev NODE_OPTIONS='--max-old-space-size=8192' FAST=true npm-run-all build:sass --parallel watch:*",
+    "netlify-build": "ELEVENTY_ENV=prod NODE_OPTIONS='--max-old-space-size=8192' NETLIFY=true npm-run-all build:sass build:eleventy build:morepostcss build:postcss && rm -rf _tmp && rm -rf _site/_ && npm run build:minify",
+    "netlify-build-dev": "ELEVENTY_ENV=dev NODE_OPTIONS='--max-old-space-size=8192' NETLIFY=true npm-run-all build:sass build:eleventy build:morepostcss build:postcss && npm run headers:move && npm run headers:replace",
+    "build": "ELEVENTY_ENV=prod NODE_OPTIONS='--max-old-space-size=8192' npm-run-all build:sass build:eleventy build:morepostcss build:postcss && rm -rf _tmp && npm run build:minify",
     "watch:eleventy": "eleventy --serve",
     "watch:sass": "sass --watch --poll src/static/css:_tmp",
     "build:sass": "sass src/static/css:_tmp",
