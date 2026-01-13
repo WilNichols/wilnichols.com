@@ -1,6 +1,6 @@
 export default function () {
   return {
-    url: false,
+    permalink: false,
     tags: "Design"
   }
 }

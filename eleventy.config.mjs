@@ -252,7 +252,7 @@ export default async function(eleventyConfig) {
       )
     );
   
-    console.log(photoMap);
+    // console.log(photoMap);
     return photoMap;
   });
   
