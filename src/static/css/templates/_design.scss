@@ -380,7 +380,6 @@ $shotGap: #{calc(var(--col) / 2)};
 }
 
 .design--desktop {
-  display: block;
   @media (pointer: coarse) and (width <= tokens.$breakpoint) {
     display: none;
   }

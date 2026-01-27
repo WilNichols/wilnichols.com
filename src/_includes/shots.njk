@@ -28,12 +28,18 @@
         project: post.data.tags | getNestedTag("Design"),
         client: post.data.tags | getNestedTag("Client")
       } %}
+      {% set filterClass = "" %}
+      {% if post.data.inputFilter == "Coarse" %}
+        {% set filterClass = "design--mobile" %}  
+      {% elif post.data.inputFilter == "Pointer" %}  
+        {% set filterClass = "design--desktop" %}  
+      {% endif %}
       {% if info.project != postInfo.project %}
         {# closes the loop for most shots #}
         {% if (loop.index > 1 ) %}{{ endProject() }}{% endif %}
         {{ projectMeta(postInfo, false)}}
       {% endif %}
-      <li class="shot" style="--view-transition-name: post-title--{{ post.fileSlug | slugify }}">
+      <li class="shot {{ filterClass }}" style="--view-transition-name: post-title--{{ post.fileSlug | slugify }}">
         {{ shot(post) }}
       </li>
       {% if loop.index == loop.length %}{{ endProject() }}{% endif %}
