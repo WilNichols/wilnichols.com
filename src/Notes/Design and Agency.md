@@ -12,7 +12,7 @@ summary: 'Let’s make our little corner of the world better.'
 
 <cite>Norman Vincent Peele</cite>
 
-> … but sometimes I keep hitting London.
+> … but I keep hitting London.
 
 <cite>Mort Sahl, in regards to *I Aim at the Stars*</cite>
 
