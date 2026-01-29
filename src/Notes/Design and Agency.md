@@ -6,7 +6,6 @@ tags:
   - Topic/Work
 summary: 'Let’s make our little corner of the world better.'
 ---
----
 
 > Shoot for the moon. Even if you miss, you’ll land among the stars.
 
