@@ -5,7 +5,7 @@ tags:
   - Topic/Life
   - Topic/Work
   - Topic/Moving
-summary: "Or ‘oops, I’m incidentally supporting the Fascsists’"
+summary: "Or ‘oops, I’m incidentally supporting the Fascists’"
 ---
 
 Once, I’d’ve loved to work for Facebook. Before Cambridge Analytica.[^1] Facebook supposedly surpassed 2 billion users in 2017. Internet.org was bringing connectivity to parts of the globe that constituted meaningful platform growth, because _oh my god they have so many users they have to start connecting other parts of the world to continue growing._ Eight years ago I saw how this was problematic — _cool, a private and unregulated entity providing infrastructure to the Global South_ warred with _cool cool cool, infinite growth at what cost_ — but also, damn, how cool to ship one’s work to an unprecedentedly global diverse, multicultural audience.
@@ -16,7 +16,7 @@ Full disclosure: I got to the onsite and didn’t progress. I’ve started inte
 
 In 2020, my company’s consumer product was visibly used by some pretty deplorable people. The scale of our scandal paled beside Facebook, but despite the intense discomfort and scrutiny, I was proud to be an employee of a small company where discussion was vibrant and individual employees had a voice, as opposed to be a drop in Facebook’s bucket.
 
-That brings us to the last few weeks. The writing’s bee on the wall, but that makes it no more pleasant to read. In planning our move[^3] I’ve dwelt on which goals I’m letting go. The Bay’s always been among them: somewhere to live — at least for a bit — and somewhere to make my design practice meaningful and real. Austin’s a joke of a design market,[^4] and the gulf from our talent pool to the Bay’s, let alone in FAANG, is wild.
+That brings us to the last few weeks. The writing’s been on the wall, but that makes it no more pleasant to read. In planning our move[^3] I’ve dwelt on which goals I’m letting go. The Bay’s always been among them: somewhere to live — at least for a bit — and somewhere to make my design practice meaningful and real. Austin’s a joke of a design market,[^4] and the gulf from our talent pool to the Bay’s, let alone in FAANG, is wild.
 
 I’d wanted to work for Apple since a recruiter contacted me 2011. I had a small visual design website and in taking small freelance jobs, made a point to not make it too obvious online that I was a teenager. We reengaged two years later, and in Summary 2013, I interned on the iWork team shortly before iWork for iOS and iWork for iCloud (Beta) launched in October with the new iOS 7 design. 
 

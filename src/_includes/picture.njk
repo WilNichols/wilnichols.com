@@ -28,7 +28,7 @@
   customSRCSet,
   args
 ) %}
-  {% if not imageProps %}{% set imageProps = collections.photos[src].fileInfo %}{% endif %}
+  {% if not imageProps %}{% set imageProps = (collections.photos[src] and collections.photos[src].fileInfo) or { orientation: 'landscape', ratio: 1.5, color: '#888888', width: 1200, height: 800 } %}{% endif %}
   {% js "defer" %}
     {{ _progLoadImg() }}
   {% endjs %}
