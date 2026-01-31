@@ -151,6 +151,27 @@ export default async function(eleventyConfig) {
   });
   
   eleventyConfig.addCollection("photos", async (collectionsApi) => {
+    // In dev, skip all photo fetching: return a stub so every URL gets placeholder metadata.
+    const isDev = process.env.ELEVENTY_ENV === "dev";
+    const placeholderFileInfo = {
+      orientation: "landscape",
+      ratio: 1.5,
+      color: "#888888",
+      width: 1200,
+      height: 800,
+      success: true,
+    };
+    if (isDev) {
+      return new Proxy(
+        {},
+        {
+          get(_, key) {
+            return { fileInfo: placeholderFileInfo };
+          },
+        }
+      );
+    }
+
     const allItems = collectionsApi.getAll();
   
     const allPhotos = (
