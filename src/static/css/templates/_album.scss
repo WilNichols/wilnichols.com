@@ -1,7 +1,6 @@
 @use '../tokens';
 
 body:has(> .page--album) {
-  --materialPrimaryColor: var(--photoBackgroundMaterialColor);
   padding: 0;
 }
 
