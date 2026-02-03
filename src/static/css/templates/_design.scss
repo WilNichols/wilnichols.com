@@ -229,7 +229,7 @@ $shotGap: #{calc(var(--col) / 2)};
   }
 }
 
-.shot .picture, .shot .content, {
+.shot > .picture, .shot .content, .shot > .video-container, {
   animation-timeline: view(y $carouselInset);
   animation-timing-function: ease-in-out;
   animation-fill-mode: both;
@@ -238,7 +238,7 @@ $shotGap: #{calc(var(--col) / 2)};
   }
 }
 
-.shot .picture {
+.shot > .picture, .shot .video-container {
   will-change: filter, transform, transform-origin, opacity, background-color, var(--backgroundColor);
   animation-name: desktopMoveCarousel;
   overflow: visible;
@@ -270,7 +270,7 @@ $shotGap: #{calc(var(--col) / 2)};
       flex-direction: column;
     }
   }
-  .picture {
+  > .picture, .video-container {
     // transform-origin: center left;
     font-size: var(--type-0);
     overflow: hidden;
@@ -283,6 +283,7 @@ $shotGap: #{calc(var(--col) / 2)};
     // these are flipped bc the container is rotate 90deg
     height: var(--desktopPanelWidth);
     width: var(--desktopPanelHeight);
+    opacity: var(--opacity, 1);
     // mobile-only
     @media (pointer: coarse) and (width <= tokens.$breakpoint) {
       // while the container isn't rotated, the orientation is flipped
@@ -290,15 +291,38 @@ $shotGap: #{calc(var(--col) / 2)};
       width: var(--desktopPanelWidth);
     }
   }
+  .video-container picture {
+    display: contents;
+  }
+  .video-container img {
+    pointer-events: none;
+  }
+  video {
+    position: absolute;
+    place-self: center;
+    width: var(--desktopPanelWidth);
+    height: auto;
+    z-index: -1;
+    transform: rotate(90deg) scale(calc(852/1440)); // screen width in Figma / canvas width
+    box-shadow: 0 0 0 5px black; // adjusts for frame and vid not perfectly aligning
+    border-radius: 54px;
+    @media (pointer: coarse) and (width <= tokens.$breakpoint) { 
+      transform: none;
+    }
+  }
   source {
     display: none;
   }
   img, svg {
-    // desktop-only
     transform: rotate(90deg);
+    @media (pointer: coarse) and (width <= tokens.$breakpoint) { 
+      transform: none;
+    }
+  }
+  img, svg {
+    // desktop-only
     min-height: var(--desktopPanelHeight);
     width: var(--desktopPanelWidth);
-    opacity: var(--opacity, 1);
     // mobile 
     @media (pointer: coarse) and (width <= tokens.$breakpoint) { 
       transform: none;
