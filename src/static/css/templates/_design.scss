@@ -331,24 +331,28 @@ $shotGap: #{calc(var(--col) / 2)};
     pointer-events: none;
   }
   video {
-    position: absolute;
-    place-self: center;
-    width: var(--desktopPanelWidth);
-    height: auto;
-    z-index: -1;
-    isolation: isolate;
-    transform: rotate(90deg) scale(calc(852/1440)); // screen width in Figma / canvas width
-    box-shadow: 0 0 0 3px var(--CK0); // adjusts for frame and vid not perfectly aligning
-    border-radius: min(6dvh, 60px);
+    & {
+      position: absolute;
+      place-self: center;
+      width: var(--desktopPanelWidth);
+      height: auto;
+      z-index: -1;
+      isolation: isolate;
+      transform: rotate(90deg) scale(calc(852/1440)); // screen width in Figma / canvas width
+      box-shadow: 0 0 0 3px var(--CK0); // adjusts for frame and vid not perfectly aligning
+      border-radius: min(6dvh, 60px);
+    }
     @media (pointer: coarse) and (width <= tokens.$breakpoint) { 
-      transform: none;
+      transform: scale(calc(630.83/720)); // screen width in Figma / canvas width
     }
   }
   source {
     display: none;
   }
   img, svg {
-    transform: rotate(90deg);
+    & {
+      transform: rotate(90deg);
+    }
     @media (pointer: coarse) and (width <= tokens.$breakpoint) { 
       transform: none;
     }
@@ -454,5 +458,5 @@ $shotGap: #{calc(var(--col) / 2)};
     fill: var(--foregroundColor);
   }
   --backgroundColor: var(--materialSecondaryColor);
-  --foregroundColor: contentSecondaryColor;
+  --foregroundColor: var(--contentTertiaryColor);
 }
