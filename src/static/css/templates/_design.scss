@@ -42,7 +42,7 @@ $carouselInset: calc(((100dvw - var(--desktopPanelWidth))/2));
   }
   // mobile sizes
   @media (pointer: coarse) and (width <= tokens.$breakpoint) {
-    --desktopPanelWidth: calc(100dvw - var(--u64));
+    --desktopPanelWidth: calc(100dvw - var(--u32));
     --desktopPanelHeight: calc(var(--desktopPanelWidth) * 1.5);
   }
 }
@@ -185,6 +185,7 @@ $shotGap: #{calc(var(--col) / 2)};
     overflow-x: auto;
     overflow-y: hidden;
     padding: 0 var(--u16);
+    // padding: 0 calc((100dvw - var(--desktopPanelWidth))/2);
     gap: var(--u8);
     height: auto;
     width: 100dvw;
@@ -334,7 +335,8 @@ $shotGap: #{calc(var(--col) / 2)};
     place-self: center;
     width: var(--desktopPanelWidth);
     height: auto;
-    z-index: 0;
+    z-index: -1;
+    isolation: isolate;
     transform: rotate(90deg) scale(calc(852/1440)); // screen width in Figma / canvas width
     box-shadow: 0 0 0 3px var(--CK0); // adjusts for frame and vid not perfectly aligning
     border-radius: min(6dvh, 60px);
