@@ -338,12 +338,30 @@ $shotGap: #{calc(var(--col) / 2)};
       height: auto;
       z-index: -1;
       isolation: isolate;
-      transform: rotate(90deg) scale(calc(852/1440)); // screen width in Figma / canvas width
+      transform: rotate(90deg) scale(var(--scale, 1)); // screen width in Figma / canvas width
       box-shadow: 0 0 0 3px var(--CK0); // adjusts for frame and vid not perfectly aligning
-      border-radius: min(6dvh, 60px);
+      &.design-screen-recording--iPhone-8 {
+        --scale: calc(375/1440); // screen height bc rotation in Figma / canvas width
+      }
+      &.design-screen-recording--iPhone-11-Pro {
+        --scale: calc(375/1440);
+      }
+      &.design-screen-recording--iPhone-14-Pro {
+        --scale: calc(852/1440);
+        border-radius: min(6dvh, 60px);
+      }
     }
     @media (pointer: coarse) and (width <= tokens.$breakpoint) { 
-      transform: scale(calc(630.83/720)); // screen width in Figma / canvas width
+      transform: scale(var(--scale, 1)); //
+      &.design-screen-recording--iPhone-8 {
+        --scale: calc(375/720); // screen width in Figma / canvas width
+      }
+      &.design-screen-recording--iPhone-11-Pro {
+        --scale: calc(375/720); // screen width in Figma / canvas width
+      }
+      &.design-screen-recording--iPhone-14-Pro {
+        --scale: calc(630.83/720); // screen width in Figma / canvas width
+      }
     }
   }
   source {
