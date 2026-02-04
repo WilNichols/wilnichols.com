@@ -478,3 +478,35 @@ $shotGap: #{calc(var(--col) / 2)};
   --backgroundColor: var(--materialSecondaryColor);
   --foregroundColor: var(--contentTertiaryColor);
 }
+
+.video-1x { 
+  display: block; 
+}
+
+.video-2x,
+.video-3x { 
+  display: none; 
+  pointer-events: none;
+}
+
+@media (min-resolution: 2dppx) {
+  .video-1x { 
+    display: none; 
+    pointer-events: none;
+  }
+
+  .video-2x { 
+    display: block; 
+  }
+}
+
+@media (min-resolution: 3dppx) {
+  .video-2x { 
+    display: none; 
+    pointer-events: none;
+  }
+
+  .video-3x { 
+    display: block; 
+  }
+}

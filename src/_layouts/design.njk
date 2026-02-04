@@ -13,3 +13,38 @@ layout: page.njk
   {{ shotList(collections['Design']) }}
   {{ Footer(el="footer") }}
 </div>
+
+{% js "defer" %}}
+  (function () {
+    const dpr = window.devicePixelRatio || 1;
+    const bucket = dpr >= 3 ? 3 : dpr >= 2 ? 2 : 1;
+  
+    const vids = Array.from(document.querySelectorAll('video[class*="video-"]'));
+  
+    vids.forEach(v => {
+      const isMatch = v.classList.contains(`video-${bucket}x`);
+  
+      if (isMatch) {
+        const src = v.dataset.src;
+        if (src && v.currentSrc !== src) {
+          v.src = src;
+          v.muted = true;        // set as properties for iOS
+          v.playsInline = true;  // set as properties for iOS
+          v.load();
+  
+          const tryPlay = () => v.play().catch(() => {});
+          v.addEventListener('canplay', tryPlay, { once: true });
+          tryPlay();
+  
+          // Fallback: first user gesture
+          window.addEventListener('touchend', tryPlay, { once: true });
+        }
+      } else {
+        // Keep others from loading/playing
+        try { v.pause(); } catch {}
+        v.removeAttribute('src');
+        v.load(); // clears any pending network activity in many browsers
+      }
+    });
+  })();
+{% endjs %}
