@@ -346,8 +346,12 @@ $shotGap: #{calc(var(--col) / 2)};
       &.design-screen-recording--iPhone-11-Pro {
         --scale: calc(375/1440);
       }
-      &.design-screen-recording--iPhone-14-Pro {
+      &.design-screen-recording--iPhone-14-Pro--landscape {
         --scale: calc(852/1440);
+        border-radius: min(6dvh, 60px);
+      }
+      &.design-screen-recording--iPhone-14-Pro--portrait {
+        --scale: calc(393/1440);
         border-radius: min(6dvh, 60px);
       }
     }
@@ -359,8 +363,11 @@ $shotGap: #{calc(var(--col) / 2)};
       &.design-screen-recording--iPhone-11-Pro {
         --scale: calc(375/720); // screen width in Figma / canvas width
       }
-      &.design-screen-recording--iPhone-14-Pro {
+      &.design-screen-recording--iPhone-14-Pro--landscape {
         --scale: calc(630.83/720); // screen width in Figma / canvas width
+      }
+      &.design-screen-recording--iPhone-14-Pro--portrait {
+        --scale: calc(393/720); // screen width in Figma / canvas width
       }
     }
   }
