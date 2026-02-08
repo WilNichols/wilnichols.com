@@ -6,18 +6,37 @@
   {{ post.content | safe }}
 {%- endmacro %}
 
-{% macro endProject() -%}
+{% macro endProject(name) -%}
   </ol></div></li>
 {%- endmacro %}
 
-{% macro projectMeta(postInfo, learnMoreLink) -%}
-  <li class="project">
+{% macro projectMeta(thisDesign, postInfo, learnMoreLink) -%}
+{% set name %}{{ postInfo.project | slugify | replace('-', '') }}{% endset %}
+{% set animationTimelineName %}--{{ name }}-shots{% endset %}
+  <li class="project" style="timeline-scope: {{ animationTimelineName }}">
     <div class="project__meta">
-      <h2 class="project__title"><span class="project__name">{{ postInfo.project }}</span></h2>{{tagButton(postInfo.client)}}
+      <h2 class="project__title"><span class="project__name">{{ postInfo.project }}</span></h2>
+      <div class="project__meta__trailing">
+        {% if thisDesign.length > 1 %}
+          <ul class="project__meta__pager">
+            {% for i in range(thisDesign.length) %}
+              {% set i0 = loop.index0 %}
+              {% set start = (i0 / thisDesign.length * 100) %}
+              {% set end = ((i0 + 1) / thisDesign.length * 100) %}
+              <li class="project__meta__pager__dot" style="
+                animation-timeline: {{ animationTimelineName }};
+                --start: {{ start }}%;
+                 --end: {{ end }}%">
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+        {{ tagButton(postInfo.client) }}
+      </div>
     </div>
     <div class="scroll-thief scroll-thief--shot"></div>
     <div class="shots-container">
-      <ol class="shots">
+      <ol class="shots" id="shots--{{ name | lower | replace('[^a-z0-9-]', '-', 'g') }}" style="scroll-timeline-name: {{ animationTimelineName }}">
 {%- endmacro %}
 
 {% macro shotList(collection) -%}
@@ -29,6 +48,7 @@
         project: post.data.tags | getNestedTag("Design"),
         client: post.data.tags | getNestedTag("Client")
       } %}
+      {% set name %}{{ postInfo.project | slugify | replace('-', '') }}{% endset %}
       {% set filterClass = "" %}
       {% if post.data.inputFilter == "Coarse" %}
         {% set filterClass = "design--mobile" %}  
@@ -37,14 +57,33 @@
       {% endif %}
       {% if info.project != postInfo.project %}
         {# closes the loop for most shots #}
-        {% if (loop.index > 1 ) %}{{ endProject() }}{% endif %}
-        {{ projectMeta(postInfo, false)}}
+        {% if (loop.index > 1 ) %}{{ endProject(name) }}{% endif %}
+        {% set thisDesign = null %}
+        {%- set thisDesign %}{%- for tag in post.data.tags -%}{{- tag if "Design/" in tag -}}
+        {%- endfor -%}{%- endset -%}
+
+        {{ projectMeta(collections[thisDesign], postInfo, false)}}
       {% endif %}
-      <li class="shot {{ filterClass }}" style="--view-transition-name: post-title--{{ post.fileSlug | slugify }}">
+      <li class="shot {{ filterClass }}">
         {{ shot(post) }}
       </li>
-      {% if loop.index == loop.length %}{{ endProject() }}{% endif %}
+      {% if loop.index == loop.length %}{{ endProject(name) }}{% endif %}
       {% set info = postInfo %}
     {% endeach %}
   </ol>
+
+{% js "defer" %}  
+    document.querySelectorAll('.shots[id^="shots--"]').forEach((scroller) => {
+      scroller.addEventListener('scroll', () => {
+        const max = scroller.scrollHeight - scroller.clientHeight;
+        const progress = max > 0 ? (scroller.scrollTop / max) : 0;
+
+        console.log(
+          scroller.dataset.shotsName || scroller.id,
+          'scroll progress:',
+          progress.toFixed(3)
+        );
+      }, { passive: true });
+    });
+{% endjs %}
 {%- endmacro %}

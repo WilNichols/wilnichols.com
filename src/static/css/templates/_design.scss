@@ -19,6 +19,17 @@
   initial-value: 75dvmin;
 }
 
+@property --i {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+@property --length {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
 $debug: false;
 $carouselInset: calc(((100dvw - var(--desktopPanelWidth))/2));
 
@@ -134,6 +145,39 @@ $carouselInset: calc(((100dvw - var(--desktopPanelWidth))/2));
   height: 1lh;
 }
 
+.project__meta__trailing {
+  display: flex;
+  gap: var(--u8);
+}
+
+.project__meta__pager {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.project__meta__pager__dot {
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--contentTertiaryColor);
+  
+  background-color: var(--contentTertiaryColor);
+  animation: pagerDotColor 1s steps(1, start) both;
+  animation-range: var(--start) var(--end);
+  
+}
+@keyframes pagerDotColor {
+  0% {
+    background-color: var(--contentTertiaryColor);
+  }
+  100% {
+    background-color: var(--contentPrimaryColor);
+  }
+}
+
+
 $shotsPad: calc((100dvw - var(--desktopPanelWidth))/2);
 .shots-container {
   height: calc(var(--desktopPanelHeight) + 8rem);
@@ -166,12 +210,13 @@ $shotGap: #{calc(var(--col) / 2)};
   inset: 0;
   align-items: end;
   flex-direction: column;
-  overflow-x: hidden;
+  overflow-x: clip;
   overflow-y: auto;
   padding: $shotsPad 0;
   gap: var(--u16);
   height: 100dvw;
   transform: rotate(-90deg);
+  scroll-timeline-axis: y;
   @media (width <= tokens.$breakpoint) {
     padding: var(--col) 0;
   }
@@ -190,6 +235,7 @@ $shotGap: #{calc(var(--col) / 2)};
     height: auto;
     width: 100dvw;
     transform: none;
+    scroll-timeline-axis: x;
   }
 }
 
@@ -258,11 +304,16 @@ $shotGap: #{calc(var(--col) / 2)};
 }
 
 .shot > .picture, .shot .content, .shot > .video-container, {
-  animation-timeline: view(y $carouselInset);
+  view-timeline-name: --carousel;
+  view-timeline-axis: y;
+  view-timeline-inset: $carouselInset; 
+  animation-timeline: --carousel;
+  // animation-timeline: view(y $carouselInset);
   animation-timing-function: ease-in-out;
   animation-fill-mode: both;
-  @media (pointer: coarse) and (width <= tokens.$breakpoint) { 
-    animation-timeline: view(x $carouselInset);
+  @media (pointer: coarse) and (width <= tokens.$breakpoint) {
+    view-timeline-axis: x;
+    // animation-timeline: view(x $carouselInset);
   }
 }
 

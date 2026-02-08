@@ -14,7 +14,7 @@ layout: page.njk
   {{ Footer(el="footer") }}
 </div>
 
-{% js "defer" %}}
+{% js "defer" %}
   (function () {
     const dpr = window.devicePixelRatio || 1;
     const bucket = dpr >= 3 ? 3 : dpr >= 2 ? 2 : 1;
