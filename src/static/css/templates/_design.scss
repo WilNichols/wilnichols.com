@@ -517,3 +517,21 @@ $shotGap: #{calc(var(--col) / 2)};
     display: block; 
   }
 }
+
+.video--desktop {
+  display: block;
+}
+
+.video--mobile {
+  display: none;
+}
+
+@media (pointer: coarse) {
+  .video--desktop {
+    display: none;
+  }
+
+  .video--mobile {
+    display: block;
+  }
+}
