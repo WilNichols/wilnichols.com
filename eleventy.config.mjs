@@ -133,7 +133,7 @@ export default async function(eleventyConfig) {
       });
       return tagsList;
   });
-  
+
   eleventyConfig.addCollection("glassPhotos", async (collectionsApi) => {
     // we sent these to a collection b/c njk templates can't read straight from eleventyComputed
     const allItems = collectionsApi.getFilteredByTag("cameraRollSource");
@@ -298,6 +298,16 @@ export default async function(eleventyConfig) {
     });
   });
   
+  eleventyConfig.addFilter("designInputFilter", function (collection) {
+    return collection.map(item => {
+      const filter = item.data.inputFilter;
+  
+      if (filter === "Pointer") return "desktop";
+      if (filter === "Coarse") return "mobile";
+      return "shared";
+    });
+  });
+
   eleventyConfig.addFilter("draftsOf", (collection1, collection2) => {
     return collection1.filter(value => collection2.includes(value));
   });

@@ -6,89 +6,102 @@
   {{ post.content | safe }}
 {%- endmacro %}
 
-{% macro endProject(id) -%}
+{% macro endProject() -%}
   </ol></div></li>
 {%- endmacro %}
 
-{% macro projectMeta(thisDesign, postInfo, learnMoreLink) -%}
-{% set id %}{{ postInfo.project | slugify | replace('-', '') }}{% endset %}
+{% macro projectMeta(projectId, projectShots, postInfo, learnMoreLink) -%}
+  {% set timelineScopes = [] %}
+  {% set shotPlatforms = projectShots | designInputFilter | reverse %}
+  {% for _ in projectShots %}
+    {% set scope = '--' ~ projectId ~ '-shot-' ~ loop.index ~ '-' ~ shotPlatforms[loop.index0] %}
+    {% set timelineScopes = timelineScopes.concat([scope]) %}
+  {% endfor %}
 
-{% set scopeNames = [] %}
-{% for i in range(thisDesign.length) %}
-  {% set tl = '--' ~ id ~ '-shot-' ~ loop.index %}
-  {% set scopeNames = scopeNames.concat([tl]) %}
-{% endfor %}
-
-{% set tl = '--' ~ id ~ '-shots' %}
-  <li class="project" style="timeline-scope: {{ scopeNames | join(', ') }};">
+  <li class="project" style="timeline-scope: {{ timelineScopes | join(', ') }};">
     <div class="project__meta">
-      <h2 class="project__title"><span class="project__name">{{ postInfo.project }}</span></h2>
+      <h2 class="project__title">
+        <span class="project__name">{{ postInfo.project }}</span>
+      </h2>
+
       <div class="project__meta__trailing">
-        {% if thisDesign.length > 1 %}
+        {% if projectShots.length > 1 %}
           <ul class="project__meta__pager">
-            {% for i in range(thisDesign.length) %}
-              {% set shotTl = '--' ~ id ~ '-shot-' ~ loop.index %}
-              <li class="project__meta__pager__dot" style="
-                animation-timeline: {{ shotTl }}">
+            {% for shot in projectShots %}
+              {{ (projectId ~ ': ' ~ shotPlatforms) | warn }}
+              {% set shotTimeline = '--' ~ projectId ~ '-shot-' ~ loop.index ~ '-' ~ shotPlatforms[loop.index -1] %}
+              <li class="project__meta__pager__dot project__meta__pager__dot--{{ shotPlatforms[loop.index -1] }}" style="
+                animation-timeline: {{ shotTimeline }}">
               </li>
             {% endfor %}
           </ul>
         {% endif %}
+
         {{ tagButton(postInfo.client) }}
+
+        {% if learnMoreLink %}
+          <a class="project__learn-more" href="{{ learnMoreLink }}">Learn more</a>
+        {% endif %}
       </div>
     </div>
+
     <div class="scroll-thief scroll-thief--shot"></div>
     <div class="shots-container">
-      <ol class="shots" id="shots--{{ id }}">
+      <ol class="shots" id="shots--{{ projectId }}">
 {%- endmacro %}
 
-{% macro shotList(collection) -%}
+{% macro shotList(collection, learnMoreLink=false) -%}
   <ol class="project-list" reversed>
     {% set drafts = collections.Drafts | draftsOf(collection) %}
-    {% set info = {} %}
+    {% set previousProjectName = null %}
+    {% set projectShotIndex = 0 %}
+
     {% asyncEach post in collection | reverse %}
       {% set postInfo = {
         project: post.data.tags | getNestedTag("Design"),
         client: post.data.tags | getNestedTag("Client")
       } %}
-      {% set id %}{{ postInfo.project | slugify | replace('-', '') }}{% endset %}
-      {% set tl = '--' ~ id ~ '-shots' %}
-      {% set filterClass = "" %}
-      {% if post.data.inputFilter == "Coarse" %}
-        {% set filterClass = "design--mobile" %}  
-      {% elif post.data.inputFilter == "Pointer" %}  
-        {% set filterClass = "design--desktop" %}  
-      {% endif %}
-      {% if info.project != postInfo.project %}
-        {# closes the loop for most shots #}
-        {% if (loop.index > 1 ) %}{{ endProject(id) }}{% endif %}
-        {% set thisDesign = null %}
-        {%- set thisDesign %}{%- for tag in post.data.tags -%}{{- tag if "Design/" in tag -}}
-        {%- endfor -%}{%- endset -%}
 
-        {{ projectMeta(collections[thisDesign], postInfo, false)}}
+      {% set projectId = postInfo.project | slugify | replace('-', '') %}
+
+      {% if previousProjectName != postInfo.project %}
+        {# NEW PROJECT STARTS #}
+        {% if previousProjectName %}{{ endProject() }}{% endif %}
+
+        {% set projectShotIndex = 0 %}
+
+        {% set designCollectionKey = null %}
+        {% for tag in post.data.tags %}
+          {% if "Design/" in tag and not designCollectionKey %}
+            {% set designCollectionKey = tag %}
+          {% endif %}
+        {% endfor %}
+
+        {% set projectShots = collections[designCollectionKey] %}
+        {{ projectMeta(projectId, projectShots, postInfo, learnMoreLink) }}
       {% endif %}
-      {% set shotTl = '--' ~ id ~ '-shot-' ~ loop.index %}
-      <li class="shot {{ filterClass }}" style="view-timeline-name: {{ shotTl }}">
+
+      {% set shotClass = "" %}
+      {% if post.data.inputFilter == "Coarse" %}
+        {% set shotClass = "design--mobile" %}
+      {% elif post.data.inputFilter == "Pointer" %}
+        {% set shotClass = "design--desktop" %}
+      {% endif %}
+
+      {% set shotPlatforms = projectShots | designInputFilter | reverse %}
+      {% set projectShotIndex = projectShotIndex + 1 %}
+      {% set shotTimeline = '--' ~ projectId ~ '-shot-' ~ projectShotIndex ~ '-' ~ shotPlatforms[projectShotIndex - 1] %}
+      <li class="shot {{ shotClass }}" style="view-timeline-name: {{ shotTimeline }}">
         {{ shot(post) }}
       </li>
-      {% if loop.index == loop.length %}{{ endProject(id) }}{% endif %}
-      {% set info = postInfo %}
+
+      {% if loop.index == loop.length %}
+        {# PROJECT ENDS #}
+        {{ endProject() }}
+      {% endif %}
+
+      {% set previousProjectName = postInfo.project %}
+      
     {% endeach %}
   </ol>
-
-{% js "defer" %}  
-    document.querySelectorAll('.shots[id^="shots--"]').forEach((scroller) => {
-      scroller.addEventListener('scroll', () => {
-        const max = scroller.scrollHeight - scroller.clientHeight;
-        const progress = max > 0 ? (scroller.scrollTop / max) : 0;
-
-        console.log(
-          scroller.dataset.shotsName || scroller.id,
-          'scroll progress:',
-          progress.toFixed(3)
-        );
-      }, { passive: true });
-    });
-{% endjs %}
 {%- endmacro %}

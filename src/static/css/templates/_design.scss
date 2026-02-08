@@ -98,7 +98,6 @@ $carouselInset: calc(((100dvw - var(--desktopPanelWidth))/2));
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: calc(var(--col) / 3);
 }
 
 .page--design .page__footer {
@@ -114,11 +113,12 @@ $carouselInset: calc(((100dvw - var(--desktopPanelWidth))/2));
 
 .project {
   position: relative;
-  scroll-snap-align: center; 
+  scroll-snap-align: start; 
   display: flex;
   flex-direction: column;
   gap: 0;
   width: 100dvw;
+  padding: max(calc(var(--col) / 3), var(--u24)) 0 0 0;
   --child-padding: var(--col);
 }
 
@@ -162,23 +162,42 @@ $carouselInset: calc(((100dvw - var(--desktopPanelWidth))/2));
   height: 5px;
   border-radius: 50%;
   background-color: var(--contentTertiaryColor);
-  
-  background-color: var(--contentTertiaryColor);
   animation: pagerDotColor 1s linear none;
   animation-range: entry 0% exit 100%;
 }
 @keyframes pagerDotColor {
-  0% {
+  0%, 25% {
     background-color: var(--contentTertiaryColor);
   }
   50% {
     background-color: var(--contentPrimaryColor);
   }
-  100% {
+  75%, 100% {
     background-color: var(--contentTertiaryColor);
   }
 }
 
+
+.project__meta__pager__dot--mobile, .project__meta__pager__dot--desktop {
+  display: none;
+}
+
+// substitute for not-only-of-class
+.project__meta__pager__dot--desktop ~ .project__meta__pager__dot--desktop,
+.project__meta__pager__dot--desktop:has(~ .project__meta__pager__dot--desktop) {
+  display: block;
+}
+
+
+@media (pointer: coarse) and (width <= tokens.$breakpoint) {
+  .project__meta__pager__dot--desktop {
+    display: none !important;
+  }
+  .project__meta__pager__dot--mobile ~ .project__meta__pager__dot--mobile,
+  .project__meta__pager__dot--mobile:has(~ .project__meta__pager__dot--mobile) {
+    display: block;
+  }
+}
 
 $shotsPad: calc((100dvw - var(--desktopPanelWidth))/2);
 .shots-container {
@@ -313,7 +332,6 @@ $shotGap: #{calc(var(--col) / 2)};
   animation-fill-mode: both;
   @media (pointer: coarse) and (width <= tokens.$breakpoint) {
     view-timeline-axis: x;
-    // animation-timeline: view(x $carouselInset);
   }
 }
 
@@ -344,11 +362,11 @@ $shotGap: #{calc(var(--col) / 2)};
     place-content: center;
     align-items: center;
     flex-direction: row-reverse;
-    scroll-timeline-axis: y;
+    view-timeline-axis: y;
     // mobile-only
     @media (pointer: coarse) and (width <= tokens.$breakpoint) {
       flex-direction: column;
-      scroll-timeline-axis: x;
+      view-timeline-axis: x;
     }
   }
   > .picture, .video-container {
@@ -476,15 +494,15 @@ $shotGap: #{calc(var(--col) / 2)};
     justify-content: space-between;
     height: 100%;
     width: auto;
-    padding: .6em var(--type--2);
+    padding: .6em var(--type--1);
     p {
-      font-size: var(--type--2);
+      font-size: var(--type--1);
       writing-mode: vertical-rl;
       cursor: text;
     }
     @media (pointer: coarse) and (width <= tokens.$breakpoint) {
       width: 100%;
-      padding: var(--type--2) .6em;
+      padding: var(--type--1) .6em;
       height: auto;
       p {
         writing-mode: initial;
@@ -579,7 +597,7 @@ $shotGap: #{calc(var(--col) / 2)};
   display: none;
 }
 
-@media (pointer: coarse) {
+  @media (pointer: coarse) and (width <= tokens.$breakpoint) {
   .video--desktop {
     display: none;
   }
