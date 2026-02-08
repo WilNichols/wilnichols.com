@@ -6,27 +6,30 @@
   {{ post.content | safe }}
 {%- endmacro %}
 
-{% macro endProject(name) -%}
+{% macro endProject(id) -%}
   </ol></div></li>
 {%- endmacro %}
 
 {% macro projectMeta(thisDesign, postInfo, learnMoreLink) -%}
-{% set name %}{{ postInfo.project | slugify | replace('-', '') }}{% endset %}
-{% set animationTimelineName %}--{{ name }}-shots{% endset %}
-  <li class="project" style="timeline-scope: {{ animationTimelineName }}">
+{% set id %}{{ postInfo.project | slugify | replace('-', '') }}{% endset %}
+
+{% set scopeNames = [] %}
+{% for i in range(thisDesign.length) %}
+  {% set tl = '--' ~ id ~ '-shot-' ~ loop.index %}
+  {% set scopeNames = scopeNames.concat([tl]) %}
+{% endfor %}
+
+{% set tl = '--' ~ id ~ '-shots' %}
+  <li class="project" style="timeline-scope: {{ scopeNames | join(', ') }};">
     <div class="project__meta">
       <h2 class="project__title"><span class="project__name">{{ postInfo.project }}</span></h2>
       <div class="project__meta__trailing">
         {% if thisDesign.length > 1 %}
           <ul class="project__meta__pager">
             {% for i in range(thisDesign.length) %}
-              {% set i0 = loop.index0 %}
-              {% set start = (i0 / thisDesign.length * 100) %}
-              {% set end = ((i0 + 1) / thisDesign.length * 100) %}
+              {% set shotTl = '--' ~ id ~ '-shot-' ~ loop.index %}
               <li class="project__meta__pager__dot" style="
-                animation-timeline: {{ animationTimelineName }};
-                --start: {{ start }}%;
-                 --end: {{ end }}%">
+                animation-timeline: {{ shotTl }}">
               </li>
             {% endfor %}
           </ul>
@@ -36,7 +39,7 @@
     </div>
     <div class="scroll-thief scroll-thief--shot"></div>
     <div class="shots-container">
-      <ol class="shots" id="shots--{{ name | lower | replace('[^a-z0-9-]', '-', 'g') }}" style="scroll-timeline-name: {{ animationTimelineName }}">
+      <ol class="shots" id="shots--{{ id }}">
 {%- endmacro %}
 
 {% macro shotList(collection) -%}
@@ -48,7 +51,8 @@
         project: post.data.tags | getNestedTag("Design"),
         client: post.data.tags | getNestedTag("Client")
       } %}
-      {% set name %}{{ postInfo.project | slugify | replace('-', '') }}{% endset %}
+      {% set id %}{{ postInfo.project | slugify | replace('-', '') }}{% endset %}
+      {% set tl = '--' ~ id ~ '-shots' %}
       {% set filterClass = "" %}
       {% if post.data.inputFilter == "Coarse" %}
         {% set filterClass = "design--mobile" %}  
@@ -57,17 +61,18 @@
       {% endif %}
       {% if info.project != postInfo.project %}
         {# closes the loop for most shots #}
-        {% if (loop.index > 1 ) %}{{ endProject(name) }}{% endif %}
+        {% if (loop.index > 1 ) %}{{ endProject(id) }}{% endif %}
         {% set thisDesign = null %}
         {%- set thisDesign %}{%- for tag in post.data.tags -%}{{- tag if "Design/" in tag -}}
         {%- endfor -%}{%- endset -%}
 
         {{ projectMeta(collections[thisDesign], postInfo, false)}}
       {% endif %}
-      <li class="shot {{ filterClass }}">
+      {% set shotTl = '--' ~ id ~ '-shot-' ~ loop.index %}
+      <li class="shot {{ filterClass }}" style="view-timeline-name: {{ shotTl }}">
         {{ shot(post) }}
       </li>
-      {% if loop.index == loop.length %}{{ endProject(name) }}{% endif %}
+      {% if loop.index == loop.length %}{{ endProject(id) }}{% endif %}
       {% set info = postInfo %}
     {% endeach %}
   </ol>

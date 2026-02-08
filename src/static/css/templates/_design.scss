@@ -164,16 +164,18 @@ $carouselInset: calc(((100dvw - var(--desktopPanelWidth))/2));
   background-color: var(--contentTertiaryColor);
   
   background-color: var(--contentTertiaryColor);
-  animation: pagerDotColor 1s steps(1, start) both;
-  animation-range: var(--start) var(--end);
-  
+  animation: pagerDotColor 1s linear none;
+  animation-range: entry 0% exit 100%;
 }
 @keyframes pagerDotColor {
   0% {
     background-color: var(--contentTertiaryColor);
   }
-  100% {
+  50% {
     background-color: var(--contentPrimaryColor);
+  }
+  100% {
+    background-color: var(--contentTertiaryColor);
   }
 }
 
@@ -216,7 +218,6 @@ $shotGap: #{calc(var(--col) / 2)};
   gap: var(--u16);
   height: 100dvw;
   transform: rotate(-90deg);
-  scroll-timeline-axis: y;
   @media (width <= tokens.$breakpoint) {
     padding: var(--col) 0;
   }
@@ -235,7 +236,6 @@ $shotGap: #{calc(var(--col) / 2)};
     height: auto;
     width: 100dvw;
     transform: none;
-    scroll-timeline-axis: x;
   }
 }
 
@@ -344,9 +344,11 @@ $shotGap: #{calc(var(--col) / 2)};
     place-content: center;
     align-items: center;
     flex-direction: row-reverse;
+    scroll-timeline-axis: y;
     // mobile-only
     @media (pointer: coarse) and (width <= tokens.$breakpoint) {
       flex-direction: column;
+      scroll-timeline-axis: x;
     }
   }
   > .picture, .video-container {
