@@ -26,7 +26,7 @@ Today in discussing Chick Fil A, I realized that the impact of my individual act
 
 I’d like to see Chick Fil A not survive the next recession and I sure would love to see my peers and the youth live in ideological consistency. I sure would love to see my queer and queer-supporting friends decide that shitty fast food really isn’t worth the insult. In the meantime, my self-respect is enough of a reason to abstain. 
 
-I’m unsure how this scales, but I’m workshopping ideas. My individual impact by  avoiding Amazon is nil, but regardless, Amazon isn’t entitled to my patronage. My community deserves better than the death of local business, and more than employment only via an Amazon distribution center.[^2‘] We’re entitled to more than this grim path of least resistance.
+I’m unsure how this scales, but I’m workshopping ideas. My individual impact by  avoiding Amazon is nil, but regardless, Amazon isn’t entitled to my patronage. My community deserves better than the death of local business, and more than employment only via an Amazon distribution center.[^2] We’re entitled to more than this grim path of least resistance.
 
 [^1]: I still don’t, but I have a difficult time feeling like it’s _good_, if that makes sense?
 
