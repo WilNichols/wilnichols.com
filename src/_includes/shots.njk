@@ -1,0 +1,107 @@
+{% from "footer.njk" import Footer with context %}
+{% from "picture.njk" import Picture with context %}
+{% from "tag.njk" import tag as tagButton %}
+
+{% macro shot(post) -%}
+  {{ post.content | safe }}
+{%- endmacro %}
+
+{% macro endProject() -%}
+  </ol></div></li>
+{%- endmacro %}
+
+{% macro projectMeta(projectId, projectShots, postInfo, learnMoreLink) -%}
+  {% set timelineScopes = [] %}
+  {% set shotPlatforms = projectShots | designInputFilter | reverse %}
+  {% for _ in projectShots %}
+    {% set scope = '--' ~ projectId ~ '-shot-' ~ loop.index ~ '-' ~ shotPlatforms[loop.index0] %}
+    {% set timelineScopes = timelineScopes.concat([scope]) %}
+  {% endfor %}
+
+  <li class="project" style="timeline-scope: {{ timelineScopes | join(', ') }};">
+    <div class="project__meta">
+      <h2 class="project__title">
+        <span class="project__name">{{ postInfo.project }}</span>
+      </h2>
+
+      <div class="project__meta__trailing">
+        {% if projectShots.length > 1 %}
+          <ul class="project__meta__pager">
+            {% for shot in projectShots %}
+              {{ (projectId ~ ': ' ~ shotPlatforms) | warn }}
+              {% set shotTimeline = '--' ~ projectId ~ '-shot-' ~ loop.index ~ '-' ~ shotPlatforms[loop.index -1] %}
+              <li class="project__meta__pager__dot project__meta__pager__dot--{{ shotPlatforms[loop.index -1] }}" style="
+                animation-timeline: {{ shotTimeline }}">
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        {{ tagButton(postInfo.client) }}
+
+        {% if learnMoreLink %}
+          <a class="project__learn-more" href="{{ learnMoreLink }}">Learn more</a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="scroll-thief scroll-thief--shot"></div>
+    <div class="shots-container">
+      <ol class="shots" id="shots--{{ projectId }}">
+{%- endmacro %}
+
+{% macro shotList(collection, learnMoreLink=false) -%}
+  <ol class="project-list" reversed>
+    {% set drafts = collections.Drafts | draftsOf(collection) %}
+    {% set previousProjectName = null %}
+    {% set projectShotIndex = 0 %}
+
+    {% asyncEach post in collection | reverse %}
+      {% set postInfo = {
+        project: post.data.tags | getNestedTag("Design"),
+        client: post.data.tags | getNestedTag("Client")
+      } %}
+
+      {% set projectId = postInfo.project | slugify | replace('-', '') %}
+
+      {% if previousProjectName != postInfo.project %}
+        {# NEW PROJECT STARTS #}
+        {% if previousProjectName %}{{ endProject() }}{% endif %}
+
+        {% set projectShotIndex = 0 %}
+
+        {% set designCollectionKey = null %}
+        {% for tag in post.data.tags %}
+          {% if "Design/" in tag and not designCollectionKey %}
+            {% set designCollectionKey = tag %}
+          {% endif %}
+        {% endfor %}
+
+        {% set projectShots = collections[designCollectionKey] %}
+        {{ projectMeta(projectId, projectShots, postInfo, learnMoreLink) }}
+      {% endif %}
+
+      {% set shotClass = "" %}
+      {% if post.data.inputFilter == "Coarse" %}
+        {% set shotClass = "design--mobile" %}
+      {% elif post.data.inputFilter == "Pointer" %}
+        {% set shotClass = "design--desktop" %}
+      {% endif %}
+
+      {% set shotPlatforms = projectShots | designInputFilter | reverse %}
+      {% set projectShotIndex = projectShotIndex + 1 %}
+      {% set shotTimeline = '--' ~ projectId ~ '-shot-' ~ projectShotIndex ~ '-' ~ shotPlatforms[projectShotIndex - 1] %}
+      <li class="shot {{ shotClass }}" style="view-timeline-name: {{ shotTimeline }}">
+        {{ shot(post) }}
+      </li>
+
+      {% if loop.index == loop.length %}
+        {# PROJECT ENDS #}
+        {{ endProject() }}
+      {% endif %}
+
+      {% set previousProjectName = postInfo.project %}
+      
+    {% endeach %}
+  </ol>
+{%- endmacro %}

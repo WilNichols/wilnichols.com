@@ -10,6 +10,9 @@
 .footer-container {
   max-width: tokens.$categoryWidth;
   width: 100%;
+  @media (width <= tokens.$breakpoint) {
+    max-width: unset;
+  }
 }
 
 .posts-list,
@@ -22,7 +25,6 @@
   }
   @media (width <= tokens.$breakpoint) {
     grid-column: 1 / -1;
-    max-width: unset;
     width: 100%;
   }
 }

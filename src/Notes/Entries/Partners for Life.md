@@ -11,13 +11,16 @@ eleventyComputed:
   photos: 
   - key: 'https://cdn.wilnichols.com/wedding/7CJ00431.jpg'
 ---
-{% from "../_includes/picture.njk" import Picture with context %}
-{{  Picture(
-    fileName = '7CJ00431-jpg',
-    src = 'https://cdn.wilnichols.com/wedding/7CJ00431.jpg',
-    loading = 'eager',
-    isWNCDN = true
-) }}
+{% renderTemplate "njk", data %}
+  {% from "../_includes/picture.njk" import Picture with context %}
+  {{  Picture(
+      fileName = '7CJ00431-jpg',
+      src = 'https://cdn.wilnichols.com/wedding/7CJ00431.jpg',
+      loading = 'eager',
+      isWNCDN = true
+  ) }}
+{% endrenderTemplate %}
+
 Here’s a photo. View our talented photographers’ portfolio, and consider hiring them, at jyangphoto.com
 
 > Because it is the nature of love to create, a marriage itself is something which has to be created, so that, together, we become a new creature. <br /><br />

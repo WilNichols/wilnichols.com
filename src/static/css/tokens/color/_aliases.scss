@@ -3,36 +3,37 @@
 
 @mixin colorAliases {
   & {
-    @include light-dark(--photoBackgroundMaterialColor, var(--c100), #000);
-    @include light-dark(--materialPrimaryColor, var(--c100), var(--c0));
-    @include light-dark(--materialPrimaryInvertedColor, var(--c0), var(--c100));
-    @include light-dark(--materialPrimaryHoverColor, var(--cK95), var(--cK5));
-    @include light-dark(--materialPrimaryActiveColor, var(--cK90), var(--cK1));
-    @include light-dark(--materialSecondaryColor, var(--cK95), var(--cK5));
-    @include light-dark(--materialSecondaryHoverColor, var(--cK90), var(--cK10));
-    @include light-dark(--materialElevatedPrimaryColor, var(--c100), var(--cK10));
-    @include light-dark(--materialElevatedPrimaryHoverColor, var(--cK95), var(--cK20));
-    @include light-dark(--materialElevatedPrimaryActiveColor, var(--cK90), var(--cK30));
-    @include light-dark(--materialGroupedPrimaryColor, var(--c100), var(--cK1));
-    @include light-dark(--materialGroupedSecondaryColor, var(--cK95), var(--c0));
-    @include light-dark(--contentPrimaryColor, var(--cK5), var(--c100));
-    @include light-dark(--contentPrimaryInvertedColor, var(--c100), var(--cK5));
-    @include light-dark(--contentSecondaryColor, var(--cK40), var(--cK60));
-    @include light-dark(--contentTertiaryColor, var(--cK60), var(--cK40));
-    @include light-dark(--contentQuaternaryColor, var(--cK80), var(--cK20));
-    @include light-dark(--linkColor, var(--cB30), var(--cB50));
-    @include light-dark(--linkVisitedColor, var(--cP30), var(--cP50));
-    @include light-dark(--linkUnderlineColor, var(--cK90a), var(--cK40d));
-    @include light-dark(--tagBackgroundColor, var(--cK90), var(--cK20));
-    @include light-dark(--tagBorderColor, var(--cK80), var(--cK30));
-    @include light-dark(--tagContentColor, var(--cK30), var(--cK90));
-    @include light-dark(--evergreenBackgroundColor, var(--cG90), var(--cG20));
-    @include light-dark(--evergreenBorderColor, var(--cG80), var(--cG30));
-    @include light-dark(--evergreenContentColor, var(--cG30), var(--cG90));
-    @include light-dark(--evergreenVersionBackgroundColor, var(--cG40), var(--cG50));
-    @include light-dark(--evergreenVersionBorderColor, var(--cG30), var(--cG60));
-    @include light-dark(--evergreenVersionContentColor, var(--c100), var(--c0abs));
-    @include light-dark(--edgeColor, var(--cK80a), var(--cK10d));
+    @include light-dark(--materialPrimaryColor, var(--cK100), var(--cKD0));
+    @include light-dark(--materialPrimaryInvertedColor, var(--cK0), var(--cKD100));
+    @include light-dark(--materialPrimaryHoverColor, var(--cK95), var(--cKD15));
+    @include light-dark(--materialPrimaryActiveColor, var(--cK90), var(--cKD25));
+    @include light-dark(--materialSecondaryColor, var(--cK95), var(--cKD15));
+    @include light-dark(--materialSecondaryHoverColor, var(--cK90), var(--cKD25));
+    @include light-dark(--materialElevatedNoninteractivePrimaryColor, var(--cKD100), var(--cKD10));
+    @include light-dark(--materialElevatedNoninteractiveSecondaryColor, var(--cK95), var(--cKD05));
+    @include light-dark(--materialElevatedPrimaryColor, var(--cK100), var(--cKD10));
+    @include light-dark(--materialElevatedPrimaryHoverColor, var(--cK95), var(--cKD20));
+    @include light-dark(--materialElevatedPrimaryActiveColor, var(--cK90), var(--cKD30));
+    @include light-dark(--materialGroupedPrimaryColor, var(--cK100), var(--cKD10));
+    @include light-dark(--materialGroupedSecondaryColor, var(--cK95), var(--cKD0));
+    @include light-dark(--contentPrimaryColor, var(--cK05), var(--cKD100));
+    @include light-dark(--contentPrimaryInvertedColor, var(--cK100), var(--cKD05));
+    @include light-dark(--contentSecondaryColor, var(--cK50), var(--cKD55));
+    @include light-dark(--contentTertiaryColor, var(--cK65), var(--cKD40));
+    @include light-dark(--contentQuaternaryColor, var(--cK80), var(--cKD20));
+    @include light-dark(--linkColor, var(--cB50), var(--cBD55));
+    @include light-dark(--linkVisitedColor, var(--cV50), var(--cVD55));
+    @include light-dark(--linkUnderlineColor, var(--cK90), var(--cKD40));
+    @include light-dark(--tagBackgroundColor, var(--cK90), var(--cKD20));
+    @include light-dark(--tagBorderColor, var(--cK80), var(--cKD30));
+    @include light-dark(--tagContentColor, var(--cK30), var(--cKD90));
+    @include light-dark(--evergreenBackgroundColor, var(--cG90), var(--cGD20));
+    @include light-dark(--evergreenBorderColor, var(--cG80), var(--cGD30));
+    @include light-dark(--evergreenContentColor, var(--cG30), var(--cGD90));
+    @include light-dark(--evergreenVersionBackgroundColor, var(--cG40), var(--cGD50));
+    @include light-dark(--evergreenVersionBorderColor, var(--cG30), var(--cGD60));
+    @include light-dark(--evergreenVersionContentColor, var(--cK100), var(--cKD0));
+    @include light-dark(--edgeColor, var(--cK80), var(--cKD15));
     @include light-dark(--shadowMultiplier, 1, 2);
   }
 }

@@ -39,7 +39,7 @@ async function getAlbumContentsFromAWS(key) {
       return albums;
     }
   } else {
-    return null;
+    return [];
   }
 }
 
