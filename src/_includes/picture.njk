@@ -147,8 +147,8 @@
     <img
       class="progressiveImg {{ class }}"
       src="{{ lqipSrc | replace(" ", "") }}"
-      {% if not isWNCDN %}data-src="{{ src | replace(" ", "") }}"{% endif %}
-      {% if isWNCDN %}data-has-lqip="true"{% endif %}
+      {%- if not isWNCDN %} data-src="{{ src | replace(" ", "") }}"{% endif %}
+      {%- if isWNCDN %} data-has-lqip="true"{% endif %}
       width="{{ imageProps.width }}"
       height="{{ imageProps.height }}"
       alt="{% if title %}{{ title }}{% else %}{{ fileName }}{% endif %}"
