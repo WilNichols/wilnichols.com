@@ -1,10 +1,6 @@
 <script>
 {% macro _progLoadImg() %}
 (function () {
-  // Tracks which imgs have completed their LQIP load so we can
-  // distinguish the first (LQIP) load event from the second (full-res).
-  const lqipDone = new WeakSet();
-
   // Far zone — swap data-srcset/data-src into live attributes, begin
   // prefetch at low priority so the browser queues but doesn't rush.
   // Observes img directly — picture may have display:contents (no layout
@@ -48,29 +44,24 @@
   document.querySelectorAll('.progressiveImg').forEach(function (img) {
     if (!img.closest('picture')) return;
 
-    img.addEventListener('load', function () {
-      if (img.dataset.hasLqip && !lqipDone.has(img)) {
-        // First load event = LQIP. Mark done and wait for the full-res
-        // load that follows once the browser selects from srcset.
-        lqipDone.add(img);
-      } else {
-        // Wait for decode before clearing the blur — load fires on HTTP
-        // response complete, but large WebP decode can lag 50–200ms,
-        // which would briefly expose the LQIP without the blur overlay.
-        img.decode()
-          .catch(function () {})
-          .then(function () { img.classList.add('imgLoaded'); });
-      }
-    });
+    // Capture LQIP src as an absolute URL at init time. Browsers can fire
+    // extra load events after a srcset swap while currentSrc is still the
+    // LQIP URL — comparing against this lets us ignore those firings and
+    // only clear the blur once full-res is actually current.
+    const lqipHref = new URL(img.getAttribute('src'), location.href).href;
 
-    // LQIP may already be cached on repeat visits.
-    if (img.complete && img.naturalWidth > 0) {
-      if (img.dataset.hasLqip) {
-        lqipDone.add(img);
-      } else {
-        img.classList.add('imgLoaded');
+    img.addEventListener('load', function () {
+      if (img.currentSrc === lqipHref) {
+        // LQIP loaded, or browser re-fired load for LQIP after srcset swap.
+        // Either way, full-res isn't current yet — do nothing.
+        return;
       }
-    }
+      // Full-res is now currentSrc. Decode ensures we don't start the
+      // blur transition mid-decode and briefly expose the LQIP.
+      img.decode()
+        .catch(function () {})
+        .then(function () { img.classList.add('imgLoaded'); });
+    });
 
     prefetchIO.observe(img);
     nearIO.observe(img);
@@ -148,7 +139,6 @@
       class="progressiveImg {{ class }}"
       src="{{ lqipSrc | replace(" ", "") }}"
       {%- if not isWNCDN %} data-src="{{ src | replace(" ", "") }}"{% endif %}
-      {%- if isWNCDN %} data-has-lqip="true"{% endif %}
       width="{{ imageProps.width }}"
       height="{{ imageProps.height }}"
       alt="{% if title %}{{ title }}{% else %}{{ fileName }}{% endif %}"
