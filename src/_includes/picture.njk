@@ -7,24 +7,25 @@
 
   // Far zone — swap data-srcset/data-src into live attributes, begin
   // prefetch at low priority so the browser queues but doesn't rush.
+  // Observes img directly — picture may have display:contents (no layout
+  // box), which prevents IntersectionObserver from ever firing on it.
   const prefetchIO = new IntersectionObserver(
     function (entries) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
-        const pic = entry.target;
-        const source = pic.querySelector('source[data-srcset]');
-        const img = pic.querySelector('.progressiveImg');
+        const img = entry.target;
+        const source = img.closest('picture').querySelector('source[data-srcset]');
         if (source && source.dataset.srcset) {
           // WCDN: browser picks the right size from srcset
-          if (img) img.fetchPriority = 'low';
+          img.fetchPriority = 'low';
           source.srcset = source.dataset.srcset;
           delete source.dataset.srcset;
-        } else if (img && img.dataset.src) {
+        } else if (img.dataset.src) {
           // Non-WCDN (e.g. Glass Photo): swap src directly
           img.fetchPriority = 'low';
           img.src = img.dataset.src;
         }
-        prefetchIO.unobserve(pic);
+        prefetchIO.unobserve(img);
       });
     },
     { rootMargin: '600px 0px' }
@@ -37,8 +38,7 @@
     function (entries) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
-        const img = entry.target.querySelector('.progressiveImg');
-        if (img) img.fetchPriority = 'high';
+        entry.target.fetchPriority = 'high';
         nearIO.unobserve(entry.target);
       });
     },
@@ -46,8 +46,7 @@
   );
 
   document.querySelectorAll('.progressiveImg').forEach(function (img) {
-    const pic = img.closest('picture');
-    if (!pic) return;
+    if (!img.closest('picture')) return;
 
     img.addEventListener('load', function () {
       if (img.dataset.hasLqip && !lqipDone.has(img)) {
@@ -73,8 +72,8 @@
       }
     }
 
-    prefetchIO.observe(pic);
-    nearIO.observe(pic);
+    prefetchIO.observe(img);
+    nearIO.observe(img);
   });
 })();
 {% endmacro %}
