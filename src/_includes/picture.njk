@@ -50,7 +50,7 @@
     if (!pic) return;
 
     img.addEventListener('load', function () {
-      if (img.hasAttribute('data-has-lqip') && !lqipDone.has(img)) {
+      if (img.dataset.hasLqip && !lqipDone.has(img)) {
         // First load event = LQIP. Mark done and wait for the full-res
         // load that follows once the browser selects from srcset.
         lqipDone.add(img);
@@ -62,7 +62,7 @@
 
     // LQIP may already be cached on repeat visits.
     if (img.complete && img.naturalWidth > 0) {
-      if (img.hasAttribute('data-has-lqip')) {
+      if (img.dataset.hasLqip) {
         lqipDone.add(img);
       } else {
         img.classList.add('imgLoaded');
@@ -142,13 +142,7 @@
       data-srcset="{{ srcset }}"
     >
     <img
-      class="progressiveImg {{ class }}"
-      src="{{ lqipSrc | replace(" ", "") }}"
-      {% if not isWNCDN %}data-src="{{ src | replace(" ", "") }}"{% endif %}
-      {% if isWNCDN %}data-has-lqip{% endif %}
-      width="{{ imageProps.width }}"
-      height="{{ imageProps.height }}"
-      alt="{% if title %}{{ title }}{% else %}{{ fileName }}{% endif %}"
+      class="progressiveImg {{ class }}" src="{{ lqipSrc | replace(" ", "") }}" {% if not isWNCDN %}data-src="{{ src | replace(" ", "") }}"{% endif %} {% if isWNCDN %}data-has-lqiq="true"{% endif %} width="{{ imageProps.width }}" height="{{ imageProps.height }}" alt="{% if title %}{{ title }}{% else %}{{ fileName }}{% endif %}"
     />
     <div class="blurUp"></div>
   </picture>

@@ -8,8 +8,9 @@ tags:
   - AlbumInfo/Location/Auzon
   - AlbumInfo/Location/Auvergne
   - AlbumInfo/Location/France
-  - AlbumInfo/Period/MoveToFrance
+  - 'AlbumInfo/Period/Our move to France'
   - AlbumGroup/Auzon
+  - Type/NewAlbum
 date: 2026-04-20T00:00
 summary: 'We arrived in France just a week and a half ago. These are my photos of Auzon so far.'
 imagePropsSynchronous:
