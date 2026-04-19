@@ -1,18 +1,78 @@
 <script>
 {% macro _progLoadImg() %}
-  // fades images in and blur out onload 
-  const progressiveImages = document.getElementsByClassName('progressiveImg');
-  if (progressiveImages) {
-    for (const img of progressiveImages) {
-      if (img.complete) {
-        img.classList.add('imgLoaded');
+(function () {
+  // Tracks which imgs have completed their LQIP load so we can
+  // distinguish the first (LQIP) load event from the second (full-res).
+  const lqipDone = new WeakSet();
+
+  // Far zone — swap data-srcset/data-src into live attributes, begin
+  // prefetch at low priority so the browser queues but doesn't rush.
+  const prefetchIO = new IntersectionObserver(
+    function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        const pic = entry.target;
+        const source = pic.querySelector('source[data-srcset]');
+        const img = pic.querySelector('.progressiveImg');
+        if (source && source.dataset.srcset) {
+          // WCDN: browser picks the right size from srcset
+          if (img) img.fetchPriority = 'low';
+          source.srcset = source.dataset.srcset;
+          delete source.dataset.srcset;
+        } else if (img && img.dataset.src) {
+          // Non-WCDN (e.g. Glass Photo): swap src directly
+          img.fetchPriority = 'low';
+          img.src = img.dataset.src;
+        }
+        prefetchIO.unobserve(pic);
+      });
+    },
+    { rootMargin: '600px 0px' }
+  );
+
+  // Near zone — upgrade priority for images that are about to enter view.
+  // fetchPriority is a scheduling hint; setting it here (before the fetch
+  // commits bandwidth) nudges the browser to de-queue these first.
+  const nearIO = new IntersectionObserver(
+    function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        const img = entry.target.querySelector('.progressiveImg');
+        if (img) img.fetchPriority = 'high';
+        nearIO.unobserve(entry.target);
+      });
+    },
+    { rootMargin: '100px 0px' }
+  );
+
+  document.querySelectorAll('.progressiveImg').forEach(function (img) {
+    const pic = img.closest('picture');
+    if (!pic) return;
+
+    img.addEventListener('load', function () {
+      if (img.hasAttribute('data-has-lqip') && !lqipDone.has(img)) {
+        // First load event = LQIP. Mark done and wait for the full-res
+        // load that follows once the browser selects from srcset.
+        lqipDone.add(img);
       } else {
-        img.addEventListener('load', function() {
-          img.classList.add('imgLoaded');
-        });
+        // Either no LQIP (non-WCDN, single load) or full-res after LQIP.
+        img.classList.add('imgLoaded');
+      }
+    });
+
+    // LQIP may already be cached on repeat visits.
+    if (img.complete && img.naturalWidth > 0) {
+      if (img.hasAttribute('data-has-lqip')) {
+        lqipDone.add(img);
+      } else {
+        img.classList.add('imgLoaded');
       }
     }
-  }
+
+    prefetchIO.observe(pic);
+    nearIO.observe(pic);
+  });
+})();
 {% endmacro %}
 </script>
 {# script tags are for syntax val #}
@@ -34,36 +94,43 @@
   {% endjs %}
   {%- set sizes -%}
     {%- if args.width -%}
-      (max-width: {{ args.width }}px) {{ args.width }}px, 
-      (max-width: {{ args.width * 2}}px) {{ args.width * 2}}px, 
-      (max-width: {{ args.width * 3}}px) {{ args.width * 3}}px, 
+      (max-width: {{ args.width }}px) {{ args.width }}px,
+      (max-width: {{ args.width * 2}}px) {{ args.width * 2}}px,
+      (max-width: {{ args.width * 3}}px) {{ args.width * 3}}px,
     {%- else -%}
       {%- if isWNCDN -%}
-        (max-width: 640px) 640px, 
-        (max-width: 960px) 960px, 
-        (max-width: 1200px) 1200px, 
+        (max-width: 640px) 640px,
+        (max-width: 960px) 960px,
+        (max-width: 1200px) 1200px,
         (min-width: 1201px) 1800px
       {%- else -%}
-        (max-width: 1024px) 1024px, 
-        (max-width: 2048px) 2048px, 
+        (max-width: 1024px) 1024px,
+        (max-width: 2048px) 2048px,
         (max-width: 2049px) 3072px
       {%- endif -%}
     {%- endif -%}
   {%- endset -%}
   {%- set srcset -%}
     {%- if args.width -%}
-      {{ src }}?width={{ args.width * 3}}px&format=webp 3x, 
-      {{ src }}?width={{ args.width * 2}}px&format=webp 2x, 
+      {{ src }}?width={{ args.width * 3}}px&format=webp 3x,
+      {{ src }}?width={{ args.width * 2}}px&format=webp 2x,
       {{ src }}?width={{ args.width * 1}}px&format=webp 1x
     {%- else -%}
       {%- if isWNCDN -%}
-        {{ src }}?width=2400px&format=webp, 
-        {{ src }}?width=1100px&format=webp 960w, 
-        {{ src }}?width=1400px&format=webp 1200w, 
+        {{ src }}?width=2400px&format=webp 2400w,
+        {{ src }}?width=1100px&format=webp 960w,
+        {{ src }}?width=1400px&format=webp 1200w,
         {{ src }}?width=2000px&format=webp 1800w
       {%- else -%}
         {{ customSRCSet | safe }}
       {%- endif -%}
+    {%- endif -%}
+  {%- endset -%}
+  {%- set lqipSrc -%}
+    {%- if isWNCDN -%}
+      {{ src | replace(" ", "") }}?width=40&format=webp
+    {%- else -%}
+      data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
     {%- endif -%}
   {%- endset -%}
   {%- set src -%}
@@ -72,15 +139,16 @@
   <picture class="picture--{{ imageProps.orientation }}" style="--ratio: {{ imageProps.ratio }}; --color: {{ imageProps.color }}">
     <source
       sizes="{{ sizes }}"
-      srcset="{{ srcset }}"
+      data-srcset="{{ srcset }}"
     >
-    <img 
+    <img
       class="progressiveImg {{ class }}"
-      src="{{ src | replace(" ", "") }}" 
-      width="{{ imageProps.width }}" 
+      src="{{ lqipSrc | replace(" ", "") }}"
+      {% if not isWNCDN %}data-src="{{ src | replace(" ", "") }}"{% endif %}
+      {% if isWNCDN %}data-has-lqip{% endif %}
+      width="{{ imageProps.width }}"
       height="{{ imageProps.height }}"
       alt="{% if title %}{{ title }}{% else %}{{ fileName }}{% endif %}"
-      loading="{{ loading }}"
     />
     <div class="blurUp"></div>
   </picture>
