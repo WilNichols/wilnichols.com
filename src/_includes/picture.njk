@@ -55,8 +55,12 @@
         // load that follows once the browser selects from srcset.
         lqipDone.add(img);
       } else {
-        // Either no LQIP (non-WCDN, single load) or full-res after LQIP.
-        img.classList.add('imgLoaded');
+        // Wait for decode before clearing the blur — load fires on HTTP
+        // response complete, but large WebP decode can lag 50–200ms,
+        // which would briefly expose the LQIP without the blur overlay.
+        img.decode()
+          .catch(function () {})
+          .then(function () { img.classList.add('imgLoaded'); });
       }
     });
 
