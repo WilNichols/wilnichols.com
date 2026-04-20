@@ -1,4 +1,5 @@
 import crypto from "crypto";
+import pLimit from "p-limit";
 import dotenv from 'dotenv';
 import { DateTime } from 'luxon';
 import { EleventyRenderPlugin, EleventyHtmlBasePlugin } from '@11ty/eleventy';
@@ -167,7 +168,9 @@ export default async function(eleventyConfig) {
     }
 
     const allItems = collectionsApi.getAll();
-  
+    const delay = ms => new Promise(r => setTimeout(r, ms));
+    const limit = pLimit(10);
+
     const allPhotos = (
       await Promise.all(
         allItems.map(async (item) => {
@@ -178,96 +181,97 @@ export default async function(eleventyConfig) {
         })
       )
     ).flat().filter(Boolean);
-  
+
+    // Deduplicate by key before processing — same URL can appear across pages.
+    const uniquePhotos = [...new Map(
+      allPhotos.filter(p => p?.key).map(p => [p.key, p])
+    ).values()];
+
     const photoMap = Object.fromEntries(
       await Promise.all(
-        allPhotos
-          .filter(photo => photo && photo.key)
-          .map(async ({ key, lastModified, meta }) => {
+        uniquePhotos.map(({ key, lastModified, meta }) => limit(async () => {
 
-            let isAbsolute = true, host = "";
-            try { const u = new URL(key); host = `${u.protocol}//${u.host}`; }
-            catch { isAbsolute = false; host = process.env.CDN ?? ""; }
-  
-            const url =
-              isAbsolute ? key :
-              host && key.startsWith("/") ? `${host}${key}` :
-              host ? `${host}/${key}` : key;
+          let isAbsolute = true, host = "";
+          try { const u = new URL(key); host = `${u.protocol}//${u.host}`; }
+          catch { isAbsolute = false; host = process.env.CDN ?? ""; }
 
-            const args = host === process.env.CDN ? "?width=6px&format=webp" : "";
-  
-            const asset = new AssetCache(url);
-            let cachedInfo = await asset.getCachedValue().catch(() => null);
-            
-            if (!cachedInfo?.capturedAt || new Date(lastModified) > new Date(cachedInfo.capturedAt)) {
-            
-              const imageURL = url + args;
-              let success = false, width = 0, height = 0, ratio = 0, orientation = "unknown", colorHex = "#000000";
-              let attempts = 0;
+          const url =
+            isAbsolute ? key :
+            host && key.startsWith("/") ? `${host}${key}` :
+            host ? `${host}/${key}` : key;
 
-              while (attempts < 3 && !success) {
-                attempts++;
+          const args = host === process.env.CDN ? "?width=6px&format=webp" : "";
+
+          const asset = new AssetCache(url);
+          let cachedInfo = await asset.getCachedValue().catch(() => null);
+
+          if (!cachedInfo?.capturedAt || new Date(lastModified) > new Date(cachedInfo.capturedAt)) {
+
+            const imageURL = url + args;
+            let success = false, width = 0, height = 0, ratio = 0, orientation = "unknown", colorHex = { hex: "#000000" };
+            let attempts = 0;
+
+            while (attempts < 3 && !success) {
+              attempts++;
+              try {
+                const resp = await fetch(imageURL, {
+                  redirect: "follow",
+                  headers: { "User-Agent": "Eleventy/Fetch", "Referer": host }
+                });
+                if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+                const ab = await resp.arrayBuffer();
+                if (!ab.byteLength) throw new Error("Empty body");
+                const buf = Buffer.from(ab);
+
+                let size;
                 try {
-                  const resp = await fetch(imageURL, {
-                    redirect: "follow",
-                    headers: { "User-Agent": "Eleventy/Fetch", "Referer": host }
-                  });
-                  if (!resp.ok) throw new Error(`Fetch ${resp.status} ${imageURL}`);
-                  const type = resp.headers.get("content-type") || "";
-                  if (resp.ok) {
-                    const ab = await resp.arrayBuffer();
-                    if (!ab.byteLength) throw new Error("Empty body");
-                    const buf = Buffer.from(ab);
-                    const size = imageSize(buf);
-                    success = true;
-                    width = size.width;
-                    height = size.height;
-                    ratio = width / height;
-                    orientation = (width === height) ? "square" : (width > height ? "landscape" : "portrait");
-                    colorHex = await getAverageColor(imageURL);
-                  }
-                } catch { 
-                  console.warn('⚠️ | ' + url) 
-                  if (attempts === 3) console.warn('❌ | giving up on ' + url);
+                  size = imageSize(buf);
+                } catch (e) {
+                  throw new Error(`imageSize failed: ${e.message}`);
                 }
+                if (!size?.width || !size?.height) throw new Error("imageSize returned no dimensions");
+
+                try {
+                  colorHex = await getAverageColor(buf);
+                } catch (e) {
+                  console.warn(`⚠️  [photos] color failed for ${url}: ${e.message}`);
+                  colorHex = { hex: "#888888" };
+                }
+
+                width = size.width;
+                height = size.height;
+                ratio = width / height;
+                orientation = (width === height) ? "square" : (width > height ? "landscape" : "portrait");
+                success = true;
+
+              } catch (e) {
+                console.warn(`⚠️  [photos] attempt ${attempts}/3 failed for ${url}: ${e.message}`);
+                if (attempts < 3) await delay(500 * 2 ** attempts);
+                else console.warn(`❌  [photos] giving up on ${url}`);
               }
-
-              const fileInfo = { 
-                capturedAt: new Date().toISOString(),
-                color: colorHex.hex, 
-                success, width, height, ratio, orientation, 
-                ...(meta && typeof meta === "object" ? meta : {}),
-              };
-
-              const toCache = {
-                key: url,
-                lastModified, host, url, args,
-                fileInfo
-              };
-
-              await asset.save(fileInfo, "json");
-              cachedInfo = fileInfo;
-            }
-  
-            if (typeof cachedInfo === "string") {
-              try { cachedInfo = JSON.parse(cachedInfo); } catch {}
             }
 
-            const result = {
-              key: url,
-              lastModified,
-              host,
-              url,
-              args,
-              fileInfo: cachedInfo
+            const fileInfo = {
+              capturedAt: new Date().toISOString(),
+              color: colorHex.hex,
+              success, width, height, ratio, orientation,
+              ...(meta && typeof meta === "object" ? meta : {}),
             };
 
-            return [url, result];
-          })
+            await asset.save(fileInfo, "json");
+            cachedInfo = fileInfo;
+          }
+
+          if (typeof cachedInfo === "string") {
+            try { cachedInfo = JSON.parse(cachedInfo); } catch {}
+          }
+
+          return [url, { key: url, lastModified, host, url, args, fileInfo: cachedInfo }];
+        }))
       )
     );
-  
-    console.log(photoMap);
+
+    console.log(`[photos] indexed ${Object.keys(photoMap).length} photos`);
     return photoMap;
   });
   

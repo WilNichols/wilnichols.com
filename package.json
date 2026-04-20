@@ -38,6 +38,7 @@
     "netlify-plugin-cache-folder": "^0.0.8",
     "netlify-plugin-debug-cache": "^1.0.4",
     "node-html-parser": "^7.0.1",
+    "p-limit": "^7.3.0",
     "title-case": "^4.3.1"
   },
   "dependencies": {
