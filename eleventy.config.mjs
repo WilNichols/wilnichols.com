@@ -57,13 +57,19 @@ export default async function(eleventyConfig) {
   
   eleventyConfig.setLibrary('md', md);
   
-  eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
+  eleventyConfig.addShortcode('year', () => `${new Date().getFullYear()}`);
   
   // Filters
   
   eleventyConfig.addFilter("getPhoto", function (key) {
     const photos = this.ctx.collections?.photos;
     return photos[key];
+  });
+  
+  eleventyConfig.addFilter("getNestedTag", function (tags, prefix) {
+    prefix = prefix + '/';
+    const nestedTag = tags.filter(s => s.startsWith(prefix))
+    return nestedTag.toString().replace(prefix, '');
   });
   
   eleventyConfig.addFilter("links_to", async function(collection, target) {
@@ -127,7 +133,7 @@ export default async function(eleventyConfig) {
       });
       return tagsList;
   });
-  
+
   eleventyConfig.addCollection("glassPhotos", async (collectionsApi) => {
     // we sent these to a collection b/c njk templates can't read straight from eleventyComputed
     const allItems = collectionsApi.getFilteredByTag("cameraRollSource");
@@ -267,7 +273,7 @@ export default async function(eleventyConfig) {
       )
     );
   
-    console.log(photoMap);
+    // console.log(photoMap);
     return photoMap;
   });
   
@@ -292,6 +298,16 @@ export default async function(eleventyConfig) {
     });
   });
   
+  eleventyConfig.addFilter("designInputFilter", function (collection) {
+    return collection.map(item => {
+      const filter = item.data.inputFilter;
+  
+      if (filter === "Pointer") return "desktop";
+      if (filter === "Coarse") return "mobile";
+      return "shared";
+    });
+  });
+
   eleventyConfig.addFilter("draftsOf", (collection1, collection2) => {
     return collection1.filter(value => collection2.includes(value));
   });

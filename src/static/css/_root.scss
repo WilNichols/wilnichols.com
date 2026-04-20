@@ -5,7 +5,7 @@
 }
 
 :root {
+  @include tokens.sizeAliases;
   @include tokens.colorAliases;
   @include tokens.colorLiterals;
-  @include tokens.sizeAliases;
 }

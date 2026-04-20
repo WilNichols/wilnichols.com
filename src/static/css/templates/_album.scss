@@ -1,7 +1,6 @@
 @use '../tokens';
 
 body:has(> .page--album) {
-  --materialPrimaryColor: var(--photoBackgroundMaterialColor);
   padding: 0;
 }
 
@@ -28,8 +27,6 @@ body:has(> .page--album) {
   min-height: 100dvh;
   padding: 0 var(--col) var(--col) var(--col);
 }
-
-$gap: var(--col);
 
 .page--camera-roll__header {
   margin: 0 auto calc(var(--col)/3) auto;

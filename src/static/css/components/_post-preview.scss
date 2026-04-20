@@ -7,20 +7,28 @@
 
 $delay: .1s;
 
-.post__month {
+.post__month,
+.project__name,
+.project__client {
   white-space-collapse: break-spaces;
 }
 
-.post__month, .post__year {
+.post__month, 
+.post__year,
+.project__name,
+.project__client {
   font-size: var(--type--1);
   @extend %font--display-medium;
 }
 
-.post__month {
+.post__month,
+.project__name {
   color: var(--contentPrimaryColor);
 }
 
-.post__year, .post__day {
+.post__year, 
+.post__day,
+.project__client {
   color: var(--contentSecondaryColor);
 }
 
@@ -162,7 +170,7 @@ $delay: .1s;
   }
   .post__summary__text {
     opacity: 0;
-    @media(pointer: coarse) {
+    @media (pointer: coarse) {
       opacity: 1;
     }
   }

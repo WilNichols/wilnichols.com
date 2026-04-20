@@ -4,7 +4,6 @@ author: Wil Nichols
 tags:
   - Topic/Life
   - Topic/Media
-url: 
 summary: "“The 2016 primaries were just like that time Snipe smooched Dumbledore in the ninth book” and that genre of commentary."
 ---
 

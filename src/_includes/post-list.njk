@@ -106,6 +106,8 @@
         <li class="note" style="--z-index-modifier: {{ collection.length - loop.index }}">
           {{ postListItem(post, postPrefix, showAccessories) }}
         </li>
+        {# ends the last item #}
+        {% if loop.index == loop.length %}</ol></li>{% endif %}
         {% set currentDay = postDay %}
         {% set currentMonth = postMonth %}
         {% set currentYear = postYear %}
