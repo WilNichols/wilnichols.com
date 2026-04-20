@@ -5,7 +5,7 @@ import slugify from "@sindresorhus/slugify";
 async function getAlbumContentsFromAWS(key) {
   if (!process.env.FAST) {
     // do some Async work
-    console.log('getting photos for ' + dir);
+    console.log('getting photos for ' + key);
     const client = new S3Client({ 
       region: "us-east-1" ,
       credentials: {
