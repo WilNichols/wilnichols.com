@@ -256,13 +256,16 @@ export default async function(eleventyConfig) {
         }
 
         const fileInfo = {
-          capturedAt: new Date().toISOString(),
+          // Only set capturedAt on success — failed results must not be
+          // cached, so they retry on the next build rather than persisting
+          // with ratio: 0 and no color until the S3 lastModified changes.
+          ...(success ? { capturedAt: new Date().toISOString() } : {}),
           color: colorHex.hex,
           success, width, height, ratio, orientation,
           ...(meta && typeof meta === "object" ? meta : {}),
         };
 
-        await asset.save(fileInfo, "json");
+        if (success) await asset.save(fileInfo, "json");
         cachedInfo = fileInfo;
       }
 
