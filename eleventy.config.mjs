@@ -144,150 +144,16 @@ export default async function(eleventyConfig) {
     return glassPhotos;
   });
   
-  eleventyConfig.addCollection("photos", async (collectionsApi) => {
-    // In dev, skip all photo fetching: return a stub so every URL gets placeholder metadata.
-    const isDev = process.env.ELEVENTY_ENV === "dev";
-    const placeholderFileInfo = {
-      orientation: "landscape",
-      ratio: 1.5,
-      color: "#888888",
-      width: 1200,
-      height: 800,
-      success: true,
-    };
-    if (isDev) {
-      return new Proxy(
-        {},
-        {
-          get(_, key) {
-            return { fileInfo: placeholderFileInfo };
-          },
-        }
-      );
-    }
-
-    const allItems = collectionsApi.getAll();
-    const delay = ms => new Promise(r => setTimeout(r, ms));
-    const BATCH_SIZE = 5;
-
-    const allPhotos = (
-      await Promise.all(
-        allItems.map(async (item) => {
-          let photos = item.data.photos;
-          if (!photos) return [];
-          if (typeof photos === "function") photos = photos(item.data);
-          return await Promise.resolve(photos);
-        })
-      )
-    ).flat().filter(Boolean);
-
-    // Deduplicate by key before processing — same URL can appear across pages.
-    const uniquePhotos = [...new Map(
-      allPhotos.filter(p => p?.key).map(p => [p.key, p])
-    ).values()];
-
-    // Process in fixed batches rather than a single Promise.all — each batch's
-    // heap (large ArrayBuffers from full-res fetches) is released before the
-    // next batch starts, avoiding OOM on cold builds with many uncached photos.
-    const processPhoto = async ({ key, lastModified, meta }) => {
-      let isAbsolute = true, host = "";
-      try { const u = new URL(key); host = `${u.protocol}//${u.host}`; }
-      catch { isAbsolute = false; host = process.env.CDN ?? ""; }
-
-      const url =
-        isAbsolute ? key :
-        host && key.startsWith("/") ? `${host}${key}` :
-        host ? `${host}/${key}` : key;
-
-      const args = host === process.env.CDN ? "?width=6px&format=webp" : "";
-
-      const asset = new AssetCache(url);
-      let cachedInfo = await asset.getCachedValue().catch(() => null);
-
-      if (!cachedInfo?.capturedAt || new Date(lastModified) > new Date(cachedInfo.capturedAt)) {
-
-        const imageURL = url + args;
-        let success = false, width = 0, height = 0, ratio = 0, orientation = "unknown", colorHex = { hex: "#888888" };
-        let attempts = 0;
-
-        while (attempts < 3 && !success) {
-          attempts++;
-          let ab = null, buf = null;
-          try {
-            const resp = await fetch(imageURL, {
-              redirect: "follow",
-              headers: { "User-Agent": "Eleventy/Fetch", "Referer": host }
-            });
-            if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-            ab = await resp.arrayBuffer();
-            if (!ab.byteLength) throw new Error("Empty body");
-            buf = Buffer.from(ab);
-
-            let size;
-            try {
-              size = imageSize(buf);
-            } catch (e) {
-              throw new Error(`imageSize failed: ${e.message}`);
-            }
-            if (!size?.width || !size?.height) throw new Error("imageSize returned no dimensions");
-
-            try {
-              colorHex = await getAverageColor(buf);
-            } catch (e) {
-              console.warn(`⚠️  [photos] color failed for ${url}: ${e.message}`);
-            }
-
-            width = size.width;
-            height = size.height;
-            ratio = width / height;
-            orientation = (width === height) ? "square" : (width > height ? "landscape" : "portrait");
-            success = true;
-
-          } catch (e) {
-            console.warn(`⚠️  [photos] attempt ${attempts}/3 failed for ${url}: ${e.message}`);
-            if (attempts < 3) await delay(500 * 2 ** attempts);
-            else console.warn(`❌  [photos] giving up on ${url}`);
-          } finally {
-            // Explicitly release image buffers — full-res fetches (non-CDN)
-            // can be 10–15 MB each and must not survive into the next batch.
-            ab = null;
-            buf = null;
-          }
-        }
-
-        const fileInfo = {
-          // Only set capturedAt on success — failed results must not be
-          // cached, so they retry on the next build rather than persisting
-          // with ratio: 0 and no color until the S3 lastModified changes.
-          ...(success ? { capturedAt: new Date().toISOString() } : {}),
-          color: colorHex.hex,
-          success, width, height, ratio, orientation,
-          ...(meta && typeof meta === "object" ? meta : {}),
-        };
-
-        if (success) await asset.save(fileInfo, "json");
-        cachedInfo = fileInfo;
-      }
-
-      if (typeof cachedInfo === "string") {
-        try { cachedInfo = JSON.parse(cachedInfo); } catch {}
-      }
-
-      return [url, { key: url, lastModified, host, url, args, fileInfo: cachedInfo }];
-    };
-
-    const entries = [];
-    for (let i = 0; i < uniquePhotos.length; i += BATCH_SIZE) {
-      const batch = uniquePhotos.slice(i, i + BATCH_SIZE);
-      const batchResults = await Promise.all(batch.map(processPhoto));
-      entries.push(...batchResults);
-      console.log(`[photos] processed ${Math.min(i + BATCH_SIZE, uniquePhotos.length)}/${uniquePhotos.length}`);
-    }
-
-    const photoMap = Object.fromEntries(entries);
-
-    console.log(`[photos] indexed ${Object.keys(photoMap).length} photos`);
-    return photoMap;
+  eleventyConfig.addCollection("photos", async () => {
+    const base = "https://img.nkls.me";
+    const [photosResp, rollResp] = await Promise.all([
+      fetch(`${base}/api/photos`),
+      fetch(`${base}/api/camera-roll`),
+    ]);
+    if (!photosResp.ok) throw new Error(`Photo service ${photosResp.status}`);
+    if (!rollResp.ok) throw new Error(`Camera roll service ${rollResp.status}`);
+    const [photos, roll] = await Promise.all([photosResp.json(), rollResp.json()]);
+    return { ...photos, ...roll };
   });
   
   eleventyConfig.addCollection("Feed", function (collectionsApi) {

@@ -4,12 +4,11 @@ import Fetch from '@11ty/eleventy-fetch';
 import { parse } from 'node-html-parser';
 
 async function getAlbumContentsFromGlass() {
-  let url = 'https://glass.photo/wilnichols/rss';
+  const url = 'https://glass.photo/wilnichols/rss';
+  const cachePath = process.env.ELEVENTY_ENV === 'dev' ? '.cache' : '/opt/build/cache/';
   const cameraRollArray = [];
-  let cachePath = process.env.ELEVENTY_ENV === 'dev' ? '.cache' : '/opt/build/cache/';
-  
+
   let feed;
-  
   try {
     feed = await extract(url, {
       getExtraEntryFields: (feedEntry) => {
@@ -23,18 +22,17 @@ async function getAlbumContentsFromGlass() {
     });
   } catch (error) {
     console.error(`Failed to extract feed from ${url}:`, error);
-    return []; // Exit early with an empty array if feed extraction fails
+    return [];
   }
-  
+
   for (const entry of feed.entries) {
     try {
-      let cameraRollEntry = {};
       const glassPage = await Fetch(entry.link, {
         duration: '*',
-        type: 'xml',
+        type: 'text',
         directory: cachePath,
       });
-  
+
       const parsedGlassPage = parse(glassPage);
       const cameraSettings = parsedGlassPage.querySelector('.fa-loader')?.parentNode.nextSibling?.textContent.split(',');
       const formatter = new Intl.DateTimeFormat("en-US", {
@@ -49,7 +47,7 @@ async function getAlbumContentsFromGlass() {
       const rawDate = formatter.format(new Date(entry.published));
       const isoDate = DateTime.fromFormat(rawDate, 'FF').toISO();
 
-      cameraRollEntry = {
+      cameraRollArray.push({
         key: entry.enclosure.url,
         lastModified: new Date(isoDate).toISOString(),
         meta: {
@@ -70,22 +68,16 @@ async function getAlbumContentsFromGlass() {
             formatted: DateTime.fromISO(isoDate, 'FF')
           }
         }
-      };
-      
-      // console.warn('fetching: ' + cameraRollEntry.key);
-  
-      cameraRollArray.push(cameraRollEntry);
+      });
     } catch (entryError) {
       console.error(`Error processing entry at ${entry.link}:`, entryError);
       continue;
     }
   }
-  
-  // Sort only valid entries
-  const sortedCameraRoll = cameraRollArray.sort((a, b) =>
+
+  return cameraRollArray.sort((a, b) =>
     a.meta.date.ISO < b.meta.date.ISO ? -1 : a.meta.date.ISO > b.meta.date.ISO ? 1 : 0
   );
-  return sortedCameraRoll;
 }
 
 export default function (eleventy) {
