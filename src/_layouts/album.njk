@@ -23,7 +23,7 @@ eleventyImport:
   </div>
   {% set albumLength %}{{ photos | length }}{% endset %}
   <ul class="album__album-photos">
-    {% for photo in photos | reverse %}
+    {% for photo in photos %}
       {% if loop.index < 3 %}{% set loading = 'eager' %}{% else %}{% set loading = 'lazy' %}{% endif %}
       {% set src %}{{ remote.gallery.base }}/{{ photo.key }}{% endset %}
       {% set fileName %}{{ photo.fileName | slugify }}{% endset %}
