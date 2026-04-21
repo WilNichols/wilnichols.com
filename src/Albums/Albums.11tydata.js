@@ -49,7 +49,7 @@ export default function (eleventy) {
     tags: ["Albums", "Topic/Photography"],
     eleventyComputed: {
       permalink: data => '/albums/' + slugify(data.page.fileSlug).replace('-s', 's') + '/',
-      photos: async data => getAlbumContentsFromAWS(data.key)
+      photos: async data => data.key ? getAlbumContentsFromAWS(data.key) : null
     }
   }
 }
