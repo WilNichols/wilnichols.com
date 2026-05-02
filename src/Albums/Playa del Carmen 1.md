@@ -5,7 +5,7 @@ key: PlayaDelCarmen1
 thumbnail: DSCF2945.jpg
 tags:
   - AlbumInfo/Camera/X-T2
-  - AlbumInfo/Location/Playa-del-Carman
+  - AlbumInfo/Location/Playa-del-Carmen
   - AlbumInfo/Location/Mexico
   - Topic/Hackathon
   - AlbumInfo/Period/Pre-COVID
