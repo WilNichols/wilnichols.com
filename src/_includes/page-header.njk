@@ -19,11 +19,10 @@
   const url = '{{ url | htmlBaseUrl(meta.url) }}';
   window.copyURL = async (event) => {
     await navigator.clipboard.writeText(url).catch(() => {});
-    const target = event.currentTarget;
-    target.classList.add('tooltip--dismissed');
-    
+    const target = document.getElementsByID('copy-url-button');
+    target.classList.add('copy-url-button--success');
     setTimeout(() => {
-      target.classList.remove('tooltip--dismissed');
+      target.classList.remove('copy-url-button--success');
     }, 5000);
   }
 {% endmacro %}
@@ -40,6 +39,19 @@
       Back
     </span>
   </a>
+{% endmacro %}
+
+{% macro copyURLButton() %}
+  <button id="copy-url-button" class="copy-url__button" onClick="copyURL(event)">
+    <span class="page-info__entry__key page-info__toggle">
+      <span class="page-info__entry__key page-info__toggle__a">{% include "../static/img/links--12.svg" %}</span>
+      <span class="page-info__entry__key page-info__toggle__b">{% include "../static/img/success--12.svg" %}</span>
+    </span>
+    <span class="page-info__entry__value page-info__toggle">
+      <span class="page-info__entry__key page-info__toggle__a">Copy Link</span>
+      <span class="page-info__entry__key page-info__toggle__b">Link copied</span>
+    </span>
+  </button>
 {% endmacro %}
 
 {% macro pageTitle(cookedTitleString) %}
@@ -100,11 +112,13 @@
   {% set cookedTitleString %}{{ altTitle if altTitle else page.fileSlug }}{% endset %}
   {% set date %}{% if draft %}Draft{% else %}{{ date | readableDateISO }}{% endif %}{% endset %}
   <{{ el }} class="page-header__title-container">
-    {{ backButton() }}
+    <div class="page-header__buttons-container">
+      {{ backButton() }}
+      {{ copyURLButton() }}
+    </div>
     <div class="page-header__title" style="--view-transition-name: post-title--{{ page.fileSlug | slugify }}">
       {{ pageTitle(cookedTitleString) }}
       {{ pageInfo(cookedTitleString, date, revisions, tags) }}
-      <div class="copy-url"><button class="copy-url__button" onClick="copyURL(event)" data-content="Copy Link">{% include "../static/img/links--16.svg" %}</button></div>
     </div>
   </{{ el }}>
   {% js "defer" %}
