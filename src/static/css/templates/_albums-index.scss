@@ -54,11 +54,11 @@
     transition: background-color .2s ease-out,transform .2s ease-out;
   }
   &:hover {
-    & + .album-preview {
+    & ~ .album-preview {
       @include tokens.light-dark(opacity, 0.33, 0.5);
       @include tokens.light-dark(mix-blend-mode, multiply, screen);
     }
-    & + .album-preview img {
+    & ~ .album-preview img {
       filter: blur(0);
       transform: scale(1);
       & {

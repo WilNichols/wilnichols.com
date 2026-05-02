@@ -254,7 +254,24 @@ export default async function(eleventyConfig) {
     );
     return grouped;
   });
-  
+
+  eleventyConfig.addFilter("sortByAlbumGroup", (albums) => {
+    const getGroup = (album) => album.data.tags?.find(t => t.startsWith("AlbumGroup/")) ?? "";
+    const groupDates = {};
+    for (const album of albums) {
+      const group = getGroup(album);
+      if (!groupDates[group] || album.date > groupDates[group]) groupDates[group] = album.date;
+    }
+    return [...albums].sort((a, b) => {
+      const ga = getGroup(a), gb = getGroup(b);
+      if (ga !== gb) {
+        const dateDiff = (groupDates[gb] ?? 0) - (groupDates[ga] ?? 0);
+        return dateDiff !== 0 ? dateDiff : ga.localeCompare(gb);
+      }
+      return b.date - a.date;
+    });
+  });
+
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   
   eleventyConfig.addFilter('log', (value) => {
