@@ -7,7 +7,7 @@ tags:
   - AlbumInfo/Location/Porto
   - AlbumInfo/Location/Portugal
   - AlbumInfo/Period/KULeuven
-  - AlbumGroup/The-E.U.
+  - 'AlbumGroup/Europe'
 date: 2019-01-28T00:00
 ---
 Following sunny Lisbon (see [[Lisbon 2]], we spent three days in the much-less-sunny Porto.

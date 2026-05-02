@@ -7,7 +7,7 @@ tags:
   - AlbumInfo/Location/Madrid
   - AlbumInfo/Location/Spain
   - AlbumInfo/Period/Study-Abroad
-  - AlbumGroup/The-E.U.
+  - 'AlbumGroup/Europe'
 date: 2016-04-18T00:00
 ---
 Victoria and I stayed with friends from Austin on the second stop of our Easter travel, following Geneva.

@@ -7,7 +7,7 @@ tags:
   - AlbumInfo/Location/Prague
   - AlbumInfo/Location/Czech-Republic
   - AlbumInfo/Period/KULeuven
-  - AlbumGroup/The-E.U.
+  - 'AlbumGroup/Europe'
 date: 2018-10-19T00:00
 ---
 I took a beautiful trip to Prague for my birthday in 2018.
