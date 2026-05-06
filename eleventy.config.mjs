@@ -131,6 +131,7 @@ export default async function(eleventyConfig) {
   eleventyConfig.addCollection("glassPhotos", async (collectionsApi) => {
     // we sent these to a collection b/c njk templates can't read straight from eleventyComputed
     const allItems = collectionsApi.getFilteredByTag("cameraRollSource");
+    console.log(`[glassPhotos] resolving ${allItems.length} cameraRollSource items`);
     const glassPhotos = (
       await Promise.all(
         allItems.map(async (item) => {
@@ -141,11 +142,13 @@ export default async function(eleventyConfig) {
         })
       )
     ).flat().filter(Boolean);
+    console.log(`[glassPhotos] resolved ${glassPhotos.length} photos, ~${Math.round(JSON.stringify(glassPhotos).length / 1024)}KB`);
     return glassPhotos;
   });
-  
+
   eleventyConfig.addCollection("photos", async () => {
     const base = "https://img.nkls.me";
+    console.log(`[photos] fetching from ${base}`);
     const [photosResp, rollResp] = await Promise.all([
       fetch(`${base}/api/photos`),
       fetch(`${base}/api/camera-roll`),
@@ -153,7 +156,9 @@ export default async function(eleventyConfig) {
     if (!photosResp.ok) throw new Error(`Photo service ${photosResp.status}`);
     if (!rollResp.ok) throw new Error(`Camera roll service ${rollResp.status}`);
     const [photos, roll] = await Promise.all([photosResp.json(), rollResp.json()]);
-    return { ...photos, ...roll };
+    const merged = { ...photos, ...roll };
+    console.log(`[photos] loaded ${Object.keys(merged).length} entries, ~${Math.round(JSON.stringify(merged).length / 1024)}KB`);
+    return merged;
   });
   
   eleventyConfig.addCollection("Feed", function (collectionsApi) {
@@ -254,7 +259,24 @@ export default async function(eleventyConfig) {
     );
     return grouped;
   });
-  
+
+  eleventyConfig.addFilter("sortByAlbumGroup", (albums) => {
+    const getGroup = (album) => album.data.tags?.find(t => t.startsWith("AlbumGroup/")) ?? "";
+    const groupDates = {};
+    for (const album of albums) {
+      const group = getGroup(album);
+      if (!groupDates[group] || album.date > groupDates[group]) groupDates[group] = album.date;
+    }
+    return [...albums].sort((a, b) => {
+      const ga = getGroup(a), gb = getGroup(b);
+      if (ga !== gb) {
+        const dateDiff = (groupDates[gb] ?? 0) - (groupDates[ga] ?? 0);
+        return dateDiff !== 0 ? dateDiff : ga.localeCompare(gb);
+      }
+      return b.date - a.date;
+    });
+  });
+
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   
   eleventyConfig.addFilter('log', (value) => {
