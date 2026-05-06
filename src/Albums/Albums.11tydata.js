@@ -1,12 +1,14 @@
 import dotenv from 'dotenv';
 import { S3Client, ListObjectsV2Command } from '@aws-sdk/client-s3';
 import { AssetCache } from '@11ty/eleventy-fetch';
+import pLimit from 'p-limit';
 import slugify from "@sindresorhus/slugify";
 
 // To flush a single album's cache: rm .cache/aws_album_<key>.*
 // To flush all album caches: rm .cache/aws_album_*
 
 const sessionCache = new Map();
+const limit = pLimit(5);
 
 async function getAlbumContentsFromAWS(key) {
   if (process.env.FAST) return null;
@@ -27,39 +29,41 @@ async function getAlbumContentsFromAWS(key) {
     return cached;
   }
 
-  console.log('getting photos for ' + key);
-  const client = new S3Client({
-    region: "us-east-1",
-    credentials: {
-      accessKeyId: process.env.WN_AWS_ACCESS_KEY_ID,
-      secretAccessKey: process.env.WN_AWS_SECRET_ACCESS_KEY
+  return limit(async () => {
+    console.log('getting photos for ' + key);
+    const client = new S3Client({
+      region: "us-east-1",
+      credentials: {
+        accessKeyId: process.env.WN_AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.WN_AWS_SECRET_ACCESS_KEY
+      }
+    });
+    const command = new ListObjectsV2Command({
+      Bucket: 'wnphoto01',
+      Delimiter: '/',
+      Prefix: 'gallery-2023/' + key + '/'
+    });
+
+    let albums;
+    try {
+      const data = await client.send(command);
+      data.Contents.forEach(image => image.Size > 30 * 1024 * 1024 && console.warn(image.Key + ' is above 30MB'));
+      albums = data.Contents
+        .slice(1)
+        .map(({ Key, LastModified }) => ({
+          key: Key,
+          lastModified: LastModified,
+          fileName: Key.split('/').pop(),
+        }));
+    } catch (error) {
+      return 'AWS failure';
     }
-  });
-  const command = new ListObjectsV2Command({
-    Bucket: 'wnphoto01',
-    Delimiter: '/',
-    Prefix: 'gallery-2023/' + key + '/'
-  });
 
-  let albums;
-  try {
-    const data = await client.send(command);
-    data.Contents.forEach(image => image.Size > 30 * 1024 * 1024 && console.warn(image.Key + ' is above 30MB'));
-    albums = data.Contents
-      .slice(1)
-      .map(({ Key, LastModified }) => ({
-        key: Key,
-        lastModified: LastModified,
-        fileName: Key.split('/').pop(),
-      }));
-  } catch (error) {
-    return 'AWS failure';
-  }
-
-  await asset.save(albums, "json");
-  sessionCache.set(key, albums);
-  console.log(`[album cache] created: ${key}`);
-  return albums;
+    await asset.save(albums, "json");
+    sessionCache.set(key, albums);
+    console.log(`[album cache] created: ${key}`);
+    return albums;
+  });
 }
 
 export default function (eleventy) {
