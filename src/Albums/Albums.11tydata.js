@@ -84,8 +84,8 @@ export default function (eleventy) {
           .replace(/[#*`_~]/g, '')
           .replace(/\s+/g, ' ')
           .trim();
-        if (text.length <= 140) return text';
-        return text.slice(0, 139).replace(/\s+\S*$/, '') + '…;
+        if (text.length <= 140) return text;
+        return text.slice(0, 139).replace(/\s+\S*$/, '') + '…';
       }
     }
   }
