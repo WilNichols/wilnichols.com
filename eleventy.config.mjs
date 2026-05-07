@@ -66,34 +66,28 @@ export default async function(eleventyConfig) {
     return photos[key];
   });
   
+  const linksCache = new Map();
   eleventyConfig.addFilter("links_to", async function(collection, target) {
     const hostname = "wilnichols.com";
-    const cache = {};
     function getLinks(html) {
-        if (cache[html]) {
-            return cache[html];
-        }
-    
+        if (linksCache.has(html)) return linksCache.get(html);
         const dom = new JSDOM(html);
         const document = dom.window.document;
-    
         const result = new Set([...document.querySelectorAll("a[href]")]
             .map(x => {
                 let href = x.getAttribute("href");
-    
-                // Normalise internal links
                 const url = new URL(href, `https://${hostname}`);
-                if (url.hostname == hostname) {
-                    return url.pathname;
-                }
-    
+                if (url.hostname == hostname) return url.pathname;
                 url.hash = "";
                 return url.toString();
             }));
-        cache[html] = result;
+        linksCache.set(html, result);
         return result;
     }
-      return collection.filter(item => getLinks(item.content).has(target));
+    return collection.filter(item => {
+      try { return getLinks(item.content).has(target); }
+      catch { return false; }
+    });
   });
   
   eleventyConfig.addFilter("getRevision", string => {
@@ -279,6 +273,14 @@ export default async function(eleventyConfig) {
 
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   
+  eleventyConfig.addFilter('hasContent', (post) => {
+    try { return !!post.content; } catch { return false; }
+  });
+
+  eleventyConfig.addFilter('safeContent', (post) => {
+    try { return post.content ?? ''; } catch { return ''; }
+  });
+
   eleventyConfig.addFilter('log', (value) => {
     console.log('\x1b[37m', value);
     console.log('\x1b[0m', '');

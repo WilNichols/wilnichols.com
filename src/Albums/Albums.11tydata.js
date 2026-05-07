@@ -72,7 +72,22 @@ export default function (eleventy) {
     tags: ["Albums", "Topic/Photography"],
     eleventyComputed: {
       permalink: data => '/albums/' + slugify(data.page.fileSlug).replace('-s', 's') + '/',
-      photos: async data => data.key ? getAlbumContentsFromAWS(data.key) : null
+      photos: async data => data.key ? getAlbumContentsFromAWS(data.key) : null,
+      metaPreview: data => data.remote.gallery.base + '/' + data.remote.gallery.photos + '/' + data.key + '/' + data.thumbnail + '?width=1400px&format=webp',
+      description: data => {
+        const raw = data.page?.rawInput ?? '';
+        const body = raw.replace(/^---[\s\S]*?---\n?/, '').trim();
+        if (!body) return null;
+        const text = body
+          .replace(/<[^>]*>/g, '')
+          .replace(/!\[.*?\]\(.*?\)/g, '')
+          .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
+          .replace(/[#*`_~]/g, '')
+          .replace(/\s+/g, ' ')
+          .trim();
+        if (text.length <= 140) return text;
+        return text.slice(0, 139).replace(/\s+\S*$/, '') + '…';
+      }
     }
   }
 }
