@@ -21,11 +21,11 @@
     <meta name="twitter:card" content="summary" />
     <meta property="og:title" content="{{ metaTitle }}" />
     <meta name="twitter:title" content="{{ metaTitle }}" />
-    <meta name="twitter:description" content="{{ metadescription }}" />
+    <meta name="twitter:description" content="{{ metaDescription }}" />
     <meta property="go:description" content="{{ metaDescription }}" />
-    {% if previewImage %}
-      <meta property="og:image" content="{{ previewImage }}" />
-      <meta name="twitter:image" content="{{ previewImage }}" />
+    {% if metaPreview %}
+      <meta property="og:image" content="{{ metaPreview | safe }}" />
+      <meta name="twitter:image" content="{{ metaPreview | safe }}" />
     {% endif %}
     <meta name="twitter:site" content="@wilnichols" />
     <link rel="stylesheet" href="{{ '/assets/css/styles.css' | url | bust }}">

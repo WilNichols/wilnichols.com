@@ -73,6 +73,7 @@ export default function (eleventy) {
     eleventyComputed: {
       permalink: data => '/albums/' + slugify(data.page.fileSlug).replace('-s', 's') + '/',
       photos: async data => data.key ? getAlbumContentsFromAWS(data.key) : null,
+      metaPreview: data => data.remote.gallery.base + '/' + data.remote.gallery.photos + '/' + data.key + '/' + data.thumbnail + '?width=1400px&format=webp',
       description: data => {
         const raw = data.page?.rawInput ?? '';
         const body = raw.replace(/^---[\s\S]*?---\n?/, '').trim();
