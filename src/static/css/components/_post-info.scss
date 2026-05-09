@@ -89,13 +89,16 @@ $tableGap: 10px;
   }
 }
 
+.page-info__entry--back-link {
+  // 12px icon + 10px gap
+  transform: translateX(-12px - $tableGap);
+}
+
 .page-info__entry--back-link,
 .copy-url__button {
   @extend %page-info__grid;
   @extend %page-info__entry-style;
   & {
-    // 12px icon + 10px gap
-    transform: translateX(-12px - $tableGap);
     text-decoration-color: var(--linkColor);
   }
   * {
