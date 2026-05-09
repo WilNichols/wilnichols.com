@@ -72,56 +72,18 @@ $logoWidth: 21px;
   row-gap: 4px;
 }
 
-.copy-url {
-  grid-column: 2 / 3;
-  grid-row: 1 / 5;
+.page-header__buttons-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
 }
 
 .copy-url__button {
   appearance: none;
   -webkit-appearance: none;
-  height: var(--u48);
-  width: var(--u48);
+  text-decoration: underline;
   color: var(--linkColor);
-  border: 0;
-  display: grid;
-  place-content: center;
-  background-color: transparent;
-  position: relative;
   cursor: pointer;
-  svg {
-    fill: currentcolor;
-    z-index: 10;
-    pointer-events: none;
-  }
-  // tooltip
-  @extend %tooltip;
-  &::after {
-    position: absolute;
-    white-space: nowrap;
-    z-index: 100;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%) translateY(calc(-100% - calc(var(--tooltipOffset, 0px))));
-  }
-  &:hover::after {
-    --tooltipOffset: var(--u4);
-  }
-  &.tooltip--dismissed::after {
-    --tooltipOffset: var(--u8);
-    --tipOpacity: 0;
-  }
-  // background
-  &::before {
-    border-radius: var(--u24);
-    inset: 0;
-  }
-  @extend %blurredBackground;
-  &:hover {
-    @extend %blurredBackgroundHover; 
-  }
-  &:active::before {
-    scale: 0.95;
-    background-color: var(--materialPrimaryActiveColor);
-  }
+  border: 0;
+  background-color: transparent;
 }

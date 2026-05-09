@@ -74,6 +74,8 @@
 
 .album-preview {
   $halfCol: calc(var(--col)/2);
+  opacity: 0;
+  transition: tokens.$x opacity ease-out;
   & {
     z-index: -10;
     display: grid;
@@ -97,7 +99,7 @@
       position: absolute;
       filter: blur(.6em);
       transform: scale(0.9875);
-      transition: tokens.$x opacity ease-out, tokens.$x filter ease-out, tokens.$x transform ease-out;
+      transition: tokens.$x filter ease-out, tokens.$x transform ease-out;
     }
   }
 }

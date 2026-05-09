@@ -5,7 +5,7 @@ key: PlayaDelCarmen2
 thumbnail: DSCF3036.jpg
 tags:
   - AlbumInfo/Camera/X-T4
-  - AlbumInfo/Location/Playa-del-Carman
+  - AlbumInfo/Location/Playa-del-Carmen
   - AlbumInfo/Location/Mexico
   - Topic/Hackathon
   - 'AlbumGroup/Playa del Carmen'
