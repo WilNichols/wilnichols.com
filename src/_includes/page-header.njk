@@ -15,14 +15,25 @@
 </script>
 
 <script>
+{% macro _toggleButtonSetup() %}
+    document.querySelectorAll('.animated-letters').forEach(el => {
+      el.innerHTML = [...el.textContent]
+        .map(letter => `<span>${letter}</span>`)
+        .join('');
+    });
+{% endmacro %}
 {% macro _copyURLScript(url) %}
   const url = '{{ url | htmlBaseUrl(meta.url) }}';
   window.copyURL = async (event) => {
     await navigator.clipboard.writeText(url).catch(() => {});
-    const target = document.getElementsByID('copy-url-button');
-    target.classList.add('copy-url-button--success');
+    const target = document.getElementById('copy-url-button');
+    
+    target.classList.remove('copy-url__button--success--in', 'copy-url__button--success--out');
+    void target.offsetWidth;
+    target.classList.add('copy-url__button--success--in');
+    
     setTimeout(() => {
-      target.classList.remove('copy-url-button--success');
+      target.classList.replace('copy-url__button--success--in', 'copy-url__button--success--out');
     }, 5000);
   }
 {% endmacro %}
@@ -47,9 +58,9 @@
       <span class="page-info__entry__key page-info__toggle__a">{% include "../static/img/links--12.svg" %}</span>
       <span class="page-info__entry__key page-info__toggle__b">{% include "../static/img/success--12.svg" %}</span>
     </span>
-    <span class="page-info__entry__value page-info__toggle">
-      <span class="page-info__entry__key page-info__toggle__a">Copy Link</span>
-      <span class="page-info__entry__key page-info__toggle__b">Link copied</span>
+    <span class="page-info__toggle">
+      <span class="page-info__entry__value page-info__entry__value--clickable page-info__toggle__a page-info__entry__value animated-letters">Copy Link</span>
+      <span class="page-info__entry__value page-info__toggle__b animated-letters">Link copied</span>
     </span>
   </button>
 {% endmacro %}
@@ -61,7 +72,7 @@
 {% macro pageInfoEntry(icon, content, el = "li") %}
   <{{ el }} class="page-info__entry">
     <span class="page-info__entry__key">{% include "../static/img/" + icon + "--12.svg" %}</span>
-    <span class="page-info__entry__value">{{ content | safe }}</span>
+    <span class="page-info__entry__value page-info__entry__value--clickable">{{ content | safe }}</span>
   </{{ el }}>
 {% endmacro %}
     
@@ -123,6 +134,7 @@
   </{{ el }}>
   {% js "defer" %}
     {{ _backButtonScript() }}
+    {{ _toggleButtonSetup() }}
     {{ _copyURLScript(page.url) }}
   {% endjs %}
 {% endmacro %}<script>
