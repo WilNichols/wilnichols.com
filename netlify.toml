@@ -2,6 +2,9 @@
   command = "npm run netlify-build"
   publish = "_site/"
 
+[build.environment]
+  NODE_OPTIONS = "--max-old-space-size=7168"
+
 [context.develop]
   command = "npm run netlify-build-dev"
   publish = "_site/"
@@ -19,6 +22,8 @@
 
 [[plugins]]
   package = "netlify-plugin-cache"
-  
+  [plugins.inputs]
+    paths = [".cache"]
+
 [[plugins]]
   package = "netlify-plugin-debug-cache"

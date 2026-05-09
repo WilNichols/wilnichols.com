@@ -8,8 +8,8 @@
     "node": ">=20.11.0"
   },
   "scripts": {
-    "start": "ELEVENTY_ENV=dev npm-run-all build:sass --parallel watch:*",
-    "start-fast": "ELEVENTY_ENV=dev FAST=true npm-run-all build:sass --parallel watch:*",
+    "start": "ELEVENTY_ENV=dev NODE_OPTIONS=--max-old-space-size=7168 npm-run-all build:sass --parallel watch:*",
+    "start-fast": "ELEVENTY_ENV=dev FAST=true NODE_OPTIONS=--max-old-space-size=7168 npm-run-all build:sass --parallel watch:*",
     "fast-start": "echo 'Did you mean to run `start-fast`?'",
     "netlify-build": "ELEVENTY_ENV=prod NETLIFY=true npm-run-all build:sass build:eleventy build:morepostcss build:postcss && rm -rf _tmp && rm -rf _site/_ && npm run build:minify",
     "netlify-build-dev": "ELEVENTY_ENV=dev NETLIFY=true npm-run-all build:sass build:eleventy build:morepostcss build:postcss && npm run headers:move && npm run headers:replace",

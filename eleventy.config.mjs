@@ -66,34 +66,28 @@ export default async function(eleventyConfig) {
     return photos[key];
   });
   
+  const linksCache = new Map();
   eleventyConfig.addFilter("links_to", async function(collection, target) {
     const hostname = "wilnichols.com";
-    const cache = {};
     function getLinks(html) {
-        if (cache[html]) {
-            return cache[html];
-        }
-    
+        if (linksCache.has(html)) return linksCache.get(html);
         const dom = new JSDOM(html);
         const document = dom.window.document;
-    
         const result = new Set([...document.querySelectorAll("a[href]")]
             .map(x => {
                 let href = x.getAttribute("href");
-    
-                // Normalise internal links
                 const url = new URL(href, `https://${hostname}`);
-                if (url.hostname == hostname) {
-                    return url.pathname;
-                }
-    
+                if (url.hostname == hostname) return url.pathname;
                 url.hash = "";
                 return url.toString();
             }));
-        cache[html] = result;
+        linksCache.set(html, result);
         return result;
     }
-      return collection.filter(item => getLinks(item.content).has(target));
+    return collection.filter(item => {
+      try { return getLinks(item.content).has(target); }
+      catch { return false; }
+    });
   });
   
   eleventyConfig.addFilter("getRevision", string => {
@@ -131,6 +125,7 @@ export default async function(eleventyConfig) {
   eleventyConfig.addCollection("glassPhotos", async (collectionsApi) => {
     // we sent these to a collection b/c njk templates can't read straight from eleventyComputed
     const allItems = collectionsApi.getFilteredByTag("cameraRollSource");
+    console.log(`[glassPhotos] resolving ${allItems.length} cameraRollSource items`);
     const glassPhotos = (
       await Promise.all(
         allItems.map(async (item) => {
@@ -141,11 +136,13 @@ export default async function(eleventyConfig) {
         })
       )
     ).flat().filter(Boolean);
+    console.log(`[glassPhotos] resolved ${glassPhotos.length} photos, ~${Math.round(JSON.stringify(glassPhotos).length / 1024)}KB`);
     return glassPhotos;
   });
-  
+
   eleventyConfig.addCollection("photos", async () => {
     const base = "https://img.nkls.me";
+    console.log(`[photos] fetching from ${base}`);
     const [photosResp, rollResp] = await Promise.all([
       fetch(`${base}/api/photos`),
       fetch(`${base}/api/camera-roll`),
@@ -153,7 +150,9 @@ export default async function(eleventyConfig) {
     if (!photosResp.ok) throw new Error(`Photo service ${photosResp.status}`);
     if (!rollResp.ok) throw new Error(`Camera roll service ${rollResp.status}`);
     const [photos, roll] = await Promise.all([photosResp.json(), rollResp.json()]);
-    return { ...photos, ...roll };
+    const merged = { ...photos, ...roll };
+    console.log(`[photos] loaded ${Object.keys(merged).length} entries, ~${Math.round(JSON.stringify(merged).length / 1024)}KB`);
+    return merged;
   });
   
   eleventyConfig.addCollection("Feed", function (collectionsApi) {
@@ -254,9 +253,34 @@ export default async function(eleventyConfig) {
     );
     return grouped;
   });
-  
+
+  eleventyConfig.addFilter("sortByAlbumGroup", (albums) => {
+    const getGroup = (album) => album.data.tags?.find(t => t.startsWith("AlbumGroup/")) ?? "";
+    const groupDates = {};
+    for (const album of albums) {
+      const group = getGroup(album);
+      if (!groupDates[group] || album.date > groupDates[group]) groupDates[group] = album.date;
+    }
+    return [...albums].sort((a, b) => {
+      const ga = getGroup(a), gb = getGroup(b);
+      if (ga !== gb) {
+        const dateDiff = (groupDates[gb] ?? 0) - (groupDates[ga] ?? 0);
+        return dateDiff !== 0 ? dateDiff : ga.localeCompare(gb);
+      }
+      return b.date - a.date;
+    });
+  });
+
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   
+  eleventyConfig.addFilter('hasContent', (post) => {
+    try { return !!post.content; } catch { return false; }
+  });
+
+  eleventyConfig.addFilter('safeContent', (post) => {
+    try { return post.content ?? ''; } catch { return ''; }
+  });
+
   eleventyConfig.addFilter('log', (value) => {
     console.log('\x1b[37m', value);
     console.log('\x1b[0m', '');

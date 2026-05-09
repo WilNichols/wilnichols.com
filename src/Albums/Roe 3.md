@@ -7,7 +7,7 @@ tags:
   - AlbumInfo/Camera/X-T4
   - AlbumInfo/Location/Austin
   - AlbumInfo/Location/Texas
-  - AlbumGroup/Roe
+  - 'AlbumGroup/Roe v. Wade'
 date: 2022-07-26T00:00
 ---
 A couple of weeks after the actual Court opinion was published, a Beto rally organized in East Austin.
