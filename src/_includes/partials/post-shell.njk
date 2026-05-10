@@ -1,0 +1,46 @@
+{%- from 'page-header.njk' import PageHeader with context -%}
+{%- from 'related-posts.njk' import RelatedPosts with context -%}
+{%- from 'footer.njk' import Footer with context -%}
+{%- from 'revisions.njk' import RevisionList with context -%}
+{%- from 'asides.njk' import CaseStudyInfo with context -%}
+{%- from 'picture.njk' import Picture with context -%}
+
+<article class="page page--{{ postType }}">
+  <header class="page-header__container">
+    {{ PageHeader() }}
+    {% if postType == 'case-study' %}
+      {% include 'heroes/' + page.fileSlug + '.njk' %}
+      {{ CaseStudyInfo(project) }}
+    {% endif %}
+  </header>
+  <main class="content-body">
+    {% if postType == 'pen' %}
+      <div class="case-study-image case-study-image--16x9 iframe-hero">
+        {% if hero %}<iframe class="demo__iframe" src="{{ hero }}" frameborder="0"></iframe>{% endif %}
+      </div>
+    {% endif %}
+    {{ content | safe }}
+    {% if postType == 'album' %}
+      {{ RelatedPosts(previousPost, nextPost, altString="Viewing") }}
+      <ul class="album__album-photos">
+        {% for photo in photos %}
+          {% if loop.index < 3 %}{% set loading = 'eager' %}{% else %}{% set loading = 'lazy' %}{% endif %}
+          {% set src %}{{ remote.gallery.base }}/{{ photo.key }}{% endset %}
+          {% set fileName %}{{ photo.fileName | slugify }}{% endset %}
+          <li class="album__album-photos__photo" id="{{ fileName | replace('-jpg', '') | replace('dscf', '') }}">
+            {{ Picture(fileName=fileName, src=src, loading=loading, isWNCDN=true) }}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      {{ RevisionList(
+        el=('div' if postType == 'pen' else 'section'),
+        revisions
+      )}}
+    {% endif %}
+  </main>
+  {% if postType != 'album' %}
+    {{ RelatedPosts(previousPost, nextPost, backlinks) }}
+  {% endif %}
+  {{ Footer() }}
+</article>
