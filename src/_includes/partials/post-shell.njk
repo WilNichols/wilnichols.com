@@ -14,9 +14,9 @@
     {% endif %}
   </header>
   <main class="content-body">
-    {% if postType == 'pen' and hero %}
+    {% if postType == 'pen' %}
       <div class="case-study-image case-study-image--16x9 iframe-hero">
-        <iframe class="demo__iframe" src="{{ hero }}" frameborder="0"></iframe>
+        {% if hero %}<iframe class="demo__iframe" src="{{ hero }}" frameborder="0"></iframe>{% endif %}
       </div>
     {% endif %}
     {{ content | safe }}
