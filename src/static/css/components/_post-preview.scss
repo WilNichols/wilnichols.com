@@ -6,6 +6,8 @@
 @include tokens.headingStyles;
 
 $delay: .1s;
+$partialDur: math.div(tokens.$x, 3) * 2;
+$partialDelay: math.div(tokens.$x, 3);
 
 .post__month {
   white-space-collapse: break-spaces;
@@ -131,15 +133,28 @@ $delay: .1s;
       color: var(--contentSecondaryColor);
       opacity: 0;
       filter: blur(.3em);
-      transition: tokens.$x transform ease-out, tokens.$x opacity ease-out, tokens.$x filter ease-out;
+      transition: $partialDur transform ease-out, $partialDur opacity ease-out, $partialDur filter ease-out;
       transition-delay: 0s;
+      grid-row: 1 / 2;
+      justify-content: end;
     }
   }
   .post__accessories {
-    grid-column: 3 / 4;
-    display: flex;
-    gap: 4px;
-    margin: calc((1.2em - 16px)/2) 0;
+    & {
+      grid-column: 3 / 4;
+      display: flex;
+      gap: 4px;
+      margin: calc((1.2em - 16px)/2) 0;
+    }
+    @media(pointer: fine) {
+      grid-column: 4 / 5;
+      grid-row: 1 / 2;
+      opacity: 1;
+      filter: blur(0);
+      transform: translateX(0);
+      transition: $partialDur transform ease-out, $partialDur opacity ease-out, $partialDur filter ease-out;
+      transition-delay: $partialDelay;
+    }
     > li {
       display: contents;
     }
@@ -150,13 +165,13 @@ $delay: .1s;
   .post__day, .post__title {
     grid-row: 1 / 2;
   }
-  .post__preview ~ .post__day, .post__preview ~ .post__title {
+  .post__preview ~ .post__day, .post__preview ~ .post__title, .post__preview ~ .post__accessories, .post__preview ~ .post__direction {
     grid-row: 2 / 3;
   }
   .post__preview ~ .post__summary {
     grid-row: 3 / 4;
   }
-  .post__day, .post__title, .post__accessories, .post__summary__text  {
+  .post__day, .post__title, .post__summary__text  {
     transition: tokens.$x transform ease-out;
     transition-delay: 0s;
   }
@@ -187,15 +202,18 @@ $delay: .1s;
         transition-delay: $delay;
       }
       .post__accessories {
+        filter: blur(.3em);
+        opacity: 0;
         transform: translateX(-$d);
+        transition: $partialDur transform ease-out, $partialDur opacity ease-out, $partialDur filter ease-out;
         transition-delay: $delay;
       }
       .post__direction {
         transform: translateX(-$d);
         opacity: 1;
         filter: blur(0);
-        transition: tokens.$x transform ease-out, tokens.$x opacity ease-out, tokens.$x filter ease-out;
-        transition-delay: $delay;
+        transition: $partialDur transform ease-out, $partialDur opacity ease-out, $partialDur filter ease-out;
+        transition-delay: $delay + $partialDelay;
       }
     }
   }
@@ -363,6 +381,12 @@ $delay: .1s;
     opacity: 0;
   }
 }
+
+// body:has(.post__link:hover) *:not(:hover):not(.post__link *) {
+//   opacity: 0.5;
+//   transition: opacity 0.5s ease-out;
+//   transition-delay: 0.2s;
+// }
 
 // .picture-stack {
 //   display: grid;
