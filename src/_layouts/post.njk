@@ -1,0 +1,8 @@
+---
+layout: page.njk
+---
+{% set _collection = postCollection or 'Notes' %}
+{% set previousPost = collections[_collection] | getPreviousCollectionItem %}
+{% set nextPost     = collections[_collection] | getNextCollectionItem %}
+{% set backlinks    = collections.all | links_to(page.url) %}
+{% include 'partials/post-shell.njk' %}

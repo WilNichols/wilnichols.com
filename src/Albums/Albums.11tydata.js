@@ -69,6 +69,7 @@ async function getAlbumContentsFromAWS(key) {
 export default function (eleventy) {
   return {
     layout: "album.njk",
+    postType: "album",
     tags: ["Albums", "Topic/Photography"],
     eleventyComputed: {
       permalink: data => '/albums/' + slugify(data.page.fileSlug).replace('-s', 's') + '/',

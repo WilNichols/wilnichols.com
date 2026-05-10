@@ -2,6 +2,8 @@ export default function () {
   return {
     permalink: "/{{ page.fileSlug | slugify }}/index.html",
     tags: "Pens",
-    layout: "pen.njk"
+    layout: 'post.njk',
+    postType: 'pen',
+    postCollection: 'Pens'
   }
 }
