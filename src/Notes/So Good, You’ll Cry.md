@@ -33,7 +33,7 @@ Wednesday night, Darien and I drove to Georgetown to spend the following two day
 
 We drove back Friday evening, and after spending a luxurious Saturday without touching a burner,[^7] I got to work on a seitan braise. I wasn’t completely satisfied with what I’d made for Thanksgiving, and with a cold front rolling in — temperatures dropped to the low forties after eating outdoors in Thursday — I was looking for warm, winter comfort food. Whereas Thursday’s was a dense mushroom seitan roast boiled in saltwater, this roast was a looser dough hydrated with a mushroom kombu broth, soy sauce, vegemite,[^8] and red wine mixture. The seitan had thinly diced mushrooms, garlic, and mirepoix kneaded into the dough, and then small pieces of frozen refined coconut oil, creating pockets in the dough and yielding a varied, looser texture. Finally, the dough was wrapped and trussed, rested for three hours, coated in coarsely-ground black pepper and salt, seared, and then simmered for two hours in the same hydrating liquid alongside chopped carrots, onions, shallots, fingerling potatoes, and a diced rutabaga and parsnip. It was killer, and the apartment smelled amazing.
 
-I first and last made this kind of meal while I still ate meat, after moving to Belgium eight years ago. The cold winter was shocking, and I craved cozy aromatics and leftovers. Tom would make beef braises when I was young, and I remember comfortable winter evenings — the few in Texas that were cold — as these aromatics filled the house, and we’d sit down to a dinner or braised vegetables and meat. 
+I first and last made this kind of meal while I still ate meat, after moving to Belgium eight years ago. The cold winter was shocking, and I craved cozy aromatics and leftovers. Tom would make beef braises when I was young, and I remember comfortable winter evenings — the few in Texas that were cold — as these aromatics filled the house, and we’d sit down to a dinner of braised vegetables and meat. 
 
 I was struck today with the distance from the living man to the remembered man, but this isn’t new. I was shocked to feel the dissonance of mourning him privately, while being often frustrated by him when we’re together. The holiday was at points a stressful mix of family, their contributions, and their mutually-escalating reactions. Privately, after the holiday, I could mourn the lost pieces — rather, this lost version — of my father despite spending  much of the week with him.
  
@@ -48,4 +48,4 @@ I know there’s no right or wrong way to grieve, but damn.
 [^5]: The Field Roast [cookbook](https://fieldroast.com/cookbook/) was a great purchase. I already made seitan, but this helped me stretch seitan as a Western-meal centerpiece.
 [^6]: Funnily enough, from [Château Pape Clément](/catching-up/), where Darien and I visited on our honeymoon.
 [^7]: But plotting my next moves...
-[^8]: Vegetarians, think wildly concentrated noo
+[^8]: Vegetarians, think wildly concentrated nooch.
