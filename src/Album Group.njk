@@ -1,0 +1,34 @@
+---
+layout: page.njk
+pagination:
+  data: collections.albumGroups
+  size: 1
+  alias: group
+permalink: /albums/{{ group | replace('AlbumGroup/', '')}}/
+eleventyImport:
+  collections: ["photos"]
+---
+{%- from 'picture.njk' import Picture with context -%}
+
+<h1>Tagged “{{ group }}”</h1>
+
+<ol>
+{% set taglist = collections[group] %}
+{% for post in taglist | reverse %}
+  {# <li><a href="{{ post.url }}">{{ post.data.title }}</a></li> #}
+  {{ post.data.title }}
+ {% for photo in post.data.photos %}
+    {% if loop.index < 3 %}{% set loading = 'eager' %}{% else %}{% set loading = 'lazy' %}{% endif %}
+    {% set src %}{{ remote.gallery.base }}/{{ photo.key }}{% endset %}
+    {% set fileName %}{{ photo.fileName | slugify }}{% endset %}
+    <li class="album__album-photos__photo" id="{{ fileName | replace('-jpg', '') | replace('dscf', '') }}">
+      {{ Picture(fileName=fileName, src=src, loading=loading, isWNCDN=true) }}
+    </li>
+  {% endfor %}
+{% endfor %}
+</ol>
+
+
+{# <ul class="album__album-photos">
+  
+</ul> #}

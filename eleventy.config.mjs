@@ -17,6 +17,7 @@ import pluginRss from '@11ty/eleventy-plugin-rss';
 import beautify from 'js-beautify';
 import syntaxHighlight from '@11ty/eleventy-plugin-syntaxhighlight';
 import { JSDOM } from 'jsdom';
+import util from 'util';
 
 dotenv.config();
 
@@ -120,6 +121,23 @@ export default async function(eleventyConfig) {
           }
       });
       return tagsList;
+  });
+  
+  // https://stackoverflow.com/questions/66083103/how-to-generate-a-list-of-all-collections-in-11ty
+  eleventyConfig.addCollection("albumGroups", function(collectionsApi) {
+      const albumGroups = [];
+      collectionsApi.getAll().map( item => {
+          if (item.data.tags) { // handle pages that don't have tags
+              item.data.tags
+                .filter(tag => tag.startsWith('AlbumGroup/'))
+                .map(tag => {
+                  if (!albumGroups.includes(tag)) {
+                    albumGroups.push(tag);
+                  }
+                });
+          }
+      });
+      return albumGroups;
   });
   
   eleventyConfig.addCollection("glassPhotos", async (collectionsApi) => {
@@ -282,7 +300,8 @@ export default async function(eleventyConfig) {
   });
 
   eleventyConfig.addFilter('log', (value) => {
-    console.log('\x1b[37m', value);
+    // console.log('\x1b[37m', [...value]);
+    console.log(util.inspect(value, { maxArrayLength: null }))
     console.log('\x1b[0m', '');
   });
   
