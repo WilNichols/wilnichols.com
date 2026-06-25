@@ -4,31 +4,42 @@ pagination:
   data: collections.albumGroups
   size: 1
   alias: group
-permalink: /albums/{{ group | replace('AlbumGroup/', '')}}/
+permalink: /albums/{{ group | replace('AlbumGroup/', '') | slugify}}/
 eleventyImport:
   collections: ["photos"]
 ---
+{%- from 'header.njk' import Header with context -%}
+{%- from 'page-header.njk' import PageHeader with context -%}
 {%- from 'picture.njk' import Picture with context -%}
-
-<h1>Tagged “{{ group }}”</h1>
-
-<ol>
-{% set taglist = collections[group] %}
-{% for post in taglist | reverse %}
-  {# <li><a href="{{ post.url }}">{{ post.data.title }}</a></li> #}
-  {{ post.data.title }}
- {% for photo in post.data.photos %}
-    {% if loop.index < 3 %}{% set loading = 'eager' %}{% else %}{% set loading = 'lazy' %}{% endif %}
-    {% set src %}{{ remote.gallery.base }}/{{ photo.key }}{% endset %}
-    {% set fileName %}{{ photo.fileName | slugify }}{% endset %}
-    <li class="album__album-photos__photo" id="{{ fileName | replace('-jpg', '') | replace('dscf', '') }}">
-      {{ Picture(fileName=fileName, src=src, loading=loading, isWNCDN=true) }}
-    </li>
-  {% endfor %}
-{% endfor %}
-</ol>
-
-
-{# <ul class="album__album-photos">
+{%- from 'footer.njk' import Footer with context -%}
+<div class="page page--album-group">
+  <header class="page-header__container">
+  {{ Header() }}
+  </header>
+  <main class="content-body">
+    <article class="album-group__album">
+      {{ PageHeader() }}
+      {{ post.data.title }}
+      {{ post.data.fullDescription }}
+      <ul class="album__album-photos">
+      {% set taglist = collections[group] %}
+      {% for post in taglist | reverse %}
+        {# <li><a href="{{ post.url }}">{{ post.data.title }}</a></li> #}
+      {% for photo in post.data.photos %}
+          {% if loop.index < 3 %}{% set loading = 'eager' %}{% else %}{% set loading = 'lazy' %}{% endif %}
+          {% set src %}{{ remote.gallery.base }}/{{ photo.key }}{% endset %}
+          {% set fileName %}{{ photo.fileName | slugify }}{% endset %}
+          <li class="album__album-photos__photo" id="{{ fileName | replace('-jpg', '') | replace('dscf', '') }}">
+            {{ Picture(fileName=fileName, src=src, loading=loading, isWNCDN=true) }}
+          </li>
+        {% endfor %}
+      {% endfor %}
+      </ul>
+    </article>
+  </main>
+</div>
   
-</ul> #}
+  
+  {# <ul class="album__album-photos">
+    
+  </ul> #}

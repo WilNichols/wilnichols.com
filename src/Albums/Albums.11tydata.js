@@ -72,9 +72,28 @@ export default function (eleventy) {
     postType: "album",
     tags: ["Albums", "Topic/Photography"],
     eleventyComputed: {
-      permalink: data => '/albums/' + slugify(data.page.fileSlug).replace('-s', 's') + '/',
+      permalink: data => { 
+        const albumGroupTag = data.tags.find(tag => tag.includes("AlbumGroup"));
+        const albumGroup = albumGroupTag ? slugify(albumGroupTag.replace('AlbumGroup/', '')) : '';
+        const albumName = slugify(data.page.fileSlug).replace('-s', 's');
+        const parts = ['albums', albumGroup, albumName].filter(Boolean);
+        return '/' + parts.join('/') + '/'
+      },
       photos: async data => data.key ? getAlbumContentsFromAWS(data.key) : null,
       metaPreview: data => data.remote.gallery.base + '/' + data.remote.gallery.photos + '/' + data.key + '/' + data.thumbnail + '?width=1400px&format=webp',
+      fullDescription: data => {
+        const raw = data.page?.rawInput ?? '';
+        const body = raw.replace(/^---[\s\S]*?---\n?/, '').trim();
+        if (!body) return null;
+        const text = body
+          .replace(/<[^>]*>/g, '')
+          .replace(/!\[.*?\]\(.*?\)/g, '')
+          .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
+          .replace(/[#*`_~]/g, '')
+          .replace(/\s+/g, ' ')
+          .trim();
+        return text;
+      },
       description: data => {
         const raw = data.page?.rawInput ?? '';
         const body = raw.replace(/^---[\s\S]*?---\n?/, '').trim();
