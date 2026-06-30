@@ -289,8 +289,18 @@ export default async function(eleventyConfig) {
     });
   });
 
+  const isGroupIntro = (item) => item.data?.tags?.includes("AlbumGroupIntro");
+
+  eleventyConfig.addFilter("excludeGroupIntros", (collection) =>
+    (collection ?? []).filter(item => !isGroupIntro(item))
+  );
+
+  eleventyConfig.addFilter("groupIntro", (collection) =>
+    (collection ?? []).find(isGroupIntro) ?? null
+  );
+
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  
+
   eleventyConfig.addFilter('hasContent', (post) => {
     try { return !!post.content; } catch { return false; }
   });

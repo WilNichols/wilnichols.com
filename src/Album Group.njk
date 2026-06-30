@@ -19,10 +19,12 @@ eleventyImport:
   <main class="content-body">
     <article class="album-group__album">
       {{ PageHeader() }}
-      {{ post.data.title }}
-      {{ post.data.fullDescription }}
+      {% set intro = collections[group] | groupIntro %}
+      {% if intro %}
+        <div class="album-group__intro">{{ intro.content | safe }}</div>
+      {% endif %}
       <ul class="album__album-photos">
-      {% set taglist = collections[group] %}
+      {% set taglist = collections[group] | excludeGroupIntros %}
       {% for post in taglist | reverse %}
         {# <li><a href="{{ post.url }}">{{ post.data.title }}</a></li> #}
       {% for photo in post.data.photos %}
