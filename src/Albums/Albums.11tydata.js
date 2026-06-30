@@ -79,6 +79,10 @@ export default function (eleventy) {
         const parts = ['albums', albumGroup, albumName].filter(Boolean);
         return '/' + parts.join('/') + '/'
       },
+      groupPermalink: data => {
+        const tag = data.tags?.find(t => t.startsWith("AlbumGroup/"));
+        return tag ? `/albums/${slugify(tag.replace("AlbumGroup/", ""))}/` : null;
+      },
       photos: async data => data.key ? getAlbumContentsFromAWS(data.key) : null,
       metaPreview: data => data.remote.gallery.base + '/' + data.remote.gallery.photos + '/' + data.key + '/' + data.thumbnail + '?width=1400px&format=webp',
       fullDescription: data => {

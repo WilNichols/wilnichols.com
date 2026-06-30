@@ -13,7 +13,7 @@
         {% if prevAlbumOpen %}</li>{% endif %}
         {% if currentGroup != "" %}</ol></li>{% endif %}
         <li class="album-group">
-          <h2 class="album-group__title">{{ groupTitle }}&ensp;</h2>
+          <h2 class="album-group__title"><a class="album-group__album__link album-group__link" href="{{ album.data.groupPermalink}}">{{ groupTitle }}</a>&ensp;</h2>
           <ol class="album-group__albums-list">
         {% set currentGroup = albumGroup %}
       {% else %}

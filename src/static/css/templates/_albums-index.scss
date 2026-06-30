@@ -81,6 +81,10 @@
       background-color: var(--materialPrimaryInvertedColor);
     }
   }
+  &.album-group__link:hover::after {
+    transform: translateY(2px);
+    background-color: var(--materialPrimaryInvertedColor);
+  }
 }
 
 .album-group__album:has(~ .album-group__album)::after {
