@@ -8,7 +8,7 @@ tags:
   - AlbumInfo/Location/Auzon
   - AlbumInfo/Location/Auvergne
   - AlbumInfo/Location/France
-  - AlbumInfo/Period/KULeuven
+  - 'AlbumInfo/Period/KU Leuven'
   - AlbumGroup/Auvergne
 date: 2018-06-29T00:00
 ---

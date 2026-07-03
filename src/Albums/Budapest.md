@@ -6,7 +6,7 @@ tags:
   - AlbumInfo/Camera/X-T2
   - AlbumInfo/Location/Budapest
   - AlbumInfo/Location/Hungary
-  - AlbumInfo/Period/KULeuven
+  - 'AlbumInfo/Period/KU Leuven'
   - 'AlbumGroup/Europe'
 date: 2019-03-10T00:00
 ---

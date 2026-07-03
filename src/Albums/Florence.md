@@ -6,7 +6,7 @@ tags:
   - AlbumInfo/Camera/X-T2
   - AlbumInfo/Location/Florence
   - AlbumInfo/Location/Italy
-  - AlbumInfo/Period/KULeuven
+  - 'AlbumInfo/Period/KU Leuven'
   - 'AlbumGroup/Europe'
 date: 2019-06-10T00:00
 ---

@@ -7,7 +7,7 @@ tags:
   - AlbumInfo/Camera/X-T2
   - AlbumInfo/Location/Bruges
   - AlbumInfo/Location/Belgium
-  - AlbumInfo/Period/KULeuven
+  - 'AlbumInfo/Period/KU Leuven'
   - AlbumGroup/Bruges
 date: 2018-09-14T00:00
 ---

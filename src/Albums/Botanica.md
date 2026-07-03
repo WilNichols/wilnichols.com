@@ -6,7 +6,7 @@ tags:
   - AlbumInfo/Camera/X-T2
   - AlbumInfo/Location/Munich
   - AlbumInfo/Location/Germany
-  - AlbumInfo/Period/KULeuven
+  - 'AlbumInfo/Period/KU Leuven'
   - AlbumGroup/Munich
 date: 2019-07-08T00:00
 ---

@@ -6,7 +6,7 @@ tags:
   - AlbumInfo/Camera/X-T2
   - AlbumInfo/Location/Ghent
   - AlbumInfo/Location/Belgium
-  - AlbumInfo/Period/KULeuven
+  - 'AlbumInfo/Period/KU Leuven'
   - 'AlbumGroup/Europe'
 date: 2019-04-26T00:00
 ---

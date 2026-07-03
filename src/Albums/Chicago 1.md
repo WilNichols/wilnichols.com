@@ -7,7 +7,7 @@ tags:
   - AlbumInfo/Camera/X-T2
   - AlbumInfo/Location/Chicago
   - AlbumInfo/Location/Austin
-  - AlbumInfo/Period/KULeuven
+  - 'AlbumInfo/Period/KU Leuven'
   - AlbumGroup/Chicago
 date: 2019-04-13T00:00
 ---

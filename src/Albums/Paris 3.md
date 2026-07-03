@@ -7,7 +7,7 @@ tags:
   - AlbumInfo/Camera/X-T2
   - AlbumInfo/Location/Paris
   - AlbumInfo/Location/France
-  - AlbumInfo/Period/KULeuven
+  - 'AlbumInfo/Period/KU Leuven'
   - AlbumGroup/Paris
 date: 2018-07-10T00:00
 ---

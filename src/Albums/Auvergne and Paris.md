@@ -9,7 +9,7 @@ tags:
   - AlbumInfo/Location/Auvergne
   - AlbumInfo/Location/Paris
   - AlbumInfo/Location/France
-  - AlbumInfo/Period/KULeuven
+  - 'AlbumInfo/Period/KU Leuven'
   - AlbumGroup/Auvergne
 date: 2019-03-29T00:00
 ---

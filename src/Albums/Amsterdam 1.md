@@ -8,7 +8,7 @@ tags:
   - AlbumInfo/Camera/X-T2
   - AlbumInfo/Location/Netherlands
   - AlbumInfo/Location/Amsterdam
-  - AlbumInfo/Period/KULeuven
+  - 'AlbumInfo/Period/KU Leuven'
   - AlbumGroup/Amsterdam
 date: 2018-07-18T00:00
 ---

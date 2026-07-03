@@ -1,6 +1,6 @@
 ---
 title: Auzon 1
-shortTitle: One
+shortTitle: Auzon
 key: Auzon1
 thumbnail: DSCF5396.jpg
 tags:
@@ -9,7 +9,7 @@ tags:
   - AlbumInfo/Location/Auvergne
   - AlbumInfo/Location/France
   - 'AlbumInfo/Period/Our move to France'
-  - AlbumGroup/Auzon
+  - AlbumGroup/Auvergne
   - Type/NewAlbum
 date: 2026-04-20T00:00
 summary: 'We arrived in France just a week and a half ago. These are my photos of Auzon so far.'

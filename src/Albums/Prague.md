@@ -6,7 +6,7 @@ tags:
   - AlbumInfo/Camera/X-T2
   - AlbumInfo/Location/Prague
   - AlbumInfo/Location/Czech-Republic
-  - AlbumInfo/Period/KULeuven
+  - 'AlbumInfo/Period/KU Leuven'
   - 'AlbumGroup/Europe'
 date: 2018-10-19T00:00
 ---
