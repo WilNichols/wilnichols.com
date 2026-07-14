@@ -133,12 +133,12 @@
   <picture class="picture--{{ imageProps.orientation }}" style="--ratio: {{ imageProps.ratio }}; --color: {{ imageProps.color }}">
     <source
       sizes="{{ sizes }}"
-      data-srcset="{{ srcset }}"
+      data-srcset="{{ srcset | safe }}"
     >
     <img
       class="progressiveImg {{ class }}"
-      src="{{ lqipSrc | replace(" ", "") }}"
-      {%- if not isWNCDN %} data-src="{{ src | replace(" ", "") }}"{% endif %}
+      src="{{ lqipSrc | replace(" ", "") | safe }}"
+      {%- if not isWNCDN %} data-src="{{ src | replace(" ", "") | safe }}"{% endif %}
       width="{{ imageProps.width }}"
       height="{{ imageProps.height }}"
       alt="{% if title %}{{ title }}{% else %}{{ fileName }}{% endif %}"
