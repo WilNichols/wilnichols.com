@@ -15,7 +15,7 @@ date: 2025-06-27T00:00
 photoDate: 2024-04-06T00:00
 summary: 'Our ATX return until shortly before our wedding.'
 imagePropsSynchronous:
-  path: 'https://cdn.wilnichols.com/gallery-2023/Austin8/DSCF9676.jpg?width=6px&format=webp'
+  path: 'https://cdn.dznr.me/gallery-2023/Austin8/DSCF9676.jpg?width=6px&format=webp'
   height: 4
   width: 6
   ratio: 1.5

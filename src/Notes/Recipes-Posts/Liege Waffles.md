@@ -8,7 +8,7 @@ permalink: /recipes/liege-waffles/
 summary: I took part of Belgium with me.
 eleventyComputed:
   photos: 
-  - key: 'https://cdn.wilnichols.com/recipes/liege-waffles/DSCF5623.jpg'
+  - key: 'https://cdn.dznr.me/recipes/liege-waffles/DSCF5623.jpg'
 ingredientsContainer:
   ingredients: 
   - name: "Instant yeast"
@@ -46,7 +46,7 @@ ingredientsContainer:
   {% from "../_includes/picture.njk" import Picture with context %}
   {{  Picture(
       fileName = 'dscf5623-jpg',
-      src = 'https://cdn.wilnichols.com/recipes/liege-waffles/DSCF5623.jpg',
+      src = 'https://cdn.dznr.me/recipes/liege-waffles/DSCF5623.jpg',
       loading = 'eager',
       isWNCDN = true
   ) }}

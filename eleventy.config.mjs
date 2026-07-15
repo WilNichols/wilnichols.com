@@ -57,7 +57,7 @@ export default async function(eleventyConfig) {
   
   eleventyConfig.setLibrary('md', md);
   
-  eleventyConfig.addShortcode('year', () => `${new Date().getFullYear()}`);
+  eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
   
   // Filters
   
@@ -66,40 +66,28 @@ export default async function(eleventyConfig) {
     return photos[key];
   });
   
-  eleventyConfig.addFilter("getNestedTag", function (tags, prefix) {
-    prefix = prefix + '/';
-    const nestedTag = tags.filter(s => s.startsWith(prefix))
-    return nestedTag.toString().replace(prefix, '');
-  });
-  
+  const linksCache = new Map();
   eleventyConfig.addFilter("links_to", async function(collection, target) {
     const hostname = "wilnichols.com";
-    const cache = {};
     function getLinks(html) {
-        if (cache[html]) {
-            return cache[html];
-        }
-    
+        if (linksCache.has(html)) return linksCache.get(html);
         const dom = new JSDOM(html);
         const document = dom.window.document;
-    
         const result = new Set([...document.querySelectorAll("a[href]")]
             .map(x => {
                 let href = x.getAttribute("href");
-    
-                // Normalise internal links
                 const url = new URL(href, `https://${hostname}`);
-                if (url.hostname == hostname) {
-                    return url.pathname;
-                }
-    
+                if (url.hostname == hostname) return url.pathname;
                 url.hash = "";
                 return url.toString();
             }));
-        cache[html] = result;
+        linksCache.set(html, result);
         return result;
     }
-      return collection.filter(item => getLinks(item.content).has(target));
+    return collection.filter(item => {
+      try { return getLinks(item.content).has(target); }
+      catch { return false; }
+    });
   });
   
   eleventyConfig.addFilter("getRevision", string => {
@@ -133,10 +121,11 @@ export default async function(eleventyConfig) {
       });
       return tagsList;
   });
-
+  
   eleventyConfig.addCollection("glassPhotos", async (collectionsApi) => {
     // we sent these to a collection b/c njk templates can't read straight from eleventyComputed
     const allItems = collectionsApi.getFilteredByTag("cameraRollSource");
+    console.log(`[glassPhotos] resolving ${allItems.length} cameraRollSource items`);
     const glassPhotos = (
       await Promise.all(
         allItems.map(async (item) => {
@@ -147,134 +136,23 @@ export default async function(eleventyConfig) {
         })
       )
     ).flat().filter(Boolean);
+    console.log(`[glassPhotos] resolved ${glassPhotos.length} photos, ~${Math.round(JSON.stringify(glassPhotos).length / 1024)}KB`);
     return glassPhotos;
   });
-  
-  eleventyConfig.addCollection("photos", async (collectionsApi) => {
-    // In dev, skip all photo fetching: return a stub so every URL gets placeholder metadata.
-    const isDev = process.env.ELEVENTY_ENV === "dev";
-    const placeholderFileInfo = {
-      orientation: "landscape",
-      ratio: 1.5,
-      color: "#888888",
-      width: 1200,
-      height: 800,
-      success: true,
-    };
-    if (isDev) {
-      return new Proxy(
-        {},
-        {
-          get(_, key) {
-            return { fileInfo: placeholderFileInfo };
-          },
-        }
-      );
-    }
 
-    const allItems = collectionsApi.getAll();
-  
-    const allPhotos = (
-      await Promise.all(
-        allItems.map(async (item) => {
-          let photos = item.data.photos;
-          if (!photos) return [];
-          if (typeof photos === "function") photos = photos(item.data);
-          return await Promise.resolve(photos);
-        })
-      )
-    ).flat().filter(Boolean);
-  
-    const photoMap = Object.fromEntries(
-      await Promise.all(
-        allPhotos
-          .filter(photo => photo && photo.key)
-          .map(async ({ key, lastModified, meta }) => {
-
-            let isAbsolute = true, host = "";
-            try { const u = new URL(key); host = `${u.protocol}//${u.host}`; }
-            catch { isAbsolute = false; host = process.env.CDN ?? ""; }
-  
-            const url =
-              isAbsolute ? key :
-              host && key.startsWith("/") ? `${host}${key}` :
-              host ? `${host}/${key}` : key;
-
-            const args = host === process.env.CDN ? "?width=6px&format=webp" : "";
-  
-            const asset = new AssetCache(url);
-            let cachedInfo = await asset.getCachedValue().catch(() => null);
-            
-            if (!cachedInfo?.capturedAt || new Date(lastModified) > new Date(cachedInfo.capturedAt)) {
-            
-              const imageURL = url + args;
-              let success = false, width = 0, height = 0, ratio = 0, orientation = "unknown", colorHex = "#000000";
-              let attempts = 0;
-
-              while (attempts < 3 && !success) {
-                attempts++;
-                try {
-                  const resp = await fetch(imageURL, {
-                    redirect: "follow",
-                    headers: { "User-Agent": "Eleventy/Fetch", "Referer": host }
-                  });
-                  if (!resp.ok) throw new Error(`Fetch ${resp.status} ${imageURL}`);
-                  const type = resp.headers.get("content-type") || "";
-                  if (resp.ok) {
-                    const ab = await resp.arrayBuffer();
-                    if (!ab.byteLength) throw new Error("Empty body");
-                    const buf = Buffer.from(ab);
-                    const size = imageSize(buf);
-                    success = true;
-                    width = size.width;
-                    height = size.height;
-                    ratio = width / height;
-                    orientation = (width === height) ? "square" : (width > height ? "landscape" : "portrait");
-                    colorHex = await getAverageColor(imageURL);
-                  }
-                } catch { 
-                  console.warn('⚠️ | ' + url) 
-                  if (attempts === 3) console.warn('❌ | giving up on ' + url);
-                }
-              }
-
-              const fileInfo = { 
-                capturedAt: new Date().toISOString(),
-                color: colorHex.hex, 
-                success, width, height, ratio, orientation, 
-                ...(meta && typeof meta === "object" ? meta : {}),
-              };
-
-              const toCache = {
-                key: url,
-                lastModified, host, url, args,
-                fileInfo
-              };
-
-              await asset.save(fileInfo, "json");
-              cachedInfo = fileInfo;
-            }
-  
-            if (typeof cachedInfo === "string") {
-              try { cachedInfo = JSON.parse(cachedInfo); } catch {}
-            }
-
-            const result = {
-              key: url,
-              lastModified,
-              host,
-              url,
-              args,
-              fileInfo: cachedInfo
-            };
-
-            return [url, result];
-          })
-      )
-    );
-  
-    // console.log(photoMap);
-    return photoMap;
+  eleventyConfig.addCollection("photos", async () => {
+    const base = "https://img.nkls.me";
+    console.log(`[photos] fetching from ${base}`);
+    const [photosResp, rollResp] = await Promise.all([
+      fetch(`${base}/api/photos`),
+      fetch(`${base}/api/camera-roll`),
+    ]);
+    if (!photosResp.ok) throw new Error(`Photo service ${photosResp.status}`);
+    if (!rollResp.ok) throw new Error(`Camera roll service ${rollResp.status}`);
+    const [photos, roll] = await Promise.all([photosResp.json(), rollResp.json()]);
+    const merged = { ...photos, ...roll };
+    console.log(`[photos] loaded ${Object.keys(merged).length} entries, ~${Math.round(JSON.stringify(merged).length / 1024)}KB`);
+    return merged;
   });
   
   eleventyConfig.addCollection("Feed", function (collectionsApi) {
@@ -298,16 +176,6 @@ export default async function(eleventyConfig) {
     });
   });
   
-  eleventyConfig.addFilter("designInputFilter", function (collection) {
-    return collection.map(item => {
-      const filter = item.data.inputFilter;
-  
-      if (filter === "Pointer") return "desktop";
-      if (filter === "Coarse") return "mobile";
-      return "shared";
-    });
-  });
-
   eleventyConfig.addFilter("draftsOf", (collection1, collection2) => {
     return collection1.filter(value => collection2.includes(value));
   });
@@ -385,9 +253,34 @@ export default async function(eleventyConfig) {
     );
     return grouped;
   });
-  
+
+  eleventyConfig.addFilter("sortByAlbumGroup", (albums) => {
+    const getGroup = (album) => album.data.tags?.find(t => t.startsWith("AlbumGroup/")) ?? "";
+    const groupDates = {};
+    for (const album of albums) {
+      const group = getGroup(album);
+      if (!groupDates[group] || album.date > groupDates[group]) groupDates[group] = album.date;
+    }
+    return [...albums].sort((a, b) => {
+      const ga = getGroup(a), gb = getGroup(b);
+      if (ga !== gb) {
+        const dateDiff = (groupDates[gb] ?? 0) - (groupDates[ga] ?? 0);
+        return dateDiff !== 0 ? dateDiff : ga.localeCompare(gb);
+      }
+      return b.date - a.date;
+    });
+  });
+
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   
+  eleventyConfig.addFilter('hasContent', (post) => {
+    try { return !!post.content; } catch { return false; }
+  });
+
+  eleventyConfig.addFilter('safeContent', (post) => {
+    try { return post.content ?? ''; } catch { return ''; }
+  });
+
   eleventyConfig.addFilter('log', (value) => {
     console.log('\x1b[37m', value);
     console.log('\x1b[0m', '');
@@ -409,7 +302,8 @@ export default async function(eleventyConfig) {
   
   // Server
   eleventyConfig.setServerOptions({
-    liveReload: true
+    liveReload: true,
+    port: process.env.PORT ? Number(process.env.PORT) : 8080
   });
 
   // Passthroughs. Specify individual instead of all, since sass is handled separately

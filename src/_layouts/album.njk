@@ -3,39 +3,7 @@ layout: page.njk
 eleventyImport:
   collections: ["photos"]
 ---
-{%- from 'picture.njk' import Picture with context -%}
-{%- from 'page-header.njk' import PageHeader with context -%}
-{%- from 'related-posts.njk' import RelatedPosts with context -%}
-{%- from "../_includes/footer.njk" import Footer with context -%}
-
-{# this works because each album has exactly one aAlbumGroup tag #}
 {% set albumGroup %}{% for tag in tags %}{{ tag if "AlbumGroup/" in tag }}{% endfor %}{% endset %}
 {% set previousPost = collections[albumGroup] | getPreviousCollectionItem %}
-{% set nextPost = collections[albumGroup] | getNextCollectionItem %}
-
-<div class="page page--album">
-  <header class="page-header__container">
-    {{ PageHeader() }}
-  </header>
-  <div class="content-body">
-    {{ content | safe }}
-    {{ RelatedPosts(previousPost, nextPost, altString = "Viewing") }}
-  </div>
-  {% set albumLength %}{{ photos | length }}{% endset %}
-  <ul class="album__album-photos">
-    {% for photo in photos | reverse %}
-      {% if loop.index < 3 %}{% set loading = 'eager' %}{% else %}{% set loading = 'lazy' %}{% endif %}
-      {% set src %}{{ remote.gallery.base }}/{{ photo.key }}{% endset %}
-      {% set fileName %}{{ photo.fileName | slugify }}{% endset %}
-      <li class="album__album-photos__photo" id="{{ fileName | replace('-jpg', '') | replace('dscf', '') }}">
-        {{  Picture(
-            fileName = fileName,
-            src = src,
-            loading = loading,
-            isWNCDN = true
-        ) }}
-      </li>
-    {% endfor %}
-    {{ Footer(el="li") }}
-  </ul>
-</div>
+{% set nextPost     = collections[albumGroup] | getNextCollectionItem %}
+{% include 'partials/post-shell.njk' %}

@@ -1,3 +1,5 @@
+{% set metaTitle %}{{ altTitle if altTitle else title }}{% endset %}
+{% set metaDescription %}{{ description if description else meta.description }}{% endset %}
 <!doctype html>
 <html lang="{{ meta.lang }}">
   <head>
@@ -9,12 +11,23 @@
     <meta name="color-scheme" content="light dark">
     <meta name="supported-color-schemes" content="light dark">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"> 
-    <meta name="description" content="{{ meta.description }}">
+    <meta name="description" content="{{ metaDescription }}">
     <meta name="fediverse:creator" content="@wil@indieweb.social" />
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon-180.png">
-    <title>{{ altTitle if altTitle else title }}</title>
+    <title>{{ metaTitle }}</title>
+    {# link preview tags #}
+    <meta name="twitter:card" content="summary" />
+    <meta property="og:title" content="{{ metaTitle }}" />
+    <meta name="twitter:title" content="{{ metaTitle }}" />
+    <meta name="twitter:description" content="{{ metaDescription }}" />
+    <meta property="go:description" content="{{ metaDescription }}" />
+    {% if metaPreview %}
+      <meta property="og:image" content="{{ metaPreview | safe }}" />
+      <meta name="twitter:image" content="{{ metaPreview | safe }}" />
+    {% endif %}
+    <meta name="twitter:site" content="@wilnichols" />
     <link rel="stylesheet" href="{{ '/assets/css/styles.css' | url | bust }}">
     <link rel="stylesheet" href="https://use.typekit.net/unc0ogx.css">
   </head>

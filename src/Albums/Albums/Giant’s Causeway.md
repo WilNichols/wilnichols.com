@@ -6,7 +6,7 @@ tags:
   - AlbumInfo/Camera/X-T2
   - AlbumInfo/Location/Northern-Ireland
   - AlbumInfo/Period/Study-Abroad
-  - AlbumGroup/UK
+  - 'AlbumGroup/The U.K.'
 date: 2016-02-25T00:00
 ---
 Staying in Belfast, Giant’s Causeway was only a few-hour train North of us. It was incredible.

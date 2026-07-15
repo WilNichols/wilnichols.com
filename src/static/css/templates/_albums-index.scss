@@ -37,7 +37,7 @@
 
 .album-group__album {
   white-space: nowrap;
-  display: inline;
+  display: inline-block;
 }
 
 .album-group__album__link {
@@ -54,11 +54,11 @@
     transition: background-color .2s ease-out,transform .2s ease-out;
   }
   &:hover {
-    & + .album-preview {
+    & ~ .album-preview {
       @include tokens.light-dark(opacity, 0.33, 0.5);
       @include tokens.light-dark(mix-blend-mode, multiply, screen);
     }
-    & + .album-preview img {
+    & ~ .album-preview img {
       filter: blur(0);
       transform: scale(1);
       & {
@@ -74,6 +74,8 @@
 
 .album-preview {
   $halfCol: calc(var(--col)/2);
+  opacity: 0;
+  transition: tokens.$x opacity ease-out;
   & {
     z-index: -10;
     display: grid;
@@ -97,7 +99,7 @@
       position: absolute;
       filter: blur(.6em);
       transform: scale(0.9875);
-      transition: tokens.$x opacity ease-out, tokens.$x filter ease-out, tokens.$x transform ease-out;
+      transition: tokens.$x filter ease-out, tokens.$x transform ease-out;
     }
   }
 }
