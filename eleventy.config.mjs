@@ -302,7 +302,8 @@ export default async function(eleventyConfig) {
   
   // Server
   eleventyConfig.setServerOptions({
-    liveReload: true
+    liveReload: true,
+    port: process.env.PORT ? Number(process.env.PORT) : 8080
   });
 
   // Passthroughs. Specify individual instead of all, since sass is handled separately

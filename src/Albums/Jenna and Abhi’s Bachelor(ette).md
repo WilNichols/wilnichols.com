@@ -14,7 +14,7 @@ date: 2025-10-15T00:00
 photoDate: 2025-09-12T00:00
 summary: 'We had a weekend well-spent in Chicago.'
 imagePropsSynchronous:
-  path: 'https://cdn.wilnichols.com/gallery-2023/AriGraduation/DSCF2381.jpg?width=6px&format=webp'
+  path: 'https://cdn.dznr.me/gallery-2023/AriGraduation/DSCF2381.jpg?width=6px&format=webp'
   height: 4
   width: 6
   ratio: 1.5

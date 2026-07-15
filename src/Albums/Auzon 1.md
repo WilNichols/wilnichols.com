@@ -14,7 +14,7 @@ tags:
 date: 2026-04-20T00:00
 summary: 'We arrived in France just a week and a half ago. These are my photos of Auzon so far.'
 imagePropsSynchronous:
-  path: 'https://cdn.wilnichols.com/gallery-2023/Auzon1/DSCF5396.jpg?width=6px&format=webp'
+  path: 'https://cdn.dznr.me/gallery-2023/Auzon1/DSCF5396.jpg?width=6px&format=webp'
   height: 4
   width: 6
   ratio: 1.5
