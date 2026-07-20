@@ -1,3 +1,4 @@
+@use 'sass:list';
 @use 'sass:math';
 @use '../tokens';
 
@@ -200,13 +201,32 @@ $carouselInset: calc(((100dvw - var(--desktopPanelWidth))/2));
 }
 
 $shotsPad: calc((100dvw - var(--desktopPanelWidth))/2);
+$shotsFade: 12.5dvmin;
+
+// Smoothstep-eased alpha ramp: a straight 2-stop alpha ramp this long shows
+// 8-bit banding, worst at the hard slope kinks at each end
+@function shots-fade-stops($dir) {
+  $stops: ();
+  @for $i from 0 through 8 {
+    $t: math.div($i, 8);
+    $a: $t * $t * (3 - 2 * $t);
+    $pos: calc($shotsPad - #{(1 - $t) * $shotsFade});
+    @if $dir == out {
+      $a: 1 - $a;
+      $pos: calc(100dvw - $shotsPad + #{$t * $shotsFade});
+    }
+    $stops: list.append($stops, rgba(0, 0, 0, $a) $pos, comma);
+  }
+  @return $stops;
+}
+
 .shots-container {
   height: calc(var(--desktopPanelHeight) + 8rem);
   width: 100dvw;
   overflow: hidden;
   position: relative;
-  mask-image: 
-    linear-gradient(90deg,rgba(0, 0, 0, 0) calc($shotsPad - 25dvmin), rgba(255, 255, 255, 1) $shotsPad, rgba(255, 255, 255, 1) calc(100dvw - $shotsPad), rgba(0, 0, 0, 0) calc(100dvw - $shotsPad + 25dvmin));
+  mask-image:
+    linear-gradient(90deg, shots-fade-stops(in), shots-fade-stops(out));
   @media (pointer: coarse) and (width <= tokens.$breakpoint) {
     display: contents;
     mask-image: unset;

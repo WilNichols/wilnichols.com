@@ -47,7 +47,7 @@
 
     <div class="scroll-thief scroll-thief--shot"></div>
     <div class="shots-container">
-      <ol class="shots" id="shots--{{ projectId }}">
+      <ol class="shots" id="shots--{{ projectId }} {{ projectId }}">
 {%- endmacro %}
 
 {% macro shotList(collection, learnMoreLink=false) -%}
@@ -62,7 +62,7 @@
         client: post.data.tags | getNestedTag("Client")
       } %}
 
-      {% set projectId = postInfo.project | slugify | replace('-', '') %}
+      {% set projectId = postInfo.project | slugify %}
 
       {% if previousProjectName != postInfo.project %}
         {# NEW PROJECT STARTS #}
@@ -91,7 +91,7 @@
       {% set shotPlatforms = projectShots | designInputFilter | reverse %}
       {% set projectShotIndex = projectShotIndex + 1 %}
       {% set shotTimeline = '--' ~ projectId ~ '-shot-' ~ projectShotIndex ~ '-' ~ shotPlatforms[projectShotIndex - 1] %}
-      <li class="shot {{ shotClass }}" style="view-timeline-name: {{ shotTimeline }}">
+      <li class="shot {{ shotClass }} {{ projectId }}--{{ projectShotIndex }}" style="view-timeline-name: {{ shotTimeline }}">
         {{ shot(post) }}
       </li>
 
