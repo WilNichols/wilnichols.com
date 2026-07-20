@@ -1,79 +1,191 @@
+@use 'mixins' as *;
 
-$cKD20Radial: radial-gradient(66.11% 66.11% at 50% 16.87%, var(--cKD20) 0%, var(--cKD10) 66.67%, var(--cKD15) 100%);
-// radial-gradient(66.11% 66.11% at 50% 16.87%, #3C434E 0%, #282D31 67.31%, #31373E 100%);
+// Gradient constructors.
+// Focal geometry and stop percentages live here once, so the token list below
+// stays declarative: each gradient is just its colors.
 
-$cK95Radial: radial-gradient(66.11% 66.11% at 50% 16.87%, var(--cK95) 0%, var(--cK85) 66.67%, var(--cK95) 100%);
-// radial-gradient(66.11% 66.11% at 50% 16.87%, #F9F9FB 0%, #E8ECF4 67.31%, #F9F9FB 100%);
+// Focal point + size, reused across the set
+$-focal-3: 66.11% 66.11% at 50% 16.87%; // 3-stop theme backgrounds
+$-focal-4: 90.42% 90.42% at 50% 16.25%; // 4-stop translation backgrounds
+$-corner:  100% 100% at 0% 0%;          // iOS 9 split-theme rectangles
+$-top:     100% 100% at 50% 0%;         // iOS 9 legacy screens
 
-$cBD05Linear: linear-gradient(180deg, var(--cBD05) 0%, var(--cBD10) 100%);
-// linear-gradient(180deg, #1C2434 0%, #1A2C54 100%);
+// Base tone at the focal point, darkest at the mid-ring, third tone at the edge.
+@function radial3($center, $mid, $edge, $at: $-focal-3) {
+  @return radial-gradient($at, $center 0%, $mid 66.67%, $edge 100%);
+}
 
-$cK85Linear: linear-gradient(180deg, var(--cK85) 0%, var(--cK95) 100%);
-// linear-gradient(180deg, #E8ECF4 0%, #F9F9FB 100%);
+// Two tones, base returning at the edge (the light-theme vignette).
+@function radial2($base, $mid, $at: $-focal-3) {
+  @return radial-gradient($at, $base 0%, $mid 66.67%, $base 100%);
+}
 
-$cBD20Radial: radial-gradient(66.11% 66.11% at 50% 16.87%, var(--cBD20) 0%, var(--cBD10) 66.67%, var(--cBD15) 100%);
-// radial-gradient(66.11% 66.11% at 50% 16.87%, #0F4082 0%, #1A2C54 67.31%, #16356B 100%);
+// Plain two-stop radial anchored at the top-left corner (iOS 9 split rectangles).
+@function radialCorner($from, $to) {
+  @return radial-gradient($-corner, $from 0%, $to 100%);
+}
 
-$cB95Radial: radial-gradient(66.11% 66.11% at 50% 16.87%, var(--cB95) 0%, var(--cB85) 66.67%, var(--cB95) 100%);
-// radial-gradient(66.11% 66.11% at 50% 16.87%, #0F4082 0%, #1A2C54 67.31%, #16356B 100%);
+// Plain two-stop radial anchored at top-center (iOS 9 legacy screens).
+@function radialTop($from, $to) {
+  @return radial-gradient($-top, $from 0%, $to 100%);
+}
 
-$cKD10Radial: radial-gradient(66.11% 66.11% at 50% 16.87%, var(--cKD10) 0%, var(--cKD05) 66.67%, var(--cKD15) 100%);
-// radial-gradient(66.98% 66.98% at 50% 16.25%, #282D31 0%, #212324 67.31%, #31373E 100%);
+// Four evenly-weighted stops.
+@function radial4($a, $b, $c, $d, $at: $-focal-4) {
+  @return radial-gradient($at, $a 0%, $b 46.61%, $c 75.3%, $d 97.6%);
+}
 
-$cK90Radial: radial-gradient(66.11% 66.11% at 50% 16.87%, var(--cK90) 0%, var(--cK85) 66.67%, var(--cK95) 100%);
-// radial-gradient(66.98% 66.98% at 50% 16.25%, color(display-p3 0.949 0.957 0.969) 0%, color(display-p3 0.914 0.925 0.953) 67.31%, color(display-p3 0.976 0.976 0.984) 100%);
+// Straight vertical fade.
+@function linear2($top, $bottom) {
+  @return linear-gradient(-90deg, $top 0%, $bottom 100%);
+}
 
-$cVD20Radial: radial-gradient(90.42% 90.42% at 50% 16.25%, var(--cVD20) 0%, var(--cVD10) 46.61%, var(--cMD10) 75.3%, var(--cMD20) 97.6%);
-// radial-gradient(90.42% 90.42% at 50% 16.25%, #432391 0%, #342165 46.61%, #401D47 75.3%, #651B70 97.6%);
+// Shared dark background — charcoal, sits behind most dark screens.
+$cKD20Radial: radial3(var(--cKD20), var(--cKD10), var(--cKD15));
 
-$cT85Radial: radial-gradient(90.42% 90.42% at 50% 16.25%, var(--cT85) 0%, var(--cB85) 46.61%, var(--cV90) 75.3%, var(--cV95) 97.6%);
-// radial-gradient(90.42% 90.42% at 50% 16.25%, #D6FDFF 0%, #DBF4FF 46.61%, #F5F0FF 75.3%, #F9F7FF 97.6%);
+// Shared light background — near-white with a faint cool center.
+$cK95Radial: radial2(var(--cK95), var(--cK85));
 
-$cOD10Radial: radial-gradient(66.11% 66.11% at 50% 16.87%, var(--cOD10) 0%, var(--cOD05) 66.67%, var(--cOD15) 100%);
-// radial-gradient(66.98% 66.98% at 50% 16.25%, #34221F 0%, #292220 67.31%, #40241F 100%);
+// Main menu, dark: deep navy fading downward.
+$cBD05Linear: linear2(var(--cBD05), var(--cBD10));
 
-$cO95Radial: radial-gradient(66.11% 66.11% at 50% 16.87%, var(--cO95) 0%, var(--cO90) 66.67%, var(--cO95) 100%)
-// radial-gradient(66.98% 66.98% at 50% 16.25%, #FFF7EC 0%, #FFEDD9 67.31%, #FFF7EC 100%);
+// Main menu, light: a gentle wash from light gray to white.
+$cK85Linear: linear2(var(--cK85), var(--cK95));
 
-$cAD20Radial: radial-gradient(66.11% 66.11% at 50% 16.87%, var(--cAD20) 0%, var(--cAD10) 66.67%, var(--cAD15) 100%)
-// radial-gradient(66.98% 66.98% at 50% 16.25%, #0B4440 0%, #183226 67.31%, #143933 100%);
+// In-person translation, dark: a pool of royal blue.
+$cBD20Radial: radial3(var(--cBD20), var(--cBD10), var(--cBD15));
 
-$cA95Radial: radial-gradient(66.11% 66.11% at 50% 16.87%, var(--cA95) 0%, var(--cA90) 66.67%, var(--cA95) 100%)
-// radial-gradient(66.98% 66.98% at 50% 16.25%, #E4FFF1 0%, #CFFFE9 67.31%, #E4FFF1 100%);
+// In-person translation, light: pale sky blue.
+$cB95Radial: radial2(var(--cB95), var(--cB85));
 
-$cA95Radial: radial-gradient(66.11% 66.11% at 50% 16.87%, var(--cA95) 0%, var(--cA90) 66.67%, var(--cA95) 100%)
-// radial-gradient(66.98% 66.98% at 50% 16.25%, #E4FFF1 0%, #CFFFE9 67.31%, #E4FFF1 100%);
+// Second translation layout, dark: almost-black charcoal.
+$cKD10Radial: radial3(var(--cKD10), var(--cKD05), var(--cKD15));
 
-$cK05Linear: linear-gradient(180deg, var(--cK05) 0%, var(--cK15) 100%);
-// linear-gradient(180deg, #030405 0%, #161B22 100%);
+// Second translation layout, light: cool paper white.
+$cK90Radial: radial3(var(--cK90), var(--cK85), var(--cK95));
 
-$cK85Linear: linear-gradient(180deg, var(--cK85) 0%, var(--cK95) 100%);
-// linear-gradient(180deg, #E8ECF4 0%, #F9F9FB 100%);
+// Third translation layout, dark: violet melting through magenta.
+$cVD20Radial: radial4(var(--cVD20), var(--cVD10), var(--cMD10), var(--cMD20));
 
-$cK15Linear: linear-gradient(180deg, var(--cK15) 0%, var(--cK25) 100%);
-// linear-gradient(180deg, #161B22 0%, #303743 100%);
+// Third translation layout, light: cyan drifting into lavender.
+$cT85Radial: radial4(var(--cT85), var(--cB85), var(--cV90), var(--cV95));
 
-$cK75Linear: linear-gradient(180deg, var(--cK75) 0%, var(--cK85) 100%);
-// linear-gradient(180deg, #161B22 0%, #303743 100%);
+// Fourth translation layout, dark: warm coffee brown.
+$cOD10Radial: radial3(var(--cOD10), var(--cOD05), var(--cOD15));
 
-$cV20Linear: linear-gradient(180deg, var(--cV20) 0%, var(--cM25) 100%);
-// linear-gradient(180deg, #29057F 0%, #62006F 100%);
+// Fourth translation layout, light: soft cream orange.
+$cO95Radial: radial2(var(--cO95), var(--cO90));
 
-$cV80Linear: linear-gradient(180deg, var(--cV80) 0%, var(--cM90) 100%);
-// linear-gradient(180deg, #EAE0FF 0%, #FFEFFF 100%);
+// Fifth translation layout, dark: deep pine teal.
+$cAD20Radial: radial3(var(--cAD20), var(--cAD10), var(--cAD15));
 
-$cO15Linear: linear-gradient(180deg, var(--cO15) 0%, var(--cO30) 100%);
-// linear-gradient(180deg, #260500 0%, #911A00 100%);
+// Fifth translation layout, light: cool mint.
+$cA95Radial: radial2(var(--cA95), var(--cA90));
 
-$cO85Linear: linear-gradient(180deg, var(--cO85) 0%, var(--cO95) 100%);
-// linear-gradient(180deg, #FFE4CB 0%, #FFF7EC 100%);
+// Second translation layout on phones, dark: pure black rising to charcoal.
+$cK05Linear: linear2(var(--cK05), var(--cK15));
 
-$cA15Linear: linear-gradient(180deg, var(--cA15) 0%, var(--cA30) 100%);
-// linear-gradient(180deg, #001D16 0%, #004636 100%);
+// Third translation layout on phones, dark: charcoal into slate.
+$cK15Linear: linear2(var(--cK15), var(--cK25));
 
-$cA90Linear: linear-gradient(180deg, var(--cA90) 0%, var(--cA95) 100%);
-// linear-gradient(180deg, #CFFFE9 0%, #E4FFF1 100%);
+// Third translation layout on phones, a lighter slate variant.
+$cK75Linear: linear2(var(--cK75), var(--cK85));
 
-$weddingDarkRadial: radial-gradient(66.11% 66.11% at 50% 16.87%, #004512 0%, #003806 66.67%, #002D02 100%);
+// Fourth translation layout on phones, dark: electric violet into purple.
+$cV20Linear: linear2(var(--cV20), var(--cM25));
 
-$weddingLightRadial: radial-gradient(66.11% 66.11% at 50% 16.87%, #F5FAE6 0%, #F0F5E1 66.67%, #E7ECD8 100%);
+// Fourth translation layout on phones, light: lavender to blush.
+$cV80Linear: linear2(var(--cV80), var(--cM90));
+
+// Fifth translation layout on phones, dark: burnt orange.
+$cO15Linear: linear2(var(--cO15), var(--cO30));
+
+// Fifth translation layout on phones, light: peach to cream.
+$cO85Linear: linear2(var(--cO85), var(--cO95));
+
+// Sixth translation layout on phones, dark: deep forest green.
+$cA15Linear: linear2(var(--cA15), var(--cA30));
+
+// Sixth translation layout on phones, light: pale mint.
+$cA90Linear: linear2(var(--cA90), var(--cA95));
+
+// Wedding invitations, dark: forest green (literal — no palette token matches).
+$weddingDarkRadial: radial3(#004512, #003806, #002D02);
+
+// Wedding invitations, light: pale sage (literal).
+$weddingLightRadial: radial3(#F5FAE6, #F0F5E1, #E7ECD8);
+
+// Talk & history walkthrough, dark: oxblood red.
+$cRD20Radial: radial3(var(--cRD20), var(--cRD10), var(--cRD15));
+
+// Second talk & history walkthrough, dark: amber brown.
+$cYD20Radial: radial3(var(--cYD20), var(--cYD10), var(--cYD15));
+
+// Talk & history on phones, dark: oxblood over true black.
+$cR20Radial: radial3(var(--cR20), var(--cR10), var(--cR15));
+
+// Second talk & history on phones, dark: amber over true black.
+$cY20Radial: radial3(var(--cY20), var(--cY10), var(--cY15));
+
+// vEvi, dark: bright crimson.
+$cRD30Radial: radial3(var(--cRD30), var(--cRD20), var(--cRD25));
+
+// vEvi, light: blush pink.
+$cR95Radial: radial2(var(--cR95), var(--cR90));
+
+// vEvi second screen, dark: deep ocean blue.
+$cTD30Radial: radial3(var(--cTD30), var(--cTD20), var(--cTD25));
+
+// vEvi second screen, light: icy cyan.
+$cT95Radial: radial2(var(--cT95), var(--cT90));
+
+// vEvi on phones, dark: crimson over true black.
+$cR30Radial: radial3(var(--cR30), var(--cR20), var(--cR25));
+
+// vEvi second screen on phones, dark: ocean blue over true black.
+$cT30Radial: radial3(var(--cT30), var(--cT20), var(--cT25));
+
+// iOS 2019 theme, dark: burnt orange.
+$cOD20Radial: radial3(var(--cOD20), var(--cOD15), var(--cOD25));
+
+// iOS 2019 theme, light: buttery cream.
+$cY90Radial: radial3(var(--cY90), var(--cY80), var(--cY95));
+
+// iOS 9 split themes, dark half: slate glow from the corner.
+$cKD05Radial: radialCorner(var(--cKD05), var(--cKD10));
+
+// iOS 9 split themes, light half: warm cream glow from the corner.
+$cY95Radial: radialCorner(var(--cY90), var(--cY95));
+
+// iOS 9 legacy screens, dark: muddy amber falling from the top.
+$cYD15Radial: radialTop(var(--cYD15), var(--cYD10));
+
+// iOS 9 legacy screens, light: pale butter falling from the top.
+$cY90Radial2: radialTop(var(--cY90), var(--cY80));
+
+// Minte visuals, light: soft honey.
+$cYD85Radial: radial3(var(--cYD85), var(--cYD75), var(--cYD80));
+
+// Instant demo, light: warm apricot.
+$cO90Radial: radial3(var(--cO90), var(--cO85), var(--cO95));
+
+// Instant demo on phones, dark: near-black charcoal.
+$cK10Radial: radial3(var(--cK10), var(--cK05), var(--cK15));
+
+// Talk & history walkthrough, light: pale apricot.
+$cO95Radial2: radial2(var(--cO95), var(--cO85));
+
+// Second talk & history walkthrough, light: pale wheat.
+$cY95Radial2: radial2(var(--cY95), var(--cY85));
+
+// Zello Bridge, dark: violet edged with magenta.
+$cYVD20Radial2: radial3(var(--cVD20), var(--cVD10), var(--cMD30));
+
+// Zello Bridge, light: soft pink magenta.
+$cM95Radial: radial2(var(--cM95), var(--cM90));
+
+.main-menu--1 picture {
+  background-color: transparent !important;
+  @include light-dark(background-image, $cK85Linear, $cBD05Linear);
+  background-size: cover;
+}
