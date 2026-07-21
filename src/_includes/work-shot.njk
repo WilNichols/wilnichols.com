@@ -1,0 +1,141 @@
+{#
+  Combined content + phone frames
+  holding two layered <picture>s — the device frame (absolutely positioned, on
+  top) and the screen behind it.
+
+  workShot(alt, frame, screen, class)
+    frame / screen — each { desk: ..., mobile: ... }; omit either group to skip it.
+    desk / mobile — omit to skip that platform. Each is either:
+      "base/path"                     one asset, both color schemes
+      { light: "...", dark: "..." }   scheme-split assets
+    add { dens: [1, 2, 3] } to any platform to override densities.
+    Defaults: desk 1x/2x, mobile 2x/3x. Everything is served as webp.
+#}
+
+{%- macro _set(base, dens) -%}
+  {%- for d in dens -%}
+https://cdn.dznr.me/{{ base }}{{ '@' ~ d ~ 'x' if d > 1 else '' }}.png?format=webp {{ d }}x{{ ', ' if not loop.last }}
+  {%- endfor -%}
+{%- endmacro -%}
+
+{%- macro _media(scheme, base) -%}
+(prefers-color-scheme: {{ scheme }}){% if base %} and {{ base | safe }}{% endif %}
+{%- endmacro -%}
+
+{%- macro _source(base, media, dens) -%}
+{%- if media -%}
+<source media="{{ media | safe }}" type="image/webp" srcset="{{ _set(base, dens) | safe }}">
+{%- else -%}
+<source type="image/webp" srcset="{{ _set(base, dens) | safe }}">
+{%- endif -%}
+{%- endmacro -%}
+
+{#- one platform: dark, then light, then the scheme-agnostic single (catch-all) -#}
+{%- macro _plat(single, light, dark, dens, base) -%}
+  {%- if dark %}{{ _source(dark, _media('dark', base), dens) }}{% endif -%}
+  {%- if light %}{{ _source(light, _media('light', base), dens) }}{% endif -%}
+  {%- if single %}{{ _source(single, base, dens) }}{% endif -%}
+{%- endmacro -%}
+
+{#- one <picture> built from a { desk, mobile } group -#}
+{%- macro _pic(desk, mobile, class, alt) -%}
+  {%- set mob = '(pointer: coarse) and (width <= 640px)' -%}
+
+  {%- set dDict = desk and (desk.light or desk.dark or desk.src or desk.dens) -%}
+  {%- set dLight = desk.light if dDict else none -%}
+  {%- set dDark = desk.dark if dDict else none -%}
+  {%- set dSingle = (desk.src if dDict else desk) if desk else none -%}
+  {%- set dDens = desk.dens if (dDict and desk.dens) else [1, 2] -%}
+
+  {%- set mDict = mobile and (mobile.light or mobile.dark or mobile.src or mobile.dens) -%}
+  {%- set mLight = mobile.light if mDict else none -%}
+  {%- set mDark = mobile.dark if mDict else none -%}
+  {%- set mSingle = (mobile.src if mDict else mobile) if mobile else none -%}
+  {%- set mDens = mobile.dens if (mDict and mobile.dens) else [2, 3] -%}
+
+  {%- set fallback = dSingle or dLight or dDark or mSingle or mLight or mDark -%}
+  {#- with one platform omitted, the <img> fallback would still paint the
+      other platform's asset everywhere — the guard class hides it there -#}
+  {%- set only = '' -%}
+  {%- if mobile and not desk %}{% set only = ' pic--mobile-only' %}{% endif -%}
+  {%- if desk and not mobile %}{% set only = ' pic--desk-only' %}{% endif -%}
+  <picture class="{{ class }}{{ only }}">
+    {%- if mobile %}{{ _plat(mSingle, mLight, mDark, mDens, mob) }}{% endif -%}
+    {%- if desk %}{{ _plat(dSingle, dLight, dDark, dDens, '') }}{% endif -%}
+    {#- the shot reads as ONE image: only the topmost layer carries the alt,
+        the rest are decorative and hidden from the a11y tree -#}
+    <img src="https://cdn.dznr.me/{{ fallback }}.png?format=webp" alt="{{ alt }}"{{ ' aria-hidden="true"' | safe if not alt }} loading="lazy" decoding="async">
+  </picture>
+{%- endmacro -%}
+
+{#- one <video> per density for one platform; the last video absorbs the
+    classes for any missing higher densities (dens [1, 2] → "video-2x video-3x").
+    v: { src OR light+dark, dens, dim: [w, h] (or width/height), class }.
+    dark gets a prefers-color-scheme source; light (or src) is the catch-all. -#}
+{%- macro _vplat(v, device, platClass, alt) -%}
+  {%- set dens = v.dens if v.dens else [1, 2, 3] -%}
+  {%- set w = v.dim[0] if v.dim else v.width -%}
+  {%- set h = v.dim[1] if v.dim else v.height -%}
+  {%- set catchall = v.light if v.light else v.src -%}
+  {%- for d in dens -%}
+    {%- set densClasses = 'video-' ~ d ~ 'x' -%}
+    {%- if loop.last -%}
+      {%- for pad in range(d + 1, 4) %}{% set densClasses = densClasses ~ ' video-' ~ pad ~ 'x' %}{% endfor -%}
+    {%- endif -%}
+    <video
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+      width="{{ w }}"
+      height="{{ h }}"
+      poster="/assets/img/poster.gif"
+      class="{{ 'design-screen-recording--' ~ device ~ ' ' if device }}{{ densClasses }}{{ ' ' ~ platClass if platClass }}{{ ' ' ~ v.class if v.class }}"
+      {{ ('role="img" aria-label="' ~ alt ~ '"') | safe if alt else 'aria-hidden="true"' | safe }}
+    >
+      {%- if v.dark %}
+      <source media="(prefers-color-scheme: dark)" type="video/mp4" src="https://cdn.dznr.me/{{ v.dark }}{{ '@' ~ d ~ 'x' if d > 1 else '' }}.mp4">
+      {%- endif %}
+      <source type="video/mp4" src="https://cdn.dznr.me/{{ catchall }}{{ '@' ~ d ~ 'x' if d > 1 else '' }}.mp4">
+    </video>
+  {%- endfor -%}
+{%- endmacro -%}
+
+{#- video group: either flat { src, ... } (one video set, both platforms) or
+    { desk: {...}, mobile: {...} } — per-platform sets with the
+    .video--desktop / .video--mobile visibility classes.
+    A video with no frame on its platform is "full" — nothing overlays it. -#}
+{%- macro _video(v, device, frame, alt) -%}
+  {%- if v.desk or v.mobile -%}
+    {%- if v.desk %}{{ _vplat(v.desk, device, 'video--desktop' ~ ('' if frame and frame.desk else ' video--full'), alt) }}{% endif -%}
+    {%- if v.mobile %}{{ _vplat(v.mobile, device, 'video--mobile' ~ ('' if frame and frame.mobile else ' video--full'), alt) }}{% endif -%}
+  {%- else -%}
+    {{ _vplat(v, device, '' if frame else 'video--full', alt) }}
+  {%- endif -%}
+{%- endmacro -%}
+
+{#
+  frame  — device frame; its image sticks to the box bounds and sits on top.
+  screen — the screen still behind the frame's cutout. With `device` set it is
+           centered and scaled into the screen area (like the <video> layer);
+           without `device` it fills the box (bounds).
+  video  — a screen recording behind the frame instead of (or beside) a still:
+           { src, width, height, dens: [1, 2, 3], class }. src is cdn-relative,
+           width/height are the intrinsic display points, dens lists which
+           density files exist, class appends extras (e.g. "video--mobile").
+  device — e.g. "iPhone-8", "iPhone-15-Pro"; opts the screen/video into scaling
+           via the matching .design-screen-recording--<device> class (--scale).
+#}
+{% macro workShot(alt='', frame=none, screen=none, video=none, device=none, class='') %}
+  {%- set screenClass = 'screen scaled design-screen-recording--' ~ device if device else 'screen' -%}
+  {#- the layered media reads as one image, so exactly one layer — the topmost
+      visible one — carries the alt text: frame when present, else the screen,
+      else the video. The rest are decorative (empty alt / aria-hidden). -#}
+  {%- set carrier = 'frame' if frame else ('screen' if screen else 'video') -%}
+  <div class="picture{{ ' video-container' if video }}{{ ' ' ~ class if class else '' }}">
+    {%- if frame %}{{ _pic(frame.desk, frame.mobile, 'frame', alt if carrier == 'frame' else '') }}{% endif -%}
+    {%- if screen %}{{ _pic(screen.desk, screen.mobile, screenClass, alt if carrier == 'screen' else '') }}{% endif -%}
+    {%- if video %}{{ _video(video, device, frame, alt if carrier == 'video' else '') }}{% endif -%}
+  </div>
+{% endmacro %}

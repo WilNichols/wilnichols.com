@@ -11,7 +11,7 @@ eleventyComputed:
   photos: 
   - key: 'https://cdn.dznr.me/wedding/7CJ00431.jpg'
 ---
-{% from "../_includes/picture.njk" import Picture with context %}
+{% from "picture.njk" import Picture with context %}
 {{  Picture(
     fileName = '7CJ00431-jpg',
     src = 'https://cdn.dznr.me/wedding/7CJ00431.jpg',

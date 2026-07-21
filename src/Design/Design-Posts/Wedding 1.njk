@@ -1,0 +1,26 @@
+---
+date: 2024-10-01T05:00
+author: Wil Nichols
+altTitle: "Wedding Invitations"
+tags:
+  - "Client/Personal Project"
+  - "Design/Wedding Invitations"
+---
+{% from "work-shot.njk" import workShot %}
+{{ workShot(
+  alt="Our save the date, printed invitation, and landing page.",
+  screen={
+    desk: {
+      dark: "work-screens/wedding-invitations--01--dark--desk",
+      light: "work-screens/wedding-invitations--01--light--desk"
+    },
+    mobile: {
+      dark: "work-screens/wedding-invitations--01--dark--mobile",
+      light: "work-screens/wedding-invitations--01--light--mobile"
+    }
+  }
+) }}
+<div class="content">
+  <p>We DIY’d much of our wedding. With 20-20 hindsight it would’ve been a more cohesive package — our colors evolved along the way — but it was <oblique>fun</oblique>. I drew out portraits and invitations in Procreate while Darien similarly handled the hand-lettering. The site was statically built with 11ty, used Netlify Forms to record RSVPs, and a combination of local cookies and Netlify Forms plus a webhook to customize the site based on your response. Five different groups of guests had customized content and viewing permissions, all accessed via a handwritten six character code on their printed invitations. Codes were saved as a cookie so that viewers could easily return.</p>
+</div>
+  

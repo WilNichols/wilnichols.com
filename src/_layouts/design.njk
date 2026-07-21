@@ -1,0 +1,94 @@
+---
+layout: page.njk
+---
+
+{% from "../_includes/footer.njk" import Footer with context %}
+{% from "../_includes/header.njk" import Header with context %}
+{% from "../_includes/shots.njk" import shotList with context %}
+
+<div class="page page--design">
+  {{ Header("page--design__header") }}
+  <div class="scroll-thief scroll-thief--leading"></div>
+  <div class="scroll-thief scroll-thief--trailing"></div>
+  {{ shotList(collections['Design']) }}
+  {{ Footer(el="footer") }}
+</div>
+
+{% js "defer" %}
+  (function () {
+    const density = window.devicePixelRatio || 1;
+    const bucket = density >= 3 ? 3 : density >= 2 ? 2 : 1;
+
+    const vids = Array.from(document.querySelectorAll('video[class*="video-"]'));
+
+    const pending = new Map();
+
+    vids.forEach(v => {
+      // All sources, not just the first — scheme-paired videos carry a dark
+      // source plus a light catch-all, and leaving any src attached defeats
+      // the lazy-load (the browser fetches the first playable one).
+      const sources = Array.from(v.querySelectorAll('source'));
+      const urls = sources.map(s => s.getAttribute('src'));
+      const fallbackUrl = v.getAttribute('src');
+
+      const detach = () => {
+        sources.forEach(s => s.removeAttribute('src'));
+        v.removeAttribute('src');
+        try { v.load(); } catch (e) {}
+      };
+
+      if (!v.classList.contains(`video-${bucket}x`)) {
+        // Wrong density (display:none in CSS). Detach so it never fetches —
+        // otherwise all density copies download.
+        detach();
+        return;
+      }
+
+      v.muted = true;        // allow iOS autoplay
+      v.playsInline = true;
+      detach();
+      pending.set(v, { sources, urls, fallbackUrl, loaded: false });
+    });
+
+    const tryPlay = v => { const p = v.play(); if (p) p.catch(() => {}); };
+
+    // Load once the video is within 25dvh of visibility, on any axis — the
+    // carousels approach horizontally. rootMargin has no dvh unit, so it's
+    // computed from the viewport height at init.
+    const loadMargin = Math.round(innerHeight * 0.25);
+
+    const loadIO = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const v = e.target, s = pending.get(v);
+        if (s && !s.loaded) {
+          s.sources.forEach((src, i) => { if (s.urls[i]) src.setAttribute('src', s.urls[i]); });
+          if (!s.sources.length && s.fallbackUrl) v.setAttribute('src', s.fallbackUrl);
+          try { v.load(); } catch (err) {}
+          s.loaded = true;
+        }
+        loadIO.unobserve(v);
+      });
+    }, { rootMargin: `${loadMargin}px` });
+
+    // Play while in view, pause when scrolled away
+    const playIO = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        const v = e.target;
+        if (e.isIntersecting) {
+          v.addEventListener('canplay', () => tryPlay(v), { once: true });
+          tryPlay(v);
+        } else {
+          try { v.pause(); } catch (err) {}
+        }
+      });
+    }, { rootMargin: '0px' });
+
+    pending.forEach((_, v) => { loadIO.observe(v); playIO.observe(v); });
+
+    // iOS: first user gesture unblocks any play() the policy refused.
+    window.addEventListener('touchend', () => {
+      pending.forEach((s, v) => { if (s.loaded) tryPlay(v); });
+    }, { once: true });
+  })();
+{% endjs %}

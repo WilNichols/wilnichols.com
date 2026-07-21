@@ -1,0 +1,29 @@
+---
+date: 2019-04-20T02:00
+author: Wil Nichols
+altTitle: "Calendar Tutorial"
+tags:
+  - "Client/The Minte"
+  - "Design/Calendar tutorial"
+---
+{% from "work-shot.njk" import workShot %}
+{{ workShot(
+  video={
+    desk: {
+      dark: "vid/minte-calendar-tutorial/minte-calendar-tutorial--dark",
+      light: "vid/minte-calendar-tutorial/minte-calendar-tutorial--light",
+      dens: [1, 2],
+      dim: [1440, 960]
+    },
+    mobile: {
+      dark: "vid/minte-calendar-tutorial/minte-calendar-tutorial--mobile--dark",
+      light: "vid/minte-calendar-tutorial/minte-calendar-tutorial--mobile--light",
+      dens: [1, 2],
+      dim: [720, 1080]
+    }
+  }
+) }}
+<div class="content">
+  <p>The Minte had struggled with teaching users to use their scheduling UI. This prototype proposed a coaching UX.</p>
+</div>
+  

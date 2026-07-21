@@ -43,7 +43,7 @@ ingredientsContainer:
     metric: "135g"
 ---
 {% renderTemplate "njk", data %}
-  {% from "../_includes/picture.njk" import Picture with context %}
+  {% from "picture.njk" import Picture with context %}
   {{  Picture(
       fileName = 'dscf5623-jpg',
       src = 'https://cdn.dznr.me/recipes/liege-waffles/DSCF5623.jpg',
