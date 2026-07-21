@@ -365,7 +365,14 @@ $shotGap: #{calc(var(--col) / 2)};
   display: grid;
   justify-items: center;
   width: 100dvw;
+  padding: 0 var(--u16);
   overflow: clip; // slots pan a full carousel step past the edges
+  // same edge fade as the carousel, so panning text dissolves in step with it
+  mask-image:
+    linear-gradient(90deg, shots-fade-stops(in), shots-fade-stops(out));
+  @media (pointer: coarse) and (width <= tokens.$breakpoint) {
+    mask-image: unset;
+  }
 }
 
 .project__content-slot {
