@@ -62,7 +62,9 @@ https://cdn.dznr.me/{{ base }}{{ '@' ~ d ~ 'x' if d > 1 else '' }}.png?format=we
   <picture class="{{ class }}{{ only }}">
     {%- if mobile %}{{ _plat(mSingle, mLight, mDark, mDens, mob) }}{% endif -%}
     {%- if desk %}{{ _plat(dSingle, dLight, dDark, dDens, '') }}{% endif -%}
-    <img src="https://cdn.dznr.me/{{ fallback }}.png?format=webp" alt="{{ alt }}" loading="lazy" decoding="async">
+    {#- the shot reads as ONE image: only the topmost layer carries the alt,
+        the rest are decorative and hidden from the a11y tree -#}
+    <img src="https://cdn.dznr.me/{{ fallback }}.png?format=webp" alt="{{ alt }}"{{ ' aria-hidden="true"' | safe if not alt }} loading="lazy" decoding="async">
   </picture>
 {%- endmacro -%}
 
@@ -70,7 +72,7 @@ https://cdn.dznr.me/{{ base }}{{ '@' ~ d ~ 'x' if d > 1 else '' }}.png?format=we
     classes for any missing higher densities (dens [1, 2] → "video-2x video-3x").
     v: { src OR light+dark, dens, dim: [w, h] (or width/height), class }.
     dark gets a prefers-color-scheme source; light (or src) is the catch-all. -#}
-{%- macro _vplat(v, device, platClass) -%}
+{%- macro _vplat(v, device, platClass, alt) -%}
   {%- set dens = v.dens if v.dens else [1, 2, 3] -%}
   {%- set w = v.dim[0] if v.dim else v.width -%}
   {%- set h = v.dim[1] if v.dim else v.height -%}
@@ -90,6 +92,7 @@ https://cdn.dznr.me/{{ base }}{{ '@' ~ d ~ 'x' if d > 1 else '' }}.png?format=we
       height="{{ h }}"
       poster="/assets/img/poster.gif"
       class="{{ 'design-screen-recording--' ~ device ~ ' ' if device }}{{ densClasses }}{{ ' ' ~ platClass if platClass }}{{ ' ' ~ v.class if v.class }}"
+      {{ ('role="img" aria-label="' ~ alt ~ '"') | safe if alt else 'aria-hidden="true"' | safe }}
     >
       {%- if v.dark %}
       <source media="(prefers-color-scheme: dark)" type="video/mp4" src="https://cdn.dznr.me/{{ v.dark }}{{ '@' ~ d ~ 'x' if d > 1 else '' }}.mp4">
@@ -103,12 +106,12 @@ https://cdn.dznr.me/{{ base }}{{ '@' ~ d ~ 'x' if d > 1 else '' }}.png?format=we
     { desk: {...}, mobile: {...} } — per-platform sets with the
     .video--desktop / .video--mobile visibility classes.
     A video with no frame on its platform is "full" — nothing overlays it. -#}
-{%- macro _video(v, device, frame) -%}
+{%- macro _video(v, device, frame, alt) -%}
   {%- if v.desk or v.mobile -%}
-    {%- if v.desk %}{{ _vplat(v.desk, device, 'video--desktop' ~ ('' if frame and frame.desk else ' video--full')) }}{% endif -%}
-    {%- if v.mobile %}{{ _vplat(v.mobile, device, 'video--mobile' ~ ('' if frame and frame.mobile else ' video--full')) }}{% endif -%}
+    {%- if v.desk %}{{ _vplat(v.desk, device, 'video--desktop' ~ ('' if frame and frame.desk else ' video--full'), alt) }}{% endif -%}
+    {%- if v.mobile %}{{ _vplat(v.mobile, device, 'video--mobile' ~ ('' if frame and frame.mobile else ' video--full'), alt) }}{% endif -%}
   {%- else -%}
-    {{ _vplat(v, device, '' if frame else 'video--full') }}
+    {{ _vplat(v, device, '' if frame else 'video--full', alt) }}
   {%- endif -%}
 {%- endmacro -%}
 
@@ -126,9 +129,13 @@ https://cdn.dznr.me/{{ base }}{{ '@' ~ d ~ 'x' if d > 1 else '' }}.png?format=we
 #}
 {% macro workShot(alt='', frame=none, screen=none, video=none, device=none, class='') %}
   {%- set screenClass = 'screen scaled design-screen-recording--' ~ device if device else 'screen' -%}
+  {#- the layered media reads as one image, so exactly one layer — the topmost
+      visible one — carries the alt text: frame when present, else the screen,
+      else the video. The rest are decorative (empty alt / aria-hidden). -#}
+  {%- set carrier = 'frame' if frame else ('screen' if screen else 'video') -%}
   <div class="picture{{ ' video-container' if video }}{{ ' ' ~ class if class else '' }}">
-    {%- if frame %}{{ _pic(frame.desk, frame.mobile, 'frame', '') }}{% endif -%}
-    {%- if screen %}{{ _pic(screen.desk, screen.mobile, screenClass, alt) }}{% endif -%}
-    {%- if video %}{{ _video(video, device, frame) }}{% endif -%}
+    {%- if frame %}{{ _pic(frame.desk, frame.mobile, 'frame', alt if carrier == 'frame' else '') }}{% endif -%}
+    {%- if screen %}{{ _pic(screen.desk, screen.mobile, screenClass, alt if carrier == 'screen' else '') }}{% endif -%}
+    {%- if video %}{{ _video(video, device, frame, alt if carrier == 'video' else '') }}{% endif -%}
   </div>
 {% endmacro %}
