@@ -675,6 +675,7 @@ $shotGap: #{calc(var(--col) / 2)};
 
   .video-2x { 
     display: block; 
+    pointer-events: auto;
   }
 }
 
@@ -686,6 +687,7 @@ $shotGap: #{calc(var(--col) / 2)};
 
   .video-3x { 
     display: block; 
+    pointer-events: auto;
   }
 }
 
