@@ -61,18 +61,48 @@ https://cdn.dznr.me/{{ base }}{{ '@' ~ d ~ 'x' if d > 1 else '' }}.png?format=we
   </picture>
 {%- endmacro -%}
 
+{#- one <video> per density; the last one absorbs the classes for any missing
+    higher densities (e.g. dens [1, 2] → second video is "video-2x video-3x") -#}
+{%- macro _video(v, device) -%}
+  {%- set dens = v.dens if v.dens else [1, 2, 3] -%}
+  {%- for d in dens -%}
+    {%- set densClasses = 'video-' ~ d ~ 'x' -%}
+    {%- if loop.last -%}
+      {%- for pad in range(d + 1, 4) %}{% set densClasses = densClasses ~ ' video-' ~ pad ~ 'x' %}{% endfor -%}
+    {%- endif -%}
+    <video
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+      width="{{ v.width }}"
+      height="{{ v.height }}"
+      poster="/assets/img/poster.gif"
+      class="{{ 'design-screen-recording--' ~ device ~ ' ' if device }}{{ densClasses }}{{ ' ' ~ v.class if v.class }}"
+    >
+      <source src="https://cdn.dznr.me/{{ v.src }}{{ '@' ~ d ~ 'x' if d > 1 else '' }}.mp4" type="video/mp4">
+    </video>
+  {%- endfor -%}
+{%- endmacro -%}
+
 {#
   frame  — device frame; its image sticks to the box bounds and sits on top.
   screen — the screen still behind the frame's cutout. With `device` set it is
            centered and scaled into the screen area (like the <video> layer);
            without `device` it fills the box (bounds).
-  device — e.g. "iPhone-8", "iPhone-15-Pro"; opts the screen into scaling and
-           adds the matching .design-screen-recording--<device> class (--scale).
+  video  — a screen recording behind the frame instead of (or beside) a still:
+           { src, width, height, dens: [1, 2, 3], class }. src is cdn-relative,
+           width/height are the intrinsic display points, dens lists which
+           density files exist, class appends extras (e.g. "video--mobile").
+  device — e.g. "iPhone-8", "iPhone-15-Pro"; opts the screen/video into scaling
+           via the matching .design-screen-recording--<device> class (--scale).
 #}
-{% macro workShot(alt='', frame=none, screen=none, device=none, class='') %}
+{% macro workShot(alt='', frame=none, screen=none, video=none, device=none, class='') %}
   {%- set screenClass = 'screen scaled design-screen-recording--' ~ device if device else 'screen' -%}
-  <div class="picture{{ ' ' ~ class if class else '' }}">
+  <div class="picture{{ ' video-container' if video }}{{ ' ' ~ class if class else '' }}">
     {%- if frame %}{{ _pic(frame.desk, frame.mobile, 'frame', '') }}{% endif -%}
     {%- if screen %}{{ _pic(screen.desk, screen.mobile, screenClass, alt) }}{% endif -%}
+    {%- if video %}{{ _video(video, device) }}{% endif -%}
   </div>
 {% endmacro %}
