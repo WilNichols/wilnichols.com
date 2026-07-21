@@ -8,39 +8,16 @@ tags:
   - "Zello/Zello Web"
   - "Design/Zello Instant Demo"
 ---
-
-<picture class="picture">
-    <source
-      media="(prefers-color-scheme: dark)"
-      type="image/webp"
-      srcset="
-        https://cdn.dznr.me/design/zello-instant-demo--dark.webp 1x,
-        https://cdn.dznr.me/design/zello-instant-demo--dark@2x.webp 2x,
-        https://cdn.dznr.me/design/zello-instant-demo--dark@3x.webp 3x
-      "
-    />
-    <source
-      media="(prefers-color-scheme: light)"
-      type="image/webp"
-      srcset="
-        https://cdn.dznr.me/design/zello-instant-demo--light.webp 1x,
-        https://cdn.dznr.me/design/zello-instant-demo--light@2x.webp 2x,
-        https://cdn.dznr.me/design/zello-instant-demo--light@3x.webp 3x
-      "
-    />
-
-  <img
-    src="https://cdn.dznr.me/design/zello-instant-demo--light@2x.webp"
-    srcset="
-      https://cdn.dznr.me/design/zello-instant-demo--light.webp 1x,
-      https://cdn.dznr.me/design/zello-instant-demo--light@2x.webp 2x,
-      https://cdn.dznr.me/design/zello-instant-demo--light@3x.webp 3x
-    "
-    alt="Mobile and desktop screenshots of Zello’s instant demo."
-    loading="lazy"
-    decoding="async"
-  />
-</picture>
+{% from "work-shot.njk" import workShot %}
+{{ workShot(
+  alt="Mobile and desktop screenshots of Zello’s instant demo.",
+  screen={
+    desk: {
+      dark: "work-screens/zello-instant-demo--01--dark--desk",
+      light: "work-screens/zello-instant-demo--01--light--desk"
+    }
+  }
+) }}
 <div class="content">
   <p>In our 2023 hackathon, Alex G, Mike Kiurshin, and I partnered to create an alternate online Zello Work sign up which we split test the following Summer. Rather than a signup form and then exposure to our full work platform, this demo was enabled with users with a single click, giving them exposure to a sandbox-like setup.</p>
 </div>

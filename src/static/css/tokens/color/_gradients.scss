@@ -286,6 +286,14 @@ $cV20Linear: linear2(var(--cV20), var(--cM30));
   @include themedGradient($cM95Linear, $cV20Linear); 
 }
 
+.zello-instant-demo--1 {
+  @include themedGradient($cO90Radial, $cK10Radial); 
+}
+
+.zello-instant-demo--2, .zello-instant-demo--3 {
+  @include themedGradient($cO90Radial, $cK10Radial); 
+}
+
 .minte-visuals--1, .minte-visuals--2, .minte-visuals--3, .minte-visuals--4 {
   @include themedGradient($cYD85Radial, $cOD15Radial); 
 }
@@ -324,5 +332,9 @@ $cV20Linear: linear2(var(--cV20), var(--cM30));
 }
 
 .zello-for-ios-9--2 {
- @include themedGradient($cY90Radial2, $cYD15Radial); 
+  @include themedGradient($cY90Radial2, $cYD15Radial); 
+}
+
+.wedding-invitations--1, .wedding-invitations--2, .wedding-invitations--3, .wedding-invitations--4 {
+  @include themedGradient($weddingLightRadial, $weddingDarkRadial); 
 }

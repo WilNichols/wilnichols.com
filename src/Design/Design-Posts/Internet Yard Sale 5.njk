@@ -1,0 +1,24 @@
+---
+date: 2026-03-01T02:00
+author: Wil Nichols
+altTitle: "My Internet Yard Sale"
+inputFilter: Coarse
+tags:
+  - "Client/Personal Project"
+  - "Design/Internet Yard Sale"
+---
+{% from "work-shot.njk" import workShot %}
+{% from "work-shot.njk" import workShot %}
+{{ workShot(
+  alt="The mobile detail page for our yardsale.",
+  screen={
+    desk: {
+      dark: "work-screens/internet-yard-sale--03--dark--mobile",
+      light: "work-screens/internet-yard-sale--03--light--mobile"
+    }
+  }
+) }}
+<div class="content">
+  <p>More could’ve been done to mobile-optimize, but I wanted to keep the DOM as simple as possible.</p>
+</div>
+  
