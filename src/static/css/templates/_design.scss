@@ -213,7 +213,7 @@ $shotsFade: 12.5dvmin;
 }
 
 .shots-container {
-  height: calc(var(--desktopPanelHeight) + 8rem);
+  height: var(--desktopPanelHeight);
   width: 100dvw;
   overflow: hidden;
   position: relative;
@@ -365,17 +365,32 @@ $shotGap: #{calc(var(--col) / 2)};
   display: grid;
   justify-items: center;
   width: 100dvw;
+  overflow: clip; // slots pan a full carousel step past the edges
 }
 
 .project__content-slot {
   grid-area: 1 / 1; // all slots overlap; the tallest one sets the height
   width: var(--desktopPanelWidth);
-  will-change: opacity;
-  animation: desktopShowContent linear both;
+  will-change: opacity, transform;
+  // one carousel step, so the slot travels in lockstep with its shot
+  --content-step: calc(var(--desktopPanelWidth) + var(--u16));
+  animation: desktopShowContent linear both, panContent linear both;
   // animation-timeline comes inline per slot (its shot's scoped timeline)
   @media (pointer: coarse) and (width <= tokens.$breakpoint) {
-    animation-name: mobileShowContent;
+    animation-name: mobileShowContent, panContent;
     width: 100%;
+    --content-step: calc(var(--desktopPanelWidth) + var(--u8));
+  }
+}
+
+// Shots enter from the right and leave to the left; the description rides
+// the same path, driven by the same view timeline.
+@keyframes panContent {
+  0% {
+    transform: translateX(var(--content-step));
+  }
+  100% {
+    transform: translateX(calc(-1 * var(--content-step)));
   }
 }
 

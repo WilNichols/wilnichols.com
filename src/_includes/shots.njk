@@ -14,7 +14,9 @@
 {% macro endProject(projectId, projectShots, shotPlatforms) -%}
   </ol></div>
   <div class="project__contents">
-    {% for post in projectShots %}
+    {# reversed to match the shot loop's `collection | reverse` order — the
+       timeline names are positional, so the iteration orders must agree #}
+    {% for post in projectShots | reverse %}
       {% set platform = shotPlatforms[loop.index - 1] %}
       {% set slotTimeline = '--' ~ projectId ~ '-shot-' ~ loop.index ~ '-' ~ platform %}
       {% set slotClass = "" %}
