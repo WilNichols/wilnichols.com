@@ -195,6 +195,20 @@ export default async function(eleventyConfig) {
   eleventyConfig.addFilter("draftsOf", (collection1, collection2) => {
     return collection1.filter(value => collection2.includes(value));
   });
+
+  // Design posts are authored as one body: the shot markup followed by
+  // <div class="content">…</div>. These split that body so the shot can
+  // render inside the carousel while the description renders outside it
+  // (wheel over a description must reach the page, not the scroller).
+  const CONTENT_SPLIT = '<div class="content">';
+  eleventyConfig.addFilter("shotOnly", html =>
+    html ? html.split(CONTENT_SPLIT)[0] : html
+  );
+  eleventyConfig.addFilter("contentOnly", html => {
+    if (!html) return '';
+    const i = html.indexOf(CONTENT_SPLIT);
+    return i === -1 ? '' : html.slice(i);
+  });
   
   eleventyConfig.addFilter("markdownify", string => {
     return md.renderInline(string)

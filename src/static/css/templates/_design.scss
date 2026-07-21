@@ -86,14 +86,6 @@ $carouselInset: calc(((100dvw - var(--desktopPanelWidth))/2));
   &--trailing {
     inset: 0 0 0 auto;
   }
-  &--shot {
-    position: absolute;
-    // from the bottom of the image
-    // inset: calc(var(--u32) + var(--desktopPanelHeight)) 0 0 0;
-    // from the bottom of the image plus just enough space for text
-    font-size: var(--type-2);
-    inset: calc(var(--u32) + var(--desktopPanelHeight) + 3lh) 0 0 0;
-  }
 }
 .project-list {
   display: flex;
@@ -342,10 +334,10 @@ $shotGap: #{calc(var(--col) / 2)};
   }
 }
 
-.shot > .picture, .shot .content, .shot > .video-container, {
+.shot > .picture, .shot > .video-container {
   view-timeline-name: --carousel;
   view-timeline-axis: y;
-  view-timeline-inset: $carouselInset; 
+  view-timeline-inset: $carouselInset;
   animation-timeline: --carousel;
   // animation-timeline: view(y $carouselInset);
   animation-timing-function: ease-in-out;
@@ -366,11 +358,24 @@ $shotGap: #{calc(var(--col) / 2)};
   }
 }
 
-.shot .content {
+// Descriptions live OUTSIDE the rotated scroller (see .project__contents):
+// wheel over them reaches the page natively, which is what retired the
+// .scroll-thief--shot overlay. Each slot fades with its shot's timeline.
+.project__contents {
+  display: grid;
+  justify-items: center;
+  width: 100dvw;
+}
+
+.project__content-slot {
+  grid-area: 1 / 1; // all slots overlap; the tallest one sets the height
+  width: var(--desktopPanelWidth);
   will-change: opacity;
-  animation-name: desktopShowContent;
-  @media (pointer: coarse) and (width <= tokens.$breakpoint) { 
+  animation: desktopShowContent linear both;
+  // animation-timeline comes inline per slot (its shot's scoped timeline)
+  @media (pointer: coarse) and (width <= tokens.$breakpoint) {
     animation-name: mobileShowContent;
+    width: 100%;
   }
 }
 
@@ -535,7 +540,8 @@ $shotGap: #{calc(var(--col) / 2)};
   } 
 }
 
-.shot .content {
+// In normal page flow (not the rotated scroller), so plain horizontal text.
+.project__content-slot .content {
   & {
     display: flex;
     flex-wrap: wrap;
@@ -544,26 +550,10 @@ $shotGap: #{calc(var(--col) / 2)};
     list-style: none;
     color: var(--contentSecondaryColor);
     justify-content: space-between;
-    // Definite height, matched to the picture panel. With `100%` (indefinite,
-    // li.shot is auto) the vertical-rl paragraph below resolves its inline
-    // size against the viewport in Chrome/Firefox, ballooning li.shot as the
-    // window grows taller; Safari falls back to fit-content. Pinning it to
-    // the panel makes every browser agree.
-    height: var(--desktopPanelWidth);
-    width: auto;
-    padding: .6em var(--type--1);
+    padding: var(--type--1) .6em;
     p {
       font-size: var(--type--1);
-      writing-mode: vertical-rl;
       cursor: text;
-    }
-    @media (pointer: coarse) and (width <= tokens.$breakpoint) {
-      width: 100%;
-      padding: var(--type--1) .6em;
-      height: auto;
-      p {
-        writing-mode: initial;
-      }
     }
   }
   li {
