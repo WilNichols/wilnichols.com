@@ -8,39 +8,16 @@ tags:
   - "Zello/Zello Android"
   - "Design/In-Person Translations"
 ---
-
-<picture class="picture">
-  <source
-      media="(prefers-color-scheme: dark)"
-      type="image/webp"
-      srcset="
-        https://cdn.dznr.me/design/zello-in-person-translations-2--mobile--dark.webp 1x,
-        https://cdn.dznr.me/design/zello-in-person-translations-2--mobile--dark@2x.webp 2x,
-        https://cdn.dznr.me/design/zello-in-person-translations-2--mobile--dark@3x.webp 3x
-      "
-    />
-    <source
-      media="(prefers-color-scheme: light)"
-      type="image/webp"
-      srcset="
-        https://cdn.dznr.me/design/zello-in-person-translations-2--mobile--light.webp 1x,
-        https://cdn.dznr.me/design/zello-in-person-translations-2--mobile--light@2x.webp 2x,
-        https://cdn.dznr.me/design/zello-in-person-translations-2--mobile--light@3x.webp 3x
-      "
-    />
-  
-  <img
-    src="https://cdn.dznr.me/design/zello-in-person-translations-2--mobile--light@2x.webp"
-    srcset="
-      https://cdn.dznr.me/design/zello-in-person-translations-2--mobile--light.webp 1x,
-      https://cdn.dznr.me/design/zello-in-person-translations-2--mobile--light@2x.webp 2x,
-      https://cdn.dznr.me/design/zello-in-person-translations-2--mobile--light@3x.webp 3x
-    "
-    alt="Modified Zello Talk and History screens."
-    loading="lazy"
-    decoding="async"
-  />
-</picture>
+{% from "work-shot.njk" import workShot %}
+{{ workShot(
+  alt="A portrait screen showing original and translated text.",
+  frame={
+    desk: "work-device-compositions/Android-Zello--mobile--04"
+  },
+  screen={
+    desk: "work-screens/zello-in-person-translations--02--mobile"
+  }
+) }}
 <div class="content">
   <p>We started exploring in-person translations by modifying existing interfaces. Could we trivially adapt an existing surface to two individuals using it in-person, translating between their spoken languages?</p>
 </div>

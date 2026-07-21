@@ -7,97 +7,20 @@ tags:
   - "Zello/Zello iOS"
   - "Design/Voice Commands via Whisper Feasibility Prototype"
 ---
+{% from "work-shot.njk" import workShot %}
+{{ workShot(
+  frame={
+    desk: "work-device-compositions/iPhone-14-Pro--silver--desk--01",
+    mobile: "work-device-compositions/iPhone-14-Pro--silver--mobile--01"
+  },
+  video={
+    src: "vid/voice-commands-prototype/voice-commands-prototype",
+    width: 375,
+    height: 810
+  },
+  device="iPhone-14-Pro--portrait"
+) }}
 
-<div class="video-container">
-  <picture class="picture">
-    <source
-      media="(prefers-color-scheme: dark) and (pointer: coarse) and (width <= 640px)"
-      type="image/webp"
-      srcset="
-        https://cdn.dznr.me/design/zello-new-talk-screen-1--mobile--dark.webp 1x,
-        https://cdn.dznr.me/design/zello-new-talk-screen-1--mobile--dark@2x.webp 2x,
-        https://cdn.dznr.me/design/zello-new-talk-screen-1--mobile--dark@3x.webp 3x
-      "
-    />
-    <source
-      media="(prefers-color-scheme: light) and (pointer: coarse) and (width <= 640px)"
-      type="image/webp"
-      srcset="
-        https://cdn.dznr.me/design/zello-new-talk-screen-1--mobile--light.webp 1x,
-        https://cdn.dznr.me/design/zello-new-talk-screen-1--mobile--light@2x.webp 2x,
-        https://cdn.dznr.me/design/zello-new-talk-screen-1--mobile--light@3x.webp 3x
-      "
-    />
-      <source
-        media="(prefers-color-scheme: dark)"
-        type="image/webp"
-        srcset="
-          https://cdn.dznr.me/design/zello-new-talk-screen-1--dark.webp 1x,
-          https://cdn.dznr.me/design/zello-new-talk-screen-1--dark@2x.webp 2x,
-          https://cdn.dznr.me/design/zello-new-talk-screen-1--dark@3x.webp 3x
-        "
-      />
-      <source
-        media="(prefers-color-scheme: light)"
-        type="image/webp"
-        srcset="
-          https://cdn.dznr.me/design/zello-new-talk-screen-1--light.webp 1x,
-          https://cdn.dznr.me/design/zello-new-talk-screen-1--light@2x.webp 2x,
-          https://cdn.dznr.me/design/zello-new-talk-screen-1--light@3x.webp 3x
-        "
-      />
-      <img
-        src="https://cdn.dznr.me/design/zello-new-talk-screen-1--light@2x.webp"
-        srcset="
-          https://cdn.dznr.me/design/zello-new-talk-screen-1--light.webp 1x,
-          https://cdn.dznr.me/design/zello-new-talk-screen-1--light@2x.webp 2x,
-          https://cdn.dznr.me/design/zello-new-talk-screen-1--light@3x.webp 3x
-        "
-        alt="A prototype testing whether Whisper would properly distinguish our commands and realistic usernames."
-        loading="lazy"
-        decoding="async"
-      />
-  </picture>
-  <video 
-    autoplay
-    muted
-    loop
-    playsinline
-    preload="auto"
-    width="375"
-    height="810"
-    poster="/assets/img/poster.gif"
-    class="design-screen-recording--iPhone-14-Pro--portrait video-1x"
-    >
-      <source src="https://cdn.dznr.me/vid/voice-commands-prototype/voice-commands-prototype.mp4" type="video/mp4">
-  </video>
-  <video 
-    autoplay
-    muted
-    loop
-    playsinline
-    preload="auto"
-    width="375"
-    height="810"
-    poster="/assets/img/poster.gif"
-    class="design-screen-recording--iPhone-14-Pro--portrait video-2x"
-    >
-      <source src="https://cdn.dznr.me/vid/voice-commands-prototype/voice-commands-prototype@2x.mp4" type="video/mp4">
-  </video>
-  <video 
-    autoplay
-    muted
-    loop
-    playsinline
-    preload="auto"
-    width="375"
-    height="810"
-    poster="/assets/img/poster.gif"
-    class="design-screen-recording--iPhone-14-Pro--portrait video-3x"
-    >
-      <source src="https://cdn.dznr.me/vid/voice-commands-prototype/voice-commands-prototype@3x.mp4" type="video/mp4">
-  </video>
-</div>
 <div class="content">
   <p>After brainstorming methods to ship a voice-commands feature on our Android app, a contributor suggested we use Whisper to recognize voice. I built this prototype to test to what degree Whisper would, out-of-the-box, match our proposed commands and realistic contact names, and wheher I needed to apply a phonetic algorithm to distinguish similar names. The prototype UI reflects which command and contact or channel name Whisper interprets, and returns us Whisper’s trancscription of your speech.</p>
 </div>

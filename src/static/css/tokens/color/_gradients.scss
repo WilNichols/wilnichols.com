@@ -1,4 +1,5 @@
 @use 'mixins' as *;
+@use '../size/aliases';
 
 // Gradient constructors.
 // Focal geometry and stop percentages live here once, so the token list below
@@ -166,6 +167,9 @@ $cY90Radial2: radialTop(var(--cY90), var(--cY80));
 // Minte visuals, light: soft honey.
 $cYD85Radial: radial3(var(--cYD85), var(--cYD75), var(--cYD80));
 
+// Minte visuals, dark: burnt orange.
+$cOD15Radial: radial3(var(--cOD15), var(--cOD05), var(--cOD10));
+
 // Instant demo, light: warm apricot.
 $cO90Radial: radial3(var(--cO90), var(--cO85), var(--cO95));
 
@@ -179,19 +183,93 @@ $cO95Radial2: radial2(var(--cO95), var(--cO85));
 $cY95Radial2: radial2(var(--cY95), var(--cY85));
 
 // Zello Bridge, dark: violet edged with magenta.
-$cYVD20Radial2: radial3(var(--cVD20), var(--cVD10), var(--cMD30));
+$cVD20Radial2: radial3(var(--cVD20), var(--cVD10), var(--cMD30));
 
 // Zello Bridge, light: soft pink magenta.
 $cM95Radial: radial2(var(--cM95), var(--cM90));
 
-.shot .picture {
-  background-color: transparent !important;
-  background-size: cover;
-}
-.main-menu--1 > .picture {
-  @include light-dark(background-image, $cK85Linear, $cBD05Linear);
+// Zello Bridge Mobile, light: soft pink magenta.
+$cM95Linear: linear2(var(--cM95), var(--cM90));
+
+// Zello Bridge Mobile, light: soft pink magenta.
+$cV20Linear: linear2(var(--cV20), var(--cM30));
+
+@mixin themedGradient($light, $dark) {
+  @include light-dark(--gradient, $light, $dark);
 }
 
-.in-person-translations--1 > .picture {
-  @include light-dark(background-image, $cB95Radial, $cBD20Radial);
+.shot .picture::after {
+  content: '';
+  z-index: -1;
+  position: absolute;
+  background-color: transparent !important;
+  background-size: cover;
+  width: calc(var(--desktopPanelWidth) + 4px);
+  height: calc(var(--desktopPanelWidth) + 4px);
+  position: absolute;
+  transform: rotate(90deg);
+  place-self: center;
+  @include light-dark(--defaultGradient, $cK95Radial, $cKD20Radial);
+  background-image: var(--gradient, var(--defaultGradient));
+  @media (pointer: coarse) and (width <= aliases.$breakpoint) {
+    height: calc(var(--desktopPanelHeight) + 4px);
+    width: calc(var(--desktopPanelHeight) + 4px);
+    transform: rotate(0);
+  }
+}
+
+.main-menu--1 {
+  @include themedGradient($cK85Linear, $cBD05Linear);
+}
+
+.in-person-translations--1 {
+  @include themedGradient($cB95Radial, $cBD20Radial);
+}
+
+.in-person-translations--2 {
+  @include themedGradient($cK90Radial, $cKD10Radial);
+}
+
+.in-person-translations--3 {
+  @include themedGradient($cT85Radial, $cVD20Radial);
+}
+
+.in-person-translations--4 {
+  @include themedGradient($cO95Radial, $cOD10Radial);
+}
+
+.in-person-translations--5 {
+  @include themedGradient($cA95Radial, $cAD20Radial);
+}
+
+.in-person-translations--6 {
+  @include themedGradient($cK85Linear, $cK05Linear);
+}
+
+.in-person-translations--7 {
+  @include themedGradient($cK75Linear, $cK15Linear);
+}
+
+.in-person-translations--8 {
+  @include themedGradient($cV80Linear, $cV20Linear);
+}
+
+.in-person-translations--9 {
+  @include themedGradient($cO85Linear, $cO15Linear);
+}
+
+.in-person-translations--10 {
+  @include themedGradient($cA90Linear, $cA15Linear);
+}
+
+.zello-bridge--1 {
+  @include themedGradient($cM95Radial, $cVD20Radial2); 
+}
+
+.zello-bridge--2, .zello-bridge--3 {
+  @include themedGradient($cM95Linear, $cV20Linear); 
+}
+
+.minte-visuals--1, .minte-visuals--2, .minte-visuals--3, .minte-visuals--4 {
+  @include themedGradient($cYD85Radial, $cOD15Radial); 
 }

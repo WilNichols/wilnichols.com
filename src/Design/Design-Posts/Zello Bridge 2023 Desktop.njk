@@ -8,39 +8,16 @@ tags:
   - "Zello/Zello Web"
   - "Design/Zello Bridge"
 ---
-
-<picture class="picture">
-    <source
-      media="(prefers-color-scheme: dark)"
-      type="image/webp"
-      srcset="
-        https://cdn.dznr.me/design/zello-bridge--dark.webp 1x,
-        https://cdn.dznr.me/design/zello-bridge--dark@2x.webp 2x,
-        https://cdn.dznr.me/design/zello-bridge--dark@3x.webp 3x
-      "
-    />
-    <source
-      media="(prefers-color-scheme: light)"
-      type="image/webp"
-      srcset="
-        https://cdn.dznr.me/design/zello-bridge--light.webp 1x,
-        https://cdn.dznr.me/design/zello-bridge--light@2x.webp 2x,
-        https://cdn.dznr.me/design/zello-bridge--light@3x.webp 3x
-      "
-    />
-
-  <img
-    src="https://cdn.dznr.me/design/zello-bridge--light@2x.webp"
-    srcset="
-      https://cdn.dznr.me/design/zello-bridge--light.webp 1x,
-      https://cdn.dznr.me/design/zello-bridge--light@2x.webp 2x,
-      https://cdn.dznr.me/design/zello-bridge--light@3x.webp 3x
-    "
-    alt="Mobile and desktop screenshots of Zello Bridge."
-    loading="lazy"
-    decoding="async"
-  />
-</picture>
+{% from "work-shot.njk" import workShot %}
+{{ workShot(
+  alt="Mobile and desktop screenshots of Zello Bridge.",
+  screen={
+    desk: {
+      dark: "work-screens/zello-bridge--01--dark--desk",
+      light: "work-screens/zello-bridge--01--light--desk"
+    }
+  }
+) }}
 <div class="content">
   <p>Zello Bridge is a web-based application that allows users to link separate Zello channels, Zello Work channels, and select radio gateways like the <a href="https://zello.com/hardware/radio-gateways/" target="blank">JPS</a>. It can even be set up to allow you to use your desktop as a VOX-activated channel member.</p>
 </div>

@@ -6,89 +6,23 @@ tags:
   - "Client/The Minte"
   - "Design/Calendar tutorial"
 ---
-
-<div class="video-container">
-  {# Desktop 1x #}
-  <video 
-    autoplay
-    muted
-    loop
-    playsinline
-    preload="auto"
-    width="1440"
-    height="960"
-    poster="/assets/img/poster.gif"
-    class="video-1x video--desktop"
-    >
-      <source 
-        media="(prefers-color-scheme: dark)"
-        type="video/mp4"
-        src="https://cdn.dznr.me/vid/minte-calendar-tutorial/minte-calendar-tutorial--dark.mp4">
-      <source 
-        type="video/mp4"
-        src="https://cdn.dznr.me/vid/minte-calendar-tutorial/minte-calendar-tutorial--light.mp4">
-  </video>
-  {# Desktop 2x & 3x #}
-  <video 
-    autoplay
-    muted
-    loop
-    playsinline
-    preload="auto"
-    width="1440"
-    height="960"
-    poster="/assets/img/poster.gif"
-    class="video-2x video-3x video--desktop"
-    >
-      <source 
-        media="(prefers-color-scheme: dark)"
-        type="video/mp4"
-        src="https://cdn.dznr.me/vid/minte-calendar-tutorial/minte-calendar-tutorial--dark@2x.mp4">
-      <source 
-        type="video/mp4"
-        src="https://cdn.dznr.me/vid/minte-calendar-tutorial/minte-calendar-tutorial--light@2x.mp4">
-  </video>
-  {# Mobile 1x #}
-  <video 
-    autoplay
-    muted
-    loop
-    playsinline
-    preload="auto"
-    width="720"
-    height="1080"
-    poster="/assets/img/poster.gif"
-    class="video-1x video--mobile"
-    >
-      <source 
-        media="(prefers-color-scheme: dark)"
-        type="video/mp4"
-        src="https://cdn.dznr.me/vid/minte-calendar-tutorial/minte-calendar-tutorial--mobile--dark.mp4">
-      <source 
-        type="video/mp4"
-        src="https://cdn.dznr.me/vid/minte-calendar-tutorial/minte-calendar-tutorial--mobile--light.mp4">
-  </video>
-  {# Mobile 2x & 3x #}
-  <video 
-    autoplay
-    muted
-    loop
-    playsinline
-    preload="auto"
-    width="720"
-    height="1080"
-    poster="/assets/img/poster.gif"
-    class="video-2x video-3x video--mobile"
-    >
-      <source 
-        media="(prefers-color-scheme: dark)"
-        type="video/mp4"
-        src="https://cdn.dznr.me/vid/minte-calendar-tutorial/minte-calendar-tutorial--mobile--dark@2x.mp4">
-      <source 
-        type="video/mp4"
-        src="https://cdn.dznr.me/vid/minte-calendar-tutorial/minte-calendar-tutorial--mobile--light@2x.mp4">
-  </video>
-</div>
+{% from "work-shot.njk" import workShot %}
+{{ workShot(
+  video={
+    desk: {
+      dark: "vid/minte-calendar-tutorial/minte-calendar-tutorial--dark",
+      light: "vid/minte-calendar-tutorial/minte-calendar-tutorial--light",
+      dens: [1, 2],
+      dim: [1440, 960]
+    },
+    mobile: {
+      dark: "vid/minte-calendar-tutorial/minte-calendar-tutorial--mobile--dark",
+      light: "vid/minte-calendar-tutorial/minte-calendar-tutorial--mobile--light",
+      dens: [1, 2],
+      dim: [720, 1080]
+    }
+  }
+) }}
 <div class="content">
   <p>The Minte had struggled with teaching users to use their scheduling UI. This prototype proposed a coaching UX.</p>
 </div>

@@ -6,51 +6,20 @@ tags:
   - "Client/The Minte"
   - "Design/Minte Visuals"
 ---
-
-<picture class="picture">
-  <source
-    media="(prefers-color-scheme: dark) and (pointer: coarse) and (width <= 640px)"
-    type="image/webp"
-    srcset="
-      https://cdn.dznr.me/vid/minte-visuals/mint-web-mobile--dark@2x.webp 2x,
-      https://cdn.dznr.me/vid/minte-visuals/mint-web-mobile--dark@3x.webp 3x
-    "
-  />
-  <source
-    media="(prefers-color-scheme: light) and (pointer: coarse) and (width <= 640px)"
-    type="image/webp"
-    srcset="
-      https://cdn.dznr.me/vid/minte-visuals/mint-web-mobile--light@2x.webp 2x,
-      https://cdn.dznr.me/vid/minte-visuals/mint-web-mobile--light@3x.webp 3x
-    "
-  />
-    <source
-      media="(prefers-color-scheme: dark)"
-      type="image/webp"
-      srcset="
-        https://cdn.dznr.me/vid/minte-visuals/mint-web-desktop--dark.webp 1x,
-        https://cdn.dznr.me/vid/minte-visuals/mint-web-desktop--dark@2x.webp 2x
-      "
-    />
-    <source
-      media="(prefers-color-scheme: light)"
-      type="image/webp"
-      srcset="
-        https://cdn.dznr.me/vid/minte-visuals/mint-web-desktop--light.webp 1x,
-        https://cdn.dznr.me/vid/minte-visuals/mint-web-desktop--light@2x.webp 2x
-      "
-    />
-  <img
-    src="https://cdn.dznr.me/vid/minte-visuals/mint-web-desktop--light@2x.webp"
-    srcset="
-      https://cdn.dznr.me/vid/minte-visuals/mint-web-desktop--light.webp 1x,
-      https://cdn.dznr.me/vid/minte-visuals/mint-web-desktop--light@2x.webp 2x
-    "
-    alt="The Minte’s desktop app and mobile app in the light and dark themes respectively."
-    loading="lazy"
-    decoding="async"
-  />
-</picture>
+{% from "work-shot.njk" import workShot %}
+{{ workShot(
+  alt="The Minte’s desktop and mobile web experience in the light and dark themes respectively.",
+  screen={
+    desk: {
+      dark: "work-screens/minte-web--01--dark--desk",
+      light: "work-screens/minte-web--01--light--desk"
+    },
+    mobile: {
+      dark: "work-screens/minte-web--01--dark--mobile",
+      light: "work-screens/minte-web--01--light--mobile"
+    }
+  }
+) }}
 <div class="content">
   <p>Having worked in mid-fidelity through most of the project, a final coat of paint went on over the final month. Both web and native apps offered light and dark themes.</p>
 </div>

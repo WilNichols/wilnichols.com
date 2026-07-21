@@ -8,39 +8,17 @@ tags:
   - "Zello/Zello Android"
   - "Design/In-Person Translations"
 ---
+{% from "work-shot.njk" import workShot %}
+{{ workShot(
+  alt="A portrait screen showing original and translated text.",
+  frame={
+    desk: "work-device-compositions/Android-Zello--desk--02"
+  },
+  screen={
+    desk: "work-screens/zello-in-person-translations--05--desk"
+  }
+) }}
 
-<picture class="picture">
-  <source
-      media="(prefers-color-scheme: dark)"
-      type="image/webp"
-      srcset="
-        https://cdn.dznr.me/design/zello-in-person-translations-5--dark.webp 1x,
-        https://cdn.dznr.me/design/zello-in-person-translations-5--dark@2x.webp 2x,
-        https://cdn.dznr.me/design/zello-in-person-translations-5--dark@3x.webp 3x
-      "
-    />
-    <source
-      media="(prefers-color-scheme: light)"
-      type="image/webp"
-      srcset="
-        https://cdn.dznr.me/design/zello-in-person-translations-5--light.webp 1x,
-        https://cdn.dznr.me/design/zello-in-person-translations-5--light@2x.webp 2x,
-        https://cdn.dznr.me/design/zello-in-person-translations-5--light@3x.webp 3x
-      "
-    />
-  
-  <img
-    src="https://cdn.dznr.me/design/zello-in-person-translations-5--light@2x.webp"
-    srcset="
-      https://cdn.dznr.me/design/zello-in-person-translations-5--light.webp 1x,
-      https://cdn.dznr.me/design/zello-in-person-translations-5--light@2x.webp 2x,
-      https://cdn.dznr.me/design/zello-in-person-translations-5--light@3x.webp 3x
-    "
-    alt="A portrait screen showing original and translated text."
-    loading="lazy"
-    decoding="async"
-  />
-</picture>
 <div class="content">
   <p>It was then decided to pursue a single orientation.</p>
 </div>

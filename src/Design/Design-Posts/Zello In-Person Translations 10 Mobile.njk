@@ -8,39 +8,16 @@ tags:
   - "Zello/Zello Android"
   - "Design/In-Person Translations"
 ---
-
-<picture class="picture">
-  <source
-      media="(prefers-color-scheme: dark)"
-      type="image/webp"
-      srcset="
-        https://cdn.dznr.me/design/zello-in-person-translations-6--mobile--dark.webp 1x,
-        https://cdn.dznr.me/design/zello-in-person-translations-6--mobile--dark@2x.webp 2x,
-        https://cdn.dznr.me/design/zello-in-person-translations-6--mobile--dark@3x.webp 3x
-      "
-    />
-    <source
-      media="(prefers-color-scheme: light)"
-      type="image/webp"
-      srcset="
-        https://cdn.dznr.me/design/zello-in-person-translations-6--mobile--light.webp 1x,
-        https://cdn.dznr.me/design/zello-in-person-translations-6--mobile--light@2x.webp 2x,
-        https://cdn.dznr.me/design/zello-in-person-translations-6--mobile--light@3x.webp 3x
-      "
-    />
-  
-  <img
-    src="https://cdn.dznr.me/design/zello-in-person-translations-6--mobile--light@2x.webp"
-    srcset="
-      https://cdn.dznr.me/design/zello-in-person-translations-6--mobile--light.webp 1x,
-      https://cdn.dznr.me/design/zello-in-person-translations-6--mobile--light@2x.webp 2x,
-      https://cdn.dznr.me/design/zello-in-person-translations-6--mobile--light@3x.webp 3x
-    "
-    alt="A portrait screen showing original and translated text."
-    loading="lazy"
-    decoding="async"
-  />
-</picture>
+{% from "work-shot.njk" import workShot %}
+{{ workShot(
+  alt="A portrait phone showing a primary and secondary user’s languages.",
+  frame={
+    desk: "work-device-compositions/Android-Zello--mobile--03"
+  },
+  screen={
+    desk: "work-screens/zello-in-person-translations--05--mobile"
+  }
+) }}
 <div class="content">
   <p>We eventually settled on a portrait screen for two users abreast, not opposite each other.</p>
 </div>

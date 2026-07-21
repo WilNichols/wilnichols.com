@@ -54,17 +54,27 @@ https://cdn.dznr.me/{{ base }}{{ '@' ~ d ~ 'x' if d > 1 else '' }}.png?format=we
   {%- set mDens = mobile.dens if (mDict and mobile.dens) else [2, 3] -%}
 
   {%- set fallback = dSingle or dLight or dDark or mSingle or mLight or mDark -%}
-  <picture class="{{ class }}">
+  {#- with one platform omitted, the <img> fallback would still paint the
+      other platform's asset everywhere — the guard class hides it there -#}
+  {%- set only = '' -%}
+  {%- if mobile and not desk %}{% set only = ' pic--mobile-only' %}{% endif -%}
+  {%- if desk and not mobile %}{% set only = ' pic--desk-only' %}{% endif -%}
+  <picture class="{{ class }}{{ only }}">
     {%- if mobile %}{{ _plat(mSingle, mLight, mDark, mDens, mob) }}{% endif -%}
     {%- if desk %}{{ _plat(dSingle, dLight, dDark, dDens, '') }}{% endif -%}
     <img src="https://cdn.dznr.me/{{ fallback }}.png?format=webp" alt="{{ alt }}" loading="lazy" decoding="async">
   </picture>
 {%- endmacro -%}
 
-{#- one <video> per density; the last one absorbs the classes for any missing
-    higher densities (e.g. dens [1, 2] → second video is "video-2x video-3x") -#}
-{%- macro _video(v, device) -%}
+{#- one <video> per density for one platform; the last video absorbs the
+    classes for any missing higher densities (dens [1, 2] → "video-2x video-3x").
+    v: { src OR light+dark, dens, dim: [w, h] (or width/height), class }.
+    dark gets a prefers-color-scheme source; light (or src) is the catch-all. -#}
+{%- macro _vplat(v, device, platClass) -%}
   {%- set dens = v.dens if v.dens else [1, 2, 3] -%}
+  {%- set w = v.dim[0] if v.dim else v.width -%}
+  {%- set h = v.dim[1] if v.dim else v.height -%}
+  {%- set catchall = v.light if v.light else v.src -%}
   {%- for d in dens -%}
     {%- set densClasses = 'video-' ~ d ~ 'x' -%}
     {%- if loop.last -%}
@@ -76,14 +86,30 @@ https://cdn.dznr.me/{{ base }}{{ '@' ~ d ~ 'x' if d > 1 else '' }}.png?format=we
       loop
       playsinline
       preload="auto"
-      width="{{ v.width }}"
-      height="{{ v.height }}"
+      width="{{ w }}"
+      height="{{ h }}"
       poster="/assets/img/poster.gif"
-      class="{{ 'design-screen-recording--' ~ device ~ ' ' if device }}{{ densClasses }}{{ ' ' ~ v.class if v.class }}"
+      class="{{ 'design-screen-recording--' ~ device ~ ' ' if device }}{{ densClasses }}{{ ' ' ~ platClass if platClass }}{{ ' ' ~ v.class if v.class }}"
     >
-      <source src="https://cdn.dznr.me/{{ v.src }}{{ '@' ~ d ~ 'x' if d > 1 else '' }}.mp4" type="video/mp4">
+      {%- if v.dark %}
+      <source media="(prefers-color-scheme: dark)" type="video/mp4" src="https://cdn.dznr.me/{{ v.dark }}{{ '@' ~ d ~ 'x' if d > 1 else '' }}.mp4">
+      {%- endif %}
+      <source type="video/mp4" src="https://cdn.dznr.me/{{ catchall }}{{ '@' ~ d ~ 'x' if d > 1 else '' }}.mp4">
     </video>
   {%- endfor -%}
+{%- endmacro -%}
+
+{#- video group: either flat { src, ... } (one video set, both platforms) or
+    { desk: {...}, mobile: {...} } — per-platform sets with the
+    .video--desktop / .video--mobile visibility classes.
+    A video with no frame on its platform is "full" — nothing overlays it. -#}
+{%- macro _video(v, device, frame) -%}
+  {%- if v.desk or v.mobile -%}
+    {%- if v.desk %}{{ _vplat(v.desk, device, 'video--desktop' ~ ('' if frame and frame.desk else ' video--full')) }}{% endif -%}
+    {%- if v.mobile %}{{ _vplat(v.mobile, device, 'video--mobile' ~ ('' if frame and frame.mobile else ' video--full')) }}{% endif -%}
+  {%- else -%}
+    {{ _vplat(v, device, '' if frame else 'video--full') }}
+  {%- endif -%}
 {%- endmacro -%}
 
 {#
@@ -103,6 +129,6 @@ https://cdn.dznr.me/{{ base }}{{ '@' ~ d ~ 'x' if d > 1 else '' }}.png?format=we
   <div class="picture{{ ' video-container' if video }}{{ ' ' ~ class if class else '' }}">
     {%- if frame %}{{ _pic(frame.desk, frame.mobile, 'frame', '') }}{% endif -%}
     {%- if screen %}{{ _pic(screen.desk, screen.mobile, screenClass, alt) }}{% endif -%}
-    {%- if video %}{{ _video(video, device) }}{% endif -%}
+    {%- if video %}{{ _video(video, device, frame) }}{% endif -%}
   </div>
 {% endmacro %}

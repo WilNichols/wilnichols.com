@@ -8,39 +8,16 @@ tags:
   - "Zello/Zello Web"
   - "Design/Zello Bridge"
 ---
-
-<picture class="picture">
-    <source
-      media="(prefers-color-scheme: dark)"
-      type="image/webp"
-      srcset="
-        https://cdn.dznr.me/design/zello-bridge-02--mobile--dark.webp 1x,
-        https://cdn.dznr.me/design/zello-bridge-02--mobile--dark@2x.webp 2x,
-        https://cdn.dznr.me/design/zello-bridge-02--mobile--dark@3x.webp 3x
-      "
-    />
-    <source
-      media="(prefers-color-scheme: light)"
-      type="image/webp"
-      srcset="
-        https://cdn.dznr.me/design/zello-bridge-02--mobile--light.webp 1x,
-        https://cdn.dznr.me/design/zello-bridge-02--mobile--light@2x.webp 2x,
-        https://cdn.dznr.me/design/zello-bridge-02--mobile--light@3x.webp 3x
-      "
-    />
-
-  <img
-    src="https://cdn.dznr.me/design/zello-bridge-02--mobile--light@2x.webp"
-    srcset="
-      https://cdn.dznr.me/design/zello-bridge-02--mobile--light.webp 1x,
-      https://cdn.dznr.me/design/zello-bridge-02--mobile--light@2x.webp 2x,
-      https://cdn.dznr.me/design/zello-bridge-02--mobile--light@3x.webp 3x
-    "
-    alt="A desktop screenshot of Zello Bridge, in the dark theme."
-    loading="lazy"
-    decoding="async"
-  />
-</picture>
+{% from "work-shot.njk" import workShot %}
+{{ workShot(
+  alt="A desktop screenshot of Zello Bridge, in the dark theme.",
+  screen={
+    mobile: {
+      dark: "work-screens/zello-bridge--02--dark--mobile",
+      light: "work-screens/zello-bridge--02--light--light"
+    }
+  }
+) }}
 <div class="content">
   <p>While Zello Bridge on mobile is more useful for monitoring connections, on desktop the user can create new connections, or drag-and-drop configuration files from our legacy PC app.</p>
 </div>

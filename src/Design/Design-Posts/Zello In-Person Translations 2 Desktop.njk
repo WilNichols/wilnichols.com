@@ -8,39 +8,16 @@ tags:
   - "Zello/Zello Android"
   - "Design/In-Person Translations"
 ---
-
-<picture class="picture">
-  <source
-      media="(prefers-color-scheme: dark)"
-      type="image/webp"
-      srcset="
-        https://cdn.dznr.me/design/zello-in-person-translations-2--dark.webp 1x,
-        https://cdn.dznr.me/design/zello-in-person-translations-2--dark@2x.webp 2x,
-        https://cdn.dznr.me/design/zello-in-person-translations-2--dark@3x.webp 3x
-      "
-    />
-    <source
-      media="(prefers-color-scheme: light)"
-      type="image/webp"
-      srcset="
-        https://cdn.dznr.me/design/zello-in-person-translations-2--light.webp 1x,
-        https://cdn.dznr.me/design/zello-in-person-translations-2--light@2x.webp 2x,
-        https://cdn.dznr.me/design/zello-in-person-translations-2--light@3x.webp 3x
-      "
-    />
-  
-  <img
-    src="https://cdn.dznr.me/design/zello-in-person-translations-2--light@2x.webp"
-    srcset="
-      https://cdn.dznr.me/design/zello-in-person-translations-2--light.webp 1x,
-      https://cdn.dznr.me/design/zello-in-person-translations-2--light@2x.webp 2x,
-      https://cdn.dznr.me/design/zello-in-person-translations-2--light@3x.webp 3x
-    "
-    alt="A modified talk screen and two history screens."
-    loading="lazy"
-    decoding="async"
-  />
-</picture>
+{% from "work-shot.njk" import workShot %}
+{{ workShot(
+  alt="A modified talk screen and two history screens.",
+  frame={
+    desk: "work-device-compositions/Android-Zello--desk--04"
+  },
+  screen={
+    desk: "work-screens/zello-in-person-translations--02--desk"
+  }
+) }}
 <div class="content">
   <p>We started with assessing whether existing interfaces could be modified as a PoC, but determined that the UX failed to meet minimum acceptance.</p>
 </div>

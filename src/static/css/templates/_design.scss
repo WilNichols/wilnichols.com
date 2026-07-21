@@ -49,11 +49,11 @@ $carouselInset: calc(((100dvw - var(--desktopPanelWidth))/2));
   --desktopPanelWidth: 85dvmin;
   --desktopPanelHeight: calc((2 * var(--desktopPanelWidth))/3);
   // smallest desktop size
-  @media (width <= tokens.$breakpoint) {
+  @media (width <= #{tokens.$breakpoint}) {
     --desktopPanelWidth: calc(100dvw - var(--col) * 2);
   }
   // mobile sizes
-  @media (pointer: coarse) and (width <= tokens.$breakpoint) {
+  @media (pointer: coarse) and (width <= #{tokens.$breakpoint})  {
     --desktopPanelWidth: calc(100dvw - var(--u32));
     --desktopPanelHeight: calc(var(--desktopPanelWidth) * 1.5);
   }
@@ -73,7 +73,7 @@ $carouselInset: calc(((100dvw - var(--desktopPanelWidth))/2));
   & {
     z-index: 9999;
   }
-  @media (pointer: coarse) and (width <= tokens.$breakpoint) {
+  @media (pointer: coarse) and (width <= #{tokens.$breakpoint})  {
     display: none;
   }
   &--leading, &--trailing {
@@ -125,7 +125,7 @@ $carouselInset: calc(((100dvw - var(--desktopPanelWidth))/2));
   padding: 0 .6em .6em .6em;
   width: var(--desktopPanelWidth);
   margin: 0 var(--child-padding);  
-  @media (pointer: coarse) and (width <= tokens.$breakpoint) {
+  @media (pointer: coarse) and (width <= #{tokens.$breakpoint})  {
     width: 100dvw;
     $pad: calc(var(--u16) + .6em);
     padding: 0 $pad .6em $pad;
@@ -182,7 +182,7 @@ $carouselInset: calc(((100dvw - var(--desktopPanelWidth))/2));
 }
 
 
-@media (pointer: coarse) and (width <= tokens.$breakpoint) {
+@media (pointer: coarse) and (width <= #{tokens.$breakpoint})  {
   .project__meta__pager__dot--desktop {
     display: none !important;
   }
@@ -219,7 +219,7 @@ $shotsFade: 12.5dvmin;
   position: relative;
   mask-image:
     linear-gradient(90deg, shots-fade-stops(in), shots-fade-stops(out));
-  @media (pointer: coarse) and (width <= tokens.$breakpoint) {
+  @media (pointer: coarse) and (width <= #{tokens.$breakpoint})  {
     display: contents;
     mask-image: unset;
   }
@@ -249,11 +249,12 @@ $shotGap: #{calc(var(--col) / 2)};
   gap: var(--u16);
   height: 100dvw;
   transform: rotate(-90deg);
-  @media (width <= tokens.$breakpoint) {
+  // we wrap tokens.$breakpoint so as not to break Nova's syntax highlighting
+  @media (width <= #{tokens.$breakpoint}) {
     padding: var(--col) 0;
   }
   // mobile-only 
-  @media (pointer: coarse) and (width <= tokens.$breakpoint) {
+  @media (pointer: coarse) and (width <= #{tokens.$breakpoint})  {
     scroll-snap-type: x mandatory;
     position: static;
     // inset: initial;
@@ -342,7 +343,7 @@ $shotGap: #{calc(var(--col) / 2)};
   // animation-timeline: view(y $carouselInset);
   animation-timing-function: ease-in-out;
   animation-fill-mode: both;
-  @media (pointer: coarse) and (width <= tokens.$breakpoint) {
+  @media (pointer: coarse) and (width <= #{tokens.$breakpoint})  {
     view-timeline-axis: x;
   }
 }
@@ -353,7 +354,7 @@ $shotGap: #{calc(var(--col) / 2)};
   overflow: visible;
   transform: translate3d(0,0,0);
   
-  @media (pointer: coarse) and (width <= tokens.$breakpoint) { 
+  @media (pointer: coarse) and (width <= #{tokens.$breakpoint})  { 
     animation-name: mobileMoveCarousel;
   }
 }
@@ -370,7 +371,7 @@ $shotGap: #{calc(var(--col) / 2)};
   // same edge fade as the carousel, so panning text dissolves in step with it
   mask-image:
     linear-gradient(90deg, shots-fade-stops(in), shots-fade-stops(out));
-  @media (pointer: coarse) and (width <= tokens.$breakpoint) {
+  @media (pointer: coarse) and (width <= #{tokens.$breakpoint})  {
     mask-image: unset;
   }
 }
@@ -383,7 +384,7 @@ $shotGap: #{calc(var(--col) / 2)};
   --content-step: calc(var(--desktopPanelWidth) + var(--u16));
   animation: desktopShowContent linear both, panContent linear both;
   // animation-timeline comes inline per slot (its shot's scoped timeline)
-  @media (pointer: coarse) and (width <= tokens.$breakpoint) {
+  @media (pointer: coarse) and (width <= #{tokens.$breakpoint})  {
     animation-name: mobileShowContent, panContent;
     width: 100%;
     --content-step: calc(var(--desktopPanelWidth) + var(--u8));
@@ -411,7 +412,7 @@ $shotGap: #{calc(var(--col) / 2)};
     flex-direction: row-reverse;
     view-timeline-axis: y;
     // mobile-only
-    @media (pointer: coarse) and (width <= tokens.$breakpoint) {
+    @media (pointer: coarse) and (width <= #{tokens.$breakpoint})  {
       flex-direction: column;
       view-timeline-axis: x;
     }
@@ -432,7 +433,7 @@ $shotGap: #{calc(var(--col) / 2)};
     width: var(--desktopPanelHeight);
     opacity: var(--opacity, 1);
     // mobile-only
-    @media (pointer: coarse) and (width <= tokens.$breakpoint) {
+    @media (pointer: coarse) and (width <= #{tokens.$breakpoint})  {
       // while the container isn't rotated, the orientation is flipped
       height: var(--desktopPanelHeight);
       width: var(--desktopPanelWidth);
@@ -440,7 +441,6 @@ $shotGap: #{calc(var(--col) / 2)};
   }
   .video-container {
     isolation: isolate;
-    background-color: var(--cK0);
   }
   .video-container picture:not(.screen) {
     display: contents;
@@ -476,7 +476,7 @@ $shotGap: #{calc(var(--col) / 2)};
       place-self: center;
       width: var(--desktopPanelWidth);
       height: auto;
-      z-index: -1;
+      z-index: 1;
       isolation: isolate;
       transform: rotate(90deg) scale(var(--scale, 1)); // screen width in Figma / canvas width
       &.design-screen-recording--iPhone-8 {
@@ -498,7 +498,7 @@ $shotGap: #{calc(var(--col) / 2)};
         border-radius: min(6dvh, 60px);
       }
     }
-    @media (pointer: coarse) and (width <= tokens.$breakpoint) { 
+    @media (pointer: coarse) and (width <= #{tokens.$breakpoint})  { 
       transform: scale(var(--scale, 1)); //
       &.design-screen-recording--iPhone-8 {
         --scale: calc(375/720); // screen width in Figma / canvas width
@@ -520,6 +520,9 @@ $shotGap: #{calc(var(--col) / 2)};
   // The box-shadow nudge only applies to video (frame/recording alignment).
   video {
     box-shadow: 0 0 0 3px var(--cK0), inset 0 0 0 1px var(--cK0);
+    &.video--full {
+      box-shadow: none;
+    }
   }
   source {
     display: none;
@@ -528,7 +531,7 @@ $shotGap: #{calc(var(--col) / 2)};
     & {
       transform: rotate(90deg);
     }
-    @media (pointer: coarse) and (width <= tokens.$breakpoint) { 
+    @media (pointer: coarse) and (width <= #{tokens.$breakpoint})  { 
       transform: none;
     }
   }
@@ -537,7 +540,7 @@ $shotGap: #{calc(var(--col) / 2)};
     min-height: var(--desktopPanelHeight);
     width: var(--desktopPanelWidth);
     // mobile 
-    @media (pointer: coarse) and (width <= tokens.$breakpoint) { 
+    @media (pointer: coarse) and (width <= #{tokens.$breakpoint})  { 
       transform: none;
     }
   }
@@ -605,13 +608,28 @@ $shotGap: #{calc(var(--col) / 2)};
 
 .design--mobile {
   display: none;
-  @media (pointer: coarse) and (width <= tokens.$breakpoint) {
+  @media (pointer: coarse) and (width <= #{tokens.$breakpoint})  {
     display: block;
   }
 }
 
+// Single-platform workShot pictures: the img fallback would otherwise paint
+// the wrong platform's asset. Hides the img, not the picture — .shot .frame's
+// display: contents outranks a class on the picture itself.
+.shot .pic--mobile-only img {
+  display: none;
+  @media (pointer: coarse) and (width <= #{tokens.$breakpoint}) {
+    display: block;
+  }
+}
+.shot .pic--desk-only img {
+  @media (pointer: coarse) and (width <= #{tokens.$breakpoint}) {
+    display: none;
+  }
+}
+
 .design--desktop {
-  @media (pointer: coarse) and (width <= tokens.$breakpoint) {
+  @media (pointer: coarse) and (width <= #{tokens.$breakpoint})  {
     display: none;
   }
 }
@@ -666,7 +684,7 @@ $shotGap: #{calc(var(--col) / 2)};
   display: none;
 }
 
-  @media (pointer: coarse) and (width <= tokens.$breakpoint) {
+@media (pointer: coarse)   {
   .video--desktop {
     display: none;
   }
