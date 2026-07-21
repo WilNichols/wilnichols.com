@@ -96,7 +96,7 @@ $carouselInset: calc(((100dvw - var(--desktopPanelWidth))/2));
 .page--design .page__footer {
   scroll-margin-bottom: var(--col);
   scroll-snap-align: end;
-  width: var(--desktopPanelWidth);
+  max-width: var(--desktopPanelWidth);
   margin: 0 auto;
 }
 
@@ -484,28 +484,35 @@ $shotGap: #{calc(var(--col) / 2)};
       height: auto;
       z-index: 1;
       isolation: isolate;
+      overflow: clip; // so the radius also cuts a .screen.scaled picture's img
       transform: rotate(90deg) scale(var(--scale, 1)); // screen width in Figma / canvas width
+      // Radius as if baked into the asset. --screenRadius is the corner radius at the screen's natural pixel size, UNITLESS (calc). border-radius applies before the transform
+      --canvasWidth: 1440;
+      border-radius: calc(var(--screenRadius, 0) * var(--desktopPanelWidth) / var(--canvasWidth) / var(--scale, 1));
       &.design-screen-recording--iPhone-8 {
         --scale: calc(375/1440); // screen height bc rotation in Figma / canvas width
+        --screenRadius: 0;
       }
       &.design-screen-recording--iPhone-11-Pro {
         --scale: calc(375/1440);
+        --screenRadius: 40;
       }
       &.design-screen-recording--iPhone-14-Pro--landscape {
         --scale: calc(852/1440);
-        border-radius: min(6dvh, 26px);
+        --screenRadius: 55;
       }
       &.design-screen-recording--iPhone-14-Pro--portrait {
         --scale: calc(393/1440);
-        border-radius: min(6dvh, 60px);
+        --screenRadius: 55;
       }
       &.design-screen-recording--iPhone-15-Pro {
         --scale: calc(393/1440); // iPhone 15 Pro shares the 393pt logical width of the 14 Pro
-        border-radius: min(6dvh, 60px);
+        --screenRadius: 55;
       }
     }
-    @media (pointer: coarse) and (width <= #{tokens.$breakpoint})  { 
+    @media (pointer: coarse) and (width <= #{tokens.$breakpoint})  {
       transform: scale(var(--scale, 1)); //
+      --canvasWidth: 720; // mobile canvases are 720 design px wide
       &.design-screen-recording--iPhone-8 {
         --scale: calc(375/720); // screen width in Figma / canvas width
       }
