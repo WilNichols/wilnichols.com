@@ -175,9 +175,13 @@ $carouselInset: calc(((100dvw - var(--desktopPanelWidth))/2));
   display: none;
 }
 
-// substitute for not-only-of-class
+// substitute for not-only-of-class: a platform dot shows when any other dot
+// is visible on the same platform — a same-platform sibling OR a shared one
+// (shared dots render everywhere, so they count toward the pager on both)
 .project__meta__pager__dot--desktop ~ .project__meta__pager__dot--desktop,
-.project__meta__pager__dot--desktop:has(~ .project__meta__pager__dot--desktop) {
+.project__meta__pager__dot--desktop:has(~ .project__meta__pager__dot--desktop),
+.project__meta__pager__dot--shared ~ .project__meta__pager__dot--desktop,
+.project__meta__pager__dot--desktop:has(~ .project__meta__pager__dot--shared) {
   display: block;
 }
 
@@ -187,7 +191,9 @@ $carouselInset: calc(((100dvw - var(--desktopPanelWidth))/2));
     display: none !important;
   }
   .project__meta__pager__dot--mobile ~ .project__meta__pager__dot--mobile,
-  .project__meta__pager__dot--mobile:has(~ .project__meta__pager__dot--mobile) {
+  .project__meta__pager__dot--mobile:has(~ .project__meta__pager__dot--mobile),
+  .project__meta__pager__dot--shared ~ .project__meta__pager__dot--mobile,
+  .project__meta__pager__dot--mobile:has(~ .project__meta__pager__dot--shared) {
     display: block;
   }
 }
