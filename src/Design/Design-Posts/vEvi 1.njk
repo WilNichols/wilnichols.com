@@ -7,7 +7,27 @@ tags:
   - "Freelance/vEvi"
   - "Design/Remote Control"
 ---
-
+{% from "work-shot.njk" import workShot %}
+{{ workShot(
+  alt="This prototype demonstrates an understated talk button morphing in the familiar UI.",
+  frame={
+    desk: {
+      dark: "work-device-compositions/iPhone-SE--black--desk--01",
+      light: "work-device-compositions/iPhone-8--gold--desk--01"
+    },
+    mobile: {
+      dark: "work-device-compositions/iPhone-SE--black--mobile--01",
+      light: "work-device-compositions/iPhone-8--gold--mobile--01"
+    }
+  },
+  video={
+    src: "design/vEvi-prototype",
+    width: 667,
+    height: 375,
+    dens: [1, 2]
+  },
+  device="iPhone-8"
+) }}
 <div class="video-container">
   <picture class="picture">
     <source

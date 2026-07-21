@@ -198,23 +198,39 @@ $cV20Linear: linear2(var(--cV20), var(--cM30));
   @include light-dark(--gradient, $light, $dark);
 }
 
-.shot .picture::after {
+@mixin _backdrop($half: false) {
   content: '';
   z-index: -1;
   position: absolute;
   background-color: transparent !important;
   background-size: cover;
-  width: calc(var(--desktopPanelWidth) + 4px);
   height: calc(var(--desktopPanelWidth) + 4px);
   position: absolute;
   transform: rotate(90deg);
-  place-self: center;
   @include light-dark(--defaultGradient, $cK95Radial, $cKD20Radial);
   background-image: var(--gradient, var(--defaultGradient));
-  @media (pointer: coarse) and (width <= aliases.$breakpoint) {
-    height: calc(var(--desktopPanelHeight) + 4px);
+  @if $half {
+    width: calc(var(--desktopPanelWidth) / 2);
+  } @else {
+    width: calc(var(--desktopPanelWidth) + 4px);
+    place-self: center;
+  }
+}
+
+@mixin _backdrop-mobile($half: false) {
+  height: calc(var(--desktopPanelHeight) + 4px);
+  transform: rotate(0);
+  @if $half {
+    width: calc(var(--desktopPanelWidth) / 2);
+  } @else {
     width: calc(var(--desktopPanelHeight) + 4px);
-    transform: rotate(0);
+  }
+}
+
+.shot .picture::after {
+  @include _backdrop;
+  @media (pointer: coarse) and (width <= aliases.$breakpoint) {
+    @include _backdrop-mobile;
   }
 }
 
@@ -272,4 +288,41 @@ $cV20Linear: linear2(var(--cV20), var(--cM30));
 
 .minte-visuals--1, .minte-visuals--2, .minte-visuals--3, .minte-visuals--4 {
   @include themedGradient($cYD85Radial, $cOD15Radial); 
+}
+
+.zello-for-ios-12--1 {
+  @include themedGradient($cY90Radial, $cOD20Radial); 
+}
+
+.talk-and-history-navigation--1 {
+  @include themedGradient($cO95Radial, $cRD20Radial); 
+}
+
+.talk-and-history-navigation--2 {
+  @include themedGradient($cY95Radial, $cYD20Radial); 
+}
+
+.remote-control--1 {
+  @include themedGradient($cR95Radial, $cRD30Radial); 
+}
+
+.remote-control--2 {
+  @include themedGradient($cT95Radial, $cTD30Radial); 
+}
+
+.zello-for-ios-9--1 .picture {
+   &::after {
+     @include _backdrop($half: true);
+     background-image: $cKD05Radial;
+     margin-bottom: calc(var(--desktopPanelWidth)/2);
+   }
+   &::before {
+     @include _backdrop($half: true);
+     background-image: $cY95Radial;
+     margin-top: calc(var(--desktopPanelWidth)/4);
+   }
+}
+
+.zello-for-ios-9--2 {
+ @include themedGradient($cY90Radial2, $cYD15Radial); 
 }

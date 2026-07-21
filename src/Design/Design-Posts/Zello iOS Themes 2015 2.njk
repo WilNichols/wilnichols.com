@@ -7,24 +7,18 @@ tags:
   - "Zello/Zello iOS"
   - "Design/Zello for iOS 9"
 ---
-
-<picture class="picture">
-  <source
-    media="(pointer: coarse) and (width <= 640px)"
-    type="image/webp"
-    srcset="https://cdn.dznr.me/design/zello-ios-themes-02-mobile@2x.webp 2x"
-  />
-  <source
-    type="image/webp"
-    srcset="https://cdn.dznr.me/design/zello-ios-themes-02-desktop@2x.webp 2x"
-  />
-  <img
-    src="https://cdn.dznr.me/design/zello-ios-themes-02-desktop@2x.webp"
-    alt="The previous Zello iOS appearance."
-    loading="lazy"
-    decoding="async"
-  />
-</picture>
+{% from "work-shot.njk" import workShot %}
+{{ workShot(
+  alt="The previous Zello iOS appearance.",
+  frame={
+    desk: "work-device-compositions/iPhone-8--gold--desk--04",
+    mobile: "work-device-compositions/iPhone-8--gold--mobile--04"
+  },
+  screen={
+    desk: "work-screens/zello-ios-themes--02--desk",
+    mobile: "work-screens/zello-ios-themes--02--mobile"
+  }
+) }}
 <div class="content">
   <p>This was Zello on iOS before my visual update.</p>
 </div>
