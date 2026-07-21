@@ -493,7 +493,7 @@ $shotGap: #{calc(var(--col) / 2)};
       }
       &.design-screen-recording--iPhone-14-Pro--landscape {
         --scale: calc(852/1440);
-        border-radius: min(6dvh, 60px);
+        border-radius: min(6dvh, 26px);
       }
       &.design-screen-recording--iPhone-14-Pro--portrait {
         --scale: calc(393/1440);

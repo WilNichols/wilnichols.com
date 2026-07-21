@@ -319,15 +319,31 @@ $cV20Linear: linear2(var(--cV20), var(--cM30));
 }
 
 .zello-for-ios-9--1 .picture {
+   &::before, &::after {
+     @include _backdrop($half: true);
+     @media (pointer: coarse) and (width <= aliases.$breakpoint) {
+       @include _backdrop-mobile($half: true);
+      }
+   } 
+   &::before {
+     background-image: $cY95Radial;
+     margin-top: calc(var(--desktopPanelWidth)/4);
+     @media (pointer: coarse) and (width <= aliases.$breakpoint) {
+      margin-top: unset;
+      transform: none;
+      right: 0;
+    }
+   }
    &::after {
      @include _backdrop($half: true);
      background-image: $cKD05Radial;
      margin-bottom: calc(var(--desktopPanelWidth)/2);
-   }
-   &::before {
-     @include _backdrop($half: true);
-     background-image: $cY95Radial;
-     margin-top: calc(var(--desktopPanelWidth)/4);
+     @media (pointer: coarse) and (width <= aliases.$breakpoint) {
+      margin-bottom: unset;
+      transform: none;
+      height: calc(var(--desktopPanelHeight) + 4px);
+      left: 0;
+    }
    }
 }
 
