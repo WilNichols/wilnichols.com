@@ -7,57 +7,15 @@ tags:
   - "Zello/Zello iOS"
   - "Design/In-Person Translations"
 ---
+{% from "work-shot.njk" import workShot %}
+{{ workShot(
+  alt="A prototype of Zello’s Live Translations feature.",
+  frame={
+    desk: "work-device-compositions/iPhone-15-Pro--blue--desk--02,
+    mobile: "work-device-compositions/iPhone-15-Pro--blue--mobile--02"
+  }
+) }}
 <div class="video-container">
-  <picture class="picture">
-    <source
-        media="(prefers-color-scheme: dark) and (pointer: coarse) and (width <= 640px)"
-        type="image/webp"
-        srcset="
-          https://cdn.dznr.me/design/zello-in-person-translations-1--mobile--dark.webp 1x,
-          https://cdn.dznr.me/design/zello-in-person-translations-1--mobile--dark@2x.webp 2x,
-          https://cdn.dznr.me/design/zello-in-person-translations-1--mobile--dark@3x.webp 3x
-        "
-      />
-      <source
-        media="(prefers-color-scheme: light) and (pointer: coarse) and (width <= 640px)"
-        type="image/webp"
-        srcset="
-          https://cdn.dznr.me/design/zello-in-person-translations-1b--mobile--light.webp 1x,
-          https://cdn.dznr.me/design/zello-in-person-translations-1b--mobile--light@2x.webp 2x,
-          https://cdn.dznr.me/design/zello-in-person-translations-1b--mobile--light@3x.webp 3x
-        "
-      />
-    <source
-        media="(prefers-color-scheme: dark)"
-        type="image/webp"
-        srcset="
-          https://cdn.dznr.me/design/zello-in-person-translations-1--dark.webp 1x,
-          https://cdn.dznr.me/design/zello-in-person-translations-1--dark@2x.webp 2x,
-          https://cdn.dznr.me/design/zello-in-person-translations-1--dark@3x.webp 3x
-        "
-      />
-      <source
-        media="(prefers-color-scheme: light)"
-        type="image/webp"
-        srcset="
-          https://cdn.dznr.me/design/zello-in-person-translations-1--light.webp 1x,
-          https://cdn.dznr.me/design/zello-in-person-translations-1--light@2x.webp 2x,
-          https://cdn.dznr.me/design/zello-in-person-translations-1--light@3x.webp 3x
-        "
-      />
-
-    <img
-      src="https://cdn.dznr.me/design/zello-in-person-translations-1--light@2x.webp"
-      srcset="
-        https://cdn.dznr.me/design/zello-in-person-translations-1--light.webp 1x,
-        https://cdn.dznr.me/design/zello-in-person-translations-1--light@2x.webp 2x,
-        https://cdn.dznr.me/design/zello-in-person-translations-1--light@3x.webp 3x
-      "
-      alt="A prototype I created to demonstrate a two-player live translation interface."
-      loading="lazy"
-      decoding="async"
-    />
-  </picture>
   <video 
     autoplay
     muted

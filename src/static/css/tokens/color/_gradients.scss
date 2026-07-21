@@ -184,8 +184,14 @@ $cYVD20Radial2: radial3(var(--cVD20), var(--cVD10), var(--cMD30));
 // Zello Bridge, light: soft pink magenta.
 $cM95Radial: radial2(var(--cM95), var(--cM90));
 
-.main-menu--1 picture {
+.shot .picture {
   background-color: transparent !important;
-  @include light-dark(background-image, $cK85Linear, $cBD05Linear);
   background-size: cover;
+}
+.main-menu--1 > .picture {
+  @include light-dark(background-image, $cK85Linear, $cBD05Linear);
+}
+
+.in-person-translations--1 > .picture {
+  @include light-dark(background-image, $cB95Radial, $cBD20Radial);
 }

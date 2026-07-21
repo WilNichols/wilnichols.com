@@ -8,55 +8,21 @@ tags:
   - "Design/Main Menu"
 ---
 
-<picture class="picture">
-<source
-  media="(prefers-color-scheme: dark) and (pointer: coarse) and (width <= 640px)"
-  type="image/webp"
-  srcset="
-    https://cdn.dznr.me/design/zello-main-menu--mobile--dark.webp 1x,
-    https://cdn.dznr.me/design/zello-main-menu--mobile--dark@2x.webp 2x,
-    https://cdn.dznr.me/design/zello-main-menu--mobile--dark@3x.webp 3x
-  "
-/>
-<source
-  media="(prefers-color-scheme: light) and (pointer: coarse) and (width <= 640px)"
-  type="image/webp"
-  srcset="
-    https://cdn.dznr.me/design/zello-main-menu--mobile--light.webp 1x,
-    https://cdn.dznr.me/design/zello-main-menu--mobile--light@2x.webp 2x,
-    https://cdn.dznr.me/design/zello-main-menu--mobile--light@3x.webp 3x
-  "
-/>
-  <source
-    media="(prefers-color-scheme: dark)"
-    type="image/webp"
-    srcset="
-      https://cdn.dznr.me/design/zello-main-menu--dark.webp 1x,
-      https://cdn.dznr.me/design/zello-main-menu--dark@2x.webp 2x,
-      https://cdn.dznr.me/design/zello-main-menu--dark@3x.webp 3x
-    "
-  />
-  <source
-    media="(prefers-color-scheme: light)"
-    type="image/webp"
-    srcset="
-      https://cdn.dznr.me/design/zello-main-menu--light.webp 1x,
-      https://cdn.dznr.me/design/zello-main-menu--light@2x.webp 2x,
-      https://cdn.dznr.me/design/zello-main-menu--light@3x.webp 3x
-    "
-  />
-  <img
-    src="https://cdn.dznr.me/design/zello-main-menu--light.webp"
-    srcset="
-      https://cdn.dznr.me/design/zello-main-menu--light.webp 1x,
-      https://cdn.dznr.me/design/zello-main-menu--light@2x.webp 2x,
-      https://cdn.dznr.me/design/zello-main-menu--light@3x.webp 3x
-    "
-    alt="Zello iOS's Main Menu"
-    loading="lazy"
-    decoding="async"
-  />
-</picture>
+{% from "work-shot.njk" import workShot %}
+{{ workShot(
+  alt="Zello iOS’s Main Menu",
+  frame={
+    desk: "work-device-compositions/iPhone-15-Pro--white--desk--03",
+    mobile: "work-device-compositions/iPhone-15-Pro--white--mobile--03"
+  },
+  screen={
+    desk: "work-screens/zello-main-menu--01--desk",
+    mobile: {
+      dark: "work-screens/zello-main-menu--01--dark--mobile",
+      light: "work-screens/zello-main-menu--01--light--mobile"
+    }
+  }
+) }}
 <div class="content">
   <p>I’ve had a few opportunities this year for less-impactful UI improvements in the Zello app. These designs have been floating around since we added the Android main menu much earlier in the year, and I had time at the start of December to complete this in dev.</p>
 </div>
