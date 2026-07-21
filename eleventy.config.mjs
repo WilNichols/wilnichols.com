@@ -65,7 +65,13 @@ export default async function(eleventyConfig) {
     const photos = this.ctx.collections?.photos;
     return photos[key];
   });
-  
+
+  eleventyConfig.addFilter("getNestedTag", function (tags, prefix) {
+    prefix = prefix + '/';
+    const nestedTag = tags.filter(s => s.startsWith(prefix))
+    return nestedTag.toString().replace(prefix, '');
+  });
+
   const linksCache = new Map();
   eleventyConfig.addFilter("links_to", async function(collection, target) {
     const hostname = "wilnichols.com";
@@ -176,8 +182,32 @@ export default async function(eleventyConfig) {
     });
   });
   
+  eleventyConfig.addFilter("designInputFilter", function (collection) {
+    return collection.map(item => {
+      const filter = item.data.inputFilter;
+
+      if (filter === "Pointer") return "desktop";
+      if (filter === "Coarse") return "mobile";
+      return "shared";
+    });
+  });
+
   eleventyConfig.addFilter("draftsOf", (collection1, collection2) => {
     return collection1.filter(value => collection2.includes(value));
+  });
+
+  // Design posts are authored as one body: the shot markup followed by
+  // <div class="content">…</div>. These split that body so the shot can
+  // render inside the carousel while the description renders outside it
+  // (wheel over a description must reach the page, not the scroller).
+  const CONTENT_SPLIT = '<div class="content">';
+  eleventyConfig.addFilter("shotOnly", html =>
+    html ? html.split(CONTENT_SPLIT)[0] : html
+  );
+  eleventyConfig.addFilter("contentOnly", html => {
+    if (!html) return '';
+    const i = html.indexOf(CONTENT_SPLIT);
+    return i === -1 ? '' : html.slice(i);
   });
   
   eleventyConfig.addFilter("markdownify", string => {

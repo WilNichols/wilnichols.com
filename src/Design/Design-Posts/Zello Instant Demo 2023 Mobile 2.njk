@@ -1,0 +1,23 @@
+---
+date: 2023-01-01T00:00
+author: Wil Nichols
+altTitle: "Zello Instant Demo"
+inputFilter: Coarse
+tags:
+  - "Client/Zello"
+  - "Zello/Zello Web"
+  - "Design/Zello Instant Demo"
+---
+{% from "work-shot.njk" import workShot %}
+{{ workShot(
+  alt="A mobile screenshot for Zello’s instant demo, in the dark theme.",
+  screen={
+    mobile: {
+      dark: "work-screens/zello-instant-demo--02--dark--mobile",
+      light: "work-screens/zello-instant-demo--02--light--mobile"
+    }
+  }
+) }}
+<div class="content">
+  <p>At this point, we hadn’t yet shipped our In-App Purchase allowing users to start trials from their mobile devices. Demos were started primarily from desktops.</p>
+</div>

@@ -1,0 +1,708 @@
+@use 'sass:list';
+@use 'sass:math';
+@use '../tokens';
+
+@property --opacity {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --backgroundColor {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: white;
+}
+
+@property --desktopPanelWidth {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 75dvmin;
+}
+
+@property --i {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+@property --length {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+$debug: false;
+$carouselInset: calc(((100dvw - var(--desktopPanelWidth))/2));
+
+// bc :root is typically the scrolling element
+:root:has(> body > .page--design) {
+  -webkit-overflow-scrolling: touch;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scroll-snap-type: y mandatory;
+}
+
+.page--design {
+  min-height: 100dvh;
+  padding: 0 0 var(--col) 0;
+    // largest sizes for deskop and touchscreen
+  --desktopPanelWidth: 85dvmin;
+  --desktopPanelHeight: calc((2 * var(--desktopPanelWidth))/3);
+  // smallest desktop size
+  @media (width <= #{tokens.$breakpoint}) {
+    --desktopPanelWidth: calc(100dvw - var(--col) * 2);
+  }
+  // mobile sizes
+  @media (pointer: coarse) and (width <= #{tokens.$breakpoint})  {
+    --desktopPanelWidth: calc(100dvw - var(--u32));
+    --desktopPanelHeight: calc(var(--desktopPanelWidth) * 1.5);
+  }
+}
+
+.page--design__header {
+  margin: 0 auto calc(var(--col)/3) auto;
+}
+
+.page--design__header,
+.page--design .page-header__container {
+  scroll-snap-align: start;
+  padding-top: var(--col);
+}
+
+.scroll-thief {
+  & {
+    z-index: 9999;
+  }
+  @media (pointer: coarse) and (width <= #{tokens.$breakpoint})  {
+    display: none;
+  }
+  &--leading, &--trailing {
+    position: fixed;
+    width: calc((100dvw - var(--desktopPanelWidth) - var(--u128))/2);
+  }
+  &--leading {
+    inset: 0 auto 0 0;
+  }
+  &--trailing {
+    inset: 0 0 0 auto;
+  }
+}
+.project-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.page--design .page__footer {
+  scroll-margin-bottom: var(--col);
+  scroll-snap-align: end;
+  max-width: var(--desktopPanelWidth);
+  margin: 0 auto;
+}
+
+.page--design .related-posts {
+  margin-bottom: var(--col);
+}
+
+.project {
+  position: relative;
+  scroll-snap-align: start; 
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100dvw;
+  padding: max(calc(var(--col) / 3), var(--u24)) 0 0 0;
+  --child-padding: var(--col);
+}
+
+.project__meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: end;
+  place-self: center;
+  font-size: var(--type-0);
+  padding: 0 .6em .6em .6em;
+  width: var(--desktopPanelWidth);
+  margin: 0 var(--child-padding);  
+  @media (pointer: coarse) and (width <= #{tokens.$breakpoint})  {
+    width: 100dvw;
+    $pad: calc(var(--u16) + .6em);
+    padding: 0 $pad .6em $pad;
+    margin: initial;
+  }
+}
+
+.project__title {
+  line-height: 1em;
+  height: 1lh;
+}
+
+.project__meta__trailing {
+  display: flex;
+  gap: var(--u8);
+}
+
+.project__meta__pager {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.project__meta__pager__dot {
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--contentTertiaryColor);
+  animation: pagerDotColor 1s linear none;
+  animation-range: entry 0% exit 100%;
+}
+@keyframes pagerDotColor {
+  0%, 25% {
+    background-color: var(--contentTertiaryColor);
+  }
+  50% {
+    background-color: var(--contentPrimaryColor);
+  }
+  75%, 100% {
+    background-color: var(--contentTertiaryColor);
+  }
+}
+
+
+.project__meta__pager__dot--mobile, .project__meta__pager__dot--desktop {
+  display: none;
+}
+
+// substitute for not-only-of-class: a platform dot shows when any other dot
+// is visible on the same platform — a same-platform sibling OR a shared one
+// (shared dots render everywhere, so they count toward the pager on both)
+.project__meta__pager__dot--desktop ~ .project__meta__pager__dot--desktop,
+.project__meta__pager__dot--desktop:has(~ .project__meta__pager__dot--desktop),
+.project__meta__pager__dot--shared ~ .project__meta__pager__dot--desktop,
+.project__meta__pager__dot--desktop:has(~ .project__meta__pager__dot--shared) {
+  display: block;
+}
+
+
+@media (pointer: coarse) and (width <= #{tokens.$breakpoint})  {
+  .project__meta__pager__dot--desktop {
+    display: none !important;
+  }
+  .project__meta__pager__dot--mobile ~ .project__meta__pager__dot--mobile,
+  .project__meta__pager__dot--mobile:has(~ .project__meta__pager__dot--mobile),
+  .project__meta__pager__dot--shared ~ .project__meta__pager__dot--mobile,
+  .project__meta__pager__dot--mobile:has(~ .project__meta__pager__dot--shared) {
+    display: block;
+  }
+}
+
+$shotsPad: calc((100dvw - var(--desktopPanelWidth))/2);
+$shotsFade: 12.5dvmin;
+
+// Smoothstep-eased alpha ramp: a straight 2-stop alpha ramp this long shows
+// 8-bit banding, worst at the hard slope kinks at each end
+@function shots-fade-stops($dir) {
+  $stops: ();
+  @for $i from 0 through 8 {
+    $t: math.div($i, 8);
+    $a: $t * $t * (3 - 2 * $t);
+    $pos: calc($shotsPad - #{(1 - $t) * $shotsFade});
+    @if $dir == out {
+      $a: 1 - $a;
+      $pos: calc(100dvw - $shotsPad + #{$t * $shotsFade});
+    }
+    $stops: list.append($stops, rgba(0, 0, 0, $a) $pos, comma);
+  }
+  @return $stops;
+}
+
+.shots-container {
+  height: var(--desktopPanelHeight);
+  width: 100dvw;
+  overflow: hidden;
+  position: relative;
+  mask-image:
+    linear-gradient(90deg, shots-fade-stops(in), shots-fade-stops(out));
+  @media (pointer: coarse) and (width <= #{tokens.$breakpoint})  {
+    display: contents;
+    mask-image: unset;
+  }
+}
+
+$shotGap: #{calc(var(--col) / 2)};
+
+.shots {
+  display: flex;
+  justify-content: start;
+  // scroll
+  scroll-snap-stop: normal; 
+  -webkit-overflow-scrolling: touch;
+  // hide scrollbars
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  ::-webkit-scrollbar { display: none; }
+  // the following are overridden in the below media query
+  scroll-snap-type: y mandatory;
+  position: absolute;
+  inset: 0;
+  align-items: end;
+  flex-direction: column;
+  overflow-x: clip;
+  overflow-y: auto;
+  padding: $shotsPad 0;
+  gap: var(--u16);
+  height: 100dvw;
+  transform: rotate(-90deg);
+  // we wrap tokens.$breakpoint so as not to break Nova's syntax highlighting
+  @media (width <= #{tokens.$breakpoint}) {
+    padding: var(--col) 0;
+  }
+  // mobile-only 
+  @media (pointer: coarse) and (width <= #{tokens.$breakpoint})  {
+    scroll-snap-type: x mandatory;
+    position: static;
+    // inset: initial;
+    align-items: start;
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0 var(--u16);
+    // padding: 0 calc((100dvw - var(--desktopPanelWidth))/2);
+    gap: var(--u8);
+    height: auto;
+    width: 100dvw;
+    transform: none;
+  }
+}
+
+@keyframes desktopMoveCarousel {
+  0% {
+    --backgroundColor: var(--materialElevatedNoninteractiveSecondaryColor);
+    --opacity: 0.5;
+    transform: scale(0.9) translate3d(0,0,0);
+    transform-origin: top center;
+    filter: blur(.6em);
+  }
+  50% {
+    --backgroundColor: var(--materialElevatedNoninteractivePrimaryColor);
+    transform: scale(1) translate3d(0,0,0);
+    --opacity: 1;
+    transform-origin: center;
+    filter: blur(0);
+  }
+  100% {
+    --backgroundColor: var(--materialElevatedNoninteractiveSecondaryColor);
+    --opacity: 0.5;
+    transform: scale(0.9) translate3d(0,0,0);
+    transform-origin: bottom center;
+    filter: blur(.6em)
+  }
+}
+
+@keyframes mobileMoveCarousel {
+  0% {
+    --backgroundColor: var(--materialElevatedNoninteractiveSecondaryColor);
+    --opacity: 0.5;
+  }
+  50% {
+    --backgroundColor: var(--materialElevatedNoninteractivePrimaryColor);
+    --opacity: 1;
+  }
+  100% {
+    --backgroundColor: var(--materialElevatedNoninteractiveSecondaryColor);
+    --opacity: 0.5;
+  }
+}
+
+
+@keyframes desktopShowContent {
+  0%, 33% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  67%, 100% {
+    opacity: 0;
+  }
+}
+
+@keyframes mobileShowContent {
+  0%, 33% {
+    opacity: .5;
+  }
+  50% {
+    opacity: 1;
+  }
+  67%, 100% {
+    opacity: .5;
+  }
+}
+
+.shot > .picture, .shot > .video-container {
+  view-timeline-name: --carousel;
+  view-timeline-axis: y;
+  view-timeline-inset: $carouselInset;
+  animation-timeline: --carousel;
+  // animation-timeline: view(y $carouselInset);
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: both;
+  @media (pointer: coarse) and (width <= #{tokens.$breakpoint})  {
+    view-timeline-axis: x;
+  }
+}
+
+.shot > .picture, .shot .video-container {
+  will-change: filter, transform, transform-origin, opacity, background-color, var(--backgroundColor);
+  animation-name: desktopMoveCarousel;
+  overflow: visible;
+  transform: translate3d(0,0,0);
+  
+  @media (pointer: coarse) and (width <= #{tokens.$breakpoint})  { 
+    animation-name: mobileMoveCarousel;
+  }
+}
+
+// Descriptions live OUTSIDE the rotated scroller (see .project__contents):
+// wheel over them reaches the page natively, which is what retired the
+// .scroll-thief--shot overlay. Each slot fades with its shot's timeline.
+.project__contents {
+  display: grid;
+  justify-items: center;
+  width: 100dvw;
+  padding: 0 var(--u16);
+  overflow: clip; // slots pan a full carousel step past the edges
+  // same edge fade as the carousel, so panning text dissolves in step with it
+  mask-image:
+    linear-gradient(90deg, shots-fade-stops(in), shots-fade-stops(out));
+  @media (pointer: coarse) and (width <= #{tokens.$breakpoint})  {
+    mask-image: unset;
+  }
+}
+
+.project__content-slot {
+  grid-area: 1 / 1; // all slots overlap; the tallest one sets the height
+  width: var(--desktopPanelWidth);
+  will-change: opacity, transform;
+  // one carousel step, so the slot travels in lockstep with its shot
+  --content-step: calc(var(--desktopPanelWidth) + var(--u16));
+  animation: desktopShowContent linear both, panContent linear both;
+  // animation-timeline comes inline per slot (its shot's scoped timeline)
+  @media (pointer: coarse) and (width <= #{tokens.$breakpoint})  {
+    animation-name: mobileShowContent, panContent;
+    width: 100%;
+    --content-step: calc(var(--desktopPanelWidth) + var(--u8));
+  }
+}
+
+// Shots enter from the right and leave to the left; the description rides
+// the same path, driven by the same view timeline.
+@keyframes panContent {
+  0% {
+    transform: translateX(var(--content-step));
+  }
+  100% {
+    transform: translateX(calc(-1 * var(--content-step)));
+  }
+}
+
+.shot {
+  & {
+    scroll-snap-stop: normal;
+    scroll-snap-align: center; 
+    display: flex;
+    place-content: center;
+    align-items: center;
+    flex-direction: row-reverse;
+    view-timeline-axis: y;
+    // mobile-only
+    @media (pointer: coarse) and (width <= #{tokens.$breakpoint})  {
+      flex-direction: column;
+      view-timeline-axis: x;
+    }
+  }
+  > .picture, .video-container {
+    // transform-origin: center left;
+    font-size: var(--type-0);
+    overflow: hidden;
+    border-radius: .6em;
+    display: grid;
+    place-content: center;
+    position: relative;
+    isolation: isolate; // keep the z-index:-1 screen above the wrapper background
+    background-color: var(--backgroundColor);
+    // large screens
+    // these are flipped bc the container is rotate 90deg
+    height: var(--desktopPanelWidth);
+    width: var(--desktopPanelHeight);
+    opacity: var(--opacity, 1);
+    // mobile-only
+    @media (pointer: coarse) and (width <= #{tokens.$breakpoint})  {
+      // while the container isn't rotated, the orientation is flipped
+      height: var(--desktopPanelHeight);
+      width: var(--desktopPanelWidth);
+    }
+  }
+  .video-container {
+    isolation: isolate;
+  }
+  .video-container picture:not(.screen) {
+    display: contents;
+  }
+  .video-container img {
+    pointer-events: none;
+  }
+  // Device frame layer — dissolves so its <img> fills the box like any shot image.
+  .frame {
+    display: contents;
+  }
+  // A bounds screen (no scaling) overlays the box under the frame. It must be
+  // positioned (not a grid item) or it would flow into its own row below the
+  // frame instead of stacking with it.
+  .screen:not(.scaled) {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-content: center;
+    z-index: 1; // frame image is z-index:10, so it stays on top
+  }
+  // A scaled screen fills its own transformed box, so it opts out of the
+  // frame-image sizing/rotation applied to .shot img below.
+  .screen.scaled img {
+    width: 100%;
+    min-height: 0;
+    transform: none;
+    z-index: auto;
+  }
+  video, .screen.scaled {
+    & {
+      position: absolute;
+      place-self: center;
+      width: var(--desktopPanelWidth);
+      height: auto;
+      z-index: 1;
+      isolation: isolate;
+      overflow: clip; // so the radius also cuts a .screen.scaled picture's img
+      transform: rotate(90deg) scale(var(--scale, 1)); // screen width in Figma / canvas width
+      // Radius as if baked into the asset. --screenRadius is the corner radius at the screen's natural pixel size, UNITLESS (calc). border-radius applies before the transform
+      --canvasWidth: 1440;
+      border-radius: calc(var(--screenRadius, 0) * var(--desktopPanelWidth) / var(--canvasWidth) / var(--scale, 1));
+      &.design-screen-recording--iPhone-8 {
+        --scale: calc(375/1440); // screen height bc rotation in Figma / canvas width
+        --screenRadius: 0;
+      }
+      &.design-screen-recording--iPhone-11-Pro {
+        --scale: calc(375/1440);
+        --screenRadius: 40;
+      }
+      &.design-screen-recording--iPhone-14-Pro--landscape {
+        --scale: calc(852/1440);
+        --screenRadius: 55;
+      }
+      &.design-screen-recording--iPhone-14-Pro--portrait {
+        --scale: calc(393/1440);
+        --screenRadius: 55;
+      }
+      &.design-screen-recording--iPhone-15-Pro {
+        --scale: calc(393/1440); // iPhone 15 Pro shares the 393pt logical width of the 14 Pro
+        --screenRadius: 55;
+      }
+    }
+    @media (pointer: coarse) and (width <= #{tokens.$breakpoint})  {
+      transform: scale(var(--scale, 1)); //
+      --canvasWidth: 720; // mobile canvases are 720 design px wide
+      &.design-screen-recording--iPhone-8 {
+        --scale: calc(375/720); // screen width in Figma / canvas width
+      }
+      &.design-screen-recording--iPhone-11-Pro {
+        --scale: calc(375/720); // screen width in Figma / canvas width
+      }
+      &.design-screen-recording--iPhone-14-Pro--landscape {
+        --scale: calc(630.83/720); // screen width in Figma / canvas width
+      }
+      &.design-screen-recording--iPhone-14-Pro--portrait {
+        --scale: calc(393/720); // screen width in Figma / canvas width
+      }
+      &.design-screen-recording--iPhone-15-Pro {
+        --scale: calc(393/720);
+      }
+    }
+  }
+  // The box-shadow nudge only applies to video (frame/recording alignment).
+  video {
+    box-shadow: 0 0 0 3px var(--cK0), inset 0 0 0 1px var(--cK0);
+    &.video--full {
+      box-shadow: none;
+    }
+  }
+  source {
+    display: none;
+  }
+  img, svg {
+    & {
+      transform: rotate(90deg);
+    }
+    @media (pointer: coarse) and (width <= #{tokens.$breakpoint})  { 
+      transform: none;
+    }
+  }
+  img, svg {
+    // desktop-only
+    min-height: var(--desktopPanelHeight);
+    width: var(--desktopPanelWidth);
+    // mobile 
+    @media (pointer: coarse) and (width <= #{tokens.$breakpoint})  { 
+      transform: none;
+    }
+  }
+  img {
+    display: block;
+    overflow: hidden;
+    z-index: 10;
+    & + .blurUp {
+      z-index: 100;
+      position: absolute;
+      inset: 0;
+      will-change: backdrop-filter;
+      backdrop-filter: blur(20px) saturate(1.3);
+      transition: backdrop-filter 1s ease-out;
+    }
+    &.imgLoaded {
+      opacity: 1;
+    }
+    &.imgLoaded + .blurUp {
+      backdrop-filter: blur(0) saturate(1);
+    } 
+  } 
+}
+
+// In normal page flow (not the rotated scroller), so plain horizontal text.
+.project__content-slot .content {
+  & {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    flex-direction: row;
+    list-style: none;
+    color: var(--contentSecondaryColor);
+    justify-content: space-between;
+    padding: var(--type--1) .6em;
+    p {
+      font-size: var(--type--1);
+      cursor: text;
+    }
+  }
+  li {
+    text-align: center;
+    white-space: nowrap;
+  }
+}
+
+@if $debug {
+  .project {
+    outline: 1px solid red;
+  }
+  .project__meta {
+    outline: 1px solid purple;
+  }
+  .shots {
+    outline: 1px solid #00ff00;
+  }
+  .shot {
+    outline: 1px solid purple;
+  }
+  
+  .scroll-thief {
+    background-color: rgba(255, 255, 0, 0.125);
+  }
+}
+
+.design--mobile {
+  display: none;
+  @media (pointer: coarse) and (width <= #{tokens.$breakpoint})  {
+    display: block;
+  }
+}
+
+// Single-platform workShot pictures: the img fallback would otherwise paint
+// the wrong platform's asset. Hides the img, not the picture — .shot .frame's
+// display: contents outranks a class on the picture itself.
+.shot .pic--mobile-only img {
+  display: none;
+  @media (pointer: coarse) and (width <= #{tokens.$breakpoint}) {
+    display: block;
+  }
+}
+.shot .pic--desk-only img {
+  @media (pointer: coarse) and (width <= #{tokens.$breakpoint}) {
+    display: none;
+  }
+}
+
+.design--desktop {
+  @media (pointer: coarse) and (width <= #{tokens.$breakpoint})  {
+    display: none;
+  }
+}
+
+// svgs on the page
+.zello-mainmenu-icons {
+  background-color: var(--backgroundColor);
+  path {
+    fill: var(--foregroundColor);
+  }
+  --backgroundColor: var(--materialSecondaryColor);
+  --foregroundColor: var(--contentTertiaryColor);
+}
+
+.video-1x { 
+  display: block; 
+}
+
+.video-2x,
+.video-3x { 
+  display: none; 
+  pointer-events: none;
+}
+
+@media (min-resolution: 2dppx) {
+  .video-1x { 
+    display: none; 
+    pointer-events: none;
+  }
+
+  .video-2x { 
+    display: block; 
+  }
+}
+
+@media (min-resolution: 3dppx) {
+  .video-2x { 
+    display: none; 
+    pointer-events: none;
+  }
+
+  .video-3x { 
+    display: block; 
+  }
+}
+
+.video--desktop {
+  display: block;
+}
+
+.video--mobile {
+  display: none;
+}
+
+@media (pointer: coarse)   {
+  .video--desktop {
+    display: none;
+  }
+
+  .video--mobile {
+    display: block;
+  }
+}
