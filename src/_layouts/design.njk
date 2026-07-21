@@ -24,42 +24,52 @@ layout: page.njk
     const pending = new Map();
 
     vids.forEach(v => {
-      const source = v.querySelector('source');
-      const url = source ? source.getAttribute('src') : v.getAttribute('src');
+      // All sources, not just the first — scheme-paired videos carry a dark
+      // source plus a light catch-all, and leaving any src attached defeats
+      // the lazy-load (the browser fetches the first playable one).
+      const sources = Array.from(v.querySelectorAll('source'));
+      const urls = sources.map(s => s.getAttribute('src'));
+      const fallbackUrl = v.getAttribute('src');
+
+      const detach = () => {
+        sources.forEach(s => s.removeAttribute('src'));
+        v.removeAttribute('src');
+        try { v.load(); } catch (e) {}
+      };
 
       if (!v.classList.contains(`video-${bucket}x`)) {
         // Wrong density (display:none in CSS). Detach so it never fetches —
-        // otherwise all 3 density copies download.
-        if (source) source.removeAttribute('src');
-        v.removeAttribute('src');
-        try { v.load(); } catch (e) {}
+        // otherwise all density copies download.
+        detach();
         return;
       }
 
       v.muted = true;        // allow iOS autoplay
       v.playsInline = true;
-      if (source) source.removeAttribute('src');
-      v.removeAttribute('src');
-      try { v.load(); } catch (e) {}
-      pending.set(v, { url: url, source: source, loaded: false });
+      detach();
+      pending.set(v, { sources, urls, fallbackUrl, loaded: false });
     });
 
     const tryPlay = v => { const p = v.play(); if (p) p.catch(() => {}); };
 
-    // Load a bit before the video enters view
+    // Load once the video is within 25dvh of visibility, on any axis — the
+    // carousels approach horizontally. rootMargin has no dvh unit, so it's
+    // computed from the viewport height at init.
+    const loadMargin = Math.round(innerHeight * 0.25);
+
     const loadIO = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (!e.isIntersecting) return;
         const v = e.target, s = pending.get(v);
         if (s && !s.loaded) {
-          if (s.source) s.source.setAttribute('src', s.url);
-          else v.setAttribute('src', s.url);
+          s.sources.forEach((src, i) => { if (s.urls[i]) src.setAttribute('src', s.urls[i]); });
+          if (!s.sources.length && s.fallbackUrl) v.setAttribute('src', s.fallbackUrl);
           try { v.load(); } catch (err) {}
           s.loaded = true;
         }
         loadIO.unobserve(v);
       });
-    }, { rootMargin: '400px 0px' });
+    }, { rootMargin: `${loadMargin}px` });
 
     // Play while in view, pause when scrolled away
     const playIO = new IntersectionObserver((entries) => {
