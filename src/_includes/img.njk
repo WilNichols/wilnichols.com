@@ -17,12 +17,17 @@
   suffix = ''
 ) -%}
   {% if densities[0] != 1 %}{% set minDensity = '@' + densities[0] + 'x' %}{% endif %}
+  {#- '?format=webp' now rides the Cloudflare transform path instead of a query -#}
+  {%- set webp = suffix == '?format=webp' -%}
   <img
-    {% if class %}class="{{ class }}"{% endif %} src="{{ src }}{{ minDensity | replace(' ', '')}}.{{ ext }}{{ suffix }}" 
+    {% if class %}class="{{ class }}"{% endif %} src="
+      {%- set u -%}{{ src }}{{ minDensity | replace(' ', '')}}.{{ ext }}{%- endset -%}
+      {{- (u | cfImage) if webp else (u ~ suffix) -}}"
     srcset="
       {%- for i in densities -%}
-        {{ src }}{{ minDensity if loop.first }}{{ '@' + i + 'x' if not loop.first }}.{{ ext }}{{ suffix }} {{ loop.index }}x{{ ', ' if not loop.last }}
+        {%- set u -%}{{ src }}{{ minDensity if loop.first }}{{ '@' + i + 'x' if not loop.first }}.{{ ext }}{%- endset -%}
+        {{- (u | cfImage) if webp else (u ~ suffix) }} {{ loop.index }}x{{ ', ' if not loop.last }}
       {%- endfor -%}"
-    alt="{{ alt }}" 
+    alt="{{ alt }}"
   />
 {%- endmacro -%}

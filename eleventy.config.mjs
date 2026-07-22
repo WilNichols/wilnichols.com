@@ -213,6 +213,25 @@ export default async function(eleventyConfig) {
   eleventyConfig.addFilter("markdownify", string => {
     return md.renderInline(string)
   });
+
+  // CDN URL builders (Cloudflare migration). Host comes from KXCDN so the
+  // D5 flip back to cdn.dznr.me is one .env change.
+  const CDN_HOST = process.env.KXCDN || "https://cdn.dznr.me";
+  // cdnUrl: cdn-relative path -> absolute CDN URL (no transform; videos, raw)
+  eleventyConfig.addFilter("cdnUrl", path => `${CDN_HOST}/${path}`);
+  // cfImage: absolute-or-relative image -> Cloudflare transform URL.
+  // width omitted = format conversion only. Old ?query forms must be gone
+  // from the input; options live in the path segment now. Any known CDN host
+  // prefix is stripped so callers can pass legacy absolute URLs safely.
+  const CDN_HOSTS = ["https://cdn.dznr.me", "https://cdn2.dznr.me", CDN_HOST];
+  eleventyConfig.addFilter("cfImage", (src, width) => {
+    const opts = width ? `width=${width},format=webp` : `format=webp`;
+    let path = src;
+    for (const h of CDN_HOSTS) {
+      if (path.startsWith(`${h}/`)) { path = path.slice(h.length + 1); break; }
+    }
+    return `${CDN_HOST}/cdn-cgi/image/${opts}/${path}`;
+  });
   
   // simple cache busting method from https://rob.cogit8.org/posts/2020-10-28-simple-11ty-cache-busting/
   eleventyConfig.addFilter("bust", (url) => {

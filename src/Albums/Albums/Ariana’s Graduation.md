@@ -14,7 +14,7 @@ date: 2025-07-14T00:00
 photoDate: 2025-04-20T00:00
 summary: 'Ariana graduated with a Master’s in Social Work. I took her graduation photos.'
 imagePropsSynchronous:
-  path: 'https://cdn.dznr.me/gallery-2023/AriGraduation/DSCF6125.jpg?width=6px&format=webp'
+  path: 'https://cdn2.dznr.me/cdn-cgi/image/width=6,format=webp/gallery-2023/AriGraduation/DSCF6125.jpg'
   height: 4
   width: 6
   ratio: 1.5
