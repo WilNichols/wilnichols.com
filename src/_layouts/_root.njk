@@ -1,4 +1,4 @@
-{% set metaTitle %}{{ altTitle if altTitle else title }}{% endset %}
+{% set metaTitle %}{{ altTitle if altTitle else title }}{{ ' | ' + titleSuffix if titleSuffix }}{% endset %}
 {% set metaDescription %}{{ description if description else meta.description }}{% endset %}
 <!doctype html>
 <html lang="{{ meta.lang }}">

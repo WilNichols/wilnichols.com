@@ -48,7 +48,6 @@
         {% if projectShots.length > 1 %}
           <ul class="project__meta__pager">
             {% for shot in projectShots %}
-              {{ (projectId ~ ': ' ~ shotPlatforms) | warn }}
               {% set shotTimeline = '--' ~ projectId ~ '-shot-' ~ loop.index ~ '-' ~ shotPlatforms[loop.index -1] %}
               <li class="project__meta__pager__dot project__meta__pager__dot--{{ shotPlatforms[loop.index -1] }}" style="
                 animation-timeline: {{ shotTimeline }}">
