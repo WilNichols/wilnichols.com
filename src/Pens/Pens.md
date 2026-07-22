@@ -5,4 +5,6 @@ title: 'Pens'
 collection: 
   - Type/Pen
 eleventyExcludeFromCollections: true
+eleventyComputed:
+  titleSuffix: "{{ meta.name }}"
 ---
