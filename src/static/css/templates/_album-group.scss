@@ -2,12 +2,9 @@
 @use '../components/footnotes';
 
 .page--album-group {
-  // matches .posts-list, so the intro's divider sits in the same rhythm as the
-  // albums'. Doubled class because .page sets its own row-gap later in the cascade
   &.page {
     gap: calc(2 * tokens.$gapMedium);
   }
-  // the column runs wider than the notes/category indexes these classes share
   .page-top,
   .posts-list,
   .footer-container {
@@ -16,7 +13,6 @@
   .posts-list {
     gap: calc(2 * tokens.$gapMedium);
   }
-  // the group intro is divided from its albums the same way the albums are
   .page-top,
   .posts-month:not(:last-child) {
     @extend %bottomBorder;
@@ -29,7 +25,6 @@
     grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
     gap: var(--u4);
   }
-  // var is set on click in Album Group.njk, pairing with the photo on the album page
   > li {
     view-transition-name: var(--view-transition-name, none);
   }

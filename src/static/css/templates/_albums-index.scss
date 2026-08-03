@@ -92,6 +92,12 @@
   display: inline;
 }
 
+@media (hover: none) {
+  .album-preview {
+    display: none;
+  }
+}
+
 .album-preview {
   $halfCol: calc(var(--col)/2);
   opacity: 0;

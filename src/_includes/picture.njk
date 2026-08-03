@@ -63,6 +63,8 @@
         .then(function () { img.classList.add('imgLoaded'); });
     });
 
+    if (img.dataset.manualLoad !== undefined) return;
+
     prefetchIO.observe(img);
     nearIO.observe(img);
   });
@@ -71,9 +73,6 @@
 </script>
 {# script tags are for syntax val #}
 
-{# sizes and srcset live in their own macros so a page can describe the exact
-   candidates another page's Picture will request — see the album group preloads #}
-{# no default values: njk binds defaulted params as keywords, which reorders positional args #}
 {%- macro pictureSizes(isWNCDN, args) -%}
     {%- if args.width -%}
       (max-width: {{ args.width }}px) {{ args.width }}px,
@@ -119,7 +118,8 @@
   loading = 'lazy',
   isWNCDN = false,
   customSRCSet,
-  args
+  args,
+  manualLoad = false
 ) %}
   {% if not imageProps %}{% set imageProps = (collections.photos[src] and collections.photos[src].fileInfo) or { orientation: 'landscape', ratio: 1.5, color: '#888888', width: 1200, height: 800 } %}{% endif %}
   {% js "defer" %}
@@ -146,6 +146,7 @@
       class="progressiveImg {{ class }}"
       src="{{ lqipSrc | replace(" ", "") | safe }}"
       {%- if not isWNCDN %} data-src="{{ src | replace(" ", "") | safe }}"{% endif %}
+      {%- if manualLoad %} data-manual-load{% endif %}
       width="{{ imageProps.width }}"
       height="{{ imageProps.height }}"
       alt="{% if title %}{{ title }}{% else %}{{ fileName }}{% endif %}"

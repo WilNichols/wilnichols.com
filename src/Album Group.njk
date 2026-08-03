@@ -53,15 +53,11 @@ eleventyComputed:
           <div class="content-body"><p>{{ album.data.summary }}</p></div>
         {% endif %}
         {% if album.data.photos %}
-          {# album pages render these photos at full size with no width arg, so the
-             preload candidates below are exactly what those pages will request #}
           <ul class="album-group__photo-grid" data-preload-sizes="{{ pictureSizes(true) }}">
             {% for photo in album.data.photos %}
               {% if loop.first %}{% set loading = 'eager' %}{% else %}{% set loading = 'lazy' %}{% endif %}
               {% set src %}{{ remote.gallery.base }}/{{ photo.key }}{% endset %}
               {% set fileName %}{{ photo.fileName | slugify }}{% endset %}
-              {# the name is only applied on click, so one thumbnail at a time pairs
-                 with its photo on the album page — see _nameClickedThumbnail below #}
               <li data-view-transition-name="photo--{{ album.data.key | slugify }}--{{ fileName }}" data-preload-srcset="{{ pictureSRCSet(src, true) }}">
                 <a href="{{ album.url }}#{{ fileName | replace('-jpg', '') | replace('dscf', '') }}">
                   {{ Picture(fileName=fileName, src=src, loading=loading, isWNCDN=true, args={width: 200}) }}
@@ -94,15 +90,9 @@ eleventyComputed:
     preloadFullRes(thumbnail);
   });
 
-  // Warm the album page's full-res candidate for the photo the pointer is resting
-  // on, so the view transition lands on a decoded image instead of the blur-up.
-  // Sweeping the pointer across the grid shouldn't fetch anything, hence the delay.
   const preloaded = new Set();
   let intent;
 
-  // A detached Image, not <link rel=preload>: the CDN varies on Accept, and a
-  // preload's Accept header doesn't always match an <img>'s, which would fork the
-  // cache entry and leave the album page fetching the photo all over again.
   function preloadFullRes(thumbnail) {
     const srcset = thumbnail.dataset.preloadSrcset;
     if (!srcset || preloaded.has(srcset)) return;
@@ -123,7 +113,6 @@ eleventyComputed:
 
   document.addEventListener('pointerout', () => clearTimeout(intent));
 
-  // touch has no hover, so the tap itself is the earliest signal
   document.addEventListener('pointerdown', (event) => {
     const thumbnail = event.target.closest('.album-group__photo-grid > li');
     if (thumbnail) preloadFullRes(thumbnail);

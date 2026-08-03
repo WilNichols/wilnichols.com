@@ -29,7 +29,8 @@
             fileName = album.data.thumbnail,
             src = previewSRC,
             loading = "eager",
-            isWNCDN = true
+            isWNCDN = true,
+            manualLoad = true
         ) }}
       {% set prevAlbumOpen = true %}
     {% endif %}
@@ -40,33 +41,55 @@
 </ol>
 
 {% js "defer" %}
-document.querySelectorAll('.album-group__title').forEach(h2 => {
-  const group = h2.closest('.album-group');
-  const previews = group.querySelectorAll('.album-preview');
+(function () {
+  if (!matchMedia('(hover: hover)').matches) return;
 
-  let index = 0;
-  let timeout = null;
-
-  function clearActive() {
-    previews.forEach(p => p.classList.remove('is-cycling-active'));
+  function loadPreview(preview) {
+    const source = preview && preview.querySelector('source[data-srcset]');
+    if (!source) return;
+    source.srcset = source.dataset.srcset;
+    delete source.dataset.srcset;
   }
 
-  function advance() {
-    clearActive();
-    previews[index].classList.add('is-cycling-active');
-    index = (index + 1) % previews.length;
-    timeout = setTimeout(advance, 2000);
-  }
-
-  h2.addEventListener('mouseenter', () => {
-    index = 0;
-    advance();
+  document.querySelectorAll('.album-group__album').forEach(album => {
+    album.addEventListener(
+      'pointerenter',
+      () => loadPreview(album.nextElementSibling),
+      { once: true }
+    );
   });
 
-  h2.addEventListener('mouseleave', () => {
-    clearTimeout(timeout);
-    clearActive();
-    index = 0;
+  document.querySelectorAll('.album-group__title').forEach(h2 => {
+    const group = h2.closest('.album-group');
+    const previews = group.querySelectorAll('.album-preview');
+    if (!previews.length) return;
+
+    let index = 0;
+    let timeout = null;
+
+    function clearActive() {
+      previews.forEach(p => p.classList.remove('is-cycling-active'));
+    }
+
+    function advance() {
+      clearActive();
+      loadPreview(previews[index]);
+      previews[index].classList.add('is-cycling-active');
+      index = (index + 1) % previews.length;
+      loadPreview(previews[index]);
+      timeout = setTimeout(advance, 2000);
+    }
+
+    h2.addEventListener('mouseenter', () => {
+      index = 0;
+      advance();
+    });
+
+    h2.addEventListener('mouseleave', () => {
+      clearTimeout(timeout);
+      clearActive();
+      index = 0;
+    });
   });
-});
+})();
 {% endjs %}
