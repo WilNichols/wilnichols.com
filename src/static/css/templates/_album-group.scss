@@ -1,0 +1,45 @@
+@use '../tokens';
+@use '../components/footnotes';
+
+.page--album-group {
+  // the column runs wider than the notes/category indexes these classes share
+  .about-me,
+  .posts-list,
+  .footer-container {
+    max-width: tokens.$width;
+  }
+  .posts-list {
+    gap: calc(2 * tokens.$gapMedium);
+  }
+  .posts-month:not(:last-child) {
+    @extend %bottomBorder;
+  }
+  // album descriptions sit a step below the group's own intro
+  .posts-month .content-body {
+    font-size: var(--type--1);
+  }
+}
+
+.album-group__photo-grid {
+  & {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+    gap: var(--u4);
+  }
+  // var is set on click in Album Group.njk, pairing with the photo on the album page
+  > li {
+    view-transition-name: var(--view-transition-name, none);
+  }
+  picture {
+    display: block;
+    aspect-ratio: 1;
+    background-color: var(--color);
+    overflow: hidden;
+  }
+  img {
+    display: block;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+}

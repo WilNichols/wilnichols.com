@@ -1,6 +1,5 @@
 ---
 title: Auzon
-permalink: false
 tags:
   - AlbumGroup/Auzon
   - AlbumGroupIntro

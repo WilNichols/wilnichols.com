@@ -213,6 +213,16 @@ $blur: 2px;
   @extend %page-info__entry-style;
 }
 
+// a title entry sets its own type size, so sit the row on the shared baseline
+.page-info__list:has(> .page-info__entry--title) {
+  align-items: baseline;
+}
+
+// one step down from the page's own title
+.page-info__entry--title .page__title {
+  font-size: var(--type--1);
+}
+
 .page-info__entry__value p {
   display: inline;
 }

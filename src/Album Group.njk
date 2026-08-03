@@ -7,41 +7,88 @@ pagination:
 permalink: /albums/{{ group | replace('AlbumGroup/', '') | slugify}}/
 eleventyImport:
   collections: ["photos"]
+eleventyComputed:
+  title: "{% set intro = collections[group] | groupIntro %}{{ intro.data.title if intro and intro.data.title else group | replace('AlbumGroup/', '') }}"
+  titleSuffix: "{{ meta.name }}"
+  description: "{% set intro = collections[group] | groupIntro %}{{ intro.data.description if intro and intro.data.description }}"
+  metaPreview: "{% set cover = collections[group] | excludeGroupIntros | first %}{% if cover and cover.data.key and cover.data.thumbnail %}{{ remote.gallery.base }}/cdn-cgi/image/width=1400,format=webp/{{ remote.gallery.photos }}/{{ cover.data.key }}/{{ cover.data.thumbnail }}{% endif %}"
 ---
-{%- from 'header.njk' import Header with context -%}
-{%- from 'page-header.njk' import PageHeader with context -%}
+{%- from 'page-header.njk' import backButton, pageInfoEntries, pageInfoEntry, pageInfoTitleEntry, pageTitle with context -%}
 {%- from 'picture.njk' import Picture with context -%}
 {%- from 'footer.njk' import Footer with context -%}
-<div class="page page--album-group">
-  <header class="page-header__container">
-  {{ Header() }}
-  </header>
-  <main class="content-body">
-    <article class="album-group__album">
-      {{ PageHeader() }}
-      {% set intro = collections[group] | groupIntro %}
-      {% if intro %}
-        <div class="album-group__intro">{{ intro.content | safe }}</div>
-      {% endif %}
-      <ul class="album__album-photos">
-      {% set taglist = collections[group] | excludeGroupIntros %}
-      {% for post in taglist | reverse %}
-        {# <li><a href="{{ post.url }}">{{ post.data.title }}</a></li> #}
-      {% for photo in post.data.photos %}
-          {% if loop.index < 3 %}{% set loading = 'eager' %}{% else %}{% set loading = 'lazy' %}{% endif %}
-          {% set src %}{{ remote.gallery.base }}/{{ photo.key }}{% endset %}
-          {% set fileName %}{{ photo.fileName | slugify }}{% endset %}
-          <li class="album__album-photos__photo" id="{{ fileName | replace('-jpg', '') | replace('dscf', '') }}">
-            {{ Picture(fileName=fileName, src=src, loading=loading, isWNCDN=true) }}
-          </li>
-        {% endfor %}
-      {% endfor %}
-      </ul>
-    </article>
-  </main>
+{% set intro = collections[group] | groupIntro %}
+{% set albums = collections[group] | excludeGroupIntros | reverse %}
+{% macro albumDate(album) %}{{ (album.data.date if album.data.date else album.date | htmlDateString) | readableDateISO }}{% endmacro %}
+<div class="page page--category page--album-group">
+  <div class="about-me">
+    <div class="page-header__buttons-container">
+      {{ backButton() }}
+    </div>
+    {% set countString %}{% if albums | length %}{{ albums | length }} album{{ 's' if albums | length != 1 }}{% endif %}{% endset %}
+    {{ pageTitle(title, "h1", "", countString) }}
+    {% if intro %}{{ intro.content | safe }}{% endif %}
+  </div>
+
+  <ol class="posts-list">
+    {% for album in albums %}
+      <li class="posts-month" id="{{ album.fileSlug | slugify }}">
+        <ul class="page-info__list">
+          {{ pageInfoTitleEntry(album.data.title, album.url) }}
+          {% call pageInfoEntries() %}
+            {{ pageInfoEntry("published", albumDate(album)) }}
+            {% for key in ['Period', 'Camera'] %}
+              {% set values = [] %}
+              {% for tag in album.data.tags %}
+                {% if ('AlbumInfo/' + key + '/') in tag %}
+                  {% set values = (values.push(tag | replace('AlbumInfo/' + key + '/', '')), values) %}
+                {% endif %}
+              {% endfor %}
+              {% if values | length %}{{ pageInfoEntry(key | lower, values | join(', ')) }}{% endif %}
+            {% endfor %}
+          {% endcall %}
+        </ul>
+        {% if album | hasContent %}
+          <div class="content-body">{{ album | safeContent | safe }}</div>
+        {% elif album.data.summary %}
+          <div class="content-body"><p>{{ album.data.summary }}</p></div>
+        {% endif %}
+        {% if album.data.photos %}
+          <ul class="album-group__photo-grid">
+            {% for photo in album.data.photos %}
+              {% if loop.first %}{% set loading = 'eager' %}{% else %}{% set loading = 'lazy' %}{% endif %}
+              {% set src %}{{ remote.gallery.base }}/{{ photo.key }}{% endset %}
+              {% set fileName %}{{ photo.fileName | slugify }}{% endset %}
+              {# the name is only applied on click, so one thumbnail at a time pairs
+                 with its photo on the album page — see _nameClickedThumbnail below #}
+              <li data-view-transition-name="photo--{{ album.data.key | slugify }}--{{ fileName }}">
+                <a href="{{ album.url }}#{{ fileName | replace('-jpg', '') | replace('dscf', '') }}">
+                  {{ Picture(fileName=fileName, src=src, loading=loading, isWNCDN=true, args={width: 200}) }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ol>
+
+  <ol class="footer-container">
+    {{ Footer(el="li", classModifier="grid") }}
+  </ol>
 </div>
-  
-  
-  {# <ul class="album__album-photos">
-    
-  </ul> #}
+
+{% js "defer" %}
+  // A rollup can hold hundreds of thumbnails, and every named element is a
+  // snapshot, so the pairing name is applied to just the one being navigated to.
+  document.addEventListener('click', (event) => {
+    const link = event.target.closest('.album-group__photo-grid a');
+    if (!link) return;
+
+    document
+      .querySelectorAll('.album-group__photo-grid > li[style*="--view-transition-name"]')
+      .forEach(named => named.style.removeProperty('--view-transition-name'));
+
+    const thumbnail = link.closest('li');
+    thumbnail.style.setProperty('--view-transition-name', thumbnail.dataset.viewTransitionName);
+  });
+{% endjs %}

@@ -72,7 +72,17 @@ export default function (eleventy) {
     postType: "album",
     tags: ["Albums", "Topic/Photography"],
     eleventyComputed: {
-      permalink: data => '/albums/' + slugify(data.page.fileSlug).replace('-s', 's') + '/',
+      permalink: data => {
+        const albumGroupTag = data.tags.find(tag => tag.includes("AlbumGroup"));
+        const albumGroup = albumGroupTag ? slugify(albumGroupTag.replace('AlbumGroup/', '')) : '';
+        const albumName = slugify(data.page.fileSlug).replace('-s', 's');
+        const parts = ['albums', albumGroup, albumName].filter(Boolean);
+        return '/' + parts.join('/') + '/'
+      },
+      groupPermalink: data => {
+        const tag = data.tags?.find(t => t.startsWith("AlbumGroup/"));
+        return tag ? `/albums/${slugify(tag.replace("AlbumGroup/", ""))}/` : null;
+      },
       photos: async data => data.key ? getAlbumContentsFromAWS(data.key) : null,
       metaPreview: data => data.remote.gallery.base + '/cdn-cgi/image/width=1400,format=webp/' + data.remote.gallery.photos + '/' + data.key + '/' + data.thumbnail,
       description: data => {
