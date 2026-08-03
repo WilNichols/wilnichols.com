@@ -1,0 +1,50 @@
+@use '../tokens';
+@use '../mixins';
+@use '../components/footnotes';
+
+@include mixins.smartPhone {
+  body:has(> .page.page--album-group) {
+    padding: var(--col);
+  }
+}
+
+.page--album-group {
+  &.page {
+    gap: 2rem;
+  }
+  .page-top,
+  .posts-list,
+  .footer-container {
+    max-width: tokens.$width;
+  }
+  .posts-list {
+    gap: 2rem;
+  }
+  .page-top,
+  .posts-month:not(:last-child) {
+    @extend %bottomBorder;
+  }
+}
+
+.album-group__photo-grid {
+  & {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+    gap: var(--u4);
+  }
+  > li {
+    view-transition-name: var(--view-transition-name, none);
+  }
+  picture {
+    display: block;
+    aspect-ratio: 1;
+    background-color: var(--color);
+    overflow: hidden;
+  }
+  img {
+    display: block;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+}

@@ -13,24 +13,25 @@
         {% if prevAlbumOpen %}</li>{% endif %}
         {% if currentGroup != "" %}</ol></li>{% endif %}
         <li class="album-group">
-          <h2 class="album-group__title">{{ groupTitle }}&ensp;</h2>
+          <h2 class="album-group__title"><a class="album-group__album__link album-group__link" href="{{ album.data.groupPermalink}}">{{ groupTitle }}</a>&ensp;</h2>
           <ol class="album-group__albums-list">
         {% set currentGroup = albumGroup %}
       {% else %}
-        {% if prevAlbumOpen %},&ensp;</li>{% endif %}
+        {% if prevAlbumOpen %}</li>{% endif %}
       {% endif %}
 
       {% set previewSRC %}{{ remote.gallery.base }}/{{ remote.gallery.photos }}/{{ album.data.key }}/{{ album.data.thumbnail }}{% endset %}
       <li class="album-group__album">
         <a class="album-group__album__link" href="{{ album.data.permalink }}" data-preview="{{ previewSrc }}">{{ album.data.shortTitle if album.data.shortTitle else album.data.title }}</a>
-        <div class="album-preview">
-          {{  Picture(
-              fileName = album.data.thumbnail,
-              src = previewSRC,
-              loading = "eager",
-              isWNCDN = true
-          ) }}
-        </div>
+      </li>
+      <li class="album-preview">
+        {{  Picture(
+            fileName = album.data.thumbnail,
+            src = previewSRC,
+            loading = "eager",
+            isWNCDN = true,
+            manualLoad = true
+        ) }}
       {% set prevAlbumOpen = true %}
     {% endif %}
   {% endeach %}
@@ -38,3 +39,57 @@
   {% if currentGroup != "" %}</ol></li>{% endif %}
   {{ Footer(el="li") }}
 </ol>
+
+{% js "defer" %}
+(function () {
+  if (!matchMedia('(hover: hover)').matches) return;
+
+  function loadPreview(preview) {
+    const source = preview && preview.querySelector('source[data-srcset]');
+    if (!source) return;
+    source.srcset = source.dataset.srcset;
+    delete source.dataset.srcset;
+  }
+
+  document.querySelectorAll('.album-group__album').forEach(album => {
+    album.addEventListener(
+      'pointerenter',
+      () => loadPreview(album.nextElementSibling),
+      { once: true }
+    );
+  });
+
+  document.querySelectorAll('.album-group__title').forEach(h2 => {
+    const group = h2.closest('.album-group');
+    const previews = group.querySelectorAll('.album-preview');
+    if (!previews.length) return;
+
+    let index = 0;
+    let timeout = null;
+
+    function clearActive() {
+      previews.forEach(p => p.classList.remove('is-cycling-active'));
+    }
+
+    function advance() {
+      clearActive();
+      loadPreview(previews[index]);
+      previews[index].classList.add('is-cycling-active');
+      index = (index + 1) % previews.length;
+      loadPreview(previews[index]);
+      timeout = setTimeout(advance, 2000);
+    }
+
+    h2.addEventListener('mouseenter', () => {
+      index = 0;
+      advance();
+    });
+
+    h2.addEventListener('mouseleave', () => {
+      clearTimeout(timeout);
+      clearActive();
+      index = 0;
+    });
+  });
+})();
+{% endjs %}

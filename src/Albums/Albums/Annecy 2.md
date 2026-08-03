@@ -8,7 +8,7 @@ tags:
   - AlbumInfo/Location/France
   - AlbumInfo/Location/Annecy
   - AlbumInfo/Location/Rhône-Alpes
-  - AlbumInfo/Period/KULeuven
+  - 'AlbumInfo/Period/KU Leuven'
   - AlbumGroup/Annecy
 date: 2018-07-22T00:00
 ---

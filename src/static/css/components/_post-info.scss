@@ -213,6 +213,14 @@ $blur: 2px;
   @extend %page-info__entry-style;
 }
 
+.page-info__list:has(> .page-info__entry--title) {
+  align-items: baseline;
+}
+
+.page-info__entry--title .page__title {
+  font-size: var(--type--1);
+}
+
 .page-info__entry__value p {
   display: inline;
 }

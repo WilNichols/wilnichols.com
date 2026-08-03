@@ -7,7 +7,7 @@ tags:
   - Topic/Hackathon
   - AlbumInfo/Location/Destin
   - AlbumInfo/Location/Florida
-  - AlbumInfo/Period/KULeuven
+  - 'AlbumInfo/Period/KU Leuven'
   - 'AlbumGroup/The U.S.'
 date: 2018-04-07T00:00
 ---

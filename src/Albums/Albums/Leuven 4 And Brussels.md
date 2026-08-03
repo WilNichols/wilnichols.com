@@ -8,7 +8,7 @@ tags:
   - AlbumInfo/Location/Leuven
   - AlbumInfo/Location/Brussels
   - AlbumInfo/Location/Belgium
-  - AlbumInfo/Period/KULeuven
+  - 'AlbumInfo/Period/KU Leuven'
   - AlbumGroup/Leuven
 date: 2019-01-07T00:00
 ---

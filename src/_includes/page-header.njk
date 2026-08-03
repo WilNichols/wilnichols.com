@@ -65,8 +65,17 @@
   </button>
 {% endmacro %}
 
-{% macro pageTitle(cookedTitleString) %}
-  <h1 class="page__title">{{ cookedTitleString | markdownify | replace("<p>", "") | replace("</p>", "") | safe }}</h1>
+{% macro pageTitle(cookedTitleString, level = "h1", url = "", trailing = "") %}
+  {%- set cookedTitle -%}{{ cookedTitleString | markdownify | replace("<p>", "") | replace("</p>", "") }}{%- endset -%}
+  <{{ level }} class="page__title">{% if url %}<a href="{{ url }}">{{ cookedTitle | safe }}</a>{% else %}{{ cookedTitle | safe }}{% endif %}{% if trailing %} <span class="page__title__trailing">{{ trailing }}</span>{% endif %}</{{ level }}>
+{% endmacro %}
+
+{% macro pageInfoTitleEntry(cookedTitleString, url = "", level = "h3", el = "li") %}
+  <{{ el }} class="page-info__entry page-info__entry--title">{{ pageTitle(cookedTitleString, level, url) }}</{{ el }}>
+{% endmacro %}
+
+{% macro pageInfoEntries(el = "li") %}
+  <{{ el }} class="page-info__entries"><ul class="page-info__list">{{ caller() }}</ul></{{ el }}>
 {% endmacro %}
 
 {% macro pageInfoEntry(icon, content, el = "li") %}

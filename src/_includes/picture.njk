@@ -63,6 +63,8 @@
         .then(function () { img.classList.add('imgLoaded'); });
     });
 
+    if (img.dataset.manualLoad !== undefined) return;
+
     prefetchIO.observe(img);
     nearIO.observe(img);
   });
@@ -71,22 +73,7 @@
 </script>
 {# script tags are for syntax val #}
 
-{% macro Picture(
-  class,
-  src = '',
-  fileName = '',
-  alt = '',
-  imageProps,
-  loading = 'lazy',
-  isWNCDN = false,
-  customSRCSet,
-  args
-) %}
-  {% if not imageProps %}{% set imageProps = (collections.photos[src] and collections.photos[src].fileInfo) or { orientation: 'landscape', ratio: 1.5, color: '#888888', width: 1200, height: 800 } %}{% endif %}
-  {% js "defer" %}
-    {{ _progLoadImg() }}
-  {% endjs %}
-  {%- set sizes -%}
+{%- macro pictureSizes(isWNCDN, args) -%}
     {%- if args.width -%}
       (max-width: {{ args.width }}px) {{ args.width }}px,
       (max-width: {{ args.width * 2}}px) {{ args.width * 2}}px,
@@ -103,8 +90,9 @@
         (max-width: 2049px) 3072px
       {%- endif -%}
     {%- endif -%}
-  {%- endset -%}
-  {%- set srcset -%}
+{%- endmacro -%}
+
+{%- macro pictureSRCSet(src, isWNCDN, args, customSRCSet) -%}
     {%- if args.width -%}
       {{ src | cfImage(args.width * 3) }} 3x,
       {{ src | cfImage(args.width * 2) }} 2x,
@@ -119,7 +107,26 @@
         {{ customSRCSet | safe }}
       {%- endif -%}
     {%- endif -%}
-  {%- endset -%}
+{%- endmacro -%}
+
+{% macro Picture(
+  class,
+  src = '',
+  fileName = '',
+  alt = '',
+  imageProps,
+  loading = 'lazy',
+  isWNCDN = false,
+  customSRCSet,
+  args,
+  manualLoad = false
+) %}
+  {% if not imageProps %}{% set imageProps = (collections.photos[src] and collections.photos[src].fileInfo) or { orientation: 'landscape', ratio: 1.5, color: '#888888', width: 1200, height: 800 } %}{% endif %}
+  {% js "defer" %}
+    {{ _progLoadImg() }}
+  {% endjs %}
+  {%- set sizes = pictureSizes(isWNCDN, args) -%}
+  {%- set srcset = pictureSRCSet(src, isWNCDN, args, customSRCSet) -%}
   {%- set lqipSrc -%}
     {%- if isWNCDN -%}
       {{ src | replace(" ", "") | cfImage(40) }}
@@ -139,6 +146,7 @@
       class="progressiveImg {{ class }}"
       src="{{ lqipSrc | replace(" ", "") | safe }}"
       {%- if not isWNCDN %} data-src="{{ src | replace(" ", "") | safe }}"{% endif %}
+      {%- if manualLoad %} data-manual-load{% endif %}
       width="{{ imageProps.width }}"
       height="{{ imageProps.height }}"
       alt="{% if title %}{{ title }}{% else %}{{ fileName }}{% endif %}"

@@ -1,0 +1,120 @@
+---
+layout: page.njk
+pagination:
+  data: collections.albumGroups
+  size: 1
+  alias: group
+permalink: /albums/{{ group | replace('AlbumGroup/', '') | slugify}}/
+eleventyImport:
+  collections: ["photos"]
+eleventyComputed:
+  title: "{% set intro = collections[group] | groupIntro %}{{ intro.data.title if intro and intro.data.title else group | replace('AlbumGroup/', '') }}"
+  titleSuffix: "{{ meta.name }}"
+  description: "{% set intro = collections[group] | groupIntro %}{{ intro.data.description if intro and intro.data.description }}"
+  metaPreview: "{% set cover = collections[group] | excludeGroupIntros | first %}{% if cover and cover.data.key and cover.data.thumbnail %}{{ remote.gallery.base }}/cdn-cgi/image/width=1400,format=webp/{{ remote.gallery.photos }}/{{ cover.data.key }}/{{ cover.data.thumbnail }}{% endif %}"
+---
+{%- from 'page-header.njk' import backButton, pageInfoEntries, pageInfoEntry, pageInfoTitleEntry, pageTitle with context -%}
+{%- from 'picture.njk' import Picture, pictureSizes, pictureSRCSet with context -%}
+{%- from 'footer.njk' import Footer with context -%}
+{% set intro = collections[group] | groupIntro %}
+{% set albums = collections[group] | excludeGroupIntros | reverse %}
+{% macro albumDate(album) %}{{ (album.data.date if album.data.date else album.date | htmlDateString) | readableDateISO }}{% endmacro %}
+<div class="page page--category page--album-group">
+  <div class="page-top">
+    <div class="page-header__buttons-container">
+      {{ backButton() }}
+    </div>
+    {% set countString %}{% if albums | length %}{{ albums | length }} album{{ 's' if albums | length != 1 }}{% endif %}{% endset %}
+    {{ pageTitle(title, "h1", "", countString) }}
+    {% if intro %}{{ intro.content | safe }}{% endif %}
+  </div>
+
+  <ol class="posts-list">
+    {% for album in albums %}
+      <li class="posts-month" id="{{ album.fileSlug | slugify }}">
+        <ul class="page-info__list">
+          {{ pageInfoTitleEntry(album.data.title, album.url, level="h2") }}
+          {% call pageInfoEntries() %}
+            {{ pageInfoEntry("published", albumDate(album)) }}
+            {% for key in ['Period', 'Camera'] %}
+              {% set values = [] %}
+              {% for tag in album.data.tags %}
+                {% if ('AlbumInfo/' + key + '/') in tag %}
+                  {% set values = (values.push(tag | replace('AlbumInfo/' + key + '/', '')), values) %}
+                {% endif %}
+              {% endfor %}
+              {% if values | length %}{{ pageInfoEntry(key | lower, values | join(', ')) }}{% endif %}
+            {% endfor %}
+          {% endcall %}
+        </ul>
+        {% if album | hasContent %}
+          <div class="content-body">{{ album | safeContent | safe }}</div>
+        {% elif album.data.summary %}
+          <div class="content-body"><p>{{ album.data.summary }}</p></div>
+        {% endif %}
+        {% if album.data.photos %}
+          <ul class="album-group__photo-grid" data-preload-sizes="{{ pictureSizes(true) }}">
+            {% for photo in album.data.photos %}
+              {% if loop.first %}{% set loading = 'eager' %}{% else %}{% set loading = 'lazy' %}{% endif %}
+              {% set src %}{{ remote.gallery.base }}/{{ photo.key }}{% endset %}
+              {% set fileName %}{{ photo.fileName | slugify }}{% endset %}
+              <li data-view-transition-name="photo--{{ album.data.key | slugify }}--{{ fileName }}" data-preload-srcset="{{ pictureSRCSet(src, true) }}">
+                <a href="{{ album.url }}#{{ fileName | replace('-jpg', '') | replace('dscf', '') }}">
+                  {{ Picture(fileName=fileName, src=src, loading=loading, isWNCDN=true, args={width: 200}) }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ol>
+
+  <ol class="footer-container">
+    {{ Footer(el="li", classModifier="grid") }}
+  </ol>
+</div>
+
+{% js "defer" %}
+  // dynamically add the view transition name instead of pre-rendering for all, minimizing thrash
+  document.addEventListener('click', (event) => {
+    const link = event.target.closest('.album-group__photo-grid a');
+    if (!link) return;
+
+    document
+      .querySelectorAll('.album-group__photo-grid > li[style*="--view-transition-name"]')
+      .forEach(named => named.style.removeProperty('--view-transition-name'));
+
+    const thumbnail = link.closest('li');
+    thumbnail.style.setProperty('--view-transition-name', thumbnail.dataset.viewTransitionName);
+    preloadFullRes(thumbnail);
+  });
+
+  const preloaded = new Set();
+  let intent;
+
+  function preloadFullRes(thumbnail) {
+    const srcset = thumbnail.dataset.preloadSrcset;
+    if (!srcset || preloaded.has(srcset)) return;
+    preloaded.add(srcset);
+
+    const warm = new Image();
+    warm.fetchPriority = 'high';
+    warm.sizes = thumbnail.closest('.album-group__photo-grid').dataset.preloadSizes;
+    warm.srcset = srcset;
+  }
+
+  document.addEventListener('pointerover', (event) => {
+    const thumbnail = event.target.closest('.album-group__photo-grid > li');
+    if (!thumbnail) return;
+    clearTimeout(intent);
+    intent = setTimeout(() => preloadFullRes(thumbnail), 150);
+  });
+
+  document.addEventListener('pointerout', () => clearTimeout(intent));
+
+  document.addEventListener('pointerdown', (event) => {
+    const thumbnail = event.target.closest('.album-group__photo-grid > li');
+    if (thumbnail) preloadFullRes(thumbnail);
+  });
+{% endjs %}
