@@ -14,13 +14,13 @@ eleventyComputed:
   metaPreview: "{% set cover = collections[group] | excludeGroupIntros | first %}{% if cover and cover.data.key and cover.data.thumbnail %}{{ remote.gallery.base }}/cdn-cgi/image/width=1400,format=webp/{{ remote.gallery.photos }}/{{ cover.data.key }}/{{ cover.data.thumbnail }}{% endif %}"
 ---
 {%- from 'page-header.njk' import backButton, pageInfoEntries, pageInfoEntry, pageInfoTitleEntry, pageTitle with context -%}
-{%- from 'picture.njk' import Picture with context -%}
+{%- from 'picture.njk' import Picture, pictureSizes, pictureSRCSet with context -%}
 {%- from 'footer.njk' import Footer with context -%}
 {% set intro = collections[group] | groupIntro %}
 {% set albums = collections[group] | excludeGroupIntros | reverse %}
 {% macro albumDate(album) %}{{ (album.data.date if album.data.date else album.date | htmlDateString) | readableDateISO }}{% endmacro %}
 <div class="page page--category page--album-group">
-  <div class="about-me">
+  <div class="page-top">
     <div class="page-header__buttons-container">
       {{ backButton() }}
     </div>
@@ -33,7 +33,7 @@ eleventyComputed:
     {% for album in albums %}
       <li class="posts-month" id="{{ album.fileSlug | slugify }}">
         <ul class="page-info__list">
-          {{ pageInfoTitleEntry(album.data.title, album.url) }}
+          {{ pageInfoTitleEntry(album.data.title, album.url, level="h2") }}
           {% call pageInfoEntries() %}
             {{ pageInfoEntry("published", albumDate(album)) }}
             {% for key in ['Period', 'Camera'] %}
@@ -53,14 +53,16 @@ eleventyComputed:
           <div class="content-body"><p>{{ album.data.summary }}</p></div>
         {% endif %}
         {% if album.data.photos %}
-          <ul class="album-group__photo-grid">
+          {# album pages render these photos at full size with no width arg, so the
+             preload candidates below are exactly what those pages will request #}
+          <ul class="album-group__photo-grid" data-preload-sizes="{{ pictureSizes(true) }}">
             {% for photo in album.data.photos %}
               {% if loop.first %}{% set loading = 'eager' %}{% else %}{% set loading = 'lazy' %}{% endif %}
               {% set src %}{{ remote.gallery.base }}/{{ photo.key }}{% endset %}
               {% set fileName %}{{ photo.fileName | slugify }}{% endset %}
               {# the name is only applied on click, so one thumbnail at a time pairs
                  with its photo on the album page — see _nameClickedThumbnail below #}
-              <li data-view-transition-name="photo--{{ album.data.key | slugify }}--{{ fileName }}">
+              <li data-view-transition-name="photo--{{ album.data.key | slugify }}--{{ fileName }}" data-preload-srcset="{{ pictureSRCSet(src, true) }}">
                 <a href="{{ album.url }}#{{ fileName | replace('-jpg', '') | replace('dscf', '') }}">
                   {{ Picture(fileName=fileName, src=src, loading=loading, isWNCDN=true, args={width: 200}) }}
                 </a>
@@ -78,8 +80,7 @@ eleventyComputed:
 </div>
 
 {% js "defer" %}
-  // A rollup can hold hundreds of thumbnails, and every named element is a
-  // snapshot, so the pairing name is applied to just the one being navigated to.
+  // dynamically add the view transition name instead of pre-rendering for all, minimizing thrash
   document.addEventListener('click', (event) => {
     const link = event.target.closest('.album-group__photo-grid a');
     if (!link) return;
@@ -90,5 +91,41 @@ eleventyComputed:
 
     const thumbnail = link.closest('li');
     thumbnail.style.setProperty('--view-transition-name', thumbnail.dataset.viewTransitionName);
+    preloadFullRes(thumbnail);
+  });
+
+  // Warm the album page's full-res candidate for the photo the pointer is resting
+  // on, so the view transition lands on a decoded image instead of the blur-up.
+  // Sweeping the pointer across the grid shouldn't fetch anything, hence the delay.
+  const preloaded = new Set();
+  let intent;
+
+  // A detached Image, not <link rel=preload>: the CDN varies on Accept, and a
+  // preload's Accept header doesn't always match an <img>'s, which would fork the
+  // cache entry and leave the album page fetching the photo all over again.
+  function preloadFullRes(thumbnail) {
+    const srcset = thumbnail.dataset.preloadSrcset;
+    if (!srcset || preloaded.has(srcset)) return;
+    preloaded.add(srcset);
+
+    const warm = new Image();
+    warm.fetchPriority = 'high';
+    warm.sizes = thumbnail.closest('.album-group__photo-grid').dataset.preloadSizes;
+    warm.srcset = srcset;
+  }
+
+  document.addEventListener('pointerover', (event) => {
+    const thumbnail = event.target.closest('.album-group__photo-grid > li');
+    if (!thumbnail) return;
+    clearTimeout(intent);
+    intent = setTimeout(() => preloadFullRes(thumbnail), 150);
+  });
+
+  document.addEventListener('pointerout', () => clearTimeout(intent));
+
+  // touch has no hover, so the tap itself is the earliest signal
+  document.addEventListener('pointerdown', (event) => {
+    const thumbnail = event.target.closest('.album-group__photo-grid > li');
+    if (thumbnail) preloadFullRes(thumbnail);
   });
 {% endjs %}
