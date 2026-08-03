@@ -66,7 +66,13 @@ export default async function(eleventyConfig) {
     const photos = this.ctx.collections?.photos;
     return photos[key];
   });
-  
+
+  eleventyConfig.addFilter("getNestedTag", function (tags, prefix) {
+    prefix = prefix + '/';
+    const nestedTag = tags.filter(s => s.startsWith(prefix))
+    return nestedTag.toString().replace(prefix, '');
+  });
+
   const linksCache = new Map();
   eleventyConfig.addFilter("links_to", async function(collection, target) {
     const hostname = "wilnichols.com";
@@ -194,12 +200,55 @@ export default async function(eleventyConfig) {
     });
   });
   
+  eleventyConfig.addFilter("designInputFilter", function (collection) {
+    return collection.map(item => {
+      const filter = item.data.inputFilter;
+
+      if (filter === "Pointer") return "desktop";
+      if (filter === "Coarse") return "mobile";
+      return "shared";
+    });
+  });
+
   eleventyConfig.addFilter("draftsOf", (collection1, collection2) => {
     return collection1.filter(value => collection2.includes(value));
+  });
+
+  // Design posts are authored as one body: the shot markup followed by
+  // <div class="content">…</div>. These split that body so the shot can
+  // render inside the carousel while the description renders outside it
+  // (wheel over a description must reach the page, not the scroller).
+  const CONTENT_SPLIT = '<div class="content">';
+  eleventyConfig.addFilter("shotOnly", html =>
+    html ? html.split(CONTENT_SPLIT)[0] : html
+  );
+  eleventyConfig.addFilter("contentOnly", html => {
+    if (!html) return '';
+    const i = html.indexOf(CONTENT_SPLIT);
+    return i === -1 ? '' : html.slice(i);
   });
   
   eleventyConfig.addFilter("markdownify", string => {
     return md.renderInline(string)
+  });
+
+  // CDN URL builders (Cloudflare migration). Host comes from KXCDN so the
+  // D5 flip back to cdn.dznr.me is one .env change.
+  const CDN_HOST = process.env.KXCDN || "https://cdn.dznr.me";
+  // cdnUrl: cdn-relative path -> absolute CDN URL (no transform; videos, raw)
+  eleventyConfig.addFilter("cdnUrl", path => `${CDN_HOST}/${path}`);
+  // cfImage: absolute-or-relative image -> Cloudflare transform URL.
+  // width omitted = format conversion only. Old ?query forms must be gone
+  // from the input; options live in the path segment now. Any known CDN host
+  // prefix is stripped so callers can pass legacy absolute URLs safely.
+  const CDN_HOSTS = ["https://cdn.dznr.me", "https://cdn2.dznr.me", CDN_HOST];
+  eleventyConfig.addFilter("cfImage", (src, width) => {
+    const opts = width ? `width=${width},format=webp` : `format=webp`;
+    let path = src;
+    for (const h of CDN_HOSTS) {
+      if (path.startsWith(`${h}/`)) { path = path.slice(h.length + 1); break; }
+    }
+    return `${CDN_HOST}/cdn-cgi/image/${opts}/${path}`;
   });
   
   // simple cache busting method from https://rob.cogit8.org/posts/2020-10-28-simple-11ty-cache-busting/
@@ -331,7 +380,8 @@ export default async function(eleventyConfig) {
   
   // Server
   eleventyConfig.setServerOptions({
-    liveReload: true
+    liveReload: true,
+    port: process.env.PORT ? Number(process.env.PORT) : 8080
   });
 
   // Passthroughs. Specify individual instead of all, since sass is handled separately

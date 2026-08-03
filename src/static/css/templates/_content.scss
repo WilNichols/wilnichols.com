@@ -24,7 +24,7 @@
 }
 
 .content-body ol, 
-.content-body ul {
+.content-body ul:not(.album__album-photos) {
   // this layout approach isn't great, but ::marker doesn't work in grid, and I can't use ::before. The superscript for footnotes doesn't respect grid areas :shrug: 
   // padding for markers of 2 characters, optically adjusted
   padding: 0 0 0 tokens.$gapMediumFixed;

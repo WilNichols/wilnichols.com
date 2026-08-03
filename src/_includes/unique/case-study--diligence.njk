@@ -3,7 +3,7 @@
 {%- from 'case-study-image.njk' import caseStudyImage -%}
 
 {%- macro DiligenceHero() -%}  
-  {% set commonPath = 'https://cdn.wilnichols.com/case-studies/diligence/' %}
+  {% set commonPath = 'https://cdn.dznr.me/case-studies/diligence/' %}
   {% set windows = ['calendar', 'contacts', 'game-center', 'notes', 'reminders'] %}
   {% call caseStudyImage(class = 'case-study-hero case-study-hero--diligence case-study-image--no-padding case-study-image--16x9 case-study-image--2x case-study-image--bottom-align') %}
     {{  img(
@@ -23,7 +23,7 @@
 {%- endmacro -%}
 
 {%- macro DiligenceAnnotatedWindow() -%}  
-  {% set screen %}https://cdn.wilnichols.com/case-studies/diligence/screenshots/menubar--attached{% endset %}
+  {% set screen %}https://cdn.dznr.me/case-studies/diligence/screenshots/menubar--attached{% endset %}
   {% set annotations = [
     { text: 'Creates a new task inline at the top of the following list.',
       class: 'new-task' },
@@ -56,7 +56,7 @@
 {%- endmacro -%}
 
 {%- macro DiligenceDetailWindow() -%}
-  {% set path = 'https://cdn.wilnichols.com/case-studies/diligence/screenshots/' %}
+  {% set path = 'https://cdn.dznr.me/case-studies/diligence/screenshots/' %}
   {% set screens = [
     'detail--inactive', 
     'detail--calendar',
@@ -77,12 +77,12 @@
   {% call caseStudyImage(
     id = 'app-icon',
     class = 'icons-grid--macOS-max-512') %}
-    {{ macOSAppIcon('https://cdn.wilnichols.com/case-studies/diligence/icon/') }}
+    {{ macOSAppIcon('https://cdn.dznr.me/case-studies/diligence/icon/') }}
   {% endcall %}
 {%- endmacro -%}
 
 {%- macro DiligencePreferenceIcons() -%}
-  {% set path = 'https://cdn.wilnichols.com/case-studies/diligence/small-icons/' %}
+  {% set path = 'https://cdn.dznr.me/case-studies/diligence/small-icons/' %}
   {% set icons = [
     'settings__general', 
     'settings__categories',

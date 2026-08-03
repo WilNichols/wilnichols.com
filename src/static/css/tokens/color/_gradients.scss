@@ -1,0 +1,356 @@
+@use 'mixins' as *;
+@use '../size/aliases';
+
+// Gradient constructors.
+// Focal geometry and stop percentages live here once, so the token list below
+// stays declarative: each gradient is just its colors.
+
+// Focal point + size, reused across the set
+$-focal-3: 66.11% 66.11% at 50% 16.87%; // 3-stop theme backgrounds
+$-focal-4: 90.42% 90.42% at 50% 16.25%; // 4-stop translation backgrounds
+$-corner:  100% 100% at 0% 0%;          // iOS 9 split-theme rectangles
+$-top:     100% 100% at 50% 0%;         // iOS 9 legacy screens
+
+// Base tone at the focal point, darkest at the mid-ring, third tone at the edge.
+@function radial3($center, $mid, $edge, $at: $-focal-3) {
+  @return radial-gradient($at, $center 0%, $mid 66.67%, $edge 100%);
+}
+
+// Two tones, base returning at the edge (the light-theme vignette).
+@function radial2($base, $mid, $at: $-focal-3) {
+  @return radial-gradient($at, $base 0%, $mid 66.67%, $base 100%);
+}
+
+// Plain two-stop radial anchored at the top-left corner (iOS 9 split rectangles).
+@function radialCorner($from, $to) {
+  @return radial-gradient($-corner, $from 0%, $to 100%);
+}
+
+// Plain two-stop radial anchored at top-center (iOS 9 legacy screens).
+@function radialTop($from, $to) {
+  @return radial-gradient($-top, $from 0%, $to 100%);
+}
+
+// Four evenly-weighted stops.
+@function radial4($a, $b, $c, $d, $at: $-focal-4) {
+  @return radial-gradient($at, $a 0%, $b 46.61%, $c 75.3%, $d 97.6%);
+}
+
+// Straight vertical fade.
+@function linear2($top, $bottom) {
+  @return linear-gradient(180deg, $top 0%, $bottom 100%);
+}
+
+// Shared dark background — charcoal, sits behind most dark screens.
+$cKD20Radial: radial3(var(--cKD20), var(--cKD10), var(--cKD15));
+
+// Shared light background — near-white with a faint cool center.
+$cK95Radial: radial2(var(--cK95), var(--cK85));
+
+// Main menu, dark: deep navy fading downward.
+$cBD05Linear: linear2(var(--cBD05), var(--cBD10));
+
+// Main menu, light: a gentle wash from light gray to white.
+$cK85Linear: linear2(var(--cK85), var(--cK95));
+
+// In-person translation, dark: a pool of royal blue.
+$cBD20Radial: radial3(var(--cBD20), var(--cBD10), var(--cBD15));
+
+// In-person translation, light: pale sky blue.
+$cB95Radial: radial2(var(--cB95), var(--cB85));
+
+// Second translation layout, dark: almost-black charcoal.
+$cKD10Radial: radial3(var(--cKD10), var(--cKD05), var(--cKD15));
+
+// Second translation layout, light: cool paper white.
+$cK90Radial: radial3(var(--cK90), var(--cK85), var(--cK95));
+
+// Third translation layout, dark: violet melting through magenta.
+$cVD20Radial: radial4(var(--cVD20), var(--cVD10), var(--cMD10), var(--cMD20));
+
+// Third translation layout, light: cyan drifting into lavender.
+$cT85Radial: radial4(var(--cT85), var(--cB85), var(--cV90), var(--cV95));
+
+// Fourth translation layout, dark: warm coffee brown.
+$cOD10Radial: radial3(var(--cOD10), var(--cOD05), var(--cOD15));
+
+// Fourth translation layout, light: soft cream orange.
+$cO95Radial: radial2(var(--cO95), var(--cO90));
+
+// Fifth translation layout, dark: deep pine teal.
+$cAD20Radial: radial3(var(--cAD20), var(--cAD10), var(--cAD15));
+
+// Fifth translation layout, light: cool mint.
+$cA95Radial: radial2(var(--cA95), var(--cA90));
+
+// Second translation layout on phones, dark: pure black rising to charcoal.
+$cK05Linear: linear2(var(--cK05), var(--cK15));
+
+// Third translation layout on phones, dark: charcoal into slate.
+$cK15Linear: linear2(var(--cK15), var(--cK25));
+
+// Third translation layout on phones, a lighter slate variant.
+$cK75Linear: linear2(var(--cK75), var(--cK85));
+
+// Fourth translation layout on phones, dark: electric violet into purple.
+$cV20Linear: linear2(var(--cV20), var(--cM25));
+
+// Fourth translation layout on phones, light: lavender to blush.
+$cV80Linear: linear2(var(--cV80), var(--cM90));
+
+// Fifth translation layout on phones, dark: burnt orange.
+$cO15Linear: linear2(var(--cO15), var(--cO30));
+
+// Fifth translation layout on phones, light: peach to cream.
+$cO85Linear: linear2(var(--cO85), var(--cO95));
+
+// Sixth translation layout on phones, dark: deep forest green.
+$cA15Linear: linear2(var(--cA15), var(--cA30));
+
+// Sixth translation layout on phones, light: pale mint.
+$cA90Linear: linear2(var(--cA90), var(--cA95));
+
+// Wedding invitations, dark: forest green (literal — no palette token matches).
+$weddingDarkRadial: radial3(#004512, #003806, #002D02);
+
+// Wedding invitations, light: pale sage (literal).
+$weddingLightRadial: radial3(#F5FAE6, #F0F5E1, #E7ECD8);
+
+// Talk & history walkthrough, dark: oxblood red.
+$cRD20Radial: radial3(var(--cRD20), var(--cRD10), var(--cRD15));
+
+// Second talk & history walkthrough, dark: amber brown.
+$cYD20Radial: radial3(var(--cYD20), var(--cYD10), var(--cYD15));
+
+// Talk & history on phones, dark: oxblood over true black.
+$cR20Radial: radial3(var(--cR20), var(--cR10), var(--cR15));
+
+// Second talk & history on phones, dark: amber over true black.
+$cY20Radial: radial3(var(--cY20), var(--cY10), var(--cY15));
+
+// vEvi, dark: bright crimson.
+$cRD30Radial: radial3(var(--cRD30), var(--cRD20), var(--cRD25));
+
+// vEvi, light: blush pink.
+$cR95Radial: radial2(var(--cR95), var(--cR90));
+
+// vEvi second screen, dark: deep ocean blue.
+$cTD30Radial: radial3(var(--cTD30), var(--cTD20), var(--cTD25));
+
+// vEvi second screen, light: icy cyan.
+$cT95Radial: radial2(var(--cT95), var(--cT90));
+
+// vEvi on phones, dark: crimson over true black.
+$cR30Radial: radial3(var(--cR30), var(--cR20), var(--cR25));
+
+// vEvi second screen on phones, dark: ocean blue over true black.
+$cT30Radial: radial3(var(--cT30), var(--cT20), var(--cT25));
+
+// iOS 2019 theme, dark: burnt orange.
+$cOD20Radial: radial3(var(--cOD20), var(--cOD15), var(--cOD25));
+
+// iOS 2019 theme, light: buttery cream.
+$cY90Radial: radial3(var(--cY90), var(--cY80), var(--cY95));
+
+// iOS 9 split themes, dark half: slate glow from the corner.
+$cKD05Radial: radialCorner(var(--cKD05), var(--cKD10));
+
+// iOS 9 split themes, light half: warm cream glow from the corner.
+$cY95Radial: radialCorner(var(--cY90), var(--cY95));
+
+// iOS 9 legacy screens, dark: muddy amber falling from the top.
+$cYD15Radial: radialTop(var(--cYD15), var(--cYD10));
+
+// iOS 9 legacy screens, light: pale butter falling from the top.
+$cY90Radial2: radialTop(var(--cY90), var(--cY80));
+
+// Minte visuals, light: soft honey.
+$cYD85Radial: radial3(var(--cYD85), var(--cYD75), var(--cYD80));
+
+// Minte visuals, dark: burnt orange.
+$cOD15Radial: radial3(var(--cOD15), var(--cOD05), var(--cOD10));
+
+// Instant demo, light: warm apricot.
+$cO90Radial: radial3(var(--cO90), var(--cO85), var(--cO95));
+
+// Instant demo on phones, dark: near-black charcoal.
+$cK10Radial: radial3(var(--cK10), var(--cK05), var(--cK15));
+
+// Talk & history walkthrough, light: pale apricot.
+$cO95Radial2: radial2(var(--cO95), var(--cO85));
+
+// Second talk & history walkthrough, light: pale wheat.
+$cY95Radial2: radial2(var(--cY95), var(--cY85));
+
+// Zello Bridge, dark: violet edged with magenta.
+$cVD20Radial2: radial3(var(--cVD20), var(--cVD10), var(--cMD30));
+
+// Zello Bridge, light: soft pink magenta.
+$cM95Radial: radial2(var(--cM95), var(--cM90));
+
+// Zello Bridge Mobile, light: soft pink magenta.
+$cM95Linear: linear2(var(--cM95), var(--cM90));
+
+// Zello Bridge Mobile, light: soft pink magenta.
+$cV20Linear: linear2(var(--cV20), var(--cM30));
+
+@mixin themedGradient($light, $dark) {
+  @include light-dark(--gradient, $light, $dark);
+}
+
+@mixin _backdrop($half: false) {
+  content: '';
+  z-index: -1;
+  position: absolute;
+  background-color: transparent !important;
+  background-size: cover;
+  height: calc(var(--desktopPanelWidth) + 4px);
+  position: absolute;
+  transform: rotate(90deg);
+  @include light-dark(--defaultGradient, $cK95Radial, $cKD20Radial);
+  background-image: var(--gradient, var(--defaultGradient));
+  @if $half {
+    width: calc(var(--desktopPanelWidth) / 2);
+  } @else {
+    width: calc(var(--desktopPanelWidth) + 4px);
+    place-self: center;
+  }
+}
+
+@mixin _backdrop-mobile($half: false) {
+  height: calc(var(--desktopPanelHeight) + 4px);
+  transform: rotate(0);
+  @if $half {
+    width: calc(var(--desktopPanelWidth) / 2);
+  } @else {
+    width: calc(var(--desktopPanelHeight) + 4px);
+  }
+}
+
+.shot .picture::after {
+  @include _backdrop;
+  @media (pointer: coarse) and (width <= aliases.$breakpoint) {
+    @include _backdrop-mobile;
+  }
+}
+
+.main-menu--1 {
+  @include themedGradient($cK85Linear, $cBD05Linear);
+}
+
+.in-person-translations--1 {
+  @include themedGradient($cB95Radial, $cBD20Radial);
+}
+
+.in-person-translations--2 {
+  @include themedGradient($cK90Radial, $cKD10Radial);
+}
+
+.in-person-translations--3 {
+  @include themedGradient($cT85Radial, $cVD20Radial);
+}
+
+.in-person-translations--4 {
+  @include themedGradient($cO95Radial, $cOD10Radial);
+}
+
+.in-person-translations--5 {
+  @include themedGradient($cA95Radial, $cAD20Radial);
+}
+
+.in-person-translations--6 {
+  @include themedGradient($cK85Linear, $cK05Linear);
+}
+
+.in-person-translations--7 {
+  @include themedGradient($cK75Linear, $cK15Linear);
+}
+
+.in-person-translations--8 {
+  @include themedGradient($cV80Linear, $cV20Linear);
+}
+
+.in-person-translations--9 {
+  @include themedGradient($cO85Linear, $cO15Linear);
+}
+
+.in-person-translations--10 {
+  @include themedGradient($cA90Linear, $cA15Linear);
+}
+
+.zello-bridge--1 {
+  @include themedGradient($cM95Radial, $cVD20Radial2); 
+}
+
+.zello-bridge--2, .zello-bridge--3 {
+  @include themedGradient($cM95Linear, $cV20Linear); 
+}
+
+.zello-instant-demo--1 {
+  @include themedGradient($cO90Radial, $cK10Radial); 
+}
+
+.zello-instant-demo--2, .zello-instant-demo--3 {
+  @include themedGradient($cO90Radial, $cK10Radial); 
+}
+
+.minte-visuals--1, .minte-visuals--2, .minte-visuals--3, .minte-visuals--4 {
+  @include themedGradient($cYD85Radial, $cOD15Radial); 
+}
+
+.zello-for-ios-12--1 {
+  @include themedGradient($cY90Radial, $cOD20Radial); 
+}
+
+.talk-and-history-navigation--1 {
+  @include themedGradient($cO95Radial, $cRD20Radial); 
+}
+
+.talk-and-history-navigation--2 {
+  @include themedGradient($cY95Radial, $cYD20Radial); 
+}
+
+.remote-control--1 {
+  @include themedGradient($cR95Radial, $cRD30Radial); 
+}
+
+.remote-control--2 {
+  @include themedGradient($cT95Radial, $cTD30Radial); 
+}
+
+.zello-for-ios-9--1 .picture {
+   &::before, &::after {
+     @include _backdrop($half: true);
+     @media (pointer: coarse) and (width <= aliases.$breakpoint) {
+       @include _backdrop-mobile($half: true);
+      }
+   } 
+   &::before {
+     background-image: $cY95Radial;
+     margin-top: calc(var(--desktopPanelWidth)/4);
+     @media (pointer: coarse) and (width <= aliases.$breakpoint) {
+      margin-top: unset;
+      transform: none;
+      right: 0;
+    }
+   }
+   &::after {
+     @include _backdrop($half: true);
+     background-image: $cKD05Radial;
+     margin-bottom: calc(var(--desktopPanelWidth)/2);
+     @media (pointer: coarse) and (width <= aliases.$breakpoint) {
+      margin-bottom: unset;
+      transform: none;
+      height: calc(var(--desktopPanelHeight) + 4px);
+      left: 0;
+    }
+   }
+}
+
+.zello-for-ios-9--2 {
+  @include themedGradient($cY90Radial2, $cYD15Radial); 
+}
+
+.wedding-invitations--1, .wedding-invitations--2, .wedding-invitations--3, .wedding-invitations--4 {
+  @include themedGradient($weddingLightRadial, $weddingDarkRadial); 
+}
