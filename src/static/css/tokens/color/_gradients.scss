@@ -234,6 +234,21 @@ $cV20Linear: linear2(var(--cV20), var(--cM30));
   }
 }
 
+.zello-icon-library--1 {
+  $light: radial-gradient(60% 60% at 50% 50%, var(--cK100) 0%, var(--cT95) 25%, var(--cB95) 50%, var(--cV95) 88%, var(--cM95) 100%);
+  --customDark:#2DD194;
+  --customDark: color(display-p3 0.1774 0.8216 0.6216);
+  $dark: radial-gradient(60% 60% at 50% 50%, var(--customDark) 0%, var(--cT40) 25%, var(--cB35) 50%, var(--cV40) 88%, var(--cM40) 100%);
+  @include light-dark(--gradient, $light, $dark);
+}
+
+.zello-icon-library--2 {
+  --gradient: radial-gradient(90% 90% at 50% 15.66%, var(--cB40) 0%, var(--cB45) 60%, var(--cB50) 100%);
+}
+
+.zello-icon-librar--2 {
+  
+}
 .main-menu--1 {
   @include themedGradient($cK85Linear, $cBD05Linear);
 }
