@@ -110,11 +110,25 @@ $cA15Linear: linear2(var(--cA15), var(--cA30));
 // Sixth translation layout on phones, light: pale mint.
 $cA90Linear: linear2(var(--cA90), var(--cA95));
 
-// Wedding invitations, dark: forest green (literal — no palette token matches).
-$weddingDarkRadial: radial3(#004512, #003806, #002D02);
+// One-off colors with no palette token. Author them as hex or as
+// `color(display-p3 r g b)`; p3Props emits the hex fallback either way and only
+// adds the @supports upgrade when a value is actually wide-gamut.
+$-oneOffs: (
+  // Wedding invitations, dark: forest green.
+  --weddingDarkCenter: #004512,
+  --weddingDarkMid: #003806,
+  --weddingDarkEdge: #002d02,
+  // Wedding invitations, light: pale sage.
+  --weddingLightCenter: #f5fae6,
+  --weddingLightMid: #f0f5e1,
+  --weddingLightEdge: #e7ecd8,
+  // Zello icon library, dark: the mint at the center of the spectrum wash.
+  // Hand-picked hex fallback — auto gamut mapping lands somewhere greener.
+  --iconLibraryMint: (color(display-p3 0.1774 0.8216 0.6216), #2dd194)
+);
 
-// Wedding invitations, light: pale sage (literal).
-$weddingLightRadial: radial3(#F5FAE6, #F0F5E1, #E7ECD8);
+$weddingDarkRadial: radial3(var(--weddingDarkCenter), var(--weddingDarkMid), var(--weddingDarkEdge));
+$weddingLightRadial: radial3(var(--weddingLightCenter), var(--weddingLightMid), var(--weddingLightEdge));
 
 // Talk & history walkthrough, dark: oxblood red.
 $cRD20Radial: radial3(var(--cRD20), var(--cRD10), var(--cRD15));
@@ -194,6 +208,12 @@ $cM95Linear: linear2(var(--cM95), var(--cM90));
 // Zello Bridge Mobile, light: soft pink magenta.
 $cV20Linear: linear2(var(--cV20), var(--cM30));
 
+@mixin oneOffColors {
+  & {
+    @include p3Props($-oneOffs);
+  }
+}
+
 @mixin themedGradient($light, $dark) {
   @include light-dark(--gradient, $light, $dark);
 }
@@ -236,9 +256,7 @@ $cV20Linear: linear2(var(--cV20), var(--cM30));
 
 .zello-icon-library--1 {
   $light: radial-gradient(60% 60% at 50% 50%, var(--cK100) 0%, var(--cT95) 25%, var(--cB95) 50%, var(--cV95) 88%, var(--cM95) 100%);
-  --customDark:#2DD194;
-  --customDark: color(display-p3 0.1774 0.8216 0.6216);
-  $dark: radial-gradient(60% 60% at 50% 50%, var(--customDark) 0%, var(--cT40) 25%, var(--cB35) 50%, var(--cV40) 88%, var(--cM40) 100%);
+  $dark: radial-gradient(60% 60% at 50% 50%, var(--iconLibraryMint) 0%, var(--cT40) 25%, var(--cB35) 50%, var(--cV40) 88%, var(--cM40) 100%);
   @include light-dark(--gradient, $light, $dark);
 }
 
