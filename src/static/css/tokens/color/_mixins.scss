@@ -1,8 +1,112 @@
+@use "sass:color";
+@use "sass:list";
+@use "sass:map";
+@use "sass:math";
+@use "sass:meta";
+
 @mixin light-dark($prop, $lightColor, $darkColor: $lightColor) {
   & {
     #{$prop}: $lightColor;
   }
   @media (prefers-color-scheme: dark) {
     #{$prop}: $darkColor;
+  }
+}
+
+/* Display-P3
+  Any color in the token layer can be authored as an sRGB hex or as
+  `color(display-p3 r g b)`. Everything downstream is space-agnostic: a color
+  always emits a gamut-mapped sRGB fallback first, and a wide-gamut color emits
+  its real value a second time inside @supports. Browsers without P3 keep the
+  fallback; browsers with it take the second declaration.
+*/
+
+$p3-query: "(color: color(display-p3 0 0 0))";
+
+@function isWide($c) {
+  @return color.space(wide($c)) != rgb;
+}
+
+// A token is either a single color, or `(wide-color, hex-fallback)` when the
+// automatic gamut mapping isn't the fallback you want.
+@function wide($v) {
+  @return if(meta.type-of($v) == list, list.nth($v, 1), $v);
+}
+
+@function narrow($v) {
+  @return if(meta.type-of($v) == list, list.nth($v, 2), srgb($v));
+}
+
+// Native channel maximum: 255 in sRGB, 1.0 in display-p3.
+@function channelMax($c) {
+  @return if(color.space($c) == rgb, 255, 1);
+}
+
+// Channel in the color's own space, on that space's own scale.
+@function channel($c, $name) {
+  @return color.channel($c, $name, $space: color.space($c));
+}
+
+@function withChannels($c, $r, $g, $b, $a: color.channel($c, "alpha")) {
+  @return color.change($c, $red: $r, $green: $g, $blue: $b, $alpha: $a);
+}
+
+// In-gamut sRGB rendering of any color, rounded so it prints as hex/rgba().
+@function srgb($c) {
+  $s: color.to-space(color.to-gamut($c, $space: rgb, $method: local-minde), rgb);
+
+  @return color.change(
+    $s,
+    $red: math.round(color.channel($s, "red", $space: rgb)),
+    $green: math.round(color.channel($s, "green", $space: rgb)),
+    $blue: math.round(color.channel($s, "blue", $space: rgb))
+  );
+}
+
+// Wide-gamut colors print with bounded precision; sRGB passes through srgb().
+@function out($c, $precision: 4) {
+  @if not isWide($c) {
+    @return srgb($c);
+  }
+
+  $f: math.pow(10, $precision);
+
+  @return withChannels(
+    $c,
+    math.div(math.round(channel($c, "red") * $f), $f),
+    math.div(math.round(channel($c, "green") * $f), $f),
+    math.div(math.round(channel($c, "blue") * $f), $f)
+  );
+}
+
+// One property: sRGB fallback, plus a P3 upgrade when the source is wide-gamut.
+@mixin p3Prop($prop, $value) {
+  #{$prop}: #{narrow($value)};
+
+  @if isWide($value) {
+    @supports #{$p3-query} {
+      #{$prop}: #{out(wide($value))};
+    }
+  }
+}
+
+// A map of prop -> color, with every P3 upgrade collected into one @supports.
+@mixin p3Props($colors) {
+  $wides: ();
+
+  @each $prop, $value in $colors {
+    #{$prop}: #{narrow($value)};
+
+    @if isWide($value) {
+      $wides: map.set($wides, $prop, wide($value));
+    }
+  }
+
+  @if list.length($wides) > 0 {
+    @supports #{$p3-query} {
+      @each $prop, $color in $wides {
+        #{$prop}: #{out($color)};
+      }
+    }
   }
 }

@@ -1,7 +1,12 @@
 @use "sass:color";
 @use "sass:math";
 @use "sass:string";
+@use "mixins" as *;
 
+// Values may be sRGB hex, `color(display-p3 r g b)`, or the pair
+// `(color(display-p3 …), #hex)` when the automatic gamut mapping isn't the
+// fallback you want. Every form runs through the same derivations twice: once
+// in sRGB for the base declarations, once in the source space inside @supports.
 $-color-literals: (
   A05: #000504,
   A10: #001408,
@@ -197,60 +202,74 @@ $-color-literals: (
   Y95: #fffcf4
 );
 
-// Remap RGB from [0,255]*3 -> [30,255], [31,255], [32,255].
+// Remap each channel from its full range -> [30,255], [31,255], [32,255] (as a
+// fraction of the channel maximum, so this is the same remap in sRGB and in P3).
 // This is the macOS window bg color I get when setting windows to not tint from my wallpaper in the dark theme, and I assume about the rgb value for color spec 4 canvas.
 @function -color-adjust($c) {
-  $r: color.channel($c, "red",   $space: rgb);
-  $g: color.channel($c, "green", $space: rgb);
-  $b: color.channel($c, "blue",  $space: rgb);
+  $m: channelMax($c);
 
-  $r2: math.round(30 + math.div($r, 255) * 225);
-  $g2: math.round(31 + math.div($g, 255) * 224);
-  $b2: math.round(32 + math.div($b, 255) * 223);
+  $r2: $m * math.div(30, 255) + channel($c, "red")   * math.div(225, 255);
+  $g2: $m * math.div(31, 255) + channel($c, "green") * math.div(224, 255);
+  $b2: $m * math.div(32, 255) + channel($c, "blue")  * math.div(223, 255);
 
-  @return rgb($r2, $g2, $b2);
+  @return withChannels($c, $r2, $g2, $b2);
+}
+
+// Relative luminance, always read off the sRGB rendering so a P3 color and its
+// hex fallback get the same alpha.
+@function -luminance($c) {
+  $s: srgb($c);
+
+  @return math.div(
+    color.channel($s, "red",   $space: rgb) * 0.2126 +
+    color.channel($s, "green", $space: rgb) * 0.7152 +
+    color.channel($s, "blue",  $space: rgb) * 0.0722,
+    255
+  );
 }
 
 // Alpha → 0 approaching white. Light theme precalculated transparencies.
 @function -alpha-toward-white($c) {
-  $a: math.div(
-    color.channel($c, "red",   $space: rgb) * 0.2126 +
-    color.channel($c, "green", $space: rgb) * 0.7152 +
-    color.channel($c, "blue",  $space: rgb) * 0.0722,
-    255
-  );
-
-  @return color.change($c, $alpha: 1 - $a);
+  @return color.change($c, $alpha: 1 - -luminance($c));
 }
 
 // Alpha → 0 approaching black. Dark OLED theme precalc transparencies.
 @function -alpha-toward-black($c) {
-  $a: math.div(
-    color.channel($c, "red",   $space: rgb) * 0.2126 +
-    color.channel($c, "green", $space: rgb) * 0.7152 +
-    color.channel($c, "blue",  $space: rgb) * 0.0722,
-    255
+  @return color.change($c, $alpha: -luminance($c));
+}
+
+// Alpha → 0 approaching (30,31,32). Dark desktop precalc.
+@function -alpha-toward-adjusted-black($c) {
+  $m: channelMax($c);
+
+  $a: math.max(0,
+    math.min(
+      1,
+      math.div(channel($c, "red")   - $m * math.div(30, 255), $m * math.div(225, 255)),
+      math.div(channel($c, "green") - $m * math.div(31, 255), $m * math.div(224, 255)),
+      math.div(channel($c, "blue")  - $m * math.div(32, 255), $m * math.div(223, 255))
+    )
   );
 
   @return color.change($c, $alpha: $a);
 }
 
-// Alpha → 0 approaching (30,31,32). Dark desktop precalc.
-@function -alpha-toward-adjusted-black($c) {
-  $r: color.channel($c, "red",   $space: rgb);
-  $g: color.channel($c, "green", $space: rgb);
-  $b: color.channel($c, "blue",  $space: rgb);
+// The five concrete values for one literal. The fallback pass derives from the
+// sRGB rendering of the token; the P3 pass derives from the token as authored.
+@mixin -literal-values($hue, $num, $val, $wide: false) {
+  $c: if($wide, wide($val), narrow($val));
+  $adj: -color-adjust($c);
 
-  $a: math.max(0,
-    math.min(
-      1,
-      math.div($r - 30, 225),
-      math.div($g - 31, 224),
-      math.div($b - 32, 223)
-    )
-  );
-
-  @return color.change($c, $alpha: $a);
+  // Original colors
+  --c#{$hue}#{$num}: #{out($c)};
+  // Original transparent -> white
+  --c#{$hue}#{$num}W: #{out(-alpha-toward-white($c))};
+  // Adjusted solid
+  --c#{$hue}d#{$num}: #{out($adj)};
+  // Original transparent -> black
+  --c#{$hue}#{$num}B: #{out(-alpha-toward-black($c))};
+  // Adjusted transparent -> (30, 31, 32)
+  --c#{$hue}d#{$num}B: #{out(-alpha-toward-adjusted-black($adj))};
 }
 
 @mixin colorLiterals {
@@ -265,22 +284,31 @@ $-color-literals: (
     @each $base, $val in $-color-literals {
       $hue: string.slice($base, 1, 1);
       $num: string.slice($base, 2, -1);
-      $c: $val;
-      // Original colors
-      --c#{$hue}#{$num}: #{$val};
-      // Original transparent -> white
-      --c#{$hue}#{$num}W: #{-alpha-toward-white($c)};
-      // Adjusted solid
-      $adj: -color-adjust($c);
-      --c#{$hue}d#{$num}: #{$adj};
-      // Original transparent -> black
-      --c#{$hue}#{$num}B: #{-alpha-toward-black($c)};
-      // Adjusted transparent -> (30, 31, 32)
-      --c#{$hue}d#{$num}B: #{-alpha-toward-adjusted-black($adj)};
+
+      @include -literal-values($hue, $num, $val);
 
       // Adaptive vars: default (pointer/desktop)
       --c#{$hue}D#{$num}: var(--c#{$hue}d#{$num});
       --c#{$hue}D#{$num}B: var(--c#{$hue}d#{$num}B);
+    }
+  }
+
+  @at-root {
+    // Wide-gamut literals repeat here in their real space. One @supports block
+    // for the whole palette, so P3 costs nothing for hex-authored colors.
+    @supports #{$p3-query} {
+      #{&} {
+        @each $base, $val in $-color-literals {
+          @if isWide($val) {
+            @include -literal-values(
+              string.slice($base, 1, 1),
+              string.slice($base, 2, -1),
+              $val,
+              $wide: true
+            );
+          }
+        }
+      }
     }
   }
 
