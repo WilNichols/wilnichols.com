@@ -1,9 +1,16 @@
 @use '../tokens';
+@use '../mixins';
 @use '../components/footnotes';
+
+@include mixins.smartPhone {
+  body:has(> .page.page--album-group) {
+    padding: var(--col);
+  }
+}
 
 .page--album-group {
   &.page {
-    gap: calc(2 * tokens.$gapMedium);
+    gap: 2rem;
   }
   .page-top,
   .posts-list,
@@ -11,7 +18,7 @@
     max-width: tokens.$width;
   }
   .posts-list {
-    gap: calc(2 * tokens.$gapMedium);
+    gap: 2rem;
   }
   .page-top,
   .posts-month:not(:last-child) {
