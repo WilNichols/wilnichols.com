@@ -1,0 +1,48 @@
+@use '../tokens';
+@use '../components/footnotes';
+
+.page--album-group {
+  // matches .posts-list, so the intro's divider sits in the same rhythm as the
+  // albums'. Doubled class because .page sets its own row-gap later in the cascade
+  &.page {
+    gap: calc(2 * tokens.$gapMedium);
+  }
+  // the column runs wider than the notes/category indexes these classes share
+  .page-top,
+  .posts-list,
+  .footer-container {
+    max-width: tokens.$width;
+  }
+  .posts-list {
+    gap: calc(2 * tokens.$gapMedium);
+  }
+  // the group intro is divided from its albums the same way the albums are
+  .page-top,
+  .posts-month:not(:last-child) {
+    @extend %bottomBorder;
+  }
+}
+
+.album-group__photo-grid {
+  & {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+    gap: var(--u4);
+  }
+  // var is set on click in Album Group.njk, pairing with the photo on the album page
+  > li {
+    view-transition-name: var(--view-transition-name, none);
+  }
+  picture {
+    display: block;
+    aspect-ratio: 1;
+    background-color: var(--color);
+    overflow: hidden;
+  }
+  img {
+    display: block;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+}

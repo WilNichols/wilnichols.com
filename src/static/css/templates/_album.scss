@@ -72,6 +72,8 @@ body:has(> .page--album) {
     place-content: center;
     flex-direction: column;
     align-items: center;
+    // var passed in from post-shell.njk, pairing with the thumbnail on the album group page
+    view-transition-name: var(--view-transition-name);
   }
   picture {
     scroll-snap-align: center;

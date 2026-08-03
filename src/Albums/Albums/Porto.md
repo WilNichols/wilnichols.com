@@ -6,7 +6,7 @@ tags:
   - AlbumInfo/Camera/X-T2
   - AlbumInfo/Location/Porto
   - AlbumInfo/Location/Portugal
-  - AlbumInfo/Period/KULeuven
+  - 'AlbumInfo/Period/KU Leuven'
   - 'AlbumGroup/Europe'
 date: 2019-01-28T00:00
 ---

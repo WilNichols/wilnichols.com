@@ -6,7 +6,7 @@ thumbnail: DSCF0117.jpg
 tags:
   - AlbumInfo/Camera/X-T2
   - AlbumInfo/Location/France
-  - AlbumInfo/Period/KULeuven
+  - 'AlbumInfo/Period/KU Leuven'
   - AlbumGroup/France
 date: 2019-06-04T00:00
 ---

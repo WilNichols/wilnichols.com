@@ -107,6 +107,10 @@ $body-gap: 1lh;
     @extend %font--display-medium;
   }
 
+  .page__title__trailing {
+    color: var(--contentSecondaryColor);
+  }
+
   .page__subtitle {
     font-size: var(--type--1);
     @extend %font--text-regular;

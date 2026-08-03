@@ -1,6 +1,6 @@
 ---
 title: Auzon 1
-shortTitle: One
+shortTitle: Auzon
 key: Auzon1
 thumbnail: DSCF5396.jpg
 tags:
