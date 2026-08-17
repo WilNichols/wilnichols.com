@@ -17,8 +17,8 @@ eleventyComputed:
 {%- from 'picture.njk' import Picture, pictureSizes, pictureSRCSet with context -%}
 {%- from 'footer.njk' import Footer with context -%}
 {% set intro = collections[group] | groupIntro %}
-{% set albums = collections[group] | excludeGroupIntros | reverse %}
-{% macro albumDate(album) %}{{ (album.data.date if album.data.date else album.date | htmlDateString) | readableDateISO }}{% endmacro %}
+{% set albums = collections[group] | excludeGroupIntros | sortBySiblingDate | reverse %}
+{% macro albumDate(album) %}{{ album.data.displayDate | readableDateISO }}{% endmacro %}
 <div class="page page--category page--album-group">
   <div class="page-top">
     <div class="page-header__buttons-container">
