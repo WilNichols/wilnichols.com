@@ -4,7 +4,7 @@ eleventyImport:
   collections: ["photos"]
 ---
 {% set albumGroup %}{% for tag in tags %}{{ tag if "AlbumGroup/" in tag }}{% endfor %}{% endset %}
-{% set groupAlbums = collections[albumGroup] | excludeGroupIntros %}
+{% set groupAlbums = collections[albumGroup] | excludeGroupIntros | sortBySiblingDate %}
 {% set previousPost = groupAlbums | getPreviousCollectionItem %}
 {% set nextPost     = groupAlbums | getNextCollectionItem %}
 {% include 'partials/post-shell.njk' %}

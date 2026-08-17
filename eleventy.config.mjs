@@ -321,6 +321,12 @@ export default async function(eleventyConfig) {
     return grouped;
   });
 
+  const siblingDate = (item) => item.data?.sortDate ?? item.date;
+
+  eleventyConfig.addFilter("sortBySiblingDate", (collection) =>
+    [...(collection ?? [])].sort((a, b) => siblingDate(a) - siblingDate(b))
+  );
+
   eleventyConfig.addFilter("sortByAlbumGroup", (albums) => {
     const getGroup = (album) => album.data.tags?.find(t => t.startsWith("AlbumGroup/")) ?? "";
     const groupDates = {};
@@ -334,7 +340,7 @@ export default async function(eleventyConfig) {
         const dateDiff = (groupDates[gb] ?? 0) - (groupDates[ga] ?? 0);
         return dateDiff !== 0 ? dateDiff : ga.localeCompare(gb);
       }
-      return b.date - a.date;
+      return siblingDate(b) - siblingDate(a);
     });
   });
 
