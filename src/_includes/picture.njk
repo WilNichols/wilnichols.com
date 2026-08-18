@@ -126,6 +126,9 @@
     {{ _progLoadImg() }}
   {% endjs %}
   {%- set sizes = pictureSizes(isWNCDN, args) -%}
+  {#- src is reassigned below to the transformed CDN URL, so keep the
+     original for lookups that key on it, like the alt map. -#}
+  {%- set altKey = src -%}
   {%- set srcset = pictureSRCSet(src, isWNCDN, args, customSRCSet) -%}
   {%- set lqipSrc -%}
     {%- if isWNCDN -%}
@@ -149,7 +152,7 @@
       {%- if manualLoad %} data-manual-load{% endif %}
       width="{{ imageProps.width }}"
       height="{{ imageProps.height }}"
-      alt="{% if alt %}{{ alt }}{% elif title %}{{ title }}{% else %}{{ fileName }}{% endif %}"
+      alt="{% if alt %}{{ alt }}{% elif photoAlt[altKey] %}{{ photoAlt[altKey] }}{% elif title %}{{ title }}{% else %}{{ fileName }}{% endif %}"
     />
     <div class="blurUp"></div>
   </picture>
