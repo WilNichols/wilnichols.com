@@ -429,6 +429,14 @@ export default async function(eleventyConfig) {
     return content;
   });
   
+  // Private notes live in the vault beside published ones. Unlike drafts, they
+  // are dropped in every environment, including branch and preview deploys.
+  eleventyConfig.addPreprocessor("private", "*", (data, content) => {
+    if (data.private) {
+      return false;
+    }
+  });
+
   eleventyConfig.addPreprocessor("drafts", "*", (data, content) => {
     if(data.draft && process.env.ELEVENTY_ENV === "prod") {
       return false;
