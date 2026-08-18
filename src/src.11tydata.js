@@ -19,11 +19,10 @@ export default function () {
     author: "Wil Nichols",
     eleventyComputed: {
       title: function (data) {
-        // Frontmatter wins; the filename is only the fallback. Previously this
-        // returned fileSlug unconditionally, so an authored title never rendered.
-        // `||`, not `??`: 11ty supplies an empty string rather than
-        // undefined when a note has no frontmatter title.
-        return data.title || data.page.fileSlug;
+        // The filename is the title. Frontmatter `title` is deliberately not
+        // consulted — several albums carry one that disagrees, and the
+        // filename is the version that has always shipped.
+        return data.page.fileSlug;
       },
       displayDate: function (data) {
         return postDate(data).toISO();
