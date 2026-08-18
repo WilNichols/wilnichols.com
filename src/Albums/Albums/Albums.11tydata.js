@@ -83,6 +83,10 @@ export default function (eleventy) {
         const tag = data.tags?.find(t => t.startsWith("AlbumGroup/"));
         return tag ? `/albums/${slugify(tag.replace("AlbumGroup/", ""))}/` : null;
       },
+      // The S3 folder is the album name with spaces stripped, which holds for
+      // most albums. Only the ones whose bucket folder was named differently
+      // still need an explicit `key` in frontmatter.
+      key: data => data.key ?? data.page.fileSlug.replace(/\s+/g, ""),
       photos: async data => data.key ? getAlbumContentsFromAWS(data.key) : null,
       metaPreview: data => data.remote.gallery.base + '/cdn-cgi/image/width=1400,format=webp/' + data.remote.gallery.photos + '/' + data.key + '/' + data.thumbnail,
       description: data => {

@@ -14,6 +14,9 @@ function postDate(data) {
 
 export default function () {
   return {
+    // Constant across everything published here, so it lives with the build
+    // rather than being restated in every note's frontmatter.
+    author: "Wil Nichols",
     eleventyComputed: {
       title: function (data) {
         return data.page.fileSlug;
