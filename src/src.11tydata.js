@@ -15,7 +15,9 @@ function postDate(data) {
 export default function () {
   return {
     eleventyComputed: {
-      title: "{{ page.fileSlug }}",
+      title: function (data) {
+        return data.page.fileSlug;
+      },
       displayDate: function (data) {
         return postDate(data).toISO();
       },
