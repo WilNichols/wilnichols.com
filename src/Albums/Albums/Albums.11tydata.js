@@ -3,6 +3,7 @@ import { S3Client, ListObjectsV2Command } from '@aws-sdk/client-s3';
 import { AssetCache } from '@11ty/eleventy-fetch';
 import pLimit from 'p-limit';
 import slugify from "@sindresorhus/slugify";
+import { applyAlbumOrder } from "../../../lib/album-order.js";
 
 // To flush a single album's cache: rm .cache/aws_album_<key>.*
 // To flush all album caches: rm .cache/aws_album_*
@@ -83,7 +84,13 @@ export default function (eleventy) {
         const tag = data.tags?.find(t => t.startsWith("AlbumGroup/"));
         return tag ? `/albums/${slugify(tag.replace("AlbumGroup/", ""))}/` : null;
       },
-      photos: async data => data.key ? getAlbumContentsFromAWS(data.key) : null,
+      // R2 owns the inventory; the sidecar (<Album>.11tydata.json, written by
+      // the Photo Album plugin) owns order and per-photo metadata.
+      photos: async data => {
+        if (!data.key) return null;
+        const listed = await getAlbumContentsFromAWS(data.key);
+        return applyAlbumOrder(listed, data.photoOrder, data.photoMeta);
+      },
       metaPreview: data => data.remote.gallery.base + '/cdn-cgi/image/width=1400,format=webp/' + data.remote.gallery.photos + '/' + data.key + '/' + data.thumbnail,
       description: data => {
         const raw = data.page?.rawInput ?? '';
