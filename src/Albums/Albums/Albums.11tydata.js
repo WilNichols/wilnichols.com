@@ -69,6 +69,24 @@ async function getAlbumContentsFromAWS(key) {
 
 export default function (eleventy) {
   return {
+    // 11ty validates the merged data for every album and fails the build with
+    // a useful message, so a malformed sidecar is caught here rather than
+    // silently producing an album in the wrong order.
+    eleventyDataSchema: function (data) {
+      const { photoOrder, photoMeta } = data;
+      if (photoOrder !== undefined) {
+        if (!Array.isArray(photoOrder) || photoOrder.some(n => typeof n !== "string")) {
+          throw new Error(`${data.page.inputPath}: photoOrder must be an array of filenames`);
+        }
+        const dupes = photoOrder.filter((n, i) => photoOrder.indexOf(n) !== i);
+        if (dupes.length) {
+          throw new Error(`${data.page.inputPath}: photoOrder lists ${dupes[0]} more than once`);
+        }
+      }
+      if (photoMeta !== undefined && (typeof photoMeta !== "object" || Array.isArray(photoMeta))) {
+        throw new Error(`${data.page.inputPath}: photoMeta must be an object keyed by filename`);
+      }
+    },
     layout: "album.njk",
     postType: "album",
     tags: ["Albums", "Topic/Photography"],
