@@ -437,6 +437,32 @@ export default async function(eleventyConfig) {
     }
   });
 
+  // Photos dragged out of the Photo Albums plugin land as ordinary markdown
+  // images pointing at the CDN, so they stay portable and Obsidian previews
+  // them. Here they are upgraded to the Picture macro, which supplies the
+  // responsive srcset, ratio and average colour from collections.photos.
+  //
+  // This has to be a preprocessor rather than a markdown-it rule: with
+  // markdownTemplateEngine set to njk, Nunjucks runs *before* markdown, so a
+  // renderer rule would emit final HTML too late to call a macro.
+  const CDN_IMAGE = /!\[([^\]]*)\]\((https:\/\/cdn(?:2)?\.dznr\.me\/[^)\s]+)\)/g;
+  const PICTURE_IMPORT = '{% from "picture.njk" import Picture with context %}';
+
+  eleventyConfig.addPreprocessor("cdn-images", "md", (data, content) => {
+    if (!CDN_IMAGE.test(content)) return;
+    CDN_IMAGE.lastIndex = 0;
+
+    const upgraded = content.replace(CDN_IMAGE, (_m, alt, src) => {
+      const a = String(alt).replace(/"/g, "&quot;");
+      return `{{ Picture(src="${src}", alt="${a}", isWNCDN=true) }}`;
+    });
+
+    // Import once, and only if the note does not already pull the macro in.
+    return content.includes("import Picture")
+      ? upgraded
+      : `${PICTURE_IMPORT}\n${upgraded}`;
+  });
+
   eleventyConfig.addPreprocessor("drafts", "*", (data, content) => {
     if(data.draft && process.env.ELEVENTY_ENV === "prod") {
       return false;

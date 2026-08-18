@@ -149,7 +149,7 @@
       {%- if manualLoad %} data-manual-load{% endif %}
       width="{{ imageProps.width }}"
       height="{{ imageProps.height }}"
-      alt="{% if title %}{{ title }}{% else %}{{ fileName }}{% endif %}"
+      alt="{% if alt %}{{ alt }}{% elif title %}{{ title }}{% else %}{{ fileName }}{% endif %}"
     />
     <div class="blurUp"></div>
   </picture>
