@@ -45,15 +45,35 @@ export default function () {
         (data.tags || [])
           .filter((t) => typeof t === "string" && t.startsWith("Place/"))
           .map((t) => t.slice("Place/".length)),
-      // Normalise the visited list (YAML may hand us Date objects or strings)
-      // into { iso, label } so the template stays dumb.
+      // Visited entries follow the same date convention as the site's `date:`
+      // keys, and the time is optional:
+      //   - 2026-08-15         a day
+      //   - 2026-08-15T14:30   a day and a time
+      // YAML makes that distinction for us: a bare date parses to a Date, while
+      // `T14:30` (no seconds) stays a String, so nothing has to guess whether
+      // midnight was meaningful.
       visitedDisplay: (data) =>
         (data.visited || [])
-          .map((v) => (v instanceof Date
-            ? DateTime.fromJSDate(v, { zone: "utc" })
-            : DateTime.fromISO(String(v), { zone: "utc" })))
-          .filter((dt) => dt.isValid)
-          .map((dt) => ({ iso: dt.toISODate(), label: dt.toFormat("LLL d, yyyy") })),
+          .map((v) => {
+            const isDate = v instanceof Date;
+            const dt = isDate
+              ? DateTime.fromJSDate(v, { zone: "utc" })
+              : DateTime.fromISO(String(v).trim().replace(" ", "T"), { zone: "utc" });
+            if (!dt.isValid) return null;
+            // A Date came from a bare `2026-08-15`; a string only carries a time
+            // if one was actually written.
+            const hasTime = !isDate && /\d{1,2}:\d{2}/.test(String(v));
+            return {
+              // No offset on the timed form: the author writes local wall-clock
+              // time, so stamping it `Z` would claim UTC and be a lie. A
+              // datetime without an offset is valid HTML for local time.
+              iso: hasTime ? dt.toFormat("yyyy-LL-dd'T'HH:mm") : dt.toISODate(),
+              label: hasTime
+                ? dt.toFormat("LLL d, yyyy 'at' h:mm a")
+                : dt.toFormat("LLL d, yyyy"),
+            };
+          })
+          .filter(Boolean),
     },
   };
 }

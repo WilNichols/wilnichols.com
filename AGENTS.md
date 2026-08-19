@@ -30,6 +30,11 @@ against the **includes directory**, not against the note, so they are immune to
 the extra directory level the symlink introduces. Do not "fix" them to match the
 note's own depth.
 
+The full author-facing contract — every vault syntax and frontmatter key, what
+transforms it, and what it renders as — lives in `vault/Authoring Contract.md`.
+Update it in the same commit as any change to a preprocessor, macro or computed
+key, since it is the only place both halves are written down together.
+
 Three content preprocessors run before Nunjucks (alongside `cdn-images`, and
 guarded on the token being present, so they touch nothing else):
 - `recipe-ingredients` expands an ingredients marker into the `ingredients.njk`
