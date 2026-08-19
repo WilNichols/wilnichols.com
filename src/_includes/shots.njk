@@ -2,8 +2,14 @@
 {% from "picture.njk" import Picture with context %}
 {% from "tag.njk" import tag as tagButton %}
 
+{% from "design-shot.njk" import DesignShot with context %}
+
+{# The shot and the description used to be one rendered string split on
+   `<div class="content">`. The shot is now built from the note's `shot:`
+   frontmatter and the description is the note's markdown body, so there is
+   nothing to split. #}
 {% macro shot(post) -%}
-  {{ post.content | shotOnly | safe }}
+  {{ DesignShot(post.data.shot, post.data.alt, post.data.figure) }}
 {%- endmacro %}
 
 {# Close the carousel, then stack every shot's description in one grid cell
@@ -23,7 +29,7 @@
       {% if platform == "mobile" %}{% set slotClass = "design--mobile" %}{% endif %}
       {% if platform == "desktop" %}{% set slotClass = "design--desktop" %}{% endif %}
       <div class="project__content-slot {{ slotClass }}" style="animation-timeline: {{ slotTimeline }}">
-        {{ post.content | contentOnly | safe }}
+        <div class="content">{{ post.content | safe }}</div>
       </div>
     {% endfor %}
   </div>
