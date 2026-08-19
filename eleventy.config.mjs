@@ -527,16 +527,18 @@ export default async function(eleventyConfig) {
     return out;
   });
 
-  // Dataview blocks are vault-only furniture: folder-note card views, and the
-  // map preview a Location note shows while you are editing it. Obsidian renders
-  // them, the site never should — 11ty has no Dataview, so they would otherwise
-  // publish as a raw code block. Stripped here so a note can carry an Obsidian
-  // affordance without it leaking into the build.
-  const DATAVIEW_BLOCK = /^[ \t]*```dataview(?:js)?[ \t]*\n[\s\S]*?^[ \t]*```[ \t]*$\n?/gm;
-  eleventyConfig.addPreprocessor("strip-dataview", "md", (data, content) => {
-    if (!DATAVIEW_BLOCK.test(content)) return;
-    DATAVIEW_BLOCK.lastIndex = 0;
-    return content.replace(DATAVIEW_BLOCK, "");
+  // Vault-only furniture: folder-note card views, the map preview a Location note
+  // shows while editing, and the inline photo grid on an album note. Obsidian
+  // renders these; the site never should — it has no Dataview, and the album grid
+  // is drawn by a plugin — so they would otherwise publish as raw code blocks.
+  // Stripped here so a note can carry an Obsidian affordance without it leaking
+  // into the build.
+  const VAULT_BLOCK =
+    /^[ \t]*```(?:dataview(?:js)?|album-photos)[ \t]*\n[\s\S]*?^[ \t]*```[ \t]*$\n?/gm;
+  eleventyConfig.addPreprocessor("strip-vault-blocks", "md", (data, content) => {
+    if (!VAULT_BLOCK.test(content)) return;
+    VAULT_BLOCK.lastIndex = 0;
+    return content.replace(VAULT_BLOCK, "");
   });
 
   eleventyConfig.addPreprocessor("drafts", "*", (data, content) => {

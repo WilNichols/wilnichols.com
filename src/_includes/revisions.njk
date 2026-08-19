@@ -3,7 +3,7 @@
     <{{ el }} class="revisions" id="revisions">
       <dl class="revisions-list">
         {% for revision in revisions %}
-          <dd class="revision__date">{{ revision.date | readableDateISO }}</dd><dl class="revision__message">{{ revision.content | safe }}</dl>
+          <dd class="revision__date">{{ revision.date | readableDateISO }}</dd><dl class="revision__message">{{ revision.content | markdownify | safe }}</dl>
         {% endfor %}
       </dl>
     </{{ el }}>
