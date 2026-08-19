@@ -509,10 +509,14 @@ export default async function(eleventyConfig) {
         imperial: imperial ?? "",
         metric: metric ?? "",
       }));
-    if (!dataRows.length) return `${INGREDIENTS_IMPORT}{{ ingredientsList(ingredients) }}`;
-    // JSON is a valid Nunjucks literal, and JSON.stringify handles the quoting
-    // so an ingredient name may contain apostrophes or quotes safely.
-    return `${INGREDIENTS_IMPORT}{{ ingredientsList(${JSON.stringify(dataRows)}) }}`;
+    /* The trailing newline is load-bearing. The table match consumes the newline
+       that ended its last row, and the macro renders to a block element, so
+       without it markdown-it keeps swallowing the rest of the document as part of
+       that HTML block: the whole Directions section came out as raw markdown. */
+    if (!dataRows.length) return `${INGREDIENTS_IMPORT}{{ ingredientsList(ingredients) }}\n`;
+    /* JSON is a valid Nunjucks literal, and JSON.stringify handles the quoting so
+       an ingredient name may contain apostrophes or quotes safely. */
+    return `${INGREDIENTS_IMPORT}{{ ingredientsList(${JSON.stringify(dataRows)}) }}\n`;
   };
 
   // With no marker at all, a recipe's ingredients table is found by its own
@@ -547,7 +551,7 @@ export default async function(eleventyConfig) {
     INGREDIENTS_TOKEN.lastIndex = 0;
     out = out.replace(
       INGREDIENTS_TOKEN,
-      `${INGREDIENTS_IMPORT}{{ ingredientsList(ingredients) }}`
+      `${INGREDIENTS_IMPORT}{{ ingredientsList(ingredients) }}\n`
     );
     return out;
   });
