@@ -11,11 +11,18 @@
 import { DateTime } from "luxon";
 
 function coordsFrom(data) {
-  const explicit = data.coordinates;
-  if (Array.isArray(explicit) && explicit.length === 2) return explicit.map(Number);
-  if (typeof explicit === "string") {
-    const m = explicit.match(/(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)/);
-    if (m) return [Number(m[1]), Number(m[2])];
+  // `location` is the key Obsidian's Maps plugin reads to place a pin, so it is
+  // the canonical one and the site follows it rather than inventing a second.
+  // `coordinates` is kept as an older alias. Both accept "lat, lng" or [lat, lng].
+  for (const explicit of [data.location, data.coordinates]) {
+    if (Array.isArray(explicit) && explicit.length === 2) {
+      const pair = explicit.map(Number);
+      if (pair.every((n) => Number.isFinite(n))) return pair;
+    }
+    if (typeof explicit === "string") {
+      const m = explicit.match(/(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)/);
+      if (m) return [Number(m[1]), Number(m[2])];
+    }
   }
   const url = String(data.map || "");
   const patterns = [

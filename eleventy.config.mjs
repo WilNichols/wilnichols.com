@@ -553,13 +553,14 @@ export default async function(eleventyConfig) {
   });
 
   // Vault-only furniture: folder-note card views, the map preview a Location note
-  // shows while editing, and the inline photo grid on an album note. Obsidian
+  // shows while editing, the inline photo grid on an album note, and an embedded
+  // Bases view such as the Locations map. Obsidian
   // renders these; the site never should — it has no Dataview, and the album grid
   // is drawn by a plugin — so they would otherwise publish as raw code blocks.
   // Stripped here so a note can carry an Obsidian affordance without it leaking
   // into the build.
   const VAULT_BLOCK =
-    /^[ \t]*```(?:dataview(?:js)?|album-photos)[ \t]*\n[\s\S]*?^[ \t]*```[ \t]*$\n?/gm;
+    /^[ \t]*```(?:dataview(?:js)?|album-photos|base)[ \t]*\n[\s\S]*?^[ \t]*```[ \t]*$\n?/gm;
   eleventyConfig.addPreprocessor("strip-vault-blocks", "md", (data, content) => {
     if (!VAULT_BLOCK.test(content)) return;
     VAULT_BLOCK.lastIndex = 0;
