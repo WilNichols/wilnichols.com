@@ -1,0 +1,24 @@
+---
+permalink: /test/work-cards/index.html
+layout: page.njk
+altTitle: Work cards
+---
+{% from "../_includes/shots.njk" import shotList with context %}
+{# Two fixture projects: one with a single shot, one with two, which is the pair
+   of shapes worth checking. A single-shot project has nothing to scroll and one
+   description slot; a two-shot project scrolls, cross-fades its descriptions, and
+   here mixes a desktop shot with a mobile one so the platform classes differ
+   inside one project.
+
+   These are real entries in collections.Design, filtered to the fixtures. They
+   have to be in that collection because shots.njk groups a project by looking its
+   tag up there rather than taking it as an argument, which is also why
+   /test/work/ renders the real set. #}
+<article class="page page--design">
+  <main class="content-body">
+    <p>Two fixture projects: one shot, and two.</p>
+  </main>
+  <ol class="projects">
+    {{ shotList(collections['Design'] | onlyFixtures) }}
+  </ol>
+</article>

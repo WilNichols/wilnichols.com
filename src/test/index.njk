@@ -15,7 +15,7 @@ altTitle: Template fixtures
        deploy. Every page here is <code>draft: true</code>, so none of it exists on
        production.</p>
     <ul>
-      {%- for t in ["note", "album", "location", "recipe", "link", "case-study", "pen", "work", "index-cards"] %}
+      {%- for t in ["note", "album", "album-group", "location", "recipe", "link", "case-study", "pen", "work", "work-cards", "index-cards"] %}
       <li><a href="/test/{{ t }}/">/test/{{ t }}/</a></li>
       {%- endfor %}
     </ul>

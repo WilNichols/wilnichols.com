@@ -211,6 +211,13 @@ export default async function(eleventyConfig) {
     });
   });
 
+  /* Fixture work entries live in collections.Design so the carousel can group them
+     by their own tag, which means the home page has to reject them. */
+  eleventyConfig.addFilter("notFixtures", (collection) =>
+    (collection ?? []).filter((item) => !item.data?.fixture));
+  eleventyConfig.addFilter("onlyFixtures", (collection) =>
+    (collection ?? []).filter((item) => item.data?.fixture));
+
   eleventyConfig.addFilter("draftsOf", (collection1, collection2) => {
     return collection1.filter(value => collection2.includes(value));
   });

@@ -4,37 +4,53 @@ layout: page.njk
 altTitle: Index cards
 ---
 {% from "../_includes/post-list.njk" import postListItem with context %}
-{# The index card is where a post is usually first seen, and where the two link
-   shapes diverge: one with body content gets its own page and an inward arrow,
-   one without points straight at `dest:` in a new tab. Both are here, since
-   neither is visible from a post's own page. #}
+{# The card is where a post is usually first seen, and where the two link shapes
+   diverge: one with body content gets its own page and an inward arrow, one
+   without points straight at `dest:` in a new tab. Neither is visible from a
+   post's own page, so they live here.
+
+   The nesting matters and is copied from postList: ol.posts-list > li.posts-month
+   > ol.posts > li.note. The card styles hang off those ancestors, so a flat list
+   renders unstyled.
+
+   An album card's `key` is the bare folder name: remote.gallery.photos supplies
+   the gallery-2023 segment, unlike a photo's own key which already carries it. #}
 <article class="page">
   <main class="content-body">
-    <p>Card treatments, side by side.</p>
+    <p>Card treatments, in the structure the real index builds.</p>
   </main>
-  <ul class="post-list">
-    {{ postListItem({
-      url: "/test/note/", fileSlug: "fixture-note",
-      content: "<p>Has content.</p>",
-      data: { altTitle: "A note", summary: "With a summary, so the blurb wraps.", tags: ["Type/Note"] }
-    }, "01", true) }}
-    {{ postListItem({
-      url: "/test/link/", fileSlug: "fixture-link",
-      content: "<p>Has commentary.</p>",
-      data: { altTitle: "A link with commentary", dest: "https://example.com",
-              summary: "Points at its own page.", tags: ["Type/Link"] }
-    }, "02", true) }}
-    {{ postListItem({
-      url: "/test/link-bare/", fileSlug: "fixture-link-bare",
-      content: "",
-      data: { altTitle: "A link with no body", dest: "https://example.com",
-              summary: "“Points straight out, with an outward arrow.”", tags: ["Type/Link"] }
-    }, "03", true) }}
-    {{ postListItem({
-      url: "/test/album/", fileSlug: "fixture-album",
-      content: "<p>An album.</p>",
-      data: { altTitle: "An album", key: "Paris2", thumbnail: "DSCF1803.jpg",
-              summary: "Cards for albums use the thumbnail.", tags: ["Type/NewAlbum"] }
-    }, "04", true) }}
-  </ul>
+  <ol class="posts-list" reversed>
+    <li class="posts-month">
+      <h2 class="post__month-and-year"><span class="post__month">January</span> <span class="post__year">2026</span></h2>
+      <ol class="posts">
+        <li class="note">{{ postListItem({
+          url: "/test/note/", fileSlug: "fixture-note", content: "<p>Has content.</p>",
+          data: { altTitle: "A note", summary: "With a summary, so the blurb wraps onto a second line.", tags: ["Type/Note"] }
+        }, "15", true) }}</li>
+        <li class="note">{{ postListItem({
+          url: "/test/note/", fileSlug: "fixture-note-2", content: "<p>Same day.</p>",
+          data: { altTitle: "A second note on the same day", summary: "The prefix becomes an arrow when the day repeats.", tags: ["Type/Note"] }
+        }, "↳", true) }}</li>
+        <li class="note">{{ postListItem({
+          url: "/test/link/", fileSlug: "fixture-link", content: "<p>Has commentary.</p>",
+          data: { altTitle: "A link with commentary", dest: "https://example.com",
+                  summary: "Gets its own page, and an inward arrow.", tags: ["Type/Link"] }
+        }, "14", true) }}</li>
+        <li class="note">{{ postListItem({
+          url: "/test/link-bare/", fileSlug: "fixture-link-bare", content: "",
+          data: { altTitle: "A link with no body", dest: "https://example.com",
+                  summary: "“Points straight out, in a new tab, with an outward arrow.”", tags: ["Type/Link"] }
+        }, "13", true) }}</li>
+        <li class="note">{{ postListItem({
+          url: "/test/album/", fileSlug: "fixture-album", content: "<p>An album.</p>",
+          data: { altTitle: "An album", key: "Paris2", thumbnail: "DSCF1803.jpg",
+                  summary: "An album card uses its thumbnail as the preview.", tags: ["Type/NewAlbum"] }
+        }, "12", true) }}</li>
+        <li class="note">{{ postListItem({
+          url: "/test/recipe/", fileSlug: "fixture-recipe", content: "<p>A recipe.</p>",
+          data: { altTitle: "A recipe", summary: "No preview, so the card is text only.", tags: ["Type/Recipe"] }
+        }, "11", true) }}</li>
+      </ol>
+    </li>
+  </ol>
 </article>

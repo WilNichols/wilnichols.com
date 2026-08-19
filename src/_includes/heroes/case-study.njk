@@ -1,6 +1,17 @@
 {# The hero for /test/case-study/. post-shell.njk includes heroes/<slug>.njk for
-   any case study, so the fixture needs one by that name; it doubles as the place
-   to check the hero treatment without touching a real study. #}
-<div class="case-study-image case-study-image--16x9 iframe-hero">
-  <iframe class="demo__iframe" src="/assets/embeds/fading-list/" frameborder="0"></iframe>
-</div>
+   any case study, so the fixture needs one by that name. It composes the same
+   macros a real hero does, caseStudyImage around proportionateScale around
+   Device, because those are what supply the framing and padding: a bare div
+   renders the iframe with none of it. #}
+{%- from 'case-study-image.njk' import caseStudyImage -%}
+{%- from 'device.njk' import Device -%}
+{%- from 'proportionate-scale.njk' import proportionateScale with context -%}
+
+{% set screen %}
+  <iframe class="screen" src="/assets/embeds/five-square-2/" width="320" height="480" frameborder="0"></iframe>
+{% endset %}
+{% call caseStudyImage(class = 'case-study-hero case-study-image--2x') %}
+  {% call proportionateScale() %}
+    {{ Device(type = 'iPhone4', contentType = 'rich', content = screen) }}
+  {% endcall %}
+{% endcall %}
