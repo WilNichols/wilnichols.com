@@ -185,6 +185,7 @@ export default async function(eleventyConfig) {
       ...collectionsApi.getFilteredByTag("Type/Note"),
       ...collectionsApi.getFilteredByTag("Type/Link"),
       ...collectionsApi.getFilteredByTag("Type/Recipe"),
+      ...collectionsApi.getFilteredByTag("Type/Location"),
       ...collectionsApi.getFilteredByTag("Type/NewAlbum")
     ];
     const sortedFeed = feed.sort(function(a, b) {
@@ -461,6 +462,24 @@ export default async function(eleventyConfig) {
     return content.includes("import Picture")
       ? upgraded
       : `${PICTURE_IMPORT}\n${upgraded}`;
+  });
+
+  // Recipes author their ingredients as a plain `ingredients:` list in
+  // frontmatter (which Obsidian shows as an editable property) and drop a bare
+  // `{% ingredients %}` token wherever the table should appear in the prose.
+  // That token is expanded here into the ingredients macro call, so notes never
+  // hand-write a renderTemplate block or need the old ingredientsContainer
+  // wrapper. Runs before Nunjucks, same as cdn-images, so the injected macro
+  // call is rendered normally afterwards.
+  const INGREDIENTS_TOKEN = /\{%\s*ingredients\s*%\}/g;
+  eleventyConfig.addPreprocessor("recipe-ingredients", "md", (data, content) => {
+    if (!INGREDIENTS_TOKEN.test(content)) return;
+    INGREDIENTS_TOKEN.lastIndex = 0;
+    return content.replace(
+      INGREDIENTS_TOKEN,
+      '{% from "ingredients.njk" import ingredientsList with context %}' +
+        "{{ ingredientsList(ingredients) }}"
+    );
   });
 
   eleventyConfig.addPreprocessor("drafts", "*", (data, content) => {

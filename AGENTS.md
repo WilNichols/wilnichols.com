@@ -16,6 +16,7 @@ src/Notes/Case Studies/notes  -> ../../../vault/Work/Case Studies
 src/Notes/Links/notes         -> ../../../vault/Links
 src/Notes/Recipes-Posts/notes -> ../../../vault/Recipes
 src/Pens/Pens-posts/notes     -> ../../../vault/Pens
+src/Locations/Locations-posts/notes -> ../../../vault/Locations
 ```
 
 11ty follows symlinked directories and the parent's `.11tydata.js` cascades
@@ -28,6 +29,17 @@ Pen frontmatter carries paths like `../static/css/pens/fading-list.scss`, which
 against the **includes directory**, not against the note, so they are immune to
 the extra directory level the symlink introduces. Do not "fix" them to match the
 note's own depth.
+
+Two content-token preprocessors run before Nunjucks (alongside `cdn-images`, and
+guarded on the token being present, so they touch nothing else):
+- `recipe-ingredients` expands a bare `{% ingredients %}` token into the
+  `ingredients.njk` macro call, so recipes never hand-write a renderTemplate
+  block. The list comes straight from the note's `ingredients:` frontmatter.
+- Locations (`postType: location`) derive their map pin in
+  `Locations-posts.11tydata.js` by parsing coordinates out of the `map:` Google
+  Maps link (`@lat,lng`, `!3d!4d`, or `q=`), overridable with a `coordinates:`
+  key. The pin renders as a keyless OpenStreetMap embed in `location.njk`; place
+  type comes from `Place/<Type>` tags.
 
 ## Rules
 

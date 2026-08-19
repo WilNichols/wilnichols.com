@@ -1,0 +1,41 @@
+{# Map preview + at-a-glance facts for a Location post. #}
+
+{%- macro LocationMap() -%}
+  {%- if mapCoords -%}
+    {%- set lat = mapCoords[0] -%}
+    {%- set lng = mapCoords[1] -%}
+    {# a small box around the point gives a street-level zoom with the pin centred #}
+    {%- set d = 0.006 -%}
+    {%- set bbox = (lng - d) | round(6) ~ "," ~ (lat - d) | round(6) ~ "," ~ (lng + d) | round(6) ~ "," ~ (lat + d) | round(6) -%}
+    <div class="location-map">
+      <iframe
+        class="location-map__frame"
+        title="Map showing {{ title }}"
+        loading="lazy"
+        referrerpolicy="no-referrer"
+        src="https://www.openstreetmap.org/export/embed.html?bbox={{ bbox }}&layer=mapnik&marker={{ lat }},{{ lng }}"></iframe>
+      {%- if map -%}<a class="location-map__link" href="{{ map }}" target="_blank" rel="noopener">Open in Google Maps</a>{%- endif -%}
+    </div>
+  {%- endif -%}
+{%- endmacro -%}
+
+{%- macro LocationMeta() -%}
+  <dl class="location-meta">
+    {%- if placeTypes | length -%}
+      <div class="location-meta__row"><dt>Type</dt><dd>{{ placeTypes | join(", ") }}</dd></div>
+    {%- endif -%}
+    {%- if visitedDisplay | length -%}
+      <div class="location-meta__row"><dt>Visited</dt><dd>
+        {%- for v in visitedDisplay -%}
+          <time datetime="{{ v.iso }}">{{ v.label }}</time>{% if not loop.last %}, {% endif %}
+        {%- endfor -%}
+      </dd></div>
+    {%- endif -%}
+    {%- if website -%}
+      <div class="location-meta__row"><dt>Website</dt><dd><a href="{{ website }}" target="_blank" rel="noopener">{{ website | replace('https://','') | replace('http://','') | replace('www.','') }}</a></dd></div>
+    {%- endif -%}
+    {%- if map and not mapCoords -%}
+      <div class="location-meta__row"><dt>Map</dt><dd><a href="{{ map }}" target="_blank" rel="noopener">Open in Google Maps</a></dd></div>
+    {%- endif -%}
+  </dl>
+{%- endmacro -%}
