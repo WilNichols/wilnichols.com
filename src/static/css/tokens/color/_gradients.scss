@@ -42,73 +42,75 @@ $-top:     100% 100% at 50% 0%;         // iOS 9 legacy screens
 }
 
 // Shared dark background — charcoal, sits behind most dark screens.
-$cKD20Radial: radial3(var(--cKD20), var(--cKD10), var(--cKD15));
+$radial-neutral-dark-01: radial3(var(--cKD20), var(--cKD10), var(--cKD15));
 
 // Shared light background — near-white with a faint cool center.
-$cK95Radial: radial2(var(--cK95), var(--cK85));
+$radial-neutral-light-01: radial2(var(--cK95), var(--cK85));
 
 // Main menu, dark: deep navy fading downward.
-$cBD05Linear: linear2(var(--cBD05), var(--cBD10));
+$linear-blue-dark-01: linear2(var(--cBD05), var(--cBD10));
 
 // Main menu, light: a gentle wash from light gray to white.
-$cK85Linear: linear2(var(--cK85), var(--cK95));
+$linear-neutral-light-01: linear2(var(--cK85), var(--cK95));
 
 // In-person translation, dark: a pool of royal blue.
-$cBD20Radial: radial3(var(--cBD20), var(--cBD10), var(--cBD15));
+$radial-blue-dark-01: radial3(var(--cBD20), var(--cBD10), var(--cBD15));
 
 // In-person translation, light: pale sky blue.
-$cB95Radial: radial2(var(--cB95), var(--cB85));
+$radial-blue-light-01: radial2(var(--cB95), var(--cB85));
 
 // Second translation layout, dark: almost-black charcoal.
-$cKD10Radial: radial3(var(--cKD10), var(--cKD05), var(--cKD15));
+$radial-neutral-dark-02: radial3(var(--cKD10), var(--cKD05), var(--cKD15));
 
 // Second translation layout, light: cool paper white.
-$cK90Radial: radial3(var(--cK90), var(--cK85), var(--cK95));
+$radial-neutral-light-02: radial3(var(--cK90), var(--cK85), var(--cK95));
 
 // Third translation layout, dark: violet melting through magenta.
-$cVD20Radial: radial4(var(--cVD20), var(--cVD10), var(--cMD10), var(--cMD20));
+$radial-violet-dark-02: radial4(var(--cVD20), var(--cVD10), var(--cMD10), var(--cMD20));
 
 // Third translation layout, light: cyan drifting into lavender.
-$cT85Radial: radial4(var(--cT85), var(--cB85), var(--cV90), var(--cV95));
+$radial-cyan-light-02: radial4(var(--cT85), var(--cB85), var(--cV90), var(--cV95));
 
 // Fourth translation layout, dark: warm coffee brown.
-$cOD10Radial: radial3(var(--cOD10), var(--cOD05), var(--cOD15));
+$radial-orange-dark-01: radial3(var(--cOD10), var(--cOD05), var(--cOD15));
 
 // Fourth translation layout, light: soft cream orange.
-$cO95Radial: radial2(var(--cO95), var(--cO90));
+$radial-orange-light-01: radial2(var(--cO95), var(--cO90));
 
 // Fifth translation layout, dark: deep pine teal.
-$cAD20Radial: radial3(var(--cAD20), var(--cAD10), var(--cAD15));
+$radial-teal-dark-01: radial3(var(--cAD20), var(--cAD10), var(--cAD15));
 
 // Fifth translation layout, light: cool mint.
-$cA95Radial: radial2(var(--cA95), var(--cA90));
+$radial-teal-light-01: radial2(var(--cA95), var(--cA90));
 
 // Second translation layout on phones, dark: pure black rising to charcoal.
-$cK05Linear: linear2(var(--cK05), var(--cK15));
+$linear-neutral-dark-01: linear2(var(--cK05), var(--cK15));
 
 // Third translation layout on phones, dark: charcoal into slate.
-$cK15Linear: linear2(var(--cK15), var(--cK25));
+$linear-neutral-dark-02: linear2(var(--cK15), var(--cK25));
 
 // Third translation layout on phones, a lighter slate variant.
-$cK75Linear: linear2(var(--cK75), var(--cK85));
+$linear-neutral-light-02: linear2(var(--cK75), var(--cK85));
 
 // Fourth translation layout on phones, dark: electric violet into purple.
-$cV20Linear: linear2(var(--cV20), var(--cM25));
+// Unreferenced: this and linear-violet-dark-02 were both named $cV20Linear,
+// so Sass silently took the later one. Kept, separated, and available.
+$linear-violet-dark-03: linear2(var(--cV20), var(--cM25));
 
 // Fourth translation layout on phones, light: lavender to blush.
-$cV80Linear: linear2(var(--cV80), var(--cM90));
+$linear-violet-light-01: linear2(var(--cV80), var(--cM90));
 
 // Fifth translation layout on phones, dark: burnt orange.
-$cO15Linear: linear2(var(--cO15), var(--cO30));
+$linear-orange-dark-01: linear2(var(--cO15), var(--cO30));
 
 // Fifth translation layout on phones, light: peach to cream.
-$cO85Linear: linear2(var(--cO85), var(--cO95));
+$linear-orange-light-01: linear2(var(--cO85), var(--cO95));
 
 // Sixth translation layout on phones, dark: deep forest green.
-$cA15Linear: linear2(var(--cA15), var(--cA30));
+$linear-teal-dark-01: linear2(var(--cA15), var(--cA30));
 
 // Sixth translation layout on phones, light: pale mint.
-$cA90Linear: linear2(var(--cA90), var(--cA95));
+$linear-teal-light-01: linear2(var(--cA90), var(--cA95));
 
 // One-off colors with no palette token. Author them as hex or as
 // `color(display-p3 r g b)`; p3Props emits the hex fallback either way and only
@@ -127,86 +129,86 @@ $-oneOffs: (
   --iconLibraryMint: (color(display-p3 0.1774 0.8216 0.6216), #2dd194)
 );
 
-$weddingDarkRadial: radial3(var(--weddingDarkCenter), var(--weddingDarkMid), var(--weddingDarkEdge));
-$weddingLightRadial: radial3(var(--weddingLightCenter), var(--weddingLightMid), var(--weddingLightEdge));
+$radial-green-dark-01: radial3(var(--weddingDarkCenter), var(--weddingDarkMid), var(--weddingDarkEdge));
+$radial-green-light-01: radial3(var(--weddingLightCenter), var(--weddingLightMid), var(--weddingLightEdge));
 
 // Talk & history walkthrough, dark: oxblood red.
-$cRD20Radial: radial3(var(--cRD20), var(--cRD10), var(--cRD15));
+$radial-red-dark-01: radial3(var(--cRD20), var(--cRD10), var(--cRD15));
 
 // Second talk & history walkthrough, dark: amber brown.
-$cYD20Radial: radial3(var(--cYD20), var(--cYD10), var(--cYD15));
+$radial-amber-dark-01: radial3(var(--cYD20), var(--cYD10), var(--cYD15));
 
 // Talk & history on phones, dark: oxblood over true black.
-$cR20Radial: radial3(var(--cR20), var(--cR10), var(--cR15));
+$radial-red-dark-02: radial3(var(--cR20), var(--cR10), var(--cR15));
 
 // Second talk & history on phones, dark: amber over true black.
-$cY20Radial: radial3(var(--cY20), var(--cY10), var(--cY15));
+$radial-amber-dark-02: radial3(var(--cY20), var(--cY10), var(--cY15));
 
 // vEvi, dark: bright crimson.
-$cRD30Radial: radial3(var(--cRD30), var(--cRD20), var(--cRD25));
+$radial-red-dark-03: radial3(var(--cRD30), var(--cRD20), var(--cRD25));
 
 // vEvi, light: blush pink.
-$cR95Radial: radial2(var(--cR95), var(--cR90));
+$radial-red-light-01: radial2(var(--cR95), var(--cR90));
 
 // vEvi second screen, dark: deep ocean blue.
-$cTD30Radial: radial3(var(--cTD30), var(--cTD20), var(--cTD25));
+$radial-cyan-dark-01: radial3(var(--cTD30), var(--cTD20), var(--cTD25));
 
 // vEvi second screen, light: icy cyan.
-$cT95Radial: radial2(var(--cT95), var(--cT90));
+$radial-cyan-light-01: radial2(var(--cT95), var(--cT90));
 
 // vEvi on phones, dark: crimson over true black.
-$cR30Radial: radial3(var(--cR30), var(--cR20), var(--cR25));
+$radial-red-dark-04: radial3(var(--cR30), var(--cR20), var(--cR25));
 
 // vEvi second screen on phones, dark: ocean blue over true black.
-$cT30Radial: radial3(var(--cT30), var(--cT20), var(--cT25));
+$radial-cyan-dark-02: radial3(var(--cT30), var(--cT20), var(--cT25));
 
 // iOS 2019 theme, dark: burnt orange.
-$cOD20Radial: radial3(var(--cOD20), var(--cOD15), var(--cOD25));
+$radial-orange-dark-02: radial3(var(--cOD20), var(--cOD15), var(--cOD25));
 
 // iOS 2019 theme, light: buttery cream.
-$cY90Radial: radial3(var(--cY90), var(--cY80), var(--cY95));
+$radial-amber-light-01: radial3(var(--cY90), var(--cY80), var(--cY95));
 
 // iOS 9 split themes, dark half: slate glow from the corner.
-$cKD05Radial: radialCorner(var(--cKD05), var(--cKD10));
+$radial-neutral-dark-03: radialCorner(var(--cKD05), var(--cKD10));
 
 // iOS 9 split themes, light half: warm cream glow from the corner.
-$cY95Radial: radialCorner(var(--cY90), var(--cY95));
+$radial-amber-light-02: radialCorner(var(--cY90), var(--cY95));
 
 // iOS 9 legacy screens, dark: muddy amber falling from the top.
-$cYD15Radial: radialTop(var(--cYD15), var(--cYD10));
+$radial-amber-dark-03: radialTop(var(--cYD15), var(--cYD10));
 
 // iOS 9 legacy screens, light: pale butter falling from the top.
-$cY90Radial2: radialTop(var(--cY90), var(--cY80));
+$radial-amber-light-03: radialTop(var(--cY90), var(--cY80));
 
 // Minte visuals, light: soft honey.
-$cYD85Radial: radial3(var(--cYD85), var(--cYD75), var(--cYD80));
+$radial-amber-dark-04: radial3(var(--cYD85), var(--cYD75), var(--cYD80));
 
 // Minte visuals, dark: burnt orange.
-$cOD15Radial: radial3(var(--cOD15), var(--cOD05), var(--cOD10));
+$radial-orange-dark-03: radial3(var(--cOD15), var(--cOD05), var(--cOD10));
 
 // Instant demo, light: warm apricot.
-$cO90Radial: radial3(var(--cO90), var(--cO85), var(--cO95));
+$radial-orange-light-02: radial3(var(--cO90), var(--cO85), var(--cO95));
 
 // Instant demo on phones, dark: near-black charcoal.
-$cK10Radial: radial3(var(--cK10), var(--cK05), var(--cK15));
+$radial-neutral-dark-04: radial3(var(--cK10), var(--cK05), var(--cK15));
 
 // Talk & history walkthrough, light: pale apricot.
-$cO95Radial2: radial2(var(--cO95), var(--cO85));
+$radial-orange-light-03: radial2(var(--cO95), var(--cO85));
 
 // Second talk & history walkthrough, light: pale wheat.
-$cY95Radial2: radial2(var(--cY95), var(--cY85));
+$radial-amber-light-04: radial2(var(--cY95), var(--cY85));
 
 // Zello Bridge, dark: violet edged with magenta.
-$cVD20Radial2: radial3(var(--cVD20), var(--cVD10), var(--cMD30));
+$radial-violet-dark-01: radial3(var(--cVD20), var(--cVD10), var(--cMD30));
 
 // Zello Bridge, light: soft pink magenta.
-$cM95Radial: radial2(var(--cM95), var(--cM90));
+$radial-magenta-light-01: radial2(var(--cM95), var(--cM90));
 
 // Zello Bridge Mobile, light: soft pink magenta.
-$cM95Linear: linear2(var(--cM95), var(--cM90));
+$linear-magenta-light-01: linear2(var(--cM95), var(--cM90));
 
 // Zello Bridge Mobile, light: soft pink magenta.
-$cV20Linear: linear2(var(--cV20), var(--cM30));
+$linear-violet-dark-02: linear2(var(--cV20), var(--cM30));
 
 @mixin oneOffColors {
   & {
@@ -227,7 +229,7 @@ $cV20Linear: linear2(var(--cV20), var(--cM30));
   height: calc(var(--desktopPanelWidth) + 4px);
   position: absolute;
   transform: rotate(90deg);
-  @include light-dark(--defaultGradient, $cK95Radial, $cKD20Radial);
+  @include light-dark(--defaultGradient, $radial-neutral-light-01, $radial-neutral-dark-01);
   background-image: var(--gradient, var(--defaultGradient));
   @if $half {
     width: calc(var(--desktopPanelWidth) / 2);
@@ -267,88 +269,115 @@ $cV20Linear: linear2(var(--cV20), var(--cM30));
 .zello-icon-librar--2 {
   
 }
+/* Presets, not posts.
+
+   A gradient used to be reachable only through a class named after the design
+   post that wanted it, `.in-person-translations--4`, which tied the colour to a
+   project and to a position in its carousel: reorder the shots and the gradients
+   shuffle with them. Each pair now also answers to a preset name built from its
+   constructor, its hue and a number, so a work entry can ask for
+   `gradient--radial-orange-01` and keep it. The post-named selectors stay
+   alongside until the markup emits presets instead. */
+.gradient--linear-blue-01,
 .main-menu--1 {
-  @include themedGradient($cK85Linear, $cBD05Linear);
+  @include themedGradient($linear-neutral-light-01, $linear-blue-dark-01);
 }
 
+.gradient--radial-blue-01,
 .in-person-translations--1 {
-  @include themedGradient($cB95Radial, $cBD20Radial);
+  @include themedGradient($radial-blue-light-01, $radial-blue-dark-01);
 }
 
+.gradient--radial-neutral-01,
 .in-person-translations--2 {
-  @include themedGradient($cK90Radial, $cKD10Radial);
+  @include themedGradient($radial-neutral-light-02, $radial-neutral-dark-02);
 }
 
+.gradient--radial-violet-01,
 .in-person-translations--3 {
-  @include themedGradient($cT85Radial, $cVD20Radial);
+  @include themedGradient($radial-cyan-light-02, $radial-violet-dark-02);
 }
 
+.gradient--radial-orange-01,
 .in-person-translations--4 {
-  @include themedGradient($cO95Radial, $cOD10Radial);
+  @include themedGradient($radial-orange-light-01, $radial-orange-dark-01);
 }
 
+.gradient--radial-teal-01,
 .in-person-translations--5 {
-  @include themedGradient($cA95Radial, $cAD20Radial);
+  @include themedGradient($radial-teal-light-01, $radial-teal-dark-01);
 }
 
+.gradient--linear-neutral-01,
 .in-person-translations--6 {
-  @include themedGradient($cK85Linear, $cK05Linear);
+  @include themedGradient($linear-neutral-light-01, $linear-neutral-dark-01);
 }
 
+.gradient--linear-neutral-02,
 .in-person-translations--7 {
-  @include themedGradient($cK75Linear, $cK15Linear);
+  @include themedGradient($linear-neutral-light-02, $linear-neutral-dark-02);
 }
 
+.gradient--linear-violet-01,
 .in-person-translations--8 {
-  @include themedGradient($cV80Linear, $cV20Linear);
+  @include themedGradient($linear-violet-light-01, $linear-violet-dark-02);
 }
 
+.gradient--linear-orange-01,
 .in-person-translations--9 {
-  @include themedGradient($cO85Linear, $cO15Linear);
+  @include themedGradient($linear-orange-light-01, $linear-orange-dark-01);
 }
 
+.gradient--linear-teal-01,
 .in-person-translations--10 {
-  @include themedGradient($cA90Linear, $cA15Linear);
+  @include themedGradient($linear-teal-light-01, $linear-teal-dark-01);
 }
 
+.gradient--radial-violet-02,
 .zello-bridge--1 {
-  @include themedGradient($cM95Radial, $cVD20Radial2); 
+  @include themedGradient($radial-magenta-light-01, $radial-violet-dark-01);
 }
 
 .zello-bridge--2, .zello-bridge--3 {
-  @include themedGradient($cM95Linear, $cV20Linear); 
+  @include themedGradient($linear-magenta-light-01, $linear-violet-dark-02); 
 }
 
+.gradient--radial-neutral-02,
 .zello-instant-demo--1 {
-  @include themedGradient($cO90Radial, $cK10Radial); 
+  @include themedGradient($radial-orange-light-02, $radial-neutral-dark-04);
 }
 
 .zello-instant-demo--2, .zello-instant-demo--3 {
-  @include themedGradient($cO90Radial, $cK10Radial); 
+  @include themedGradient($radial-orange-light-02, $radial-neutral-dark-04); 
 }
 
 .minte-visuals--1, .minte-visuals--2, .minte-visuals--3, .minte-visuals--4 {
-  @include themedGradient($cYD85Radial, $cOD15Radial); 
+  @include themedGradient($radial-amber-dark-04, $radial-orange-dark-03); 
 }
 
+.gradient--radial-orange-02,
 .zello-for-ios-12--1 {
-  @include themedGradient($cY90Radial, $cOD20Radial); 
+  @include themedGradient($radial-amber-light-01, $radial-orange-dark-02);
 }
 
+.gradient--radial-red-01,
 .talk-and-history-navigation--1 {
-  @include themedGradient($cO95Radial, $cRD20Radial); 
+  @include themedGradient($radial-orange-light-01, $radial-red-dark-01);
 }
 
+.gradient--radial-amber-01,
 .talk-and-history-navigation--2 {
-  @include themedGradient($cY95Radial, $cYD20Radial); 
+  @include themedGradient($radial-amber-light-02, $radial-amber-dark-01);
 }
 
+.gradient--radial-red-02,
 .remote-control--1 {
-  @include themedGradient($cR95Radial, $cRD30Radial); 
+  @include themedGradient($radial-red-light-01, $radial-red-dark-03);
 }
 
+.gradient--radial-cyan-01,
 .remote-control--2 {
-  @include themedGradient($cT95Radial, $cTD30Radial); 
+  @include themedGradient($radial-cyan-light-01, $radial-cyan-dark-01);
 }
 
 .zello-for-ios-9--1 .picture {
@@ -359,7 +388,7 @@ $cV20Linear: linear2(var(--cV20), var(--cM30));
       }
    } 
    &::before {
-     background-image: $cY95Radial;
+     background-image: $radial-amber-light-02;
      margin-top: calc(var(--desktopPanelWidth)/4);
      @media (pointer: coarse) and (width <= aliases.$breakpoint) {
       margin-top: unset;
@@ -369,7 +398,7 @@ $cV20Linear: linear2(var(--cV20), var(--cM30));
    }
    &::after {
      @include _backdrop($half: true);
-     background-image: $cKD05Radial;
+     background-image: $radial-neutral-dark-03;
      margin-bottom: calc(var(--desktopPanelWidth)/2);
      @media (pointer: coarse) and (width <= aliases.$breakpoint) {
       margin-bottom: unset;
@@ -380,10 +409,11 @@ $cV20Linear: linear2(var(--cV20), var(--cM30));
    }
 }
 
+.gradient--radial-amber-02,
 .zello-for-ios-9--2 {
-  @include themedGradient($cY90Radial2, $cYD15Radial); 
+  @include themedGradient($radial-amber-light-03, $radial-amber-dark-03);
 }
 
 .wedding-invitations--1, .wedding-invitations--2, .wedding-invitations--3, .wedding-invitations--4 {
-  @include themedGradient($weddingLightRadial, $weddingDarkRadial); 
+  @include themedGradient($radial-green-light-01, $radial-green-dark-01); 
 }
