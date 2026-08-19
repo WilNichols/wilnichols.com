@@ -3,10 +3,36 @@ import { S3Client, ListObjectsV2Command } from '@aws-sdk/client-s3';
 import { AssetCache } from '@11ty/eleventy-fetch';
 import pLimit from 'p-limit';
 import slugify from "@sindresorhus/slugify";
-import { applyAlbumOrder } from "../../../lib/album-order.js";
 
-// To flush a single album's cache: rm .cache/aws_album_<key>.*
-// To flush all album caches: rm .cache/aws_album_*
+/* To flush one album's cache: rm .cache/aws_album_<key>.*   All of them: rm .cache/aws_album_* */
+
+/* R2 owns what exists; the sidecar owns which photos, in what order, and any
+   per-photo metadata. Tolerant in both directions: a new upload the sidecar has
+   never heard of still appears, and an entry naming a file no longer in the bucket
+   is dropped rather than rendering a broken image. */
+function applyAlbumOrder(listed, order, meta = {}) {
+  if (!Array.isArray(listed)) return listed;        // AWS failure string, or null
+  const withMeta = (photo) => {
+    const extra = meta?.[photo.fileName];
+    return extra ? { ...photo, ...extra } : photo;
+  };
+  if (!Array.isArray(order) || order.length === 0) {
+    return meta && Object.keys(meta).length ? listed.map(withMeta) : listed;
+  }
+
+  const byName = new Map(listed.map((p) => [p.fileName, p]));
+  const out = [];
+  for (const name of order) {
+    const photo = byName.get(name);
+    if (!photo) continue;                           // deleted from the bucket
+    byName.delete(name);
+    out.push(photo);
+  }
+  /* Anything unplaced keeps the bucket's order and goes last, so a new upload is
+     visible without being silently promoted. */
+  out.push(...byName.values());
+  return out.map(withMeta);
+}
 
 const sessionCache = new Map();
 const limit = pLimit(5);
