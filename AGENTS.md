@@ -30,16 +30,26 @@ against the **includes directory**, not against the note, so they are immune to
 the extra directory level the symlink introduces. Do not "fix" them to match the
 note's own depth.
 
-Two content-token preprocessors run before Nunjucks (alongside `cdn-images`, and
+Three content preprocessors run before Nunjucks (alongside `cdn-images`, and
 guarded on the token being present, so they touch nothing else):
-- `recipe-ingredients` expands a bare `{% ingredients %}` token into the
-  `ingredients.njk` macro call, so recipes never hand-write a renderTemplate
-  block. The list comes straight from the note's `ingredients:` frontmatter.
+- `recipe-ingredients` expands an ingredients marker into the `ingredients.njk`
+  macro call, so recipes never hand-write a renderTemplate block. Rows are
+  authored as an ordinary markdown table directly under the marker, because that
+  is the one shape Obsidian both renders *and* edits natively — a frontmatter
+  list of `{name, imperial, metric}` objects is barely editable in the
+  properties panel. The table is consumed, so it never reaches the page; the
+  macro owns the markup. Either `%%ingredients%%` (an Obsidian comment, so it is
+  invisible in reading mode) or `{% ingredients %}` works, and a marker with no
+  table under it still falls back to a frontmatter `ingredients:` list.
+- `strip-dataview` removes ```dataview / ```dataviewjs blocks, which are
+  vault-only furniture (folder-note card views, the Location map preview).
 - Locations (`postType: location`) derive their map pin in
   `Locations-posts.11tydata.js` by parsing coordinates out of the `map:` Google
   Maps link (`@lat,lng`, `!3d!4d`, or `q=`), overridable with a `coordinates:`
-  key. The pin renders as a keyless OpenStreetMap embed in `location.njk`; place
-  type comes from `Place/<Type>` tags.
+  key. The pin renders through Google's keyless `output=embed` form in
+  `location.njk` — the Embed API proper needs a key, and Apple has no keyless
+  equivalent at all (MapKit JS requires a signed JWT), so neither is an option.
+  Place type comes from `Place/<Type>` tags.
 
 ## Rules
 

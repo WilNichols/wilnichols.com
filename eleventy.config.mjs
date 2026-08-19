@@ -464,22 +464,67 @@ export default async function(eleventyConfig) {
       : `${PICTURE_IMPORT}\n${upgraded}`;
   });
 
-  // Recipes author their ingredients as a plain `ingredients:` list in
-  // frontmatter (which Obsidian shows as an editable property) and drop a bare
-  // `{% ingredients %}` token wherever the table should appear in the prose.
-  // That token is expanded here into the ingredients macro call, so notes never
-  // hand-write a renderTemplate block or need the old ingredientsContainer
-  // wrapper. Runs before Nunjucks, same as cdn-images, so the injected macro
-  // call is rendered normally afterwards.
-  const INGREDIENTS_TOKEN = /\{%\s*ingredients\s*%\}/g;
+  // Recipes mark where the ingredients table belongs with a bare
+  // `{% ingredients %}` token, expanded here into the ingredients macro so notes
+  // never hand-write a renderTemplate block. Runs before Nunjucks, same as
+  // cdn-images, so the injected macro call renders normally afterwards.
+  //
+  // The rows are authored as an ordinary markdown table directly under the
+  // token. That is the one shape Obsidian both renders and *edits* natively —
+  // its table editor gives real cells, tab navigation and row/column controls,
+  // where a frontmatter list of {name, imperial, metric} objects is barely
+  // editable in the properties panel. The table is consumed here, so it never
+  // reaches the page as a plain markdown table; the macro owns the markup.
+  //
+  // A token with no table after it still falls back to a frontmatter
+  // `ingredients:` list, so either authoring style builds.
+  const INGREDIENTS_IMPORT =
+    '{% from "ingredients.njk" import ingredientsList with context %}';
+  // token, optional blank lines, then one or more contiguous pipe-table lines
+  // Either marker works: `%%ingredients%%` is an Obsidian comment, so it stays
+  // invisible in reading mode, while `{% ingredients %}` reads like the rest of
+  // the site's templating. Both are consumed here.
+  const TOKEN_SRC = "(?:\\{%\\s*ingredients\\s*%\\}|%%\\s*ingredients\\s*%%)";
+  const INGREDIENTS_WITH_TABLE = new RegExp(
+    TOKEN_SRC + "[ \\t]*\\n\\s*\\n?((?:[ \\t]*\\|[^\\n]*\\n?)+)", "g");
+  const INGREDIENTS_TOKEN = new RegExp(TOKEN_SRC, "g");
+
+  // "| a | b | c |" -> ["a","b","c"], tolerating missing outer pipes.
+  const tableCells = (line) =>
+    line.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map((c) => c.trim());
+  const isSeparator = (line) => /^[\s|:-]+$/.test(line) && line.includes("-");
+
   eleventyConfig.addPreprocessor("recipe-ingredients", "md", (data, content) => {
     if (!INGREDIENTS_TOKEN.test(content)) return;
     INGREDIENTS_TOKEN.lastIndex = 0;
-    return content.replace(
+
+    let out = content.replace(INGREDIENTS_WITH_TABLE, (_m, table) => {
+      const rows = table.split("\n").filter((l) => l.trim().startsWith("|"));
+      const body = rows.filter((l) => !isSeparator(l));
+      // Drop the header row only when the table actually declared one, which a
+      // separator line is the marker for.
+      const hasHeader = rows.some(isSeparator);
+      const dataRows = (hasHeader ? body.slice(1) : body)
+        .map(tableCells)
+        .filter((cells) => cells.some(Boolean))
+        .map(([name, imperial, metric]) => ({
+          name: name ?? "",
+          imperial: imperial ?? "",
+          metric: metric ?? "",
+        }));
+      if (!dataRows.length) return `${INGREDIENTS_IMPORT}{{ ingredientsList(ingredients) }}`;
+      // JSON is a valid Nunjucks literal, and JSON.stringify handles the quoting
+      // so an ingredient name may contain apostrophes or quotes safely.
+      return `${INGREDIENTS_IMPORT}{{ ingredientsList(${JSON.stringify(dataRows)}) }}`;
+    });
+
+    // Any token that had no table under it falls back to frontmatter.
+    INGREDIENTS_TOKEN.lastIndex = 0;
+    out = out.replace(
       INGREDIENTS_TOKEN,
-      '{% from "ingredients.njk" import ingredientsList with context %}' +
-        "{{ ingredientsList(ingredients) }}"
+      `${INGREDIENTS_IMPORT}{{ ingredientsList(ingredients) }}`
     );
+    return out;
   });
 
   // Dataview blocks are vault-only furniture: folder-note card views, and the

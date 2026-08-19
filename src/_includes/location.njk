@@ -4,16 +4,17 @@
   {%- if mapCoords -%}
     {%- set lat = mapCoords[0] -%}
     {%- set lng = mapCoords[1] -%}
-    {# a small box around the point gives a street-level zoom with the pin centred #}
-    {%- set d = 0.006 -%}
-    {%- set bbox = (lng - d) | round(6) ~ "," ~ (lat - d) | round(6) ~ "," ~ (lng + d) | round(6) ~ "," ~ (lat + d) | round(6) -%}
+    {# Google's keyless embed. The Embed API proper needs a key; this legacy
+       output=embed form does not, and renders Google's own tiles with a pin on
+       the coordinates. Apple has no keyless equivalent — MapKit JS requires a
+       signed JWT — so it is not an option here. #}
     <div class="location-map">
       <iframe
         class="location-map__frame"
         title="Map showing {{ title }}"
         loading="lazy"
         referrerpolicy="no-referrer"
-        src="https://www.openstreetmap.org/export/embed.html?bbox={{ bbox }}&layer=mapnik&marker={{ lat }},{{ lng }}"></iframe>
+        src="https://maps.google.com/maps?q={{ lat }},{{ lng }}&amp;z=16&amp;output=embed"></iframe>
       {%- if map -%}<a class="location-map__link" href="{{ map }}" target="_blank" rel="noopener">Open in Google Maps</a>{%- endif -%}
     </div>
   {%- endif -%}
