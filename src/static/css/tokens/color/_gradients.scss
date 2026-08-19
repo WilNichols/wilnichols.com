@@ -256,19 +256,16 @@ $linear-violet-dark-02: linear2(var(--cV20), var(--cM30));
   }
 }
 
-.zello-icon-library--1 {
+.gradient--radial-spectrum-01 {
   $light: radial-gradient(60% 60% at 50% 50%, var(--cK100) 0%, var(--cT95) 25%, var(--cB95) 50%, var(--cV95) 88%, var(--cM95) 100%);
   $dark: radial-gradient(60% 60% at 50% 50%, var(--iconLibraryMint) 0%, var(--cT40) 25%, var(--cB35) 50%, var(--cV40) 88%, var(--cM40) 100%);
   @include light-dark(--gradient, $light, $dark);
 }
 
-.zello-icon-library--2 {
+.gradient--radial-blue-03 {
   --gradient: radial-gradient(90% 90% at 50% 15.66%, var(--cB40) 0%, var(--cB45) 60%, var(--cB50) 100%);
 }
 
-.zello-icon-librar--2 {
-  
-}
 /* Presets, not posts.
 
    A gradient used to be reachable only through a class named after the design
@@ -276,107 +273,89 @@ $linear-violet-dark-02: linear2(var(--cV20), var(--cM30));
    project and to a position in its carousel: reorder the shots and the gradients
    shuffle with them. Each pair now also answers to a preset name built from its
    constructor, its hue and a number, so a work entry can ask for
-   `gradient--radial-orange-01` and keep it. The post-named selectors stay
-   alongside until the markup emits presets instead. */
-.gradient--linear-blue-01,
-.main-menu--1 {
+   `gradient--radial-orange-01` and keep it, written as `gradient:` in its
+   frontmatter. The post-named selectors are gone; shots.njk emits the preset. */
+.gradient--linear-blue-01 {
   @include themedGradient($linear-neutral-light-01, $linear-blue-dark-01);
 }
 
-.gradient--radial-blue-01,
-.in-person-translations--1 {
+.gradient--radial-blue-01 {
   @include themedGradient($radial-blue-light-01, $radial-blue-dark-01);
 }
 
-.gradient--radial-neutral-01,
-.in-person-translations--2 {
+.gradient--radial-neutral-01 {
   @include themedGradient($radial-neutral-light-02, $radial-neutral-dark-02);
 }
 
-.gradient--radial-violet-01,
-.in-person-translations--3 {
+.gradient--radial-violet-01 {
   @include themedGradient($radial-cyan-light-02, $radial-violet-dark-02);
 }
 
-.gradient--radial-orange-01,
-.in-person-translations--4 {
+.gradient--radial-orange-01 {
   @include themedGradient($radial-orange-light-01, $radial-orange-dark-01);
 }
 
-.gradient--radial-teal-01,
-.in-person-translations--5 {
+.gradient--radial-teal-01 {
   @include themedGradient($radial-teal-light-01, $radial-teal-dark-01);
 }
 
-.gradient--linear-neutral-01,
-.in-person-translations--6 {
+.gradient--linear-neutral-01 {
   @include themedGradient($linear-neutral-light-01, $linear-neutral-dark-01);
 }
 
-.gradient--linear-neutral-02,
-.in-person-translations--7 {
+.gradient--linear-neutral-02 {
   @include themedGradient($linear-neutral-light-02, $linear-neutral-dark-02);
 }
 
-.gradient--linear-violet-01,
-.in-person-translations--8 {
+.gradient--linear-violet-01 {
   @include themedGradient($linear-violet-light-01, $linear-violet-dark-02);
 }
 
-.gradient--linear-orange-01,
-.in-person-translations--9 {
+.gradient--linear-orange-01 {
   @include themedGradient($linear-orange-light-01, $linear-orange-dark-01);
 }
 
-.gradient--linear-teal-01,
-.in-person-translations--10 {
+.gradient--linear-teal-01 {
   @include themedGradient($linear-teal-light-01, $linear-teal-dark-01);
 }
 
-.gradient--radial-violet-02,
-.zello-bridge--1 {
+.gradient--radial-violet-02 {
   @include themedGradient($radial-magenta-light-01, $radial-violet-dark-01);
 }
 
-.zello-bridge--2, .zello-bridge--3 {
-  @include themedGradient($linear-magenta-light-01, $linear-violet-dark-02); 
+.gradient--linear-violet-02 {
+  @include themedGradient($linear-magenta-light-01, $linear-violet-dark-02);
 }
 
-.gradient--radial-neutral-02,
-.zello-instant-demo--1 {
+.gradient--radial-neutral-02 {
   @include themedGradient($radial-orange-light-02, $radial-neutral-dark-04);
 }
 
-.zello-instant-demo--2, .zello-instant-demo--3 {
-  @include themedGradient($radial-orange-light-02, $radial-neutral-dark-04); 
+.gradient--radial-neutral-03 {
+  @include themedGradient($radial-orange-light-02, $radial-neutral-dark-04);
 }
 
-.minte-visuals--1, .minte-visuals--2, .minte-visuals--3, .minte-visuals--4 {
-  @include themedGradient($radial-amber-dark-04, $radial-orange-dark-03); 
+.gradient--radial-orange-03 {
+  @include themedGradient($radial-amber-dark-04, $radial-orange-dark-03);
 }
 
-.gradient--radial-orange-02,
-.zello-for-ios-12--1 {
+.gradient--radial-orange-02 {
   @include themedGradient($radial-amber-light-01, $radial-orange-dark-02);
 }
 
-.gradient--radial-red-01,
-.talk-and-history-navigation--1 {
+.gradient--radial-red-01 {
   @include themedGradient($radial-orange-light-01, $radial-red-dark-01);
 }
 
-.gradient--radial-amber-01,
-.talk-and-history-navigation--2 {
+.gradient--radial-amber-01 {
   @include themedGradient($radial-amber-light-02, $radial-amber-dark-01);
 }
 
-.gradient--radial-red-02,
-.remote-control--1 {
+.gradient--radial-red-02 {
   @include themedGradient($radial-red-light-01, $radial-red-dark-03);
 }
 
-.gradient--radial-cyan-01,
-.remote-control--2 {
+.gradient--radial-cyan-01 {
   @include themedGradient($radial-cyan-light-01, $radial-cyan-dark-01);
 }
 
@@ -409,11 +388,10 @@ $linear-violet-dark-02: linear2(var(--cV20), var(--cM30));
    }
 }
 
-.gradient--radial-amber-02,
-.zello-for-ios-9--2 {
+.gradient--radial-amber-02 {
   @include themedGradient($radial-amber-light-03, $radial-amber-dark-03);
 }
 
-.wedding-invitations--1, .wedding-invitations--2, .wedding-invitations--3, .wedding-invitations--4 {
-  @include themedGradient($radial-green-light-01, $radial-green-dark-01); 
+.gradient--radial-green-01 {
+  @include themedGradient($radial-green-light-01, $radial-green-dark-01);
 }

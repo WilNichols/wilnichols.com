@@ -118,7 +118,10 @@
       {% set shotPlatforms = projectShots | designInputFilter | reverse %}
       {% set projectShotIndex = projectShotIndex + 1 %}
       {% set shotTimeline = '--' ~ projectId ~ '-shot-' ~ projectShotIndex ~ '-' ~ shotPlatforms[projectShotIndex - 1] %}
-      <li class="shot {{ shotClass }} {{ projectId }}--{{ projectShotIndex }}" style="view-timeline-name: {{ shotTimeline }}">
+      {#- the gradient is the note's own choice now, named as a preset, rather
+          than something a project slug and a carousel position imply -#}
+      {%- set gradientClass = 'gradient--' ~ post.data.gradient if post.data.gradient else '' -%}
+      <li class="shot {{ shotClass }} {{ gradientClass }} {{ projectId }}--{{ projectShotIndex }}" style="view-timeline-name: {{ shotTimeline }}">
         {{ shot(post) }}
       </li>
 
