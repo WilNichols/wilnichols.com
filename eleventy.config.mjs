@@ -552,6 +552,69 @@ export default async function(eleventyConfig) {
     return out;
   });
 
+  /* A pen names its code samples where they appear in the prose:
+
+       ```site-code
+       src/static/css/pens/fading-list.scss
+       title: SCSS
+       ```
+
+     One file becomes a standalone highlighted block. Two or more become the
+     tabbed presentation, which is what the two multi-file pens already used, with
+     `id:` naming the anchor. Paths are written repo-relative, because that is what
+     the Obsidian plugin needs to find the file on disk or over HTTP; the macro's
+     `{% include %}` resolves from _includes, so the leading `src/` is swapped for
+     `../` here. `lang` defaults to the file extension.
+
+     The companion ```site-embed fence is Obsidian-only: the site renders the demo
+     from the note's `hero:`, so it is stripped with the other vault-only blocks. */
+  const SITE_CODE = /^[ \t]*```site-code[ \t]*\n([\s\S]*?)^[ \t]*```[ \t]*$\n?/gm;
+  const CODE_IMPORTS =
+    '{% from "highlight.njk" import highlight with context %}' +
+    '{% from "tabs.njk" import tabs with context %}';
+
+  eleventyConfig.addPreprocessor("pen-code", "md", (data, content) => {
+    if (!SITE_CODE.test(content)) return;
+    SITE_CODE.lastIndex = 0;
+    return content.replace(SITE_CODE, (_m, body) => {
+      const lines = String(body).split("\n").map((l) => l.trim()).filter(Boolean);
+      let id = "markup";
+      const files = [];
+      for (const line of lines) {
+        const kv = line.match(/^(id|title|lang):\s*(.*)$/i);
+        if (kv) {
+          const key = kv[1].toLowerCase();
+          if (key === "id") { id = kv[2].trim(); continue; }
+          if (files.length) files[files.length - 1][key] = kv[2].trim();
+          continue;
+        }
+        files.push({ path: line });
+      }
+      if (!files.length) return "";
+
+      const tabsList = files.map((f) => ({
+        type: "code",
+        title: f.title ?? "",
+        lang: f.lang ?? (f.path.split(".").pop() ?? ""),
+        src: f.path.replace(/^src\//, "../"),
+      }));
+
+      /* The trailing newline matters: the fence match consumes the one after the
+         closing ```, and without it the next paragraph is absorbed into the
+         macro's HTML block instead of being wrapped in its own <p>. */
+      if (tabsList.length === 1) {
+        const t = tabsList[0];
+        return `${CODE_IMPORTS}{{ highlight(${JSON.stringify(t)}, standalone = true, title = ${JSON.stringify(t.title)}) }}\n`;
+      }
+      // Tabs: each pane is the same macro with standalone off, in order.
+      const panes = tabsList
+        .map((t) => `{% set _p %}{{ highlight(${JSON.stringify(t)}, standalone = false) }}{% endset %}{% set _panes = (_panes.push(_p), _panes) %}`)
+        .join("");
+      return `${CODE_IMPORTS}{% set _panes = [] %}${panes}` +
+             `{{- tabs(${JSON.stringify(id)}, ${JSON.stringify(tabsList)}, _panes) -}}\n`;
+    });
+  });
+
   // Vault-only furniture: folder-note card views, the map preview a Location note
   // shows while editing, the inline photo grid on an album note, and an embedded
   // Bases view such as the Locations map. Obsidian
@@ -560,7 +623,7 @@ export default async function(eleventyConfig) {
   // Stripped here so a note can carry an Obsidian affordance without it leaking
   // into the build.
   const VAULT_BLOCK =
-    /^[ \t]*```(?:dataview(?:js)?|album-photos|base)[ \t]*\n[\s\S]*?^[ \t]*```[ \t]*$\n?/gm;
+    /^[ \t]*```(?:dataview(?:js)?|album-photos|base|site-embed)[ \t]*\n[\s\S]*?^[ \t]*```[ \t]*$\n?/gm;
   eleventyConfig.addPreprocessor("strip-vault-blocks", "md", (data, content) => {
     if (!VAULT_BLOCK.test(content)) return;
     VAULT_BLOCK.lastIndex = 0;
