@@ -15,12 +15,19 @@ src/Notes/Entries/notes       -> ../../../vault/Entries
 src/Notes/Case Studies/notes  -> ../../../vault/Work/Case Studies
 src/Notes/Links/notes         -> ../../../vault/Links
 src/Notes/Recipes-Posts/notes -> ../../../vault/Recipes
+src/Pens/Pens-posts/notes     -> ../../../vault/Pens
 ```
 
 11ty follows symlinked directories and the parent's `.11tydata.js` cascades
 into them, which is what keeps every permalink, layout and tag rule in this
 repo while the markdown lives in the vault. Do not move build config into the
 vault.
+
+Pen frontmatter carries paths like `../static/css/pens/fading-list.scss`, which
+`src/_includes/highlight.njk` feeds to `{% include %}`. Nunjucks resolves those
+against the **includes directory**, not against the note, so they are immune to
+the extra directory level the symlink introduces. Do not "fix" them to match the
+note's own depth.
 
 ## Rules
 
