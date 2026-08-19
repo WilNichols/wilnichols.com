@@ -53,7 +53,11 @@ export default function () {
       // `T14:30` (no seconds) stays a String, so nothing has to guess whether
       // midnight was meaningful.
       visitedDisplay: (data) =>
-        (data.visited || [])
+        // Accept a scalar as well as a list. A single visit written as a scalar
+        // is the one shape Obsidian gives a real date picker to; a list is
+        // rendered as text pills instead. Both build the same markup.
+        (Array.isArray(data.visited) ? data.visited
+          : data.visited ? [data.visited] : [])
           .map((v) => {
             const isDate = v instanceof Date;
             const dt = isDate
