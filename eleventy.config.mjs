@@ -494,28 +494,53 @@ export default async function(eleventyConfig) {
     line.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map((c) => c.trim());
   const isSeparator = (line) => /^[\s|:-]+$/.test(line) && line.includes("-");
 
+  // A pipe table -> the ingredients macro call, rows carried as a JSON literal.
+  const expandTable = (table) => {
+    const rows = table.split("\n").filter((l) => l.trim().startsWith("|"));
+    const body = rows.filter((l) => !isSeparator(l));
+    // Drop the header row only when the table actually declared one, which a
+    // separator line is the marker for.
+    const hasHeader = rows.some(isSeparator);
+    const dataRows = (hasHeader ? body.slice(1) : body)
+      .map(tableCells)
+      .filter((cells) => cells.some(Boolean))
+      .map(([name, imperial, metric]) => ({
+        name: name ?? "",
+        imperial: imperial ?? "",
+        metric: metric ?? "",
+      }));
+    if (!dataRows.length) return `${INGREDIENTS_IMPORT}{{ ingredientsList(ingredients) }}`;
+    // JSON is a valid Nunjucks literal, and JSON.stringify handles the quoting
+    // so an ingredient name may contain apostrophes or quotes safely.
+    return `${INGREDIENTS_IMPORT}{{ ingredientsList(${JSON.stringify(dataRows)}) }}`;
+  };
+
+  // With no marker at all, a recipe's ingredients table is found by its own
+  // header: the first table whose first column is "Ingredient(s)". The table
+  // therefore declares what it is, and a recipe needs no site-specific syntax.
+  // Scoped to postType `recipe`, which the data cascade has already resolved by
+  // the time a preprocessor runs.
+  const BARE_TABLE = /^[ \t]*\|[^\n]*\n[ \t]*\|[\s|:-]+\|[ \t]*\n(?:[ \t]*\|[^\n]*\n?)*/gm;
+
   eleventyConfig.addPreprocessor("recipe-ingredients", "md", (data, content) => {
-    if (!INGREDIENTS_TOKEN.test(content)) return;
+    const marked = INGREDIENTS_TOKEN.test(content);
     INGREDIENTS_TOKEN.lastIndex = 0;
 
+    // No marker: take the first table that calls itself an ingredients table.
+    if (!marked) {
+      if (data.postType !== "recipe") return;
+      BARE_TABLE.lastIndex = 0;
+      // Every table, not just the first: a recipe may lead with something else.
+      for (const m of content.matchAll(BARE_TABLE)) {
+        const header = tableCells(m[0].split("\n")[0]);
+        if (!/^ingredients?$/i.test(header[0] ?? "")) continue;
+        return content.replace(m[0], expandTable(m[0]));
+      }
+      return;
+    }
+
     let out = content.replace(INGREDIENTS_WITH_TABLE, (_m, table) => {
-      const rows = table.split("\n").filter((l) => l.trim().startsWith("|"));
-      const body = rows.filter((l) => !isSeparator(l));
-      // Drop the header row only when the table actually declared one, which a
-      // separator line is the marker for.
-      const hasHeader = rows.some(isSeparator);
-      const dataRows = (hasHeader ? body.slice(1) : body)
-        .map(tableCells)
-        .filter((cells) => cells.some(Boolean))
-        .map(([name, imperial, metric]) => ({
-          name: name ?? "",
-          imperial: imperial ?? "",
-          metric: metric ?? "",
-        }));
-      if (!dataRows.length) return `${INGREDIENTS_IMPORT}{{ ingredientsList(ingredients) }}`;
-      // JSON is a valid Nunjucks literal, and JSON.stringify handles the quoting
-      // so an ingredient name may contain apostrophes or quotes safely.
-      return `${INGREDIENTS_IMPORT}{{ ingredientsList(${JSON.stringify(dataRows)}) }}`;
+      return expandTable(table);
     });
 
     // Any token that had no table under it falls back to frontmatter.
