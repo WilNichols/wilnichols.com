@@ -1,0 +1,23 @@
+---
+permalink: /test/index.html
+layout: page.njk
+altTitle: Template fixtures
+---
+<article class="page">
+  <header class="page-header__container">
+    <div class="page-header__title-container">
+      <div class="page-header__title"><h1 class="page__title">Template fixtures</h1></div>
+    </div>
+  </header>
+  <main class="content-body">
+    <p>One page per post type, rendered from fixture data through the real layout,
+       so a template change can be checked without writing a note or waiting for a
+       deploy. Every page here is <code>draft: true</code>, so none of it exists on
+       production.</p>
+    <ul>
+      {%- for t in ["note", "album", "location", "recipe", "link", "case-study", "pen", "work", "index-cards"] %}
+      <li><a href="/test/{{ t }}/">/test/{{ t }}/</a></li>
+      {%- endfor %}
+    </ul>
+  </main>
+</article>

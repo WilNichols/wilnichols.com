@@ -1,0 +1,40 @@
+---
+permalink: /test/index-cards/index.html
+layout: page.njk
+altTitle: Index cards
+---
+{% from "../_includes/post-list.njk" import postListItem with context %}
+{# The index card is where a post is usually first seen, and where the two link
+   shapes diverge: one with body content gets its own page and an inward arrow,
+   one without points straight at `dest:` in a new tab. Both are here, since
+   neither is visible from a post's own page. #}
+<article class="page">
+  <main class="content-body">
+    <p>Card treatments, side by side.</p>
+  </main>
+  <ul class="post-list">
+    {{ postListItem({
+      url: "/test/note/", fileSlug: "fixture-note",
+      content: "<p>Has content.</p>",
+      data: { altTitle: "A note", summary: "With a summary, so the blurb wraps.", tags: ["Type/Note"] }
+    }, "01", true) }}
+    {{ postListItem({
+      url: "/test/link/", fileSlug: "fixture-link",
+      content: "<p>Has commentary.</p>",
+      data: { altTitle: "A link with commentary", dest: "https://example.com",
+              summary: "Points at its own page.", tags: ["Type/Link"] }
+    }, "02", true) }}
+    {{ postListItem({
+      url: "/test/link-bare/", fileSlug: "fixture-link-bare",
+      content: "",
+      data: { altTitle: "A link with no body", dest: "https://example.com",
+              summary: "“Points straight out, with an outward arrow.”", tags: ["Type/Link"] }
+    }, "03", true) }}
+    {{ postListItem({
+      url: "/test/album/", fileSlug: "fixture-album",
+      content: "<p>An album.</p>",
+      data: { altTitle: "An album", key: "Paris2", thumbnail: "DSCF1803.jpg",
+              summary: "Cards for albums use the thumbnail.", tags: ["Type/NewAlbum"] }
+    }, "04", true) }}
+  </ul>
+</article>

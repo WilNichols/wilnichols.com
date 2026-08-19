@@ -1,0 +1,22 @@
+---
+permalink: /test/work/index.html
+layout: page.njk
+altTitle: Work carousels
+---
+{% from "../_includes/shots.njk" import shotList with context %}
+{# The real Design collection, rendered at a test permalink.
+
+   A work entry has `permalink: false`, so it has no page of its own and cannot be
+   opened directly: the carousel is the only way to see one. Rendering the real
+   collection here means a change to shots.njk, work-shot.njk or a gradient preset
+   can be checked without touching the home page. #}
+<article class="page page--design">
+  <main class="content-body">
+    <p>Every work entry, through the real carousel. Fixture-only entries are not
+       possible here: the carousel groups by looking a project's own tag up in
+       <code>collections</code>, which a page-scoped fixture cannot join.</p>
+  </main>
+  <ol class="projects">
+    {{ shotList(collections['Design']) }}
+  </ol>
+</article>
