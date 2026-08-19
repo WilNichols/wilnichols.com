@@ -482,6 +482,18 @@ export default async function(eleventyConfig) {
     );
   });
 
+  // Dataview blocks are vault-only furniture: folder-note card views, and the
+  // map preview a Location note shows while you are editing it. Obsidian renders
+  // them, the site never should — 11ty has no Dataview, so they would otherwise
+  // publish as a raw code block. Stripped here so a note can carry an Obsidian
+  // affordance without it leaking into the build.
+  const DATAVIEW_BLOCK = /^[ \t]*```dataview(?:js)?[ \t]*\n[\s\S]*?^[ \t]*```[ \t]*$\n?/gm;
+  eleventyConfig.addPreprocessor("strip-dataview", "md", (data, content) => {
+    if (!DATAVIEW_BLOCK.test(content)) return;
+    DATAVIEW_BLOCK.lastIndex = 0;
+    return content.replace(DATAVIEW_BLOCK, "");
+  });
+
   eleventyConfig.addPreprocessor("drafts", "*", (data, content) => {
     if(data.draft && process.env.ELEVENTY_ENV === "prod") {
       return false;
