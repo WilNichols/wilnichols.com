@@ -615,6 +615,35 @@ export default async function(eleventyConfig) {
     });
   });
 
+  /* A case study places a figure by name:
+
+       ```site-figure
+       FS2Board
+       ```
+
+     The file defaults to `unique/case-study--<note slug>.njk`, which is where
+     every case study's figures live. `file:` overrides it for the one figure that
+     is shared across two case studies. Figures take no arguments; they exist so a
+     note can say "the board goes here" without carrying the markup. */
+  const SITE_FIGURE = /^[ \t]*```site-figure[ \t]*\n([\s\S]*?)^[ \t]*```[ \t]*$\n?/gm;
+
+  eleventyConfig.addPreprocessor("case-study-figures", "md", (data, content) => {
+    if (!SITE_FIGURE.test(content)) return;
+    SITE_FIGURE.lastIndex = 0;
+    const slug = slugify(String(data.page?.fileSlug ?? ""));
+    return content.replace(SITE_FIGURE, (_m, body) => {
+      const lines = String(body).split("\n").map((l) => l.trim()).filter(Boolean);
+      const name = lines[0];
+      if (!name) return "";
+      const override = lines.find((l) => l.toLowerCase().startsWith("file:"));
+      const file = override
+        ? override.slice(5).trim()
+        : `unique/case-study--${slug}.njk`;
+      return `{% from ${JSON.stringify(file)} import ${name} with context %}` +
+             `{{ ${name}() | mdRenderNJK | safe }}\n`;
+    });
+  });
+
   // Vault-only furniture: folder-note card views, the map preview a Location note
   // shows while editing, the inline photo grid on an album note, and an embedded
   // Bases view such as the Locations map. Obsidian
