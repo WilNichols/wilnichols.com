@@ -652,7 +652,7 @@ export default async function(eleventyConfig) {
   // Stripped here so a note can carry an Obsidian affordance without it leaking
   // into the build.
   const VAULT_BLOCK =
-    /^[ \t]*```(?:dataview(?:js)?|album-photos|base|site-embed)[ \t]*\n[\s\S]*?^[ \t]*```[ \t]*$\n?/gm;
+    /^[ \t]*```(?:dataview(?:js)?|album-photos|base|site-embed|site-shot|site-hero)[ \t]*\n[\s\S]*?^[ \t]*```[ \t]*$\n?/gm;
   eleventyConfig.addPreprocessor("strip-vault-blocks", "md", (data, content) => {
     if (!VAULT_BLOCK.test(content)) return;
     VAULT_BLOCK.lastIndex = 0;
