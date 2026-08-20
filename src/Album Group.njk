@@ -50,7 +50,7 @@ eleventyComputed:
         {% if album | hasContent %}
           <div class="content-body">{{ album | safeContent | safe }}</div>
         {% elif album.data.summary %}
-          <div class="content-body"><p>{{ album.data.summary }}</p></div>
+          <div class="content-body"><p>{{ album.data.summary | plainText }}</p></div>
         {% endif %}
         {% if album.data.photos %}
           <ul class="album-group__photo-grid" data-preload-sizes="{{ pictureSizes(true) }}">
