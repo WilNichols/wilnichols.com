@@ -45,7 +45,13 @@ export default async function(eleventyConfig) {
             const parts = match.raw.slice(2,-2).split("|");
             parts[0] = parts[0].replace(/.(md|markdown)\s?$/i, "");
             match.text = (parts[1] || parts[0]).trim();
-            match.url = `/` + slugify(`${parts[0].trim().replace(/\s/g, "-")}/`).replace('-s', 's') + `/`;
+            /* Vault links are path-qualified ([[Photography/Albums/Paris 4|Paris]]),
+               because Obsidian resolves those deterministically instead of guessing
+               by folder proximity. Permalinks are flat, and slugify turns "/" into
+               "-", so slugifying the whole target yields /photography-albums-paris-4/.
+               Resolve on the last segment. */
+            const target = parts[0].trim().split("/").pop().trim();
+            match.url = `/` + slugify(`${target.replace(/\s/g, "-")}/`).replace('-s', 's') + `/`;
         }
     });
     // remove the hr
