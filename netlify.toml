@@ -27,3 +27,21 @@
 
 [[plugins]]
   package = "netlify-plugin-debug-cache"
+  
+[[redirects]]
+  from = "https://wil.website/*"
+  to = "https://wilnichols.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.wil.website/*"
+  to = "https://wilnichols.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.wilnichols.com/*"
+  to = "https://wilnichols.com/:splat"
+  status = 301
+  force = true
