@@ -77,9 +77,13 @@
       <li class="posts-month">
         <h2 class="post__month-and-year"><span class="post__month">Drafts</span></h2>
         <ol class="posts">
-        {% asyncEach draft in drafts %}
+        {# Newest first, like every other month on the page, so the numbers read
+           down the column instead of up. The label is the draft's position in
+           date order, so the top one carries the highest number. #}
+        {% asyncEach draft in drafts | reverse %}
           <li class="note">
-            {% set draftPrefix %}0{{ loop.index }}{% endset %}
+            {% set draftNumber = drafts.length - loop.index + 1 %}
+            {% set draftPrefix %}{{ "0" if draftNumber < 10 }}{{ draftNumber }}{% endset %}
             {{ postListItem(draft, draftPrefix, showAccessories) }}
           </li>
         {% endeach %}
