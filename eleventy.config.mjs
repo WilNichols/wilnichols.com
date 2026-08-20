@@ -445,6 +445,20 @@ export default async function(eleventyConfig) {
   });
   
   /* Unlike drafts, private notes are dropped in every environment. */
+  /* A malformed sidecar would otherwise reorder an album silently. Checked in a
+     preprocessor, not eleventyDataSchema: that hook does not fire from a directory
+     data file in 11ty 3, and a dead validator is worse than none. */
+  eleventyConfig.addPreprocessor("album-order", "md,njk", (data) => {
+    const order = data.photoOrder;
+    if (order === undefined) return;
+    const where = data.page?.inputPath ?? "an album";
+    if (!Array.isArray(order) || order.some((n) => typeof n !== "string")) {
+      throw new Error(`${where}: photoOrder must be an array of filenames, got ${JSON.stringify(order)}`);
+    }
+    const dupe = order.find((n, i) => order.indexOf(n) !== i);
+    if (dupe) throw new Error(`${where}: photoOrder lists ${dupe} more than once`);
+  });
+
   eleventyConfig.addPreprocessor("private", "*", (data, content) => {
     if (data.private) {
       return false;

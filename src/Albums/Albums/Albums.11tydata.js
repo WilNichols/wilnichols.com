@@ -8,17 +8,15 @@ import slugify from "@sindresorhus/slugify";
 
 /* The bucket owns what exists; the sidecar owns order and per-photo metadata.
    Tolerant both ways: unknown uploads still appear, missing files are dropped. */
-function applyAlbumOrder(listed, order, meta = {}) {
+export function applyAlbumOrder(listed, order) {
   if (!Array.isArray(listed)) return listed;        // AWS failure string, or null
-  const withMeta = (photo) => {
-    const extra = meta?.[photo.fileName];
-    return extra ? { ...photo, ...extra } : photo;
-  };
-  if (!Array.isArray(order) || order.length === 0) {
-    return meta && Object.keys(meta).length ? listed.map(withMeta) : listed;
-  }
+  if (!Array.isArray(order) || order.length === 0) return listed;
 
-  const byName = new Map(listed.map((p) => [p.fileName, p]));
+  /* Entries are validated, not trusted: 11ty runs a computed function against a
+     proxy first to discover which keys it reads, so this sees placeholder values
+     before it ever sees the real listing. */
+  const named = listed.filter((p) => p && typeof p.fileName === "string");
+  const byName = new Map(named.map((p) => [p.fileName, p]));
   const out = [];
   for (const name of order) {
     const photo = byName.get(name);
@@ -28,7 +26,7 @@ function applyAlbumOrder(listed, order, meta = {}) {
   }
   /* Unplaced photos keep bucket order and go last. */
   out.push(...byName.values());
-  return out.map(withMeta);
+  return out;
 }
 
 const sessionCache = new Map();
@@ -92,22 +90,6 @@ async function getAlbumContentsFromAWS(key) {
 
 export default function (eleventy) {
   return {
-    /* Fail loudly: a malformed sidecar would otherwise reorder an album silently. */
-    eleventyDataSchema: function (data) {
-      const { photoOrder, photoMeta } = data;
-      if (photoOrder !== undefined) {
-        if (!Array.isArray(photoOrder) || photoOrder.some(n => typeof n !== "string")) {
-          throw new Error(`${data.page.inputPath}: photoOrder must be an array of filenames`);
-        }
-        const dupes = photoOrder.filter((n, i) => photoOrder.indexOf(n) !== i);
-        if (dupes.length) {
-          throw new Error(`${data.page.inputPath}: photoOrder lists ${dupes[0]} more than once`);
-        }
-      }
-      if (photoMeta !== undefined && (typeof photoMeta !== "object" || Array.isArray(photoMeta))) {
-        throw new Error(`${data.page.inputPath}: photoMeta must be an object keyed by filename`);
-      }
-    },
     layout: "album.njk",
     postType: "album",
     tags: ["Albums", "Topic/Photography"],
@@ -127,7 +109,7 @@ export default function (eleventy) {
       photos: async data => {
         if (!data.key) return null;
         const listed = await getAlbumContentsFromAWS(data.key);
-        return applyAlbumOrder(listed, data.photoOrder, data.photoMeta);
+        return applyAlbumOrder(listed, data.photoOrder);
       },
       metaPreview: data => data.remote.gallery.base + '/cdn-cgi/image/width=1400,format=webp/' + data.remote.gallery.photos + '/' + data.key + '/' + data.thumbnail,
       description: function (data) { return this.excerpt(data.page?.rawInput); },
