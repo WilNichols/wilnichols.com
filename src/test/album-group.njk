@@ -1,0 +1,24 @@
+---
+permalink: /test/album-group/index.html
+layout: page.njk
+altTitle: Album groups
+---
+{# A group's intro note carries prose; the listing beside it is generated. Like
+   /test/work/, this renders the real thing rather than fixtures: album-list.njk
+   iterates collections.Albums directly instead of taking an argument, so there is
+   no seam to inject fixture albums through.
+
+   What it shows: `shortTitle` standing in where the full title would repeat, and
+   each album's thumbnail as the hover preview. #}
+<article class="page page--album-group">
+  <header class="page-header__container">
+    <div class="page-header__title-container">
+      <div class="page-header__title"><h1 class="page__title">Album groups</h1></div>
+    </div>
+  </header>
+  <main class="content-body">
+    <p>The paragraph that introduces a group is all an <code>AlbumGroupIntro</code>
+       note carries. Below is the generated listing, from the real albums.</p>
+  </main>
+  {% include "album-list.njk" %}
+</article>

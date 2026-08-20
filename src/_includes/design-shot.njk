@@ -1,0 +1,17 @@
+{# The visual half of a work entry. `shot:` mirrors workShot's arguments; `alt:`
+   sits beside it because alt is editorial and paths are not. A post workShot
+   cannot express names a `figure:` include instead. #}
+{%- macro DesignShot(shot, alt, figure) -%}
+  {%- if shot -%}
+    {%- from "work-shot.njk" import workShot -%}
+    {{ workShot(
+        alt = alt if alt else '',
+        frame = shot.frame,
+        screen = shot.screen,
+        video = shot.video,
+        device = shot.device,
+        class = shot.class if shot.class else ''
+    ) }}
+  {%- endif -%}
+  {%- if figure %}{% include "unique/" + figure + ".njk" %}{% endif -%}
+{%- endmacro -%}

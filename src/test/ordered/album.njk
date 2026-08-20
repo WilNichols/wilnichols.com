@@ -1,0 +1,27 @@
+---
+permalink: /test/album-ordered/index.html
+layout: post.njk
+postType: album
+altTitle: An album with a custom photo order
+date: 2026-01-16T09:00
+summary: Proves a sidecar photoOrder survives the data cascade and reorders the gallery.
+key: Paris2
+thumbnail: DSCF1803.jpg
+# Stands in for the bucket listing, deliberately in a different order from the
+# sidecar so a pass-through would be visible.
+listing:
+  - key: gallery-2023/Paris2/DSCF1387.jpg
+    fileName: DSCF1387.jpg
+  - key: gallery-2023/Paris2/DSCF1413.jpg
+    fileName: DSCF1413.jpg
+  - key: gallery-2023/Paris2/DSCF1803.jpg
+    fileName: DSCF1803.jpg
+# The pointer the plugin writes. Named photoOrderFile, not photoOrder: 11ty puts
+# frontmatter above template data files, so a pointer of that name shadows the
+# sidecar's array and the order is silently discarded.
+photoOrderFile: album.11tydata.json
+tags:
+  - AlbumInfo/Camera/X-T2
+  - AlbumInfo/Location/Fixture
+---
+<p>The gallery should run 1803, 1387, 1413 — the sidecar's order, not the listing's.</p>

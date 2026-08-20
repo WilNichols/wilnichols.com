@@ -1,16 +1,17 @@
+import { applyAlbumOrder } from '../../../lib/album-order.js';
 import dotenv from 'dotenv';
-import { S3Client, ListObjectsV2Command } from '@aws-sdk/client-s3';
+import { ListObjectsV2Command } from '@aws-sdk/client-s3';
+import { createStoreClient, bucketFor } from '../../../lib/photo-store.js';
 import { AssetCache } from '@11ty/eleventy-fetch';
 import pLimit from 'p-limit';
 import slugify from "@sindresorhus/slugify";
 
-// To flush a single album's cache: rm .cache/aws_album_<key>.*
-// To flush all album caches: rm .cache/aws_album_*
+/* To flush one album's cache: rm .cache/r2_album_<key>.*   All of them: rm .cache/r2_album_* */
 
 const sessionCache = new Map();
 const limit = pLimit(5);
 
-async function getAlbumContentsFromAWS(key) {
+async function getAlbumContentsFromR2(key) {
   if (process.env.FAST) return null;
 
   if (sessionCache.has(key)) {
@@ -18,8 +19,8 @@ async function getAlbumContentsFromAWS(key) {
     return sessionCache.get(key);
   }
 
-  const asset = new AssetCache(`aws_album_${key}`, ".cache", {
-    filenameFormat: (uniqueKey) => `aws_album_${key}`,
+  const asset = new AssetCache(`r2_album_${key}`, ".cache", {
+    filenameFormat: (uniqueKey) => `r2_album_${key}`,
   });
 
   if (asset.isCacheValid("1d")) {
@@ -31,15 +32,9 @@ async function getAlbumContentsFromAWS(key) {
 
   return limit(async () => {
     console.log('getting photos for ' + key);
-    const client = new S3Client({
-      region: "us-east-1",
-      credentials: {
-        accessKeyId: process.env.WN_AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.WN_AWS_SECRET_ACCESS_KEY
-      }
-    });
+    const client = createStoreClient();
     const command = new ListObjectsV2Command({
-      Bucket: 'wnphoto01',
+      Bucket: bucketFor(),
       Delimiter: '/',
       Prefix: 'gallery-2023/' + key + '/'
     });
@@ -48,15 +43,17 @@ async function getAlbumContentsFromAWS(key) {
     try {
       const data = await client.send(command);
       data.Contents.forEach(image => image.Size > 30 * 1024 * 1024 && console.warn(image.Key + ' is above 30MB'));
+      /* Drop the zero-byte directory marker by name, not by position: S3 has one
+         at Contents[0], R2 has none, so a blind .slice(1) eats a real photo on R2. */
       albums = data.Contents
-        .slice(1)
+        .filter(({ Key }) => Key !== command.input.Prefix)
         .map(({ Key, LastModified }) => ({
           key: Key,
           lastModified: LastModified,
           fileName: Key.split('/').pop(),
         }));
     } catch (error) {
-      return 'AWS failure';
+      return 'R2 failure';
     }
 
     await asset.save(albums, "json");
@@ -83,22 +80,14 @@ export default function (eleventy) {
         const tag = data.tags?.find(t => t.startsWith("AlbumGroup/"));
         return tag ? `/albums/${slugify(tag.replace("AlbumGroup/", ""))}/` : null;
       },
-      photos: async data => data.key ? getAlbumContentsFromAWS(data.key) : null,
+      /* Sidecar is <Album>.11tydata.json, written by the Photo Album plugin. */
+      photos: async data => {
+        if (!data.key) return null;
+        const listed = await getAlbumContentsFromR2(data.key);
+        return applyAlbumOrder(listed, data.photoOrder);
+      },
       metaPreview: data => data.remote.gallery.base + '/cdn-cgi/image/width=1400,format=webp/' + data.remote.gallery.photos + '/' + data.key + '/' + data.thumbnail,
-      description: data => {
-        const raw = data.page?.rawInput ?? '';
-        const body = raw.replace(/^---[\s\S]*?---\n?/, '').trim();
-        if (!body) return null;
-        const text = body
-          .replace(/<[^>]*>/g, '')
-          .replace(/!\[.*?\]\(.*?\)/g, '')
-          .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
-          .replace(/[#*`_~]/g, '')
-          .replace(/\s+/g, ' ')
-          .trim();
-        if (text.length <= 140) return text;
-        return text.slice(0, 139).replace(/\s+\S*$/, '') + '…';
-      }
+      description: function (data) { return this.excerpt(data.page?.rawInput); },
     }
   }
 }

@@ -10,7 +10,7 @@ layout: page.njk
   {{ Header("page--design__header") }}
   <div class="scroll-thief scroll-thief--leading"></div>
   <div class="scroll-thief scroll-thief--trailing"></div>
-  {{ shotList(collections['Design']) }}
+  {{ shotList(collections['Design'] | notFixtures) }}
   {{ Footer(el="footer") }}
 </div>
 

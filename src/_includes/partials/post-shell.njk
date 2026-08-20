@@ -4,6 +4,7 @@
 {%- from 'revisions.njk' import RevisionList with context -%}
 {%- from 'asides.njk' import CaseStudyInfo with context -%}
 {%- from 'picture.njk' import Picture with context -%}
+{%- from 'location.njk' import LocationMap, LocationMeta with context -%}
 
 <article class="page page--{{ postType }}">
   <header class="page-header__container">
@@ -12,12 +13,18 @@
       {% include 'heroes/' + page.fileSlug + '.njk' %}
       {{ CaseStudyInfo(project) }}
     {% endif %}
+    {% if postType == 'location' %}
+      {{ LocationMeta() }}
+    {% endif %}
   </header>
   <main class="content-body">
     {% if postType == 'pen' %}
       <div class="case-study-image case-study-image--16x9 iframe-hero">
         {% if hero %}<iframe class="demo__iframe" src="{{ hero }}" frameborder="0"></iframe>{% endif %}
       </div>
+    {% endif %}
+    {% if postType == 'location' %}
+      {{ LocationMap() }}
     {% endif %}
     {{ content | safe }}
     {% if postType == 'album' %}

@@ -1,0 +1,15 @@
+{# The hero for /test/case-study/, since post-shell.njk includes heroes/<slug>.njk.
+   Composes caseStudyImage > proportionateScale > Device, which supplies the
+   framing and padding. #}
+{%- from 'case-study-image.njk' import caseStudyImage -%}
+{%- from 'device.njk' import Device -%}
+{%- from 'proportionate-scale.njk' import proportionateScale with context -%}
+
+{% set screen %}
+  <iframe class="screen" src="/assets/embeds/five-square-2/" width="320" height="480" frameborder="0"></iframe>
+{% endset %}
+{% call caseStudyImage(class = 'case-study-hero case-study-image--2x') %}
+  {% call proportionateScale() %}
+    {{ Device(type = 'iPhone4', contentType = 'rich', content = screen) }}
+  {% endcall %}
+{% endcall %}

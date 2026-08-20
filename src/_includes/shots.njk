@@ -2,20 +2,20 @@
 {% from "picture.njk" import Picture with context %}
 {% from "tag.njk" import tag as tagButton %}
 
+{% from "design-shot.njk" import DesignShot with context %}
+
+{# The shot comes from the note's `shot:` frontmatter and the description from
+   its body, so there is no longer one string to split. #}
 {% macro shot(post) -%}
-  {{ post.content | shotOnly | safe }}
+  {{ DesignShot(post.data.shot, post.data.alt, post.data.figure) }}
 {%- endmacro %}
 
-{# Close the carousel, then stack every shot's description in one grid cell
-   below it. Living outside the scroller means wheel over a description
-   scrolls the page natively (no scroll-thief), and the tallest description
-   sets the stack's height, so .project keeps a natural height. Each slot
-   fades with its shot via the timelines already declared in timeline-scope. #}
+{# Descriptions stack in one grid cell below the carousel, outside the scroller,
+   so scrolling one scrolls the page and the tallest sets the height. #}
 {% macro endProject(projectId, projectShots, shotPlatforms) -%}
   </ol></div>
   <div class="project__contents">
-    {# reversed to match the shot loop's `collection | reverse` order — the
-       timeline names are positional, so the iteration orders must agree #}
+    {# reversed to match the shot loop: timeline names are positional #}
     {% for post in projectShots | reverse %}
       {% set platform = shotPlatforms[loop.index - 1] %}
       {% set slotTimeline = '--' ~ projectId ~ '-shot-' ~ loop.index ~ '-' ~ platform %}
@@ -23,7 +23,7 @@
       {% if platform == "mobile" %}{% set slotClass = "design--mobile" %}{% endif %}
       {% if platform == "desktop" %}{% set slotClass = "design--desktop" %}{% endif %}
       <div class="project__content-slot {{ slotClass }}" style="animation-timeline: {{ slotTimeline }}">
-        {{ post.content | contentOnly | safe }}
+        <div class="content">{{ post.content | safe }}</div>
       </div>
     {% endfor %}
   </div>
@@ -112,7 +112,9 @@
       {% set shotPlatforms = projectShots | designInputFilter | reverse %}
       {% set projectShotIndex = projectShotIndex + 1 %}
       {% set shotTimeline = '--' ~ projectId ~ '-shot-' ~ projectShotIndex ~ '-' ~ shotPlatforms[projectShotIndex - 1] %}
-      <li class="shot {{ shotClass }} {{ projectId }}--{{ projectShotIndex }}" style="view-timeline-name: {{ shotTimeline }}">
+      {#- the gradient is a preset the note picks, not one its slug and position imply -#}
+      {%- set gradientClass = 'gradient--' ~ post.data.gradient if post.data.gradient else '' -%}
+      <li class="shot {{ shotClass }} {{ gradientClass }} {{ projectId }}--{{ projectShotIndex }}" style="view-timeline-name: {{ shotTimeline }}">
         {{ shot(post) }}
       </li>
 

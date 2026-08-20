@@ -10,7 +10,7 @@ import markdownItAttrs from 'markdown-it-attrs';
 import markdownItFootnote from 'markdown-it-footnote';
 import markdownItTitle from 'markdown-it-title';
 import { getAverageColor } from 'fast-average-color-node';
-import { S3Client, ListObjectsV2Command } from '@aws-sdk/client-s3';
+import { plainText, excerpt } from './lib/plain-text.js';
 import { imageSize } from 'image-size';
 import slugify from "@sindresorhus/slugify";
 import pluginRss from '@11ty/eleventy-plugin-rss';
@@ -45,7 +45,10 @@ export default async function(eleventyConfig) {
             const parts = match.raw.slice(2,-2).split("|");
             parts[0] = parts[0].replace(/.(md|markdown)\s?$/i, "");
             match.text = (parts[1] || parts[0]).trim();
-            match.url = `/` + slugify(`${parts[0].trim().replace(/\s/g, "-")}/`).replace('-s', 's') + `/`;
+            /* Vault links are path-qualified and permalinks are flat, and slugify turns "/"
+               into "-", so resolve on the last segment. */
+            const target = parts[0].trim().split("/").pop().trim();
+            match.url = `/` + slugify(`${target.replace(/\s/g, "-")}/`).replace('-s', 's') + `/`;
         }
     });
     // remove the hr
@@ -58,6 +61,10 @@ export default async function(eleventyConfig) {
   
   eleventyConfig.setLibrary('md', md);
   
+  /* Summaries reach RSS and index cards as text, not HTML, so strip markup first. */
+  eleventyConfig.addFilter("plainText", plainText);
+  eleventyConfig.addFilter("excerpt", excerpt);
+
   eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
   
   // Filters
@@ -164,19 +171,48 @@ export default async function(eleventyConfig) {
     return glassPhotos;
   });
 
+  /* Cached as a fallback, never as a staleness window. Every build fetches and
+     overwrites the cache, so a newly crawled album has real colour and dimensions
+     immediately — publish as many in a day as you like. The cache is read only
+     when the service is unreachable, and then at any age, because the alternative
+     is a red build over a metadata blip. With nothing cached at all, throwing is
+     still right.
+
+     Eleventy evaluates this collection more than once per build, so the promise
+     is memoised for the process; that is per-build and expires with it. */
+  let photosPromise;
   eleventyConfig.addCollection("photos", async () => {
     const base = "https://img.nkls.me";
-    console.log(`[photos] fetching from ${base}`);
-    const [photosResp, rollResp] = await Promise.all([
-      fetch(`${base}/api/photos`),
-      fetch(`${base}/api/camera-roll`),
-    ]);
-    if (!photosResp.ok) throw new Error(`Photo service ${photosResp.status}`);
-    if (!rollResp.ok) throw new Error(`Camera roll service ${rollResp.status}`);
-    const [photos, roll] = await Promise.all([photosResp.json(), rollResp.json()]);
-    const merged = { ...photos, ...roll };
-    console.log(`[photos] loaded ${Object.keys(merged).length} entries, ~${Math.round(JSON.stringify(merged).length / 1024)}KB`);
-    return merged;
+    /* Readable filename, matching the album caches, so it can be flushed on
+       purpose: rm .cache/photo_service* */
+    const asset = new AssetCache("photo_service", ".cache", {
+      filenameFormat: () => "photo_service",
+    });
+
+    photosPromise ??= (async () => {
+      try {
+        console.log(`[photos] fetching from ${base}`);
+        const [photosResp, rollResp] = await Promise.all([
+          fetch(`${base}/api/photos`),
+          fetch(`${base}/api/camera-roll`),
+        ]);
+        if (!photosResp.ok) throw new Error(`Photo service ${photosResp.status}`);
+        if (!rollResp.ok) throw new Error(`Camera roll service ${rollResp.status}`);
+        const [photos, roll] = await Promise.all([photosResp.json(), rollResp.json()]);
+        const merged = { ...photos, ...roll };
+        await asset.save(merged, "json");
+        console.log(`[photos] loaded ${Object.keys(merged).length} entries, ~${Math.round(JSON.stringify(merged).length / 1024)}KB`);
+        return merged;
+      } catch (error) {
+        if (!asset.isCacheValid("*")) throw error;   // "*" = any age
+        const cached = await asset.getCachedValue();
+        const at = asset.getCachedTimestamp();
+        console.warn(`[photos] ${error.message} — falling back to cache from ${at ? new Date(at).toISOString() : "unknown"}, ${Object.keys(cached).length} entries`);
+        return cached;
+      }
+    })();
+
+    return photosPromise;
   });
   
   eleventyConfig.addCollection("Feed", function (collectionsApi) {
@@ -185,6 +221,7 @@ export default async function(eleventyConfig) {
       ...collectionsApi.getFilteredByTag("Type/Note"),
       ...collectionsApi.getFilteredByTag("Type/Link"),
       ...collectionsApi.getFilteredByTag("Type/Recipe"),
+      ...collectionsApi.getFilteredByTag("Type/Location"),
       ...collectionsApi.getFilteredByTag("Type/NewAlbum")
     ];
     const sortedFeed = feed.sort(function(a, b) {
@@ -209,6 +246,12 @@ export default async function(eleventyConfig) {
       return "shared";
     });
   });
+
+  /* Fixture work entries sit in collections.Design, so the home page drops them. */
+  eleventyConfig.addFilter("notFixtures", (collection) =>
+    (collection ?? []).filter((item) => !item.data?.fixture));
+  eleventyConfig.addFilter("onlyFixtures", (collection) =>
+    (collection ?? []).filter((item) => item.data?.fixture));
 
   eleventyConfig.addFilter("draftsOf", (collection1, collection2) => {
     return collection1.filter(value => collection2.includes(value));
@@ -429,10 +472,207 @@ export default async function(eleventyConfig) {
     return content;
   });
   
-  eleventyConfig.addPreprocessor("drafts", "*", (data, content) => {
-    if(data.draft && process.env.ELEVENTY_ENV === "prod") {
+  /* Unlike drafts, private notes are dropped in every environment. */
+  /* A malformed sidecar would otherwise reorder an album silently. Checked in a
+     preprocessor because eleventyDataSchema does not fire from a directory data
+     file in 11ty 3, and a dead validator is worse than none. */
+  eleventyConfig.addPreprocessor("album-order", "md,njk", (data) => {
+    const order = data.photoOrder;
+    if (order === undefined) return;
+    const where = data.page?.inputPath ?? "an album";
+    if (!Array.isArray(order) || order.some((n) => typeof n !== "string")) {
+      throw new Error(`${where}: photoOrder must be an array of filenames, got ${JSON.stringify(order)}`);
+    }
+    const dupe = order.find((n, i) => order.indexOf(n) !== i);
+    if (dupe) throw new Error(`${where}: photoOrder lists ${dupe} more than once`);
+  });
+
+  eleventyConfig.addPreprocessor("private", "*", (data, content) => {
+    if (data.private) {
       return false;
     }
+  });
+
+  /* Plain CDN markdown images become Picture() calls, for srcset and ratio.
+     Must be a preprocessor: Nunjucks runs before markdown, so a markdown-it
+     rule would emit HTML too late to call a macro. */
+  const CDN_IMAGE = /!\[([^\]]*)\]\((https:\/\/cdn(?:2)?\.dznr\.me\/[^)\s]+)\)/g;
+  const PICTURE_IMPORT = '{% from "picture.njk" import Picture with context %}';
+
+  eleventyConfig.addPreprocessor("cdn-images", "md", (data, content) => {
+    if (!CDN_IMAGE.test(content)) return;
+    CDN_IMAGE.lastIndex = 0;
+
+    const upgraded = content.replace(CDN_IMAGE, (_m, alt, src) => {
+      const a = String(alt).replace(/"/g, "&quot;");
+      return `{{ Picture(src="${src}", alt="${a}", isWNCDN=true) }}`;
+    });
+
+    return content.includes("import Picture")
+      ? upgraded
+      : `${PICTURE_IMPORT}\n${upgraded}`;
+  });
+
+  /* Ingredients are a markdown table, the one shape Obsidian edits natively.
+     Consumed here, so it never reaches the page as a table. */
+  const INGREDIENTS_IMPORT =
+    '{% from "ingredients.njk" import ingredientsList with context %}';
+  /* `%%ingredients%%` hides in Obsidian's reading mode; `{% ingredients %}` reads
+     like the rest of the site. Both accepted. */
+  const TOKEN_SRC = "(?:\\{%\\s*ingredients\\s*%\\}|%%\\s*ingredients\\s*%%)";
+  const INGREDIENTS_WITH_TABLE = new RegExp(
+    TOKEN_SRC + "[ \\t]*\\n\\s*\\n?((?:[ \\t]*\\|[^\\n]*\\n?)+)", "g");
+  const INGREDIENTS_TOKEN = new RegExp(TOKEN_SRC, "g");
+
+  /* "| a | b | c |" -> ["a","b","c"], outer pipes optional. */
+  const tableCells = (line) =>
+    line.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map((c) => c.trim());
+  const isSeparator = (line) => /^[\s|:-]+$/.test(line) && line.includes("-");
+
+  /* A pipe table becomes the macro call, rows as a JSON literal. */
+  const expandTable = (table) => {
+    const rows = table.split("\n").filter((l) => l.trim().startsWith("|"));
+    const body = rows.filter((l) => !isSeparator(l));
+    /* A separator line is what marks a header row as present. */
+    const hasHeader = rows.some(isSeparator);
+    const dataRows = (hasHeader ? body.slice(1) : body)
+      .map(tableCells)
+      .filter((cells) => cells.some(Boolean))
+      .map(([name, imperial, metric]) => ({
+        name: name ?? "",
+        imperial: imperial ?? "",
+        metric: metric ?? "",
+      }));
+    /* The trailing newline is load-bearing: without it markdown-it swallows the
+       rest of the document into the macro's HTML block. */
+    if (!dataRows.length) return `${INGREDIENTS_IMPORT}{{ ingredientsList(ingredients) }}\n`;
+    /* JSON.stringify handles quoting, so an ingredient name may contain quotes. */
+    return `${INGREDIENTS_IMPORT}{{ ingredientsList(${JSON.stringify(dataRows)}) }}\n`;
+  };
+
+  /* With no marker, the table declares itself: first column "Ingredient(s)". */
+  const BARE_TABLE = /^[ \t]*\|[^\n]*\n[ \t]*\|[\s|:-]+\|[ \t]*\n(?:[ \t]*\|[^\n]*\n?)*/gm;
+
+  eleventyConfig.addPreprocessor("recipe-ingredients", "md", (data, content) => {
+    const marked = INGREDIENTS_TOKEN.test(content);
+    INGREDIENTS_TOKEN.lastIndex = 0;
+
+    if (!marked) {
+      if (data.postType !== "recipe") return;
+      BARE_TABLE.lastIndex = 0;
+      /* Every table, since a recipe may lead with something else. */
+      for (const m of content.matchAll(BARE_TABLE)) {
+        const header = tableCells(m[0].split("\n")[0]);
+        if (!/^ingredients?$/i.test(header[0] ?? "")) continue;
+        return content.replace(m[0], expandTable(m[0]));
+      }
+      return;
+    }
+
+    let out = content.replace(INGREDIENTS_WITH_TABLE, (_m, table) => {
+      return expandTable(table);
+    });
+
+    /* Tokens with no table fall back to frontmatter. */
+    INGREDIENTS_TOKEN.lastIndex = 0;
+    out = out.replace(
+      INGREDIENTS_TOKEN,
+      `${INGREDIENTS_IMPORT}{{ ingredientsList(ingredients) }}\n`
+    );
+    return out;
+  });
+
+  /* ```site-code names a file (plus optional title/id/lang). One becomes a
+     highlighted block, several become tabs. Paths are repo-relative for the
+     Obsidian plugin; the leading `src/` is swapped for `../` to resolve from
+     _includes. The sibling ```site-embed is Obsidian-only. */
+  const SITE_CODE = /^[ \t]*```site-code[ \t]*\n([\s\S]*?)^[ \t]*```[ \t]*$\n?/gm;
+  const CODE_IMPORTS =
+    '{% from "highlight.njk" import highlight with context %}' +
+    '{% from "tabs.njk" import tabs with context %}';
+
+  eleventyConfig.addPreprocessor("pen-code", "md", (data, content) => {
+    if (!SITE_CODE.test(content)) return;
+    SITE_CODE.lastIndex = 0;
+    return content.replace(SITE_CODE, (_m, body) => {
+      const lines = String(body).split("\n").map((l) => l.trim()).filter(Boolean);
+      let id = "markup";
+      const files = [];
+      for (const line of lines) {
+        const kv = line.match(/^(id|title|lang):\s*(.*)$/i);
+        if (kv) {
+          const key = kv[1].toLowerCase();
+          if (key === "id") { id = kv[2].trim(); continue; }
+          if (files.length) files[files.length - 1][key] = kv[2].trim();
+          continue;
+        }
+        files.push({ path: line });
+      }
+      if (!files.length) return "";
+
+      const tabsList = files.map((f) => ({
+        type: "code",
+        title: f.title ?? "",
+        lang: f.lang ?? (f.path.split(".").pop() ?? ""),
+        src: f.path.replace(/^src\//, "../"),
+      }));
+
+      /* Trailing newline again: without it the next paragraph joins the HTML block. */
+      if (tabsList.length === 1) {
+        const t = tabsList[0];
+        return `${CODE_IMPORTS}{{ highlight(${JSON.stringify(t)}, standalone = true, title = ${JSON.stringify(t.title)}) }}\n`;
+      }
+      const panes = tabsList
+        .map((t) => `{% set _p %}{{ highlight(${JSON.stringify(t)}, standalone = false) }}{% endset %}{% set _panes = (_panes.push(_p), _panes) %}`)
+        .join("");
+      return `${CODE_IMPORTS}{% set _panes = [] %}${panes}` +
+             `{{- tabs(${JSON.stringify(id)}, ${JSON.stringify(tabsList)}, _panes) -}}\n`;
+    });
+  });
+
+  /* ```site-figure names a figure in unique/case-study--<slug>.njk, so a note can
+     say "the board goes here" without carrying the markup. `file:` overrides the
+     default for the one figure shared across two case studies. */
+  const SITE_FIGURE = /^[ \t]*```site-figure[ \t]*\n([\s\S]*?)^[ \t]*```[ \t]*$\n?/gm;
+
+  eleventyConfig.addPreprocessor("case-study-figures", "md", (data, content) => {
+    if (!SITE_FIGURE.test(content)) return;
+    SITE_FIGURE.lastIndex = 0;
+    const slug = slugify(String(data.page?.fileSlug ?? ""));
+    return content.replace(SITE_FIGURE, (_m, body) => {
+      const lines = String(body).split("\n").map((l) => l.trim()).filter(Boolean);
+      const name = lines[0];
+      if (!name) return "";
+      const override = lines.find((l) => l.toLowerCase().startsWith("file:"));
+      const file = override
+        ? override.slice(5).trim()
+        : `unique/case-study--${slug}.njk`;
+      return `{% from ${JSON.stringify(file)} import ${name} with context %}` +
+             `{{ ${name}() | mdRenderNJK | safe }}\n`;
+    });
+  });
+
+  /* Obsidian-only affordances: dataview, base, album grids, map previews. The
+     site has no renderer for them, so they would ship as raw code blocks. */
+  const VAULT_BLOCK =
+    /^[ \t]*```(?:dataview(?:js)?|album-photos|base|site-embed|site-shot|site-hero)[ \t]*\n[\s\S]*?^[ \t]*```[ \t]*$\n?/gm;
+  eleventyConfig.addPreprocessor("strip-vault-blocks", "md", (data, content) => {
+    if (!VAULT_BLOCK.test(content)) return;
+    VAULT_BLOCK.lastIndex = 0;
+    return content.replace(VAULT_BLOCK, "");
+  });
+
+  /* Production always drops drafts. DRAFTS=0 drops them locally too, so the dev
+     server can be checked against exactly what ships. Logged, because a page
+     quietly missing is harder to diagnose than one you were told about. */
+  const hideDrafts =
+    process.env.ELEVENTY_ENV === "prod" ||
+    /^(0|false|no|off)$/i.test(process.env.DRAFTS ?? "");
+  if (hideDrafts && process.env.ELEVENTY_ENV !== "prod") {
+    console.log("[drafts] hidden — building only what production would publish");
+  }
+  eleventyConfig.addPreprocessor("drafts", "*", (data) => {
+    if (data.draft && hideDrafts) return false;
   });
   
   return {

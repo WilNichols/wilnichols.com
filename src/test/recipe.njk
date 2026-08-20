@@ -1,0 +1,18 @@
+---
+permalink: /test/recipe/index.html
+layout: post.njk
+postType: recipe
+altTitle: A recipe, as a fixture
+date: 2026-01-15T09:00
+summary: Enough ingredients to show the grid's columns and its rules.
+---
+{% from "ingredients.njk" import ingredientsList with context %}
+<p>Intro copy above the ingredients.</p>
+{{ ingredientsList([
+  { name: "Instant yeast", imperial: "3/4 tsp", metric: "2.3g" },
+  { name: "All-purpose flour", imperial: "1 1/2 c", metric: "200g" },
+  { name: "Butter, near room temp", imperial: "11 tbsp", metric: "150g" }
+]) }}
+<h2 class="heading--6">Directions</h2>
+<ol><li>A step.</li><li>Another step, long enough to wrap onto a second line so the
+list's hanging indent can be checked.</li></ol>

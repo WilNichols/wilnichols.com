@@ -1,0 +1,40 @@
+.location-map {
+  margin: 1.5em 0;
+}
+
+.location-map__frame {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--edgeColor);
+  border-radius: 10px;
+}
+
+.location-map__link {
+  display: inline-block;
+  margin-top: 0.6em;
+  font-size: var(--type--1);
+  color: var(--contentSecondaryColor);
+}
+
+.location-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35em;
+  margin: 1em 0 0;
+  font-size: var(--type--1);
+}
+
+.location-meta__row {
+  display: grid;
+  grid-template-columns: 6.5rem 1fr;
+  gap: 0.5em;
+}
+
+.location-meta__row dt {
+  color: var(--contentSecondaryColor);
+}
+
+.location-meta__row dd {
+  margin: 0;
+}
