@@ -14,14 +14,12 @@ function postDate(data) {
 
 export default function () {
   return {
-    // Constant across everything published here, so it lives with the build
-    // rather than being restated in every note's frontmatter.
+    /* Constant everywhere, so it lives here rather than in every note. */
     author: "Wil Nichols",
     eleventyComputed: {
       title: function (data) {
-        // The filename is the title. Frontmatter `title` is deliberately not
-        // consulted — several albums carry one that disagrees, and the
-        // filename is the version that has always shipped.
+        /* The filename is the title. Frontmatter `title` is deliberately ignored:
+           several albums carry one that disagrees with what ships. */
         return data.page.fileSlug;
       },
       displayDate: function (data) {

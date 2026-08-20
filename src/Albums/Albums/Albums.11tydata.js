@@ -6,10 +6,8 @@ import slugify from "@sindresorhus/slugify";
 
 /* To flush one album's cache: rm .cache/aws_album_<key>.*   All of them: rm .cache/aws_album_* */
 
-/* R2 owns what exists; the sidecar owns which photos, in what order, and any
-   per-photo metadata. Tolerant in both directions: a new upload the sidecar has
-   never heard of still appears, and an entry naming a file no longer in the bucket
-   is dropped rather than rendering a broken image. */
+/* The bucket owns what exists; the sidecar owns order and per-photo metadata.
+   Tolerant both ways: unknown uploads still appear, missing files are dropped. */
 function applyAlbumOrder(listed, order, meta = {}) {
   if (!Array.isArray(listed)) return listed;        // AWS failure string, or null
   const withMeta = (photo) => {
@@ -28,8 +26,7 @@ function applyAlbumOrder(listed, order, meta = {}) {
     byName.delete(name);
     out.push(photo);
   }
-  /* Anything unplaced keeps the bucket's order and goes last, so a new upload is
-     visible without being silently promoted. */
+  /* Unplaced photos keep bucket order and go last. */
   out.push(...byName.values());
   return out.map(withMeta);
 }
@@ -95,9 +92,7 @@ async function getAlbumContentsFromAWS(key) {
 
 export default function (eleventy) {
   return {
-    // 11ty validates the merged data for every album and fails the build with
-    // a useful message, so a malformed sidecar is caught here rather than
-    // silently producing an album in the wrong order.
+    /* Fail loudly: a malformed sidecar would otherwise reorder an album silently. */
     eleventyDataSchema: function (data) {
       const { photoOrder, photoMeta } = data;
       if (photoOrder !== undefined) {
@@ -128,8 +123,7 @@ export default function (eleventy) {
         const tag = data.tags?.find(t => t.startsWith("AlbumGroup/"));
         return tag ? `/albums/${slugify(tag.replace("AlbumGroup/", ""))}/` : null;
       },
-      // R2 owns the inventory; the sidecar (<Album>.11tydata.json, written by
-      // the Photo Album plugin) owns order and per-photo metadata.
+      /* Sidecar is <Album>.11tydata.json, written by the Photo Album plugin. */
       photos: async data => {
         if (!data.key) return null;
         const listed = await getAlbumContentsFromAWS(data.key);

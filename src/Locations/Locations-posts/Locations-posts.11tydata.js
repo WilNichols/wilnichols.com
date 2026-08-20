@@ -1,11 +1,7 @@
 import { coordsFrom, placeTypes, visitedDisplay } from "../../../lib/location-data.js";
 
-// Places worth remembering. The markdown lives in the vault (Locations/) and is
-// reached through the `notes` symlink; only this build config stays in the site
-// repo, matching every other published type.
-//
-// The derivations live in lib/location-data.js so the /test/location fixture can
-// use the same ones.
+/* Markdown lives in the vault (Locations/); only this config is here.
+   Derivations are in lib/location-data.js, shared with the test fixture. */
 export default function () {
   return {
     permalink: "/locations/{{ page.fileSlug | slugify }}/index.html",

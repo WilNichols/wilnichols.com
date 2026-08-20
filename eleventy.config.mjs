@@ -224,8 +224,7 @@ export default async function(eleventyConfig) {
     });
   });
 
-  /* Fixture work entries live in collections.Design so the carousel can group them
-     by their own tag, which means the home page has to reject them. */
+  /* Fixture work entries sit in collections.Design, so the home page drops them. */
   eleventyConfig.addFilter("notFixtures", (collection) =>
     (collection ?? []).filter((item) => !item.data?.fixture));
   eleventyConfig.addFilter("onlyFixtures", (collection) =>
@@ -450,22 +449,16 @@ export default async function(eleventyConfig) {
     return content;
   });
   
-  // Private notes live in the vault beside published ones. Unlike drafts, they
-  // are dropped in every environment, including branch and preview deploys.
+  /* Unlike drafts, private notes are dropped in every environment. */
   eleventyConfig.addPreprocessor("private", "*", (data, content) => {
     if (data.private) {
       return false;
     }
   });
 
-  // Photos dragged out of the Photo Albums plugin land as ordinary markdown
-  // images pointing at the CDN, so they stay portable and Obsidian previews
-  // them. Here they are upgraded to the Picture macro, which supplies the
-  // responsive srcset, ratio and average colour from collections.photos.
-  //
-  // This has to be a preprocessor rather than a markdown-it rule: with
-  // markdownTemplateEngine set to njk, Nunjucks runs *before* markdown, so a
-  // renderer rule would emit final HTML too late to call a macro.
+  /* Plain CDN markdown images become Picture() calls, for srcset and ratio.
+     Must be a preprocessor: Nunjucks runs before markdown, so a markdown-it
+     rule would emit HTML too late to call a macro. */
   const CDN_IMAGE = /!\[([^\]]*)\]\((https:\/\/cdn(?:2)?\.dznr\.me\/[^)\s]+)\)/g;
   const PICTURE_IMPORT = '{% from "picture.njk" import Picture with context %}';
 
@@ -478,48 +471,33 @@ export default async function(eleventyConfig) {
       return `{{ Picture(src="${src}", alt="${a}", isWNCDN=true) }}`;
     });
 
-    // Import once, and only if the note does not already pull the macro in.
     return content.includes("import Picture")
       ? upgraded
       : `${PICTURE_IMPORT}\n${upgraded}`;
   });
 
-  // Recipes mark where the ingredients table belongs with a bare
-  // `{% ingredients %}` token, expanded here into the ingredients macro so notes
-  // never hand-write a renderTemplate block. Runs before Nunjucks, same as
-  // cdn-images, so the injected macro call renders normally afterwards.
-  //
-  // The rows are authored as an ordinary markdown table directly under the
-  // token. That is the one shape Obsidian both renders and *edits* natively —
-  // its table editor gives real cells, tab navigation and row/column controls,
-  // where a frontmatter list of {name, imperial, metric} objects is barely
-  // editable in the properties panel. The table is consumed here, so it never
-  // reaches the page as a plain markdown table; the macro owns the markup.
-  //
-  // A token with no table after it still falls back to a frontmatter
-  // `ingredients:` list, so either authoring style builds.
+  /* A recipe's ingredients are an ordinary markdown table, because that is the
+     one shape Obsidian edits natively. Consumed here into the macro, so it never
+     reaches the page as a table. Falls back to a frontmatter `ingredients:` list. */
   const INGREDIENTS_IMPORT =
     '{% from "ingredients.njk" import ingredientsList with context %}';
-  // token, optional blank lines, then one or more contiguous pipe-table lines
-  // Either marker works: `%%ingredients%%` is an Obsidian comment, so it stays
-  // invisible in reading mode, while `{% ingredients %}` reads like the rest of
-  // the site's templating. Both are consumed here.
+  /* `%%ingredients%%` hides in Obsidian's reading mode; `{% ingredients %}` reads
+     like the rest of the site. Both accepted. */
   const TOKEN_SRC = "(?:\\{%\\s*ingredients\\s*%\\}|%%\\s*ingredients\\s*%%)";
   const INGREDIENTS_WITH_TABLE = new RegExp(
     TOKEN_SRC + "[ \\t]*\\n\\s*\\n?((?:[ \\t]*\\|[^\\n]*\\n?)+)", "g");
   const INGREDIENTS_TOKEN = new RegExp(TOKEN_SRC, "g");
 
-  // "| a | b | c |" -> ["a","b","c"], tolerating missing outer pipes.
+  /* "| a | b | c |" -> ["a","b","c"], outer pipes optional. */
   const tableCells = (line) =>
     line.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map((c) => c.trim());
   const isSeparator = (line) => /^[\s|:-]+$/.test(line) && line.includes("-");
 
-  // A pipe table -> the ingredients macro call, rows carried as a JSON literal.
+  /* A pipe table becomes the macro call, rows as a JSON literal. */
   const expandTable = (table) => {
     const rows = table.split("\n").filter((l) => l.trim().startsWith("|"));
     const body = rows.filter((l) => !isSeparator(l));
-    // Drop the header row only when the table actually declared one, which a
-    // separator line is the marker for.
+    /* A separator line is what marks a header row as present. */
     const hasHeader = rows.some(isSeparator);
     const dataRows = (hasHeader ? body.slice(1) : body)
       .map(tableCells)
@@ -529,32 +507,24 @@ export default async function(eleventyConfig) {
         imperial: imperial ?? "",
         metric: metric ?? "",
       }));
-    /* The trailing newline is load-bearing. The table match consumes the newline
-       that ended its last row, and the macro renders to a block element, so
-       without it markdown-it keeps swallowing the rest of the document as part of
-       that HTML block: the whole Directions section came out as raw markdown. */
+    /* The trailing newline is load-bearing: without it markdown-it swallows the
+       rest of the document into the macro's HTML block. */
     if (!dataRows.length) return `${INGREDIENTS_IMPORT}{{ ingredientsList(ingredients) }}\n`;
-    /* JSON is a valid Nunjucks literal, and JSON.stringify handles the quoting so
-       an ingredient name may contain apostrophes or quotes safely. */
+    /* JSON.stringify handles quoting, so an ingredient name may contain quotes. */
     return `${INGREDIENTS_IMPORT}{{ ingredientsList(${JSON.stringify(dataRows)}) }}\n`;
   };
 
-  // With no marker at all, a recipe's ingredients table is found by its own
-  // header: the first table whose first column is "Ingredient(s)". The table
-  // therefore declares what it is, and a recipe needs no site-specific syntax.
-  // Scoped to postType `recipe`, which the data cascade has already resolved by
-  // the time a preprocessor runs.
+  /* With no marker, the table declares itself: first column "Ingredient(s)". */
   const BARE_TABLE = /^[ \t]*\|[^\n]*\n[ \t]*\|[\s|:-]+\|[ \t]*\n(?:[ \t]*\|[^\n]*\n?)*/gm;
 
   eleventyConfig.addPreprocessor("recipe-ingredients", "md", (data, content) => {
     const marked = INGREDIENTS_TOKEN.test(content);
     INGREDIENTS_TOKEN.lastIndex = 0;
 
-    // No marker: take the first table that calls itself an ingredients table.
     if (!marked) {
       if (data.postType !== "recipe") return;
       BARE_TABLE.lastIndex = 0;
-      // Every table, not just the first: a recipe may lead with something else.
+      /* Every table, since a recipe may lead with something else. */
       for (const m of content.matchAll(BARE_TABLE)) {
         const header = tableCells(m[0].split("\n")[0]);
         if (!/^ingredients?$/i.test(header[0] ?? "")) continue;
@@ -567,7 +537,7 @@ export default async function(eleventyConfig) {
       return expandTable(table);
     });
 
-    // Any token that had no table under it falls back to frontmatter.
+    /* Tokens with no table fall back to frontmatter. */
     INGREDIENTS_TOKEN.lastIndex = 0;
     out = out.replace(
       INGREDIENTS_TOKEN,
@@ -623,14 +593,11 @@ export default async function(eleventyConfig) {
         src: f.path.replace(/^src\//, "../"),
       }));
 
-      /* The trailing newline matters: the fence match consumes the one after the
-         closing ```, and without it the next paragraph is absorbed into the
-         macro's HTML block instead of being wrapped in its own <p>. */
+      /* Trailing newline again: without it the next paragraph joins the HTML block. */
       if (tabsList.length === 1) {
         const t = tabsList[0];
         return `${CODE_IMPORTS}{{ highlight(${JSON.stringify(t)}, standalone = true, title = ${JSON.stringify(t.title)}) }}\n`;
       }
-      // Tabs: each pane is the same macro with standalone off, in order.
       const panes = tabsList
         .map((t) => `{% set _p %}{{ highlight(${JSON.stringify(t)}, standalone = false) }}{% endset %}{% set _panes = (_panes.push(_p), _panes) %}`)
         .join("");
@@ -668,13 +635,8 @@ export default async function(eleventyConfig) {
     });
   });
 
-  // Vault-only furniture: folder-note card views, the map preview a Location note
-  // shows while editing, the inline photo grid on an album note, and an embedded
-  // Bases view such as the Locations map. Obsidian
-  // renders these; the site never should — it has no Dataview, and the album grid
-  // is drawn by a plugin — so they would otherwise publish as raw code blocks.
-  // Stripped here so a note can carry an Obsidian affordance without it leaking
-  // into the build.
+  /* Obsidian-only affordances: dataview, base, album grids, map previews. The
+     site has no renderer for them, so they would ship as raw code blocks. */
   const VAULT_BLOCK =
     /^[ \t]*```(?:dataview(?:js)?|album-photos|base|site-embed|site-shot|site-hero)[ \t]*\n[\s\S]*?^[ \t]*```[ \t]*$\n?/gm;
   eleventyConfig.addPreprocessor("strip-vault-blocks", "md", (data, content) => {

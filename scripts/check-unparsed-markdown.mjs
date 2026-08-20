@@ -29,7 +29,7 @@ function walk(dir) {
     if (entry.isDirectory()) { walk(full); continue; }
     if (!entry.name.endsWith(".html")) continue;
     const html = fs.readFileSync(full, "utf8");
-    /* Only the body: a <script> or a JSON-LD blob can contain anything. */
+    /* Body only: a <script> or JSON-LD blob can contain anything. */
     const start = html.indexOf("<main");
     const body = start === -1 ? html : html.slice(start, html.indexOf("</main>"));
     for (const [label, pattern] of Object.entries(TELLS)) {
