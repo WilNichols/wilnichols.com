@@ -1,4 +1,3 @@
-import { excerpt } from '../../../lib/plain-text.js';
 import dotenv from 'dotenv';
 import { S3Client, ListObjectsV2Command } from '@aws-sdk/client-s3';
 import { AssetCache } from '@11ty/eleventy-fetch';
@@ -137,7 +136,7 @@ export default function (eleventy) {
         return applyAlbumOrder(listed, data.photoOrder, data.photoMeta);
       },
       metaPreview: data => data.remote.gallery.base + '/cdn-cgi/image/width=1400,format=webp/' + data.remote.gallery.photos + '/' + data.key + '/' + data.thumbnail,
-      description: data => excerpt(data.page?.rawInput),
+      description: function (data) { return this.excerpt(data.page?.rawInput); },
     }
   }
 }

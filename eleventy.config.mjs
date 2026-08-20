@@ -11,7 +11,7 @@ import markdownItFootnote from 'markdown-it-footnote';
 import markdownItTitle from 'markdown-it-title';
 import { getAverageColor } from 'fast-average-color-node';
 import { S3Client, ListObjectsV2Command } from '@aws-sdk/client-s3';
-import { plainText } from './lib/plain-text.js';
+import { plainText, excerpt } from './lib/plain-text.js';
 import { imageSize } from 'image-size';
 import slugify from "@sindresorhus/slugify";
 import pluginRss from '@11ty/eleventy-plugin-rss';
@@ -69,6 +69,7 @@ export default async function(eleventyConfig) {
      it needs stripping first: summaries reach RSS <description> and index cards
      verbatim, so an authored [[wikilink]] would ship as source. */
   eleventyConfig.addFilter("plainText", plainText);
+  eleventyConfig.addFilter("excerpt", excerpt);
 
   eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
   
