@@ -662,10 +662,17 @@ export default async function(eleventyConfig) {
     return content.replace(VAULT_BLOCK, "");
   });
 
-  eleventyConfig.addPreprocessor("drafts", "*", (data, content) => {
-    if(data.draft && process.env.ELEVENTY_ENV === "prod") {
-      return false;
-    }
+  /* Production always drops drafts. DRAFTS=0 drops them locally too, so the dev
+     server can be checked against exactly what ships. Logged, because a page
+     quietly missing is harder to diagnose than one you were told about. */
+  const hideDrafts =
+    process.env.ELEVENTY_ENV === "prod" ||
+    /^(0|false|no|off)$/i.test(process.env.DRAFTS ?? "");
+  if (hideDrafts && process.env.ELEVENTY_ENV !== "prod") {
+    console.log("[drafts] hidden — building only what production would publish");
+  }
+  eleventyConfig.addPreprocessor("drafts", "*", (data) => {
+    if (data.draft && hideDrafts) return false;
   });
   
   return {
