@@ -1,0 +1,23 @@
+---
+permalink: /test/pen/index.html
+layout: post.njk
+postType: pen
+altTitle: A pen, as a fixture
+date: 2026-01-15T09:00
+summary: A demo iframe, a standalone code block, and a tabbed pair.
+hero: /assets/embeds/fading-list/
+tags:
+  - Type/Pen
+---
+{% from "highlight.njk" import highlight with context %}
+{% from "tabs.njk" import tabs with context %}
+<p>Prose above the code.</p>
+{{ highlight({ type: "code", lang: "scss", src: "../static/css/pens/fading-list.scss" },
+             standalone = true, title = "SCSS") }}
+<p>Prose between a standalone block and a tabbed pair.</p>
+{%- set panes = [] -%}
+{%- set p1 %}{{ highlight({ type: "code", lang: "scss", src: "../static/css/pens/fading-list.scss" }, standalone = false) }}{% endset -%}
+{%- set panes = (panes.push(p1), panes) -%}
+{%- set p2 %}{{ highlight({ type: "code", lang: "html", src: "../static/embeds/fading-list/index.html" }, standalone = false) }}{% endset -%}
+{%- set panes = (panes.push(p2), panes) -%}
+{{ tabs("fixture-markup", [{ title: "SCSS" }, { title: "HTML" }], panes) }}

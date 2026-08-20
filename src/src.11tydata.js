@@ -14,8 +14,14 @@ function postDate(data) {
 
 export default function () {
   return {
+    /* Constant everywhere, so it lives here rather than in every note. */
+    author: "Wil Nichols",
     eleventyComputed: {
-      title: "{{ page.fileSlug }}",
+      title: function (data) {
+        /* The filename is the title. Frontmatter `title` is deliberately ignored:
+           several albums carry one that disagrees with what ships. */
+        return data.page.fileSlug;
+      },
       displayDate: function (data) {
         return postDate(data).toISO();
       },

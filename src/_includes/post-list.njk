@@ -64,7 +64,7 @@
       <div class="post__summary">
         <span class="post__day">{{ postPrefix }}</span>
         {% set firstChar = post.data.summary.slice(0, 1) %}
-        <span class="post__summary__text {{ " post__summary__text--blockquote" if (firstChar == "“") }}">{{ post.data.summary }}</span>
+        <span class="post__summary__text {{ " post__summary__text--blockquote" if (firstChar == "“") }}">{{ post.data.summary | plainText }}</span>
       </div>
     {%- endif -%}
   </a>
@@ -77,9 +77,13 @@
       <li class="posts-month">
         <h2 class="post__month-and-year"><span class="post__month">Drafts</span></h2>
         <ol class="posts">
-        {% asyncEach draft in drafts %}
+        {# Newest first, like every other month on the page, so the numbers read
+           down the column instead of up. The label is the draft's position in
+           date order, so the top one carries the highest number. #}
+        {% asyncEach draft in drafts | reverse %}
           <li class="note">
-            {% set draftPrefix %}0{{ loop.index }}{% endset %}
+            {% set draftNumber = drafts.length - loop.index + 1 %}
+            {% set draftPrefix %}{{ "0" if draftNumber < 10 }}{{ draftNumber }}{% endset %}
             {{ postListItem(draft, draftPrefix, showAccessories) }}
           </li>
         {% endeach %}
@@ -97,7 +101,11 @@
         {% set postYear = post.data.year %}
         {% set postPrefix %}{% if (currentDay == postDay) and (currentMonth == postMonth) %}↳{% else %}{{ postDay }}{% endif %}{% endset %}
         {% if currentMonth != postMonth %}
-          {% if (loop.index > 1 and drafts.length == 0) or (loop.index > 2 and drafts.length > 0) %}</ol></li>{% endif %}
+          {# Close the previous month iff one was opened. loop.index cannot stand in
+             for that: the loop walks every post and skips drafts at line below, so
+             with N drafts the first real post arrives at index N+1, and a fixed
+             offset only ever works for exactly one draft. #}
+          {% if totalMonths > 0 %}</ol></li>{% endif %}
           {% set totalMonths = totalMonths + 1 %}
           <li class="posts-month" style="--z-index--modifier: {{ loop.length - totalMonths }}">
             <h2 class="post__month-and-year"><span class="post__month">{{ postMonth }}</span>{% if currentYear != postYear %} <span class="post__year">{{ postYear }}</span>{% endif %}</h2>

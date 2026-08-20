@@ -23,7 +23,7 @@ eleventyImport:
           <dc:creator>{% if note.data.source %}{{ note.data.source }}{% else %}{{ meta.name }}{% endif %}</dc:creator>
           <guid>{{ absoluteNoteUrl }}</guid>
           {% if note.data.summary -%}
-            <description>{{ note.data.summary }}</description>
+            <description>{{ note.data.summary | plainText }}</description>
             <content:encoded><![CDATA[{% if note.data.preview %}<img src="{{ [note.data.preview.meta] | join }}"  />{% endif %}{{ note | safeContent | renderTransforms(note.data.page, meta.url) | safe }}]]></content:encoded>
           {%- else -%}
             <description><![CDATA[{% if note.data.preview %}<img src="{{ [note.data.preview.meta] | join }}"  />{% endif %}{{ note | safeContent | renderTransforms(note.data.page, meta.url) | safe }}]]></description>

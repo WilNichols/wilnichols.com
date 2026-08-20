@@ -6,3 +6,9 @@ _tmp
 /.cache
 /.oldCache
 /.nova
+
+# Local Claude Code settings (machine-specific paths, not shared)
+.claude/settings.local.json
+
+# Local Netlify folder
+.netlify
