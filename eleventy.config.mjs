@@ -171,19 +171,48 @@ export default async function(eleventyConfig) {
     return glassPhotos;
   });
 
+  /* Cached as a fallback, never as a staleness window. Every build fetches and
+     overwrites the cache, so a newly crawled album has real colour and dimensions
+     immediately — publish as many in a day as you like. The cache is read only
+     when the service is unreachable, and then at any age, because the alternative
+     is a red build over a metadata blip. With nothing cached at all, throwing is
+     still right.
+
+     Eleventy evaluates this collection more than once per build, so the promise
+     is memoised for the process; that is per-build and expires with it. */
+  let photosPromise;
   eleventyConfig.addCollection("photos", async () => {
     const base = "https://img.nkls.me";
-    console.log(`[photos] fetching from ${base}`);
-    const [photosResp, rollResp] = await Promise.all([
-      fetch(`${base}/api/photos`),
-      fetch(`${base}/api/camera-roll`),
-    ]);
-    if (!photosResp.ok) throw new Error(`Photo service ${photosResp.status}`);
-    if (!rollResp.ok) throw new Error(`Camera roll service ${rollResp.status}`);
-    const [photos, roll] = await Promise.all([photosResp.json(), rollResp.json()]);
-    const merged = { ...photos, ...roll };
-    console.log(`[photos] loaded ${Object.keys(merged).length} entries, ~${Math.round(JSON.stringify(merged).length / 1024)}KB`);
-    return merged;
+    /* Readable filename, matching the album caches, so it can be flushed on
+       purpose: rm .cache/photo_service* */
+    const asset = new AssetCache("photo_service", ".cache", {
+      filenameFormat: () => "photo_service",
+    });
+
+    photosPromise ??= (async () => {
+      try {
+        console.log(`[photos] fetching from ${base}`);
+        const [photosResp, rollResp] = await Promise.all([
+          fetch(`${base}/api/photos`),
+          fetch(`${base}/api/camera-roll`),
+        ]);
+        if (!photosResp.ok) throw new Error(`Photo service ${photosResp.status}`);
+        if (!rollResp.ok) throw new Error(`Camera roll service ${rollResp.status}`);
+        const [photos, roll] = await Promise.all([photosResp.json(), rollResp.json()]);
+        const merged = { ...photos, ...roll };
+        await asset.save(merged, "json");
+        console.log(`[photos] loaded ${Object.keys(merged).length} entries, ~${Math.round(JSON.stringify(merged).length / 1024)}KB`);
+        return merged;
+      } catch (error) {
+        if (!asset.isCacheValid("*")) throw error;   // "*" = any age
+        const cached = await asset.getCachedValue();
+        const at = asset.getCachedTimestamp();
+        console.warn(`[photos] ${error.message} — falling back to cache from ${at ? new Date(at).toISOString() : "unknown"}, ${Object.keys(cached).length} entries`);
+        return cached;
+      }
+    })();
+
+    return photosPromise;
   });
   
   eleventyConfig.addCollection("Feed", function (collectionsApi) {
