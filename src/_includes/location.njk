@@ -4,10 +4,8 @@
   {%- if mapCoords -%}
     {%- set lat = mapCoords[0] -%}
     {%- set lng = mapCoords[1] -%}
-    {# Google's keyless embed. The Embed API proper needs a key; this legacy
-       output=embed form does not, and renders Google's own tiles with a pin on
-       the coordinates. Apple has no keyless equivalent — MapKit JS requires a
-       signed JWT — so it is not an option here. #}
+    {# Google's legacy output=embed form, which needs no API key. Apple's MapKit JS
+   requires a signed JWT, so it is not an option. #}
     <div class="location-map">
       <iframe
         class="location-map__frame"

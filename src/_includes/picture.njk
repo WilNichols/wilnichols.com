@@ -126,8 +126,7 @@
     {{ _progLoadImg() }}
   {% endjs %}
   {%- set sizes = pictureSizes(isWNCDN, args) -%}
-  {#- src is reassigned below to the transformed CDN URL, so keep the
-     original for lookups that key on it, like the alt map. -#}
+  {#- keep the original src: the alt map is keyed on the untransformed URL -#}
   {%- set altKey = src -%}
   {%- set srcset = pictureSRCSet(src, isWNCDN, args, customSRCSet) -%}
   {%- set lqipSrc -%}

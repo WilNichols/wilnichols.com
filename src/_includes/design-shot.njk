@@ -1,9 +1,6 @@
-{# The visual half of a work entry.
-
-   The shot's configuration is authored in the vault as a `shot:` map mirroring
-   workShot's arguments, with `alt:` hoisted alongside it because alt text is
-   editorial and the asset paths are not. A post whose markup workShot cannot
-   express names a `figure:` include instead, or as well. #}
+{# The visual half of a work entry. `shot:` mirrors workShot's arguments; `alt:`
+   sits beside it because alt is editorial and paths are not. A post workShot
+   cannot express names a `figure:` include instead. #}
 {%- macro DesignShot(shot, alt, figure) -%}
   {%- if shot -%}
     {%- from "work-shot.njk" import workShot -%}

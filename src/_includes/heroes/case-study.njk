@@ -1,8 +1,6 @@
-{# The hero for /test/case-study/. post-shell.njk includes heroes/<slug>.njk for
-   any case study, so the fixture needs one by that name. It composes the same
-   macros a real hero does, caseStudyImage around proportionateScale around
-   Device, because those are what supply the framing and padding: a bare div
-   renders the iframe with none of it. #}
+{# The hero for /test/case-study/, since post-shell.njk includes heroes/<slug>.njk.
+   Composes caseStudyImage > proportionateScale > Device, which supplies the
+   framing and padding. #}
 {%- from 'case-study-image.njk' import caseStudyImage -%}
 {%- from 'device.njk' import Device -%}
 {%- from 'proportionate-scale.njk' import proportionateScale with context -%}
