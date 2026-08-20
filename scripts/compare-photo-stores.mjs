@@ -3,19 +3,38 @@
    still shows up as present. LastModified is deliberately ignored — R2 reports the
    copy date, not the original, so it differs for every object by design.
 
+   This is the last thing in the repo that talks to AWS, and it builds its own S3
+   client rather than going through lib/photo-store.js, which is R2-only now. Run
+   it once more immediately before deleting the S3 bucket, then delete this file
+   along with the WN_AWS_* credentials.
+
    Usage: node scripts/compare-photo-stores.mjs [prefix]
    Needs WN_AWS_* and R2_* in .env. Read-only. */
 import dotenv from 'dotenv';
-import { ListObjectsV2Command } from '@aws-sdk/client-s3';
+import { S3Client, ListObjectsV2Command } from '@aws-sdk/client-s3';
 import { createStoreClient, bucketFor } from '../lib/photo-store.js';
 
 dotenv.config();
 
 const PREFIX = process.argv[2] ?? '';
+const S3_BUCKET = 'wnphoto01';
+
+function clientAndBucketFor(store) {
+  if (store === 'r2') return [createStoreClient(), bucketFor()];
+  return [
+    new S3Client({
+      region: 'us-east-1',
+      credentials: {
+        accessKeyId: process.env.WN_AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.WN_AWS_SECRET_ACCESS_KEY,
+      },
+    }),
+    S3_BUCKET,
+  ];
+}
 
 async function listAll(store) {
-  const client = createStoreClient(store);
-  const Bucket = bucketFor(store);
+  const [client, Bucket] = clientAndBucketFor(store);
   const objects = new Map();
   let ContinuationToken;
   let pages = 0;
@@ -30,7 +49,7 @@ async function listAll(store) {
     pages++;
   } while (ContinuationToken);
 
-  console.log(`[${store}] ${objects.size} objects in ${bucketFor(store)} (${pages} page${pages === 1 ? '' : 's'})`);
+  console.log(`[${store}] ${objects.size} objects in ${Bucket} (${pages} page${pages === 1 ? '' : 's'})`);
   return objects;
 }
 

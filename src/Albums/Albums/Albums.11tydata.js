@@ -6,12 +6,12 @@ import { AssetCache } from '@11ty/eleventy-fetch';
 import pLimit from 'p-limit';
 import slugify from "@sindresorhus/slugify";
 
-/* To flush one album's cache: rm .cache/aws_album_<key>.*   All of them: rm .cache/aws_album_* */
+/* To flush one album's cache: rm .cache/r2_album_<key>.*   All of them: rm .cache/r2_album_* */
 
 const sessionCache = new Map();
 const limit = pLimit(5);
 
-async function getAlbumContentsFromAWS(key) {
+async function getAlbumContentsFromR2(key) {
   if (process.env.FAST) return null;
 
   if (sessionCache.has(key)) {
@@ -19,8 +19,8 @@ async function getAlbumContentsFromAWS(key) {
     return sessionCache.get(key);
   }
 
-  const asset = new AssetCache(`aws_album_${key}`, ".cache", {
-    filenameFormat: (uniqueKey) => `aws_album_${key}`,
+  const asset = new AssetCache(`r2_album_${key}`, ".cache", {
+    filenameFormat: (uniqueKey) => `r2_album_${key}`,
   });
 
   if (asset.isCacheValid("1d")) {
@@ -53,7 +53,7 @@ async function getAlbumContentsFromAWS(key) {
           fileName: Key.split('/').pop(),
         }));
     } catch (error) {
-      return 'AWS failure';
+      return 'R2 failure';
     }
 
     await asset.save(albums, "json");
@@ -83,7 +83,7 @@ export default function (eleventy) {
       /* Sidecar is <Album>.11tydata.json, written by the Photo Album plugin. */
       photos: async data => {
         if (!data.key) return null;
-        const listed = await getAlbumContentsFromAWS(data.key);
+        const listed = await getAlbumContentsFromR2(data.key);
         return applyAlbumOrder(listed, data.photoOrder);
       },
       metaPreview: data => data.remote.gallery.base + '/cdn-cgi/image/width=1400,format=webp/' + data.remote.gallery.photos + '/' + data.key + '/' + data.thumbnail,
