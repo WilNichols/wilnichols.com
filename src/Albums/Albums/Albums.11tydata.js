@@ -1,3 +1,4 @@
+import { applyAlbumOrder } from '../../../lib/album-order.js';
 import dotenv from 'dotenv';
 import { S3Client, ListObjectsV2Command } from '@aws-sdk/client-s3';
 import { AssetCache } from '@11ty/eleventy-fetch';
@@ -5,29 +6,6 @@ import pLimit from 'p-limit';
 import slugify from "@sindresorhus/slugify";
 
 /* To flush one album's cache: rm .cache/aws_album_<key>.*   All of them: rm .cache/aws_album_* */
-
-/* The bucket owns what exists; the sidecar owns order and per-photo metadata.
-   Tolerant both ways: unknown uploads still appear, missing files are dropped. */
-export function applyAlbumOrder(listed, order) {
-  if (!Array.isArray(listed)) return listed;        // AWS failure string, or null
-  if (!Array.isArray(order) || order.length === 0) return listed;
-
-  /* Entries are validated, not trusted: 11ty runs a computed function against a
-     proxy first to discover which keys it reads, so this sees placeholder values
-     before it ever sees the real listing. */
-  const named = listed.filter((p) => p && typeof p.fileName === "string");
-  const byName = new Map(named.map((p) => [p.fileName, p]));
-  const out = [];
-  for (const name of order) {
-    const photo = byName.get(name);
-    if (!photo) continue;                           // deleted from the bucket
-    byName.delete(name);
-    out.push(photo);
-  }
-  /* Unplaced photos keep bucket order and go last. */
-  out.push(...byName.values());
-  return out;
-}
 
 const sessionCache = new Map();
 const limit = pLimit(5);

@@ -446,8 +446,8 @@ export default async function(eleventyConfig) {
   
   /* Unlike drafts, private notes are dropped in every environment. */
   /* A malformed sidecar would otherwise reorder an album silently. Checked in a
-     preprocessor, not eleventyDataSchema: that hook does not fire from a directory
-     data file in 11ty 3, and a dead validator is worse than none. */
+     preprocessor because eleventyDataSchema does not fire from a directory data
+     file in 11ty 3, and a dead validator is worse than none. */
   eleventyConfig.addPreprocessor("album-order", "md,njk", (data) => {
     const order = data.photoOrder;
     if (order === undefined) return;
