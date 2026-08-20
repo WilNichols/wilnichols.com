@@ -1,6 +1,7 @@
 import { applyAlbumOrder } from '../../../lib/album-order.js';
 import dotenv from 'dotenv';
-import { S3Client, ListObjectsV2Command } from '@aws-sdk/client-s3';
+import { ListObjectsV2Command } from '@aws-sdk/client-s3';
+import { createStoreClient, bucketFor } from '../../../lib/photo-store.js';
 import { AssetCache } from '@11ty/eleventy-fetch';
 import pLimit from 'p-limit';
 import slugify from "@sindresorhus/slugify";
@@ -31,15 +32,9 @@ async function getAlbumContentsFromAWS(key) {
 
   return limit(async () => {
     console.log('getting photos for ' + key);
-    const client = new S3Client({
-      region: "us-east-1",
-      credentials: {
-        accessKeyId: process.env.WN_AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.WN_AWS_SECRET_ACCESS_KEY
-      }
-    });
+    const client = createStoreClient();
     const command = new ListObjectsV2Command({
-      Bucket: 'wnphoto01',
+      Bucket: bucketFor(),
       Delimiter: '/',
       Prefix: 'gallery-2023/' + key + '/'
     });
@@ -48,8 +43,10 @@ async function getAlbumContentsFromAWS(key) {
     try {
       const data = await client.send(command);
       data.Contents.forEach(image => image.Size > 30 * 1024 * 1024 && console.warn(image.Key + ' is above 30MB'));
+      /* Drop the zero-byte directory marker by name, not by position: S3 has one
+         at Contents[0], R2 has none, so a blind .slice(1) eats a real photo on R2. */
       albums = data.Contents
-        .slice(1)
+        .filter(({ Key }) => Key !== command.input.Prefix)
         .map(({ Key, LastModified }) => ({
           key: Key,
           lastModified: LastModified,
