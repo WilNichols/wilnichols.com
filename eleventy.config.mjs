@@ -46,11 +46,8 @@ export default async function(eleventyConfig) {
             const parts = match.raw.slice(2,-2).split("|");
             parts[0] = parts[0].replace(/.(md|markdown)\s?$/i, "");
             match.text = (parts[1] || parts[0]).trim();
-            /* Vault links are path-qualified ([[Photography/Albums/Paris 4|Paris]]),
-               because Obsidian resolves those deterministically instead of guessing
-               by folder proximity. Permalinks are flat, and slugify turns "/" into
-               "-", so slugifying the whole target yields /photography-albums-paris-4/.
-               Resolve on the last segment. */
+            /* Vault links are path-qualified and permalinks are flat, and slugify turns "/"
+               into "-", so resolve on the last segment. */
             const target = parts[0].trim().split("/").pop().trim();
             match.url = `/` + slugify(`${target.replace(/\s/g, "-")}/`).replace('-s', 's') + `/`;
         }
@@ -65,9 +62,7 @@ export default async function(eleventyConfig) {
   
   eleventyConfig.setLibrary('md', md);
   
-  /* Anywhere a note's own text is emitted as text rather than rendered as HTML,
-     it needs stripping first: summaries reach RSS <description> and index cards
-     verbatim, so an authored [[wikilink]] would ship as source. */
+  /* Summaries reach RSS and index cards as text, not HTML, so strip markup first. */
   eleventyConfig.addFilter("plainText", plainText);
   eleventyConfig.addFilter("excerpt", excerpt);
 
@@ -476,9 +471,8 @@ export default async function(eleventyConfig) {
       : `${PICTURE_IMPORT}\n${upgraded}`;
   });
 
-  /* A recipe's ingredients are an ordinary markdown table, because that is the
-     one shape Obsidian edits natively. Consumed here into the macro, so it never
-     reaches the page as a table. Falls back to a frontmatter `ingredients:` list. */
+  /* Ingredients are a markdown table, the one shape Obsidian edits natively.
+     Consumed here, so it never reaches the page as a table. */
   const INGREDIENTS_IMPORT =
     '{% from "ingredients.njk" import ingredientsList with context %}';
   /* `%%ingredients%%` hides in Obsidian's reading mode; `{% ingredients %}` reads
@@ -546,22 +540,10 @@ export default async function(eleventyConfig) {
     return out;
   });
 
-  /* A pen names its code samples where they appear in the prose:
-
-       ```site-code
-       src/static/css/pens/fading-list.scss
-       title: SCSS
-       ```
-
-     One file becomes a standalone highlighted block. Two or more become the
-     tabbed presentation, which is what the two multi-file pens already used, with
-     `id:` naming the anchor. Paths are written repo-relative, because that is what
-     the Obsidian plugin needs to find the file on disk or over HTTP; the macro's
-     `{% include %}` resolves from _includes, so the leading `src/` is swapped for
-     `../` here. `lang` defaults to the file extension.
-
-     The companion ```site-embed fence is Obsidian-only: the site renders the demo
-     from the note's `hero:`, so it is stripped with the other vault-only blocks. */
+  /* ```site-code names a file (plus optional title/id/lang). One becomes a
+     highlighted block, several become tabs. Paths are repo-relative for the
+     Obsidian plugin; the leading `src/` is swapped for `../` to resolve from
+     _includes. The sibling ```site-embed is Obsidian-only. */
   const SITE_CODE = /^[ \t]*```site-code[ \t]*\n([\s\S]*?)^[ \t]*```[ \t]*$\n?/gm;
   const CODE_IMPORTS =
     '{% from "highlight.njk" import highlight with context %}' +
@@ -606,16 +588,9 @@ export default async function(eleventyConfig) {
     });
   });
 
-  /* A case study places a figure by name:
-
-       ```site-figure
-       FS2Board
-       ```
-
-     The file defaults to `unique/case-study--<note slug>.njk`, which is where
-     every case study's figures live. `file:` overrides it for the one figure that
-     is shared across two case studies. Figures take no arguments; they exist so a
-     note can say "the board goes here" without carrying the markup. */
+  /* ```site-figure names a figure in unique/case-study--<slug>.njk, so a note can
+     say "the board goes here" without carrying the markup. `file:` overrides the
+     default for the one figure shared across two case studies. */
   const SITE_FIGURE = /^[ \t]*```site-figure[ \t]*\n([\s\S]*?)^[ \t]*```[ \t]*$\n?/gm;
 
   eleventyConfig.addPreprocessor("case-study-figures", "md", (data, content) => {
