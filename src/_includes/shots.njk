@@ -78,9 +78,12 @@
     {% set prevShotPlatforms = null %}
 
     {% asyncEach post in collection | reverse %}
+      {# The client is a link into the vault's Entities/ tree, not a tag. Nothing
+         under Entities/ publishes yet, so plainText reduces the wikilink to its
+         display half; swap this for markdownify once entity pages exist. #}
       {% set postInfo = {
         project: post.data.tags | getNestedTag("Design"),
-        client: post.data.tags | getNestedTag("Client")
+        client: post.data.client | plainText
       } %}
 
       {% set projectId = postInfo.project | slugify %}

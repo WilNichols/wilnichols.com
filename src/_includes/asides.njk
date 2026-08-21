@@ -9,7 +9,8 @@
       {# Project Client #}
       <li class="page-info__entry">
         <span class="page-info__entry__key">Client</span>
-        <span class="page-info__entry__value">{{ project.client | markdownify | safe }}</span>
+        {# Same as the design shots: an Entities/ link with nowhere to point yet. #}
+        <span class="page-info__entry__value">{{ project.client | plainText }}</span>
       </li>
       {# Project Skills #}
       <li class="page-info__entry">

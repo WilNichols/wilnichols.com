@@ -1,0 +1,152 @@
+---
+permalink: /test/links/index.html
+layout: post.njk
+postType: note
+altTitle: Internal link check
+date: 2026-01-16T09:00
+summary: Every shape of hand-written href the build's dead-link check has to judge, with the verdict each one is meant to get.
+---
+{#- One href per row, put through `linkVerdict`, which is the live checker from
+    lib/link-check.js asking the same page index the post-build report asks. A fixture
+    holding its own list of URLs would keep passing after the index broke.
+
+    Verdicts: `page` a page was published there, `static` a passthrough file is there,
+    `redirect` src/_redirects or netlify.toml covers it, `external` off-site or not http
+    at all, `fragment` same-page, `dead` nothing behind it. Only `dead` is reported.
+
+    The row's verdict is on the page, so the check is a grep of the built file:
+        grep -c FAIL _site/test/links/index.html
+
+    The dead rows below are links on this page too, which is why the checker skips
+    everything under src/test: a finding here would mean the fixture is working. -#}
+{%- set cases = [
+  {
+    href: "/imposter-syndrome/",
+    expect: "page",
+    why: "The ordinary shape: a directory URL 11ty wrote."
+  },
+  {
+    href: "/imposter-syndrome",
+    expect: "page",
+    why: "No trailing slash. The server serves the same page, so this is not a finding."
+  },
+  {
+    href: "/imposter-syndrome/index.html",
+    expect: "page",
+    why: "The output path written out in full, the third spelling of one page."
+  },
+  {
+    href: "/imposter-syndrome/#the-cost",
+    expect: "page",
+    why: "An anchor on a real page. Only the path takes part; a bad fragment is not a 404."
+  },
+  {
+    href: "/albums/lyon/lyon-1/?utm_source=test",
+    expect: "page",
+    why: "A query string, same reasoning as the anchor."
+  },
+  {
+    href: "https://wilnichols.com/notes/",
+    expect: "page",
+    why: "Written absolutely against our own host, so it is checked rather than waved through."
+  },
+  {
+    href: "../lyon-2/",
+    from: "/albums/lyon/lyon-1/",
+    expect: "page",
+    why: "Relative, which means nothing without the page it sits on: resolved against `from`."
+  },
+  {
+    href: "/staff-desiger/",
+    expect: "dead",
+    why: "The real typo in Monthly Notes No. 2 — /staff-designer/ never existed either."
+  },
+  {
+    href: "/TODO/",
+    expect: "dead",
+    why: "A placeholder that shipped, twice, in the Five Square 1 case study."
+  },
+  {
+    href: "/albums/leuven-1/",
+    expect: "dead",
+    why: "An album URL missing its group segment. The page is /albums/leuven/leuven-1/."
+  },
+  {
+    href: "/albums/leuven/leuven-1/",
+    expect: "page",
+    why: "The same album written correctly, so the row above is a real distinction."
+  },
+  {
+    href: "/imposter-syndrome/",
+    expect: "page",
+    why: "Case matters: Netlify is case-sensitive, which is why /TODO/ above is dead."
+  },
+  {
+    href: "/shop/",
+    expect: "redirect",
+    why: "No page, but src/_redirects sends it to /albums/, so the link works."
+  },
+  {
+    href: "/albums/auzon-1/",
+    expect: "redirect",
+    why: "The group-segment mistake that was already caught and redirected. Not a finding."
+  },
+  {
+    href: "/assets/img/back--12.svg",
+    expect: "static",
+    why: "Copied by addPassthroughCopy, never rendered, so it is absent from the page index."
+  },
+  {
+    href: "/favicon.svg",
+    expect: "static",
+    why: "A root-level passthrough, from src/static/favicon rather than a URL prefix."
+  },
+  {
+    href: "/assets/img/no-such-file.svg",
+    expect: "dead",
+    why: "Under a passthrough prefix, but nothing is there to copy."
+  },
+  {
+    href: "https://www.zello.com/",
+    expect: "external",
+    why: "Another host. Not ours to verify."
+  },
+  {
+    href: "mailto:hi@wilnichols.design",
+    expect: "external",
+    why: "Not http at all, so there is no path to check."
+  },
+  {
+    href: "tel:+15125551234",
+    expect: "external",
+    why: "Same, and the one most likely to be mistaken for a root-relative path."
+  },
+  {
+    href: "#footnote-1",
+    expect: "fragment",
+    why: "Same-page. Footnotes emit these on nearly every post."
+  }
+] -%}
+{%- set passes = [] -%}
+<p>One row per href shape. <strong>Expected</strong> is the verdict the checker has to
+reach; only <code>dead</code> is reported. The build logs every finding under
+<code>[dead-links]</code>, grouped by the note the link was written in.</p>
+<table>
+  <thead>
+    <tr><th>Href</th><th>Expected</th><th>Verdict</th><th></th></tr>
+  </thead>
+  <tbody>
+  {%- for case in cases %}
+    {%- set verdict = case.href | linkVerdict(case.from) %}
+    {%- set ok = verdict == case.expect %}
+    {%- if ok %}{% set _ = passes.push(1) %}{% endif %}
+    <tr>
+      <td><code>{{ case.href }}</code>{% if case.from %} <small>on <code>{{ case.from }}</code></small>{% endif %}<br><small>{{ case.why }}</small></td>
+      <td><code>{{ case.expect }}</code></td>
+      <td><code>{{ verdict }}</code></td>
+      <td><strong>{{ "PASS" if ok else "FAIL" }}</strong></td>
+    </tr>
+  {%- endfor %}
+  </tbody>
+</table>
+<p><strong>{{ passes.length }} of {{ cases.length }} pass.</strong></p>
