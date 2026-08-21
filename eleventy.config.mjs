@@ -18,6 +18,9 @@ import beautify from 'js-beautify';
 import syntaxHighlight from '@11ty/eleventy-plugin-syntaxhighlight';
 import { JSDOM } from 'jsdom';
 import util from 'util';
+import fs from 'fs/promises';
+import path from 'path';
+import siteMeta from './src/_data/meta.js';
 
 dotenv.config();
 
@@ -673,6 +676,17 @@ export default async function(eleventyConfig) {
   }
   eleventyConfig.addPreprocessor("drafts", "*", (data) => {
     if (data.draft && hideDrafts) return false;
+  });
+
+  eleventyConfig.on("eleventy.after", async ({ dir, results }) => {
+    const { url: siteUrl } = siteMeta();
+    const locs = results
+      .filter((result) => (result.outputPath || "").endsWith(".html"))
+      .map((result) => new URL(result.url, siteUrl).href.replace(/&/g, "&amp;"))
+      .sort();
+    const body = locs.map((loc) => `  <url>\n    <loc>${loc}</loc>\n  </url>`).join("\n");
+    const sitemap = `<?xml version="1.0" encoding="utf-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${body}\n</urlset>\n`;
+    await fs.writeFile(path.join(dir.output, "sitemap.xml"), sitemap, "utf8");
   });
   
   return {

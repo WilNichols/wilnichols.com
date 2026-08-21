@@ -17,8 +17,11 @@
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon-180.png">
     <title>{{ metaTitle }}</title>
+    {%- set canonicalUrl = (page.url or '/') | htmlBaseUrl(meta.url) %}
+    <link rel="canonical" href="{{ canonicalUrl }}" />
     {# link preview tags #}
     <meta name="twitter:card" content="summary" />
+    <meta property="og:url" content="{{ canonicalUrl }}" />
     <meta property="og:title" content="{{ metaTitle }}" />
     <meta name="twitter:title" content="{{ metaTitle }}" />
     <meta name="twitter:description" content="{{ metaDescription }}" />
