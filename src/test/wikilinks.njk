@@ -1,0 +1,111 @@
+---
+permalink: /test/wikilinks/index.html
+layout: post.njk
+postType: note
+altTitle: Wikilink resolution
+date: 2026-01-15T09:00
+summary: Every shape of vault wikilink, rendered through the real resolver, with the URL each one is meant to produce.
+---
+{#- Each case is one wikilink and the output it must produce. `href` is the URL the
+    resolver has to find; omitting it asserts the opposite, that the link renders as
+    plain text with no anchor at all. Rendered through the `markdownify` filter, which
+    is the site's own markdown-it instance, resolver and all. Not renderTemplate: it is
+    an async shortcode and a `{% set %}` capture of one comes back empty.
+
+    The row's verdict is on the page, so the check is a grep of the built file:
+        grep -c FAIL _site/test/wikilinks/index.html
+-#}
+{%- set cases = [
+  {
+    link: "[[Imposter Syndrome]]",
+    href: "/imposter-syndrome/",
+    why: "The `-s` hack turned this into /impostersyndrome/."
+  },
+  {
+    link: "[[Nearsighted Solutions]]",
+    href: "/nearsighted-solutions/",
+    why: "Mangled to /nearsightedsolutions/, and the note carries a permalink besides."
+  },
+  {
+    link: "[[We Deserve Better Stories]]",
+    href: "/we-deserve-better-stories/",
+    why: "Mangled at the second word boundary: /we-deserve-betterstories/."
+  },
+  {
+    link: "[[Five Square 1]]",
+    href: "/five-square-1/",
+    why: "Mangled to /fivesquare-1/."
+  },
+  {
+    link: "[[Five Square 2]]",
+    href: "/five-square-2/",
+    why: "The sixth mangled name, /fivesquare-2/."
+  },
+  {
+    link: "[[Case Studies]]",
+    why: "Mangled to /casestudies/, and unpublished anyway: the folder note is private."
+  },
+  {
+    link: "[[Entries/Imposter Syndrome]]",
+    href: "/imposter-syndrome/",
+    text: "Imposter Syndrome",
+    why: "Path-qualified against the vault layout, not the URL. The path is addressing, not text: only the note name is shown."
+  },
+  {
+    link: "[[Photography/Albums/Lyon 1|Lyon]]",
+    href: "/albums/lyon/lyon-1/",
+    text: "Lyon",
+    why: "Aliased and path-qualified. The album's URL is nested under its group, which no slug of the link text would reach."
+  },
+  {
+    link: "[[The Personal Agency Fallacy]]",
+    href: "/personal-agency/",
+    why: "`permalink:` overrides the routed URL, so the correct slug is still the wrong link."
+  },
+  {
+    link: "[[Photography/Albums/Iceland’s Cities|Reykjavik]]",
+    href: "/albums/iceland/icelands-cities/",
+    text: "Reykjavik",
+    why: "The possessive the `-s` hack existed for: slugify writes iceland-s-cities, the album ships as icelands-cities."
+  },
+  {
+    link: "[[monthly-notes-no-1|bustling May]]",
+    href: "/monthly-notes-no-1/",
+    text: "bustling May",
+    why: "Written against the published URL rather than the note name, Monthly Notes No. 1."
+  },
+  {
+    link: "[[No Such Note]]",
+    why: "Nothing was published for it, so it renders as its own text and the build says so."
+  }
+] -%}
+{%- set passes = [] -%}
+<p>One row per wikilink shape. <strong>Expected</strong> is the URL the resolver has
+to produce; a row with no expected URL asserts the link renders as plain text
+instead. The build logs every unresolved target under <code>[wikilinks]</code>.</p>
+<table>
+  <thead>
+    <tr><th>Wikilink</th><th>Expected</th><th>Rendered</th><th></th></tr>
+  </thead>
+  <tbody>
+  {%- for case in cases %}
+    {%- set rendered = case.link | markdownify %}
+    {%- if case.href %}
+      {%- set ok = ('href="' + case.href + '"') in rendered %}
+    {%- else %}
+      {%- set ok = "<a " not in rendered %}
+    {%- endif %}
+    {%- if ok and case.text %}
+      {%- set ok = ('>' + case.text + '<') in rendered %}
+    {%- endif %}
+    {%- if ok %}{% set _ = passes.push(1) %}{% endif %}
+    <tr>
+      <td><code>{{ case.link }}</code><br><small>{{ case.why }}</small></td>
+      <td><code>{{ case.href if case.href else "plain text, no anchor" }}</code></td>
+      <td><code>{{ rendered | trim }}</code></td>
+      <td><strong>{{ "PASS" if ok else "FAIL" }}</strong></td>
+    </tr>
+  {%- endfor %}
+  </tbody>
+</table>
+<p><strong>{{ passes.length }} of {{ cases.length }} pass.</strong></p>

@@ -11,6 +11,8 @@ import markdownItFootnote from 'markdown-it-footnote';
 import markdownItTitle from 'markdown-it-title';
 import { getAverageColor } from 'fast-average-color-node';
 import { plainText, excerpt } from './lib/plain-text.js';
+import { WikilinkIndex } from './lib/wikilinks.js';
+import { LinkChecker } from './lib/link-check.js';
 import { imageSize } from 'image-size';
 import slugify from "@sindresorhus/slugify";
 import pluginRss from '@11ty/eleventy-plugin-rss';
@@ -28,6 +30,53 @@ export default async function(eleventyConfig) {
   eleventyConfig.setQuietMode(true);
   let cachePath = process.env.ELEVENTY_ENV === 'dev' ? '.cache' : '/opt/build/cache/';
   
+  /* Every `[[wikilink]]` is resolved through this index rather than slugified on
+     the spot. `eleventy.contentMap` is the one hook that fits: it fires once every
+     permalink is resolved and before the first template renders, and markdown-it
+     runs during rendering, so the index is always loaded by the time a link asks
+     it anything. */
+  const wikilinks = new WikilinkIndex();
+  const UNRESOLVED_WIKILINK = "wikilink:unresolved";
+  eleventyConfig.on("eleventy.contentMap", ({ inputPathToUrl }) => {
+    wikilinks.reset();
+    wikilinks.load(inputPathToUrl);
+  });
+  /* Hand-written markdown links get the check wikilinks already have. This lives in
+     the config rather than in a script beside check:markdown for two reasons the
+     unparsed-markdown check does not share: the answer to "does this link point at a
+     page?" is the page index above, which only exists inside the build, and
+     `eleventy.after` hands over every page it wrote with its HTML, so there is
+     nothing to walk and nothing to guess about which output files are pages. It also
+     means the report shows up in `npm start`, next to the [wikilinks] one, instead of
+     only in a production build. */
+  const linkChecker = new LinkChecker({
+    hosts: [new URL(siteMeta().url).hostname],
+    /* Mirrors the addPassthroughCopy calls below: copied files are never pages, so
+       they are missing from the index and have to be found on disk instead. */
+    passthrough: [
+      ["/assets/img", "src/static/img"],
+      ["/assets/js", "src/static/js"],
+      ["/assets/vid", "src/static/vid"],
+      ["/assets/embeds", "src/static/embeds"],
+      ["/", "src/static/favicon"],
+      ["/robots.txt", "src/robots.txt"],
+    ],
+    redirectFiles: ["src/_redirects", "netlify.toml"],
+  });
+  eleventyConfig.on("eleventy.contentMap", () => {
+    linkChecker.reset();
+    linkChecker.load(wikilinks.urls());
+  });
+  eleventyConfig.on("eleventy.after", ({ results }) => {
+    wikilinks.report();
+    linkChecker.scan(results).report();
+  });
+
+  /* Only for src/test/links.njk, which asserts against the live page index the way
+     the wikilink fixture asserts through the real markdown-it instance. A fixture
+     that hard-coded its own set of URLs would pass while the checker was broken. */
+  eleventyConfig.addFilter("linkVerdict", (href, fromUrl) => linkChecker.classify(href, fromUrl || "/"));
+
   const markdownItOptions = {
       html: true,
       breaks: false,
@@ -47,13 +96,40 @@ export default async function(eleventyConfig) {
         normalize: match => {
             const parts = match.raw.slice(2,-2).split("|");
             parts[0] = parts[0].replace(/.(md|markdown)\s?$/i, "");
-            match.text = (parts[1] || parts[0]).trim();
-            /* Vault links are path-qualified and permalinks are flat, and slugify turns "/"
-               into "-", so resolve on the last segment. */
-            const target = parts[0].trim().split("/").pop().trim();
-            match.url = `/` + slugify(`${target.replace(/\s/g, "-")}/`).replace('-s', 's') + `/`;
+            /* Obsidian shows the note name, not the path it was addressed by, and
+               lib/plain-text.js already renders the same link that way for RSS. */
+            match.text = (parts[1] || parts[0].split("/").pop()).trim();
+            /* Looked up in the index of pages the build produced, never guessed from
+               the link text: see lib/wikilinks.js. A target with no page of its own
+               resolves to nothing and is carried to the renderer as a sentinel href. */
+            match.url = wikilinks.resolve(parts[0]) ?? UNRESOLVED_WIKILINK;
         }
     });
+
+    /* An unresolved wikilink loses its anchor and keeps its text. A dead link
+       invites a click and answers with a 404; unlinked prose reads the same as
+       the rest of the sentence, which is what a vault link to an unpublished
+       note means on the site. The build reports every one of them. */
+    const renderToken = (tokens, idx, options, _env, self) => self.renderToken(tokens, idx, options);
+    const defaultLinkOpen = md.renderer.rules.link_open || renderToken;
+    const defaultLinkClose = md.renderer.rules.link_close || renderToken;
+    md.renderer.rules.link_open = (tokens, idx, options, env, self) => {
+      if (tokens[idx].attrGet("href") !== UNRESOLVED_WIKILINK) {
+        return defaultLinkOpen(tokens, idx, options, env, self);
+      }
+      /* Tag the matching close now, while the pair is unambiguous. */
+      for (let i = idx + 1; i < tokens.length; i++) {
+        if (tokens[i].type === "link_close" && tokens[i].level === tokens[idx].level) {
+          tokens[i].meta = { ...tokens[i].meta, unresolvedWikilink: true };
+          break;
+        }
+      }
+      return "";
+    };
+    md.renderer.rules.link_close = (tokens, idx, options, env, self) => {
+      if (tokens[idx].meta?.unresolvedWikilink) return "";
+      return defaultLinkClose(tokens, idx, options, env, self);
+    };
     // remove the hr
     md.renderer.rules.footnote_block_open = () => (
       '<section class="footnotes">\n' +
