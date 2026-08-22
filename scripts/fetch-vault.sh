@@ -3,8 +3,10 @@
 # vault, so this does nothing. On Netlify there is no symlink, so the content is
 # fetched here, before Eleventy runs.
 #
-# Sparse: only the nine published folders are checked out, so private notes,
-# attachments and the 7MB of .obsidian plugin bundles never reach the build.
+# Everything is checked out except .obsidian, which is 9.2MB of vendored plugin
+# bundles out of 11.4MB tracked. An exclusion rather than an allowlist, so adding
+# a post type needs a symlink and nothing here: what publishes is still decided by
+# `private:` and `draft:` in the note, not by this script.
 set -euo pipefail
 
 # NETLIFY comes from the platform, not from the inline assignment in the npm
@@ -37,11 +39,7 @@ rm -rf vault
 mkdir -p vault
 git -C vault init -q
 git -C vault remote add origin "$REPO"
-git -C vault sparse-checkout init --cone
-git -C vault sparse-checkout set --cone \
-  "Entries" "Links" "Locations" "Pens" "Recipes" \
-  "Photography/Album Groups" "Photography/Albums" \
-  "Work/Case Studies" "Work/Design"
+git -C vault sparse-checkout set --no-cone '/*' '!/.obsidian/'
 
 echo "[vault] fetching ${TARGET}${SHA:+ (pinned by the publish hook)}"
 git -C vault fetch --depth 1 -q origin "$TARGET"
