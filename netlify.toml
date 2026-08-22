@@ -8,6 +8,10 @@
 [context.develop]
   command = "npm run netlify-build-dev"
   publish = "_site/"
+  # Stage is the rehearsal for production, so it hides drafts. Every other branch
+  # keeps them, which is the point of a preview.
+  [context.develop.environment]
+    DRAFTS = "0"
   
 [context.deploy-preview]
   command = "npm run netlify-build-dev"
