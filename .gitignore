@@ -12,3 +12,6 @@ _tmp
 
 # Local Netlify folder
 .netlify
+
+# Content lives in the private vault repo. Symlinked locally, cloned on Netlify.
+vault
