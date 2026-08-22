@@ -27,11 +27,11 @@ TARGET="${SHA:-$REF}"
 
 # Token via a credential helper, never in a URL: an argv or a failed-command echo
 # would put it in the build log.
-if [ -n "${VAULT_TOKEN:-}" ]; then
+if [ -n "${GH_VAULT_PAT:-}" ]; then
   git config --global credential.helper \
-    '!f() { echo username=x-access-token; echo "password=${VAULT_TOKEN}"; }; f'
+    '!f() { echo username=x-access-token; echo "password=${GH_VAULT_PAT}"; }; f'
 elif [ -z "${VAULT_FORCE_FETCH:-}" ]; then
-  echo "[vault] VAULT_TOKEN is not set" >&2
+  echo "[vault] GH_VAULT_PAT is not set" >&2
   exit 1
 fi
 
