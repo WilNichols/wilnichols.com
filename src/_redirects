@@ -2,3 +2,7 @@
 /recipes/  /
 /links/  /
 /albums/auzon-1/ /albums/auzon/auzon-1/ 301
+# Auzon was folded into the Auvergne group. Not forced, so these only answer
+# once the old pages are gone and are inert while they still build.
+/albums/auzon/auzon-1/ /albums/auvergne/auzon-1/ 301
+/albums/auzon/ /albums/auvergne/ 301

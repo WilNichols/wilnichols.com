@@ -56,6 +56,39 @@ guarded on the token being present, so they touch nothing else):
   equivalent at all (MapKit JS requires a signed JWT), so neither is an option.
   Place type comes from `Place/<Type>` tags.
 
+## Reading the vault's entity schema
+
+The vault moved its taxonomy out of nested tags and into links to entity notes
+(`vault/Entities/`). This branch's templates still read the tags, so a small
+compatibility layer reads the new shape back into the old one. It lets this
+branch and new/main build from the same vault commit. Built against the old
+vault it changes nothing; the output is byte-identical once the `?v=` stamps are
+stripped. Delete all of it when new/main merges, because new/main reads the new
+keys natively.
+
+- `lib/vault-compat.js` hooks the front-matter parser, which runs before
+  collections are assembled; `eleventyComputed` tags never reach a collection.
+  It derives `AlbumInfo/Camera|Musician|Location|Period/…` from `about:` and
+  `musician:`, `AlbumGroup/…` from `group:`, `Design/…` from a work entry's
+  `project:` link, `Case-Studies/Platforms|Tools/…` from `platforms:` and
+  `tools:`, and rebuilds a case study's nested `project:` map from its flattened
+  keys. Topic tags the vault hyphenated (`Monthly-Notes`) get their space back.
+  It only ever adds tags, so a note in the old shape passes through untouched.
+- `src/Album Groups/Album Groups.11tydata.js` injects `AlbumGroupIntro`, which
+  the vault no longer authors.
+- `lib/pen-previews.js` derives the pen `preview:` the vault dropped. An
+  authored `preview:` still wins.
+- `lib/entity-notes.js` makes a wikilink to an entity with a `website:` link to
+  that site, instead of falling through to plain text.
+- `lib/blockquote-attribution.js` turns a single-item list after a blockquote
+  into `<p><cite>…</cite></p>`, the markup the old hand-written `<cite>` lines
+  produced. new/main renders the same syntax as `<figure>`/`<figcaption>`.
+
+To check that both vault shapes still work, build this branch against each one
+(see Verifying a change). Against the restructured vault the only differences
+should be vault edits: entity names replacing hyphenated tag text
+(`Study Abroad`), Auzon folded into Auvergne, and copy changes.
+
 ## Rules
 
 **Directory data files must be named after their directory.** `Recipes.11tydata.js`
