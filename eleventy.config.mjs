@@ -13,6 +13,9 @@ import { getAverageColor } from 'fast-average-color-node';
 import { plainText, excerpt } from './lib/plain-text.js';
 import { WikilinkIndex } from './lib/wikilinks.js';
 import { LinkChecker } from './lib/link-check.js';
+import { frontMatterParsingOptions } from './lib/vault-compat.js';
+import blockquoteAttribution from './lib/blockquote-attribution.js';
+import { entityWebsite } from './lib/entity-notes.js';
 import { imageSize } from 'image-size';
 import slugify from "@sindresorhus/slugify";
 import pluginRss from '@11ty/eleventy-plugin-rss';
@@ -28,6 +31,10 @@ dotenv.config();
 
 export default async function(eleventyConfig) {
   eleventyConfig.setQuietMode(true);
+  /* The vault records taxonomy as entity links; lib/vault-compat.js rebuilds the
+     nested tags these templates read. Front matter, because collections are
+     assembled before any computed data runs. */
+  eleventyConfig.setFrontMatterParsingOptions(frontMatterParsingOptions);
   let cachePath = process.env.ELEVENTY_ENV === 'dev' ? '.cache' : '/opt/build/cache/';
   
   /* Every `[[wikilink]]` is resolved through this index rather than slugified on
@@ -89,6 +96,7 @@ export default async function(eleventyConfig) {
   .use(markdownItAttrs)
   .use(markdownItFootnote)
   .use(markdownItTitle)
+  .use(blockquoteAttribution)
   .use(function(md) {
     // Recognize Mediawiki links ([[text]])
     md.linkify.add("[[", {
@@ -102,7 +110,12 @@ export default async function(eleventyConfig) {
             /* Looked up in the index of pages the build produced, never guessed from
                the link text: see lib/wikilinks.js. A target with no page of its own
                resolves to nothing and is carried to the renderer as a sentinel href. */
-            match.url = wikilinks.resolve(parts[0]) ?? UNRESOLVED_WIKILINK;
+            /* An entity note publishes no page, but a person's `website:` is
+               where a link to them should land. */
+            const page = wikilinks.resolve(parts[0]);
+            const site = page ? null : entityWebsite(parts[0]);
+            if (site) wikilinks.resolvedElsewhere(parts[0]);
+            match.url = page ?? site ?? UNRESOLVED_WIKILINK;
         }
     });
 
